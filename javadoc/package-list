@@ -1,0 +1,8 @@
+com.restfb
+com.restfb.batch
+com.restfb.exception
+com.restfb.experimental.api
+com.restfb.experimental.api.impl
+com.restfb.json
+com.restfb.types
+com.restfb.util
