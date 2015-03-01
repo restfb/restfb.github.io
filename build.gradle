@@ -1,0 +1,47 @@
+plugins {
+  id "com.eriwen.gradle.js" version "1.12.1"
+  id "com.eriwen.gradle.css" version "1.11.1"
+}
+
+// Invoke the plugin
+apply plugin: 'css'
+apply plugin: 'js'
+apply plugin: 'jetty'
+
+combineCss {
+    source = ['css/resources/docs-restfb.min.css', 'css/resources/restfb-styles.css']
+    dest = "css/restfb.css"
+}
+
+minifyCss {
+    source = combineCss
+    dest = "css/restfb.min.css"
+}
+
+combineJs {
+    source = ['js/resources/ZeroClipboard.js','js/resources/application.js', 'js/resources/date.js', 'js/resources/restfb-versionfetch.js']
+    dest = file("js/restfb.js")
+}
+
+minifyJs {
+    source = combineJs
+    dest = file("js/restfb.min.js")
+    sourceMap = file("js/restfb.sourcemap.json")
+    closure {
+        warningLevel = 'QUIET'
+    }
+}
+
+jettyRun {
+    webAppSourceDirectory = file("${projectDir}")
+}
+
+task buildJsCss(dependsOn: ['minifyJs','minifyCss']) << {
+   println 'All Done'
+}
+
+task cleanJsCss(type: Delete) << {
+    delete minifyJs.dest, combineJs.dest, minifyCss.dest, combineCss.dest, minifyJs.sourceMap
+}
+
+defaultTasks 'cleanJsCss', 'buildJsCss'
