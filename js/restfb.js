@@ -1159,7 +1159,7 @@
 
     // Config ZeroClipboard
     ZeroClipboard.config({
-      moviePath: '/restfb.github.io/assets/flash/ZeroClipboard.swf',
+      moviePath: '/assets/flash/ZeroClipboard.swf',
       hoverClass: 'btn-clipboard-hover'
     })
 
