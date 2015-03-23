@@ -1203,6 +1203,18 @@ DateFormatStrategy strategy = DateUtils.getDateFormatStrategy();
 if (strategy instanceof CachedDateFormatStrategy)
   ((CachedDateFormatStrategy)strategy).clearThreadLocal();
 			</code></pre></div>
+			
+			<h2 id="boost-performance-etag">ETag support</h2>
+			<p>
+			    You can improve your connection's performance by using the <code><a target="_blank" href="javadoc/com/restfb/ETagWebRequestor.html">ETagWebRequestor</a></code>. This WebRequestor is a
+			    special implementation wich adds ETag support to the restfb's requests. For further information about <code>ETag</code> you should have a 
+			    look at the <a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank">wikipedia</a> page.
+			</p>
+			<div class="highlight"><pre><code class="language-java" data-lang="java">
+// create the special WebRequestor with ETag support
+ETagWebRequestor webRequestor = new ETagWebRequestor();
+FacebookClient client = new DefaultFacebookClient(accessToken, webRequestor, new DefaultJsonMapper(), Version.VERSION_2_2);
+			</code></pre></div>
 		    </div>
 
 		    <div class="bs-docs-section">
@@ -1394,7 +1406,11 @@ THE SOFTWARE.</pre>
 
 			    <li><a href="#extensibility-and-unit-testing">Extensibility and Unit Testing</a></li>
 
-			    <li><a href="#boost-performance">Boost Performance</a></li>
+			    <li><a href="#boost-performance">Boost Performance</a>
+				<ul class="nav">
+				    <li><a href="#boost-performance-etag">ETag support</a></li>
+				</ul>
+			    </li>
 
 			    <li><a href="#links">Links</a></li>
 
