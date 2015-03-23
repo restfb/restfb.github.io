@@ -669,6 +669,28 @@ facebookClient.executeBatch(batchRequests, binaryAttachments);</code></pre></div
 
 		    <div class="bs-docs-section">
 			<h1 id="access-token-operations" class="page-header">Access Token Operations</h1>
+			<h2 id="access-token-dialog">Get Login Dialog URL</h2>
+			<p>
+			    Before you can build your <a href="https://developers.facebook.com/docs/reference/dialogs/oauth" target="_blank">Facebook Login Dialog</a> URL you need to look deeper into the 
+			    the scope concept. Every Access Token is bound to a scope and a scope is a set of <a href="https://developers.facebook.com/docs/facebook-login/permissions/v2.2" target="_blank">permissions</a>.
+			The developer decides which permissions are needed to get the application working correctly. 
+			</p>
+			<p>
+			    RestFB supports the developer building the scope and so you should use the <code><a target="_blank" href="javadoc/com/restfb/scope/ScopeBuilder.html">ScopeBuilder</a></code>. The permissions
+			are implemented as Enums. Here's an example how to build a scope:
+			</p>
+			<div class="highlight"><pre><code class='language-java' data-land='java'>
+ScopeBuilder scopeBuilder = new ScopeBuilder();
+scopeBuilder.addPermission(UserDataPermissions.USER_STATUS);
+scopeBuilder.addPermission(UserDataPermissions.USER_ABOUT_ME);			
+			</code></pre></div>
+			<p>
+			    With the ScopeBuilder you can now easily build the login dialog url, like this:
+			</p>
+			<div class="highlight"><pre><code class='language-java' data-land='java'>
+FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
+String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
+			</code></pre></div>
 			<h2 id="access-token-extend">Extending an Access Token</h2>
 			see <a target="_blank" href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Graph API documentation</a>
 
@@ -1383,6 +1405,7 @@ THE SOFTWARE.</pre>
 
 			    <li><a href="#access-token-operations">Access Token Operations</a>
 				<ul class="nav">
+				    <li><a href="#access-token-dialog">Get Login-Dialog URL</a></li>
 				    <li><a href="#access-token-extend">Extending Access Token</a></li>
 				    <li><a href="#access-token-application">Application Access Token</a></li>
 				</ul>
