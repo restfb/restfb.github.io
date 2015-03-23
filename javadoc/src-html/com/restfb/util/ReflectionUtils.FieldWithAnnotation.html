@@ -155,7 +155,7 @@
 <span class="sourceLineNo">147</span>   */<a name="line.147"></a>
 <span class="sourceLineNo">148</span>  public static &lt;T extends Annotation&gt; List&lt;Method&gt; findMethodsWithAnnotation(Class&lt;?&gt; type, Class&lt;T&gt; annotationType) {<a name="line.148"></a>
 <span class="sourceLineNo">149</span>    ClassAnnotationCacheKey cacheKey = new ClassAnnotationCacheKey(type, annotationType);<a name="line.149"></a>
-<span class="sourceLineNo">150</span>    List&lt;Method&gt; cachedResults = (List&lt;Method&gt;) METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);<a name="line.150"></a>
+<span class="sourceLineNo">150</span>    List&lt;Method&gt; cachedResults = METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);<a name="line.150"></a>
 <span class="sourceLineNo">151</span><a name="line.151"></a>
 <span class="sourceLineNo">152</span>    if (cachedResults != null)<a name="line.152"></a>
 <span class="sourceLineNo">153</span>      return cachedResults;<a name="line.153"></a>

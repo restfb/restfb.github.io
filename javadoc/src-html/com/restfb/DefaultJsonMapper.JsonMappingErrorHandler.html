@@ -566,15 +566,15 @@
 <span class="sourceLineNo">558</span>    }<a name="line.558"></a>
 <span class="sourceLineNo">559</span><a name="line.559"></a>
 <span class="sourceLineNo">560</span>    if (Integer.class.equals(type) || Integer.TYPE.equals(type))<a name="line.560"></a>
-<span class="sourceLineNo">561</span>      return (T) new Integer(json);<a name="line.561"></a>
+<span class="sourceLineNo">561</span>      return (T) Integer.valueOf(json);<a name="line.561"></a>
 <span class="sourceLineNo">562</span>    if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))<a name="line.562"></a>
-<span class="sourceLineNo">563</span>      return (T) new Boolean(json);<a name="line.563"></a>
+<span class="sourceLineNo">563</span>      return (T) Boolean.valueOf(json);<a name="line.563"></a>
 <span class="sourceLineNo">564</span>    if (Long.class.equals(type) || Long.TYPE.equals(type))<a name="line.564"></a>
-<span class="sourceLineNo">565</span>      return (T) new Long(json);<a name="line.565"></a>
+<span class="sourceLineNo">565</span>      return (T) Long.valueOf(json);<a name="line.565"></a>
 <span class="sourceLineNo">566</span>    if (Double.class.equals(type) || Double.TYPE.equals(type))<a name="line.566"></a>
-<span class="sourceLineNo">567</span>      return (T) new Double(json);<a name="line.567"></a>
+<span class="sourceLineNo">567</span>      return (T) Double.valueOf(json);<a name="line.567"></a>
 <span class="sourceLineNo">568</span>    if (Float.class.equals(type) || Float.TYPE.equals(type))<a name="line.568"></a>
-<span class="sourceLineNo">569</span>      return (T) new Float(json);<a name="line.569"></a>
+<span class="sourceLineNo">569</span>      return (T) Float.valueOf(json);<a name="line.569"></a>
 <span class="sourceLineNo">570</span>    if (BigInteger.class.equals(type))<a name="line.570"></a>
 <span class="sourceLineNo">571</span>      return (T) new BigInteger(json);<a name="line.571"></a>
 <span class="sourceLineNo">572</span>    if (BigDecimal.class.equals(type))<a name="line.572"></a>
@@ -641,13 +641,13 @@
 <span class="sourceLineNo">633</span>    }<a name="line.633"></a>
 <span class="sourceLineNo">634</span><a name="line.634"></a>
 <span class="sourceLineNo">635</span>    if (Integer.class.equals(type) || Integer.TYPE.equals(type))<a name="line.635"></a>
-<span class="sourceLineNo">636</span>      return new Integer(jsonObject.getInt(facebookFieldName));<a name="line.636"></a>
+<span class="sourceLineNo">636</span>      return jsonObject.getInt(facebookFieldName);<a name="line.636"></a>
 <span class="sourceLineNo">637</span>    if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))<a name="line.637"></a>
-<span class="sourceLineNo">638</span>      return new Boolean(jsonObject.getBoolean(facebookFieldName));<a name="line.638"></a>
+<span class="sourceLineNo">638</span>      return jsonObject.getBoolean(facebookFieldName);<a name="line.638"></a>
 <span class="sourceLineNo">639</span>    if (Long.class.equals(type) || Long.TYPE.equals(type))<a name="line.639"></a>
-<span class="sourceLineNo">640</span>      return new Long(jsonObject.getLong(facebookFieldName));<a name="line.640"></a>
+<span class="sourceLineNo">640</span>      return jsonObject.getLong(facebookFieldName);<a name="line.640"></a>
 <span class="sourceLineNo">641</span>    if (Double.class.equals(type) || Double.TYPE.equals(type))<a name="line.641"></a>
-<span class="sourceLineNo">642</span>      return new Double(jsonObject.getDouble(facebookFieldName));<a name="line.642"></a>
+<span class="sourceLineNo">642</span>      return jsonObject.getDouble(facebookFieldName);<a name="line.642"></a>
 <span class="sourceLineNo">643</span>    if (Float.class.equals(type) || Float.TYPE.equals(type))<a name="line.643"></a>
 <span class="sourceLineNo">644</span>      return new BigDecimal(jsonObject.getString(facebookFieldName)).floatValue();<a name="line.644"></a>
 <span class="sourceLineNo">645</span>    if (BigInteger.class.equals(type))<a name="line.645"></a>

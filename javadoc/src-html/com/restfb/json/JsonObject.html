@@ -336,7 +336,7 @@
 <span class="sourceLineNo">328</span>            } else if (result instanceof Collection&lt;?&gt;) { // List or Set<a name="line.328"></a>
 <span class="sourceLineNo">329</span>              map.put(key, new JsonArray((Collection&lt;?&gt;) result, includeSuperClass));<a name="line.329"></a>
 <span class="sourceLineNo">330</span>            } else if (result instanceof Map&lt;?, ?&gt;) {<a name="line.330"></a>
-<span class="sourceLineNo">331</span>              map.put(key, new JsonObject((Map&lt;?, ?&gt;) result, includeSuperClass));<a name="line.331"></a>
+<span class="sourceLineNo">331</span>              map.put(key, new JsonObject(result, includeSuperClass));<a name="line.331"></a>
 <span class="sourceLineNo">332</span>            } else if (isStandardProperty(result.getClass())) { // Primitives,<a name="line.332"></a>
 <span class="sourceLineNo">333</span>              // String and<a name="line.333"></a>
 <span class="sourceLineNo">334</span>              // Wrapper<a name="line.334"></a>
@@ -529,7 +529,7 @@
 <span class="sourceLineNo">521</span>  public double getDouble(String key) {<a name="line.521"></a>
 <span class="sourceLineNo">522</span>    Object o = get(key);<a name="line.522"></a>
 <span class="sourceLineNo">523</span>    try {<a name="line.523"></a>
-<span class="sourceLineNo">524</span>      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();<a name="line.524"></a>
+<span class="sourceLineNo">524</span>      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);<a name="line.524"></a>
 <span class="sourceLineNo">525</span>    } catch (Exception e) {<a name="line.525"></a>
 <span class="sourceLineNo">526</span>      throw new JsonException("JsonObject[" + quote(key) + "] is not a number.");<a name="line.526"></a>
 <span class="sourceLineNo">527</span>    }<a name="line.527"></a>
@@ -820,7 +820,7 @@
 <span class="sourceLineNo">812</span>  public double optDouble(String key, double defaultValue) {<a name="line.812"></a>
 <span class="sourceLineNo">813</span>    try {<a name="line.813"></a>
 <span class="sourceLineNo">814</span>      Object o = opt(key);<a name="line.814"></a>
-<span class="sourceLineNo">815</span>      return o instanceof Number ? ((Number) o).doubleValue() : new Double((String) o).doubleValue();<a name="line.815"></a>
+<span class="sourceLineNo">815</span>      return o instanceof Number ? ((Number) o).doubleValue() : Double.parseDouble((String) o);<a name="line.815"></a>
 <span class="sourceLineNo">816</span>    } catch (Exception e) {<a name="line.816"></a>
 <span class="sourceLineNo">817</span>      return defaultValue;<a name="line.817"></a>
 <span class="sourceLineNo">818</span>    }<a name="line.818"></a>
@@ -982,7 +982,7 @@
 <span class="sourceLineNo">974</span>   *           If the key is null.<a name="line.974"></a>
 <span class="sourceLineNo">975</span>   */<a name="line.975"></a>
 <span class="sourceLineNo">976</span>  public JsonObject put(String key, int value) {<a name="line.976"></a>
-<span class="sourceLineNo">977</span>    put(key, new Integer(value));<a name="line.977"></a>
+<span class="sourceLineNo">977</span>    put(key, Integer.valueOf(value));<a name="line.977"></a>
 <span class="sourceLineNo">978</span>    return this;<a name="line.978"></a>
 <span class="sourceLineNo">979</span>  }<a name="line.979"></a>
 <span class="sourceLineNo">980</span><a name="line.980"></a>
@@ -998,7 +998,7 @@
 <span class="sourceLineNo">990</span>   *           If the key is null.<a name="line.990"></a>
 <span class="sourceLineNo">991</span>   */<a name="line.991"></a>
 <span class="sourceLineNo">992</span>  public JsonObject put(String key, long value) {<a name="line.992"></a>
-<span class="sourceLineNo">993</span>    put(key, new Long(value));<a name="line.993"></a>
+<span class="sourceLineNo">993</span>    put(key, Long.valueOf(value));<a name="line.993"></a>
 <span class="sourceLineNo">994</span>    return this;<a name="line.994"></a>
 <span class="sourceLineNo">995</span>  }<a name="line.995"></a>
 <span class="sourceLineNo">996</span><a name="line.996"></a>
@@ -1199,13 +1199,13 @@
 <span class="sourceLineNo">1191</span>      if (b == '0') {<a name="line.1191"></a>
 <span class="sourceLineNo">1192</span>        if (s.length() &gt; 2 &amp;&amp; (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {<a name="line.1192"></a>
 <span class="sourceLineNo">1193</span>          try {<a name="line.1193"></a>
-<span class="sourceLineNo">1194</span>            return new Integer(Integer.parseInt(s.substring(2), 16));<a name="line.1194"></a>
+<span class="sourceLineNo">1194</span>            return Integer.parseInt(s.substring(2), 16);<a name="line.1194"></a>
 <span class="sourceLineNo">1195</span>          } catch (Exception e) {<a name="line.1195"></a>
 <span class="sourceLineNo">1196</span>            /* Ignore the error */<a name="line.1196"></a>
 <span class="sourceLineNo">1197</span>          }<a name="line.1197"></a>
 <span class="sourceLineNo">1198</span>        } else {<a name="line.1198"></a>
 <span class="sourceLineNo">1199</span>          try {<a name="line.1199"></a>
-<span class="sourceLineNo">1200</span>            return new Integer(Integer.parseInt(s, 8));<a name="line.1200"></a>
+<span class="sourceLineNo">1200</span>            return Integer.parseInt(s, 8);<a name="line.1200"></a>
 <span class="sourceLineNo">1201</span>          } catch (Exception e) {<a name="line.1201"></a>
 <span class="sourceLineNo">1202</span>            /* Ignore the error */<a name="line.1202"></a>
 <span class="sourceLineNo">1203</span>          }<a name="line.1203"></a>
@@ -1215,9 +1215,9 @@
 <span class="sourceLineNo">1207</span>        if (s.indexOf('.') &gt; -1 || s.indexOf('e') &gt; -1 || s.indexOf('E') &gt; -1) {<a name="line.1207"></a>
 <span class="sourceLineNo">1208</span>          return Double.valueOf(s);<a name="line.1208"></a>
 <span class="sourceLineNo">1209</span>        } else {<a name="line.1209"></a>
-<span class="sourceLineNo">1210</span>          Long myLong = new Long(s);<a name="line.1210"></a>
+<span class="sourceLineNo">1210</span>          Long myLong = Long.valueOf(s);<a name="line.1210"></a>
 <span class="sourceLineNo">1211</span>          if (myLong.longValue() == myLong.intValue()) {<a name="line.1211"></a>
-<span class="sourceLineNo">1212</span>            return new Integer(myLong.intValue());<a name="line.1212"></a>
+<span class="sourceLineNo">1212</span>            return myLong.intValue();<a name="line.1212"></a>
 <span class="sourceLineNo">1213</span>          } else {<a name="line.1213"></a>
 <span class="sourceLineNo">1214</span>            return myLong;<a name="line.1214"></a>
 <span class="sourceLineNo">1215</span>          }<a name="line.1215"></a>
@@ -1415,7 +1415,7 @@
 <span class="sourceLineNo">1407</span>      return value.toString();<a name="line.1407"></a>
 <span class="sourceLineNo">1408</span>    }<a name="line.1408"></a>
 <span class="sourceLineNo">1409</span>    if (value instanceof Map&lt;?, ?&gt;) {<a name="line.1409"></a>
-<span class="sourceLineNo">1410</span>      return new JsonObject((Map&lt;?, ?&gt;) value).toString();<a name="line.1410"></a>
+<span class="sourceLineNo">1410</span>      return new JsonObject(value).toString();<a name="line.1410"></a>
 <span class="sourceLineNo">1411</span>    }<a name="line.1411"></a>
 <span class="sourceLineNo">1412</span>    if (value instanceof Collection&lt;?&gt;) {<a name="line.1412"></a>
 <span class="sourceLineNo">1413</span>      return new JsonArray((Collection&lt;?&gt;) value).toString();<a name="line.1413"></a>
@@ -1469,7 +1469,7 @@
 <span class="sourceLineNo">1461</span>      return ((JsonArray) value).toString(indentFactor, indent);<a name="line.1461"></a>
 <span class="sourceLineNo">1462</span>    }<a name="line.1462"></a>
 <span class="sourceLineNo">1463</span>    if (value instanceof Map&lt;?, ?&gt;) {<a name="line.1463"></a>
-<span class="sourceLineNo">1464</span>      return new JsonObject((Map&lt;?, ?&gt;) value).toString(indentFactor, indent);<a name="line.1464"></a>
+<span class="sourceLineNo">1464</span>      return new JsonObject(value).toString(indentFactor, indent);<a name="line.1464"></a>
 <span class="sourceLineNo">1465</span>    }<a name="line.1465"></a>
 <span class="sourceLineNo">1466</span>    if (value instanceof Collection&lt;?&gt;) {<a name="line.1466"></a>
 <span class="sourceLineNo">1467</span>      return new JsonArray((Collection&lt;?&gt;) value).toString(indentFactor, indent);<a name="line.1467"></a>

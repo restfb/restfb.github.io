@@ -30,28 +30,28 @@
 <span class="sourceLineNo">022</span><a name="line.22"></a>
 <span class="sourceLineNo">023</span>package com.restfb;<a name="line.23"></a>
 <span class="sourceLineNo">024</span><a name="line.24"></a>
-<span class="sourceLineNo">025</span>import static com.restfb.util.StringUtils.isBlank;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import static com.restfb.util.StringUtils.toBytes;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import static com.restfb.util.StringUtils.trimToEmpty;<a name="line.27"></a>
-<span class="sourceLineNo">028</span>import static com.restfb.util.UrlUtils.urlEncode;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import static java.net.HttpURLConnection.HTTP_OK;<a name="line.29"></a>
-<span class="sourceLineNo">030</span><a name="line.30"></a>
-<span class="sourceLineNo">031</span>import java.security.MessageDigest;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import java.security.NoSuchAlgorithmException;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import java.util.ArrayList;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import java.util.Arrays;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import java.util.List;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>import java.util.Map;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import java.util.Map.Entry;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>import java.util.TreeMap;<a name="line.38"></a>
-<span class="sourceLineNo">039</span><a name="line.39"></a>
-<span class="sourceLineNo">040</span>import com.restfb.WebRequestor.Response;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import com.restfb.exception.FacebookException;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import com.restfb.exception.FacebookJsonMappingException;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>import com.restfb.exception.FacebookNetworkException;<a name="line.43"></a>
-<span class="sourceLineNo">044</span>import com.restfb.json.JsonArray;<a name="line.44"></a>
-<span class="sourceLineNo">045</span>import com.restfb.json.JsonException;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import com.restfb.json.JsonObject;<a name="line.46"></a>
+<span class="sourceLineNo">025</span>import com.restfb.WebRequestor.Response;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.restfb.exception.FacebookException;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.restfb.exception.FacebookJsonMappingException;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.restfb.exception.FacebookNetworkException;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.restfb.json.JsonArray;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.restfb.json.JsonException;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.restfb.json.JsonObject;<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>import java.security.MessageDigest;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import java.security.NoSuchAlgorithmException;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import java.util.ArrayList;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import java.util.Arrays;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import java.util.List;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import java.util.Map;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import java.util.Map.Entry;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import java.util.TreeMap;<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>import static com.restfb.util.StringUtils.isBlank;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>import static com.restfb.util.StringUtils.toBytes;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>import static com.restfb.util.StringUtils.trimToEmpty;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>import static com.restfb.util.UrlUtils.urlEncode;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>import static java.net.HttpURLConnection.HTTP_OK;<a name="line.46"></a>
 <span class="sourceLineNo">047</span><a name="line.47"></a>
 <span class="sourceLineNo">048</span>/**<a name="line.48"></a>
 <span class="sourceLineNo">049</span> * Default implementation of a &lt;a href="http://developers.facebook.com/docs/reference/rest/"&gt;Legacy Facebook API&lt;/a&gt;<a name="line.49"></a>
@@ -281,7 +281,7 @@
 <span class="sourceLineNo">273</span><a name="line.273"></a>
 <span class="sourceLineNo">274</span>    try {<a name="line.274"></a>
 <span class="sourceLineNo">275</span>      JsonArray jsonArray =<a name="line.275"></a>
-<span class="sourceLineNo">276</span>          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[0])));<a name="line.276"></a>
+<span class="sourceLineNo">276</span>          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[parameters.size()])));<a name="line.276"></a>
 <span class="sourceLineNo">277</span><a name="line.277"></a>
 <span class="sourceLineNo">278</span>      for (int i = 0; i &lt; jsonArray.length(); i++) {<a name="line.278"></a>
 <span class="sourceLineNo">279</span>        JsonObject jsonObject = jsonArray.getJsonObject(i);<a name="line.279"></a>
@@ -472,8 +472,8 @@
 <span class="sourceLineNo">464</span>   * Initializes the set of illegal URL parameter names.<a name="line.464"></a>
 <span class="sourceLineNo">465</span>   */<a name="line.465"></a>
 <span class="sourceLineNo">466</span>  protected void initializeIllegalParamNames() {<a name="line.466"></a>
-<span class="sourceLineNo">467</span>    illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,<a name="line.467"></a>
-<span class="sourceLineNo">468</span>        METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME }));<a name="line.468"></a>
+<span class="sourceLineNo">467</span>    illegalParamNames.addAll(Arrays.asList(API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,<a name="line.467"></a>
+<span class="sourceLineNo">468</span>                                           METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME));<a name="line.468"></a>
 <span class="sourceLineNo">469</span>  }<a name="line.469"></a>
 <span class="sourceLineNo">470</span><a name="line.470"></a>
 <span class="sourceLineNo">471</span>  /**<a name="line.471"></a>
