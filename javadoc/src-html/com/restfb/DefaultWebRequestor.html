@@ -245,155 +245,157 @@
 <span class="sourceLineNo">237</span>   *          The resource to close.<a name="line.237"></a>
 <span class="sourceLineNo">238</span>   */<a name="line.238"></a>
 <span class="sourceLineNo">239</span>  protected void closeQuietly(Closeable closeable) {<a name="line.239"></a>
-<span class="sourceLineNo">240</span>    if (closeable == null)<a name="line.240"></a>
+<span class="sourceLineNo">240</span>    if (closeable == null) {<a name="line.240"></a>
 <span class="sourceLineNo">241</span>      return;<a name="line.241"></a>
-<span class="sourceLineNo">242</span>    try {<a name="line.242"></a>
-<span class="sourceLineNo">243</span>      closeable.close();<a name="line.243"></a>
-<span class="sourceLineNo">244</span>    } catch (Throwable t) {<a name="line.244"></a>
-<span class="sourceLineNo">245</span>      if (logger.isLoggable(WARNING)) {<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        logger.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });<a name="line.246"></a>
-<span class="sourceLineNo">247</span>      }<a name="line.247"></a>
-<span class="sourceLineNo">248</span>    }<a name="line.248"></a>
-<span class="sourceLineNo">249</span>  }<a name="line.249"></a>
-<span class="sourceLineNo">250</span><a name="line.250"></a>
-<span class="sourceLineNo">251</span>  /**<a name="line.251"></a>
-<span class="sourceLineNo">252</span>   * Attempts to cleanly close an {@code HttpURLConnection}, swallowing any exceptions that might occur since there's no<a name="line.252"></a>
-<span class="sourceLineNo">253</span>   * way to recover anyway.<a name="line.253"></a>
-<span class="sourceLineNo">254</span>   * &lt;p&gt;<a name="line.254"></a>
-<span class="sourceLineNo">255</span>   * It's OK to pass {@code null} in, this method will no-op in that case.<a name="line.255"></a>
-<span class="sourceLineNo">256</span>   * <a name="line.256"></a>
-<span class="sourceLineNo">257</span>   * @param httpUrlConnection<a name="line.257"></a>
-<span class="sourceLineNo">258</span>   *          The connection to close.<a name="line.258"></a>
-<span class="sourceLineNo">259</span>   */<a name="line.259"></a>
-<span class="sourceLineNo">260</span>  protected void closeQuietly(HttpURLConnection httpUrlConnection) {<a name="line.260"></a>
-<span class="sourceLineNo">261</span>    if (httpUrlConnection == null)<a name="line.261"></a>
-<span class="sourceLineNo">262</span>      return;<a name="line.262"></a>
-<span class="sourceLineNo">263</span>    try {<a name="line.263"></a>
-<span class="sourceLineNo">264</span>      httpUrlConnection.disconnect();<a name="line.264"></a>
-<span class="sourceLineNo">265</span>    } catch (Throwable t) {<a name="line.265"></a>
-<span class="sourceLineNo">266</span>      if (logger.isLoggable(WARNING)) {<a name="line.266"></a>
-<span class="sourceLineNo">267</span>        logger.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });<a name="line.267"></a>
-<span class="sourceLineNo">268</span>      }<a name="line.268"></a>
-<span class="sourceLineNo">269</span>    }<a name="line.269"></a>
-<span class="sourceLineNo">270</span>  }<a name="line.270"></a>
-<span class="sourceLineNo">271</span><a name="line.271"></a>
-<span class="sourceLineNo">272</span>  /**<a name="line.272"></a>
-<span class="sourceLineNo">273</span>   * Writes the contents of the {@code source} stream to the {@code destination} stream using the given<a name="line.273"></a>
-<span class="sourceLineNo">274</span>   * {@code bufferSize}.<a name="line.274"></a>
-<span class="sourceLineNo">275</span>   * <a name="line.275"></a>
-<span class="sourceLineNo">276</span>   * @param source<a name="line.276"></a>
-<span class="sourceLineNo">277</span>   *          The source stream to copy from.<a name="line.277"></a>
-<span class="sourceLineNo">278</span>   * @param destination<a name="line.278"></a>
-<span class="sourceLineNo">279</span>   *          The destination stream to copy to.<a name="line.279"></a>
-<span class="sourceLineNo">280</span>   * @param bufferSize<a name="line.280"></a>
-<span class="sourceLineNo">281</span>   *          The size of the buffer to use during the copy operation.<a name="line.281"></a>
-<span class="sourceLineNo">282</span>   * @throws IOException<a name="line.282"></a>
-<span class="sourceLineNo">283</span>   *           If an error occurs when reading from {@code source} or writing to {@code destination}.<a name="line.283"></a>
-<span class="sourceLineNo">284</span>   * @throws NullPointerException<a name="line.284"></a>
-<span class="sourceLineNo">285</span>   *           If either {@code source} or @{code destination} is {@code null}.<a name="line.285"></a>
-<span class="sourceLineNo">286</span>   */<a name="line.286"></a>
-<span class="sourceLineNo">287</span>  protected void write(InputStream source, OutputStream destination, int bufferSize) throws IOException {<a name="line.287"></a>
-<span class="sourceLineNo">288</span>    if (source == null || destination == null) {<a name="line.288"></a>
-<span class="sourceLineNo">289</span>      throw new NullPointerException("Must provide non-null source and destination streams.");<a name="line.289"></a>
-<span class="sourceLineNo">290</span>    }<a name="line.290"></a>
-<span class="sourceLineNo">291</span><a name="line.291"></a>
-<span class="sourceLineNo">292</span>    int read = 0;<a name="line.292"></a>
-<span class="sourceLineNo">293</span>    byte[] chunk = new byte[bufferSize];<a name="line.293"></a>
-<span class="sourceLineNo">294</span>    while ((read = source.read(chunk)) &gt; 0)<a name="line.294"></a>
-<span class="sourceLineNo">295</span>      destination.write(chunk, 0, read);<a name="line.295"></a>
-<span class="sourceLineNo">296</span>  }<a name="line.296"></a>
-<span class="sourceLineNo">297</span><a name="line.297"></a>
-<span class="sourceLineNo">298</span>  /**<a name="line.298"></a>
-<span class="sourceLineNo">299</span>   * Creates the form field name for the binary attachment filename by stripping off the file extension - for example,<a name="line.299"></a>
-<span class="sourceLineNo">300</span>   * the filename "test.png" would return "test".<a name="line.300"></a>
-<span class="sourceLineNo">301</span>   * <a name="line.301"></a>
-<span class="sourceLineNo">302</span>   * @param binaryAttachment<a name="line.302"></a>
-<span class="sourceLineNo">303</span>   *          The binary attachment for which to create the form field name.<a name="line.303"></a>
-<span class="sourceLineNo">304</span>   * @return The form field name for the given binary attachment.<a name="line.304"></a>
-<span class="sourceLineNo">305</span>   */<a name="line.305"></a>
-<span class="sourceLineNo">306</span>  protected String createFormFieldName(BinaryAttachment binaryAttachment) {<a name="line.306"></a>
-<span class="sourceLineNo">307</span>    String name = binaryAttachment.getFilename();<a name="line.307"></a>
-<span class="sourceLineNo">308</span>    int fileExtensionIndex = name.lastIndexOf(".");<a name="line.308"></a>
-<span class="sourceLineNo">309</span>    return fileExtensionIndex &gt; 0 ? name.substring(0, fileExtensionIndex) : name;<a name="line.309"></a>
-<span class="sourceLineNo">310</span>  }<a name="line.310"></a>
-<span class="sourceLineNo">311</span><a name="line.311"></a>
-<span class="sourceLineNo">312</span>  /**<a name="line.312"></a>
-<span class="sourceLineNo">313</span>   * returns if the binary attachment stream is closed automatically<a name="line.313"></a>
-<span class="sourceLineNo">314</span>   * <a name="line.314"></a>
-<span class="sourceLineNo">315</span>   * @since 1.7.0<a name="line.315"></a>
-<span class="sourceLineNo">316</span>   * @return<a name="line.316"></a>
-<span class="sourceLineNo">317</span>   */<a name="line.317"></a>
-<span class="sourceLineNo">318</span>  public boolean isAutocloseBinaryAttachmentStream() {<a name="line.318"></a>
-<span class="sourceLineNo">319</span>    return autocloseBinaryAttachmentStream;<a name="line.319"></a>
-<span class="sourceLineNo">320</span>  }<a name="line.320"></a>
-<span class="sourceLineNo">321</span><a name="line.321"></a>
-<span class="sourceLineNo">322</span>  /**<a name="line.322"></a>
-<span class="sourceLineNo">323</span>   * define if the binary attachment stream is closed automatically after sending the content to facebook<a name="line.323"></a>
-<span class="sourceLineNo">324</span>   * <a name="line.324"></a>
-<span class="sourceLineNo">325</span>   * @since 1.7.0<a name="line.325"></a>
-<span class="sourceLineNo">326</span>   * @param autocloseBinaryAttachmentStream<a name="line.326"></a>
-<span class="sourceLineNo">327</span>   */<a name="line.327"></a>
-<span class="sourceLineNo">328</span>  public void setAutocloseBinaryAttachmentStream(boolean autocloseBinaryAttachmentStream) {<a name="line.328"></a>
-<span class="sourceLineNo">329</span>    this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;<a name="line.329"></a>
-<span class="sourceLineNo">330</span>  }<a name="line.330"></a>
-<span class="sourceLineNo">331</span><a name="line.331"></a>
-<span class="sourceLineNo">332</span>  @Override<a name="line.332"></a>
-<span class="sourceLineNo">333</span>  public Response executeDelete(String url) throws IOException {<a name="line.333"></a>
-<span class="sourceLineNo">334</span>    return execute(url, HttpMethod.DELETE);<a name="line.334"></a>
-<span class="sourceLineNo">335</span>  }<a name="line.335"></a>
-<span class="sourceLineNo">336</span><a name="line.336"></a>
-<span class="sourceLineNo">337</span>  private Response execute(String url, HttpMethod httpMethod) throws IOException {<a name="line.337"></a>
-<span class="sourceLineNo">338</span>    if (logger.isLoggable(FINE)) {<a name="line.338"></a>
-<span class="sourceLineNo">339</span>      logger.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });<a name="line.339"></a>
-<span class="sourceLineNo">340</span>    }<a name="line.340"></a>
-<span class="sourceLineNo">341</span><a name="line.341"></a>
-<span class="sourceLineNo">342</span>    HttpURLConnection httpUrlConnection = null;<a name="line.342"></a>
-<span class="sourceLineNo">343</span>    InputStream inputStream = null;<a name="line.343"></a>
-<span class="sourceLineNo">344</span><a name="line.344"></a>
-<span class="sourceLineNo">345</span>    try {<a name="line.345"></a>
-<span class="sourceLineNo">346</span>      httpUrlConnection = openConnection(new URL(url));<a name="line.346"></a>
-<span class="sourceLineNo">347</span>      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);<a name="line.347"></a>
-<span class="sourceLineNo">348</span>      httpUrlConnection.setUseCaches(false);<a name="line.348"></a>
-<span class="sourceLineNo">349</span>      httpUrlConnection.setRequestMethod(httpMethod.name());<a name="line.349"></a>
-<span class="sourceLineNo">350</span><a name="line.350"></a>
-<span class="sourceLineNo">351</span>      // Allow subclasses to customize the connection if they'd like to - set<a name="line.351"></a>
-<span class="sourceLineNo">352</span>      // their own headers, timeouts, etc.<a name="line.352"></a>
-<span class="sourceLineNo">353</span>      customizeConnection(httpUrlConnection);<a name="line.353"></a>
-<span class="sourceLineNo">354</span><a name="line.354"></a>
-<span class="sourceLineNo">355</span>      httpUrlConnection.connect();<a name="line.355"></a>
+<span class="sourceLineNo">242</span>    }<a name="line.242"></a>
+<span class="sourceLineNo">243</span>    try {<a name="line.243"></a>
+<span class="sourceLineNo">244</span>      closeable.close();<a name="line.244"></a>
+<span class="sourceLineNo">245</span>    } catch (Throwable t) {<a name="line.245"></a>
+<span class="sourceLineNo">246</span>      if (logger.isLoggable(WARNING)) {<a name="line.246"></a>
+<span class="sourceLineNo">247</span>        logger.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });<a name="line.247"></a>
+<span class="sourceLineNo">248</span>      }<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    }<a name="line.249"></a>
+<span class="sourceLineNo">250</span>  }<a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>  /**<a name="line.252"></a>
+<span class="sourceLineNo">253</span>   * Attempts to cleanly close an {@code HttpURLConnection}, swallowing any exceptions that might occur since there's no<a name="line.253"></a>
+<span class="sourceLineNo">254</span>   * way to recover anyway.<a name="line.254"></a>
+<span class="sourceLineNo">255</span>   * &lt;p&gt;<a name="line.255"></a>
+<span class="sourceLineNo">256</span>   * It's OK to pass {@code null} in, this method will no-op in that case.<a name="line.256"></a>
+<span class="sourceLineNo">257</span>   * <a name="line.257"></a>
+<span class="sourceLineNo">258</span>   * @param httpUrlConnection<a name="line.258"></a>
+<span class="sourceLineNo">259</span>   *          The connection to close.<a name="line.259"></a>
+<span class="sourceLineNo">260</span>   */<a name="line.260"></a>
+<span class="sourceLineNo">261</span>  protected void closeQuietly(HttpURLConnection httpUrlConnection) {<a name="line.261"></a>
+<span class="sourceLineNo">262</span>    if (httpUrlConnection == null) {<a name="line.262"></a>
+<span class="sourceLineNo">263</span>      return;<a name="line.263"></a>
+<span class="sourceLineNo">264</span>    }<a name="line.264"></a>
+<span class="sourceLineNo">265</span>    try {<a name="line.265"></a>
+<span class="sourceLineNo">266</span>      httpUrlConnection.disconnect();<a name="line.266"></a>
+<span class="sourceLineNo">267</span>    } catch (Throwable t) {<a name="line.267"></a>
+<span class="sourceLineNo">268</span>      if (logger.isLoggable(WARNING)) {<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        logger.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });<a name="line.269"></a>
+<span class="sourceLineNo">270</span>      }<a name="line.270"></a>
+<span class="sourceLineNo">271</span>    }<a name="line.271"></a>
+<span class="sourceLineNo">272</span>  }<a name="line.272"></a>
+<span class="sourceLineNo">273</span><a name="line.273"></a>
+<span class="sourceLineNo">274</span>  /**<a name="line.274"></a>
+<span class="sourceLineNo">275</span>   * Writes the contents of the {@code source} stream to the {@code destination} stream using the given<a name="line.275"></a>
+<span class="sourceLineNo">276</span>   * {@code bufferSize}.<a name="line.276"></a>
+<span class="sourceLineNo">277</span>   * <a name="line.277"></a>
+<span class="sourceLineNo">278</span>   * @param source<a name="line.278"></a>
+<span class="sourceLineNo">279</span>   *          The source stream to copy from.<a name="line.279"></a>
+<span class="sourceLineNo">280</span>   * @param destination<a name="line.280"></a>
+<span class="sourceLineNo">281</span>   *          The destination stream to copy to.<a name="line.281"></a>
+<span class="sourceLineNo">282</span>   * @param bufferSize<a name="line.282"></a>
+<span class="sourceLineNo">283</span>   *          The size of the buffer to use during the copy operation.<a name="line.283"></a>
+<span class="sourceLineNo">284</span>   * @throws IOException<a name="line.284"></a>
+<span class="sourceLineNo">285</span>   *           If an error occurs when reading from {@code source} or writing to {@code destination}.<a name="line.285"></a>
+<span class="sourceLineNo">286</span>   * @throws NullPointerException<a name="line.286"></a>
+<span class="sourceLineNo">287</span>   *           If either {@code source} or @{code destination} is {@code null}.<a name="line.287"></a>
+<span class="sourceLineNo">288</span>   */<a name="line.288"></a>
+<span class="sourceLineNo">289</span>  protected void write(InputStream source, OutputStream destination, int bufferSize) throws IOException {<a name="line.289"></a>
+<span class="sourceLineNo">290</span>    if (source == null || destination == null) {<a name="line.290"></a>
+<span class="sourceLineNo">291</span>      throw new NullPointerException("Must provide non-null source and destination streams.");<a name="line.291"></a>
+<span class="sourceLineNo">292</span>    }<a name="line.292"></a>
+<span class="sourceLineNo">293</span><a name="line.293"></a>
+<span class="sourceLineNo">294</span>    int read;<a name="line.294"></a>
+<span class="sourceLineNo">295</span>    byte[] chunk = new byte[bufferSize];<a name="line.295"></a>
+<span class="sourceLineNo">296</span>    while ((read = source.read(chunk)) &gt; 0)<a name="line.296"></a>
+<span class="sourceLineNo">297</span>      destination.write(chunk, 0, read);<a name="line.297"></a>
+<span class="sourceLineNo">298</span>  }<a name="line.298"></a>
+<span class="sourceLineNo">299</span><a name="line.299"></a>
+<span class="sourceLineNo">300</span>  /**<a name="line.300"></a>
+<span class="sourceLineNo">301</span>   * Creates the form field name for the binary attachment filename by stripping off the file extension - for example,<a name="line.301"></a>
+<span class="sourceLineNo">302</span>   * the filename "test.png" would return "test".<a name="line.302"></a>
+<span class="sourceLineNo">303</span>   * <a name="line.303"></a>
+<span class="sourceLineNo">304</span>   * @param binaryAttachment<a name="line.304"></a>
+<span class="sourceLineNo">305</span>   *          The binary attachment for which to create the form field name.<a name="line.305"></a>
+<span class="sourceLineNo">306</span>   * @return The form field name for the given binary attachment.<a name="line.306"></a>
+<span class="sourceLineNo">307</span>   */<a name="line.307"></a>
+<span class="sourceLineNo">308</span>  protected String createFormFieldName(BinaryAttachment binaryAttachment) {<a name="line.308"></a>
+<span class="sourceLineNo">309</span>    String name = binaryAttachment.getFilename();<a name="line.309"></a>
+<span class="sourceLineNo">310</span>    int fileExtensionIndex = name.lastIndexOf(".");<a name="line.310"></a>
+<span class="sourceLineNo">311</span>    return fileExtensionIndex &gt; 0 ? name.substring(0, fileExtensionIndex) : name;<a name="line.311"></a>
+<span class="sourceLineNo">312</span>  }<a name="line.312"></a>
+<span class="sourceLineNo">313</span><a name="line.313"></a>
+<span class="sourceLineNo">314</span>  /**<a name="line.314"></a>
+<span class="sourceLineNo">315</span>   * returns if the binary attachment stream is closed automatically<a name="line.315"></a>
+<span class="sourceLineNo">316</span>   * <a name="line.316"></a>
+<span class="sourceLineNo">317</span>   * @since 1.7.0<a name="line.317"></a>
+<span class="sourceLineNo">318</span>   * @return<a name="line.318"></a>
+<span class="sourceLineNo">319</span>   */<a name="line.319"></a>
+<span class="sourceLineNo">320</span>  public boolean isAutocloseBinaryAttachmentStream() {<a name="line.320"></a>
+<span class="sourceLineNo">321</span>    return autocloseBinaryAttachmentStream;<a name="line.321"></a>
+<span class="sourceLineNo">322</span>  }<a name="line.322"></a>
+<span class="sourceLineNo">323</span><a name="line.323"></a>
+<span class="sourceLineNo">324</span>  /**<a name="line.324"></a>
+<span class="sourceLineNo">325</span>   * define if the binary attachment stream is closed automatically after sending the content to facebook<a name="line.325"></a>
+<span class="sourceLineNo">326</span>   * <a name="line.326"></a>
+<span class="sourceLineNo">327</span>   * @since 1.7.0<a name="line.327"></a>
+<span class="sourceLineNo">328</span>   * @param autocloseBinaryAttachmentStream<a name="line.328"></a>
+<span class="sourceLineNo">329</span>   */<a name="line.329"></a>
+<span class="sourceLineNo">330</span>  public void setAutocloseBinaryAttachmentStream(boolean autocloseBinaryAttachmentStream) {<a name="line.330"></a>
+<span class="sourceLineNo">331</span>    this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;<a name="line.331"></a>
+<span class="sourceLineNo">332</span>  }<a name="line.332"></a>
+<span class="sourceLineNo">333</span><a name="line.333"></a>
+<span class="sourceLineNo">334</span>  @Override<a name="line.334"></a>
+<span class="sourceLineNo">335</span>  public Response executeDelete(String url) throws IOException {<a name="line.335"></a>
+<span class="sourceLineNo">336</span>    return execute(url, HttpMethod.DELETE);<a name="line.336"></a>
+<span class="sourceLineNo">337</span>  }<a name="line.337"></a>
+<span class="sourceLineNo">338</span><a name="line.338"></a>
+<span class="sourceLineNo">339</span>  private Response execute(String url, HttpMethod httpMethod) throws IOException {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>    if (logger.isLoggable(FINE)) {<a name="line.340"></a>
+<span class="sourceLineNo">341</span>      logger.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });<a name="line.341"></a>
+<span class="sourceLineNo">342</span>    }<a name="line.342"></a>
+<span class="sourceLineNo">343</span><a name="line.343"></a>
+<span class="sourceLineNo">344</span>    HttpURLConnection httpUrlConnection = null;<a name="line.344"></a>
+<span class="sourceLineNo">345</span>    InputStream inputStream = null;<a name="line.345"></a>
+<span class="sourceLineNo">346</span><a name="line.346"></a>
+<span class="sourceLineNo">347</span>    try {<a name="line.347"></a>
+<span class="sourceLineNo">348</span>      httpUrlConnection = openConnection(new URL(url));<a name="line.348"></a>
+<span class="sourceLineNo">349</span>      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);<a name="line.349"></a>
+<span class="sourceLineNo">350</span>      httpUrlConnection.setUseCaches(false);<a name="line.350"></a>
+<span class="sourceLineNo">351</span>      httpUrlConnection.setRequestMethod(httpMethod.name());<a name="line.351"></a>
+<span class="sourceLineNo">352</span><a name="line.352"></a>
+<span class="sourceLineNo">353</span>      // Allow subclasses to customize the connection if they'd like to - set<a name="line.353"></a>
+<span class="sourceLineNo">354</span>      // their own headers, timeouts, etc.<a name="line.354"></a>
+<span class="sourceLineNo">355</span>      customizeConnection(httpUrlConnection);<a name="line.355"></a>
 <span class="sourceLineNo">356</span><a name="line.356"></a>
-<span class="sourceLineNo">357</span>      if (logger.isLoggable(FINER)) {<a name="line.357"></a>
-<span class="sourceLineNo">358</span>        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());<a name="line.358"></a>
-<span class="sourceLineNo">359</span>      }<a name="line.359"></a>
-<span class="sourceLineNo">360</span><a name="line.360"></a>
-<span class="sourceLineNo">361</span>      Response response = fetchResponse(inputStream, httpUrlConnection);<a name="line.361"></a>
+<span class="sourceLineNo">357</span>      httpUrlConnection.connect();<a name="line.357"></a>
+<span class="sourceLineNo">358</span><a name="line.358"></a>
+<span class="sourceLineNo">359</span>      if (logger.isLoggable(FINER)) {<a name="line.359"></a>
+<span class="sourceLineNo">360</span>        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());<a name="line.360"></a>
+<span class="sourceLineNo">361</span>      }<a name="line.361"></a>
 <span class="sourceLineNo">362</span><a name="line.362"></a>
-<span class="sourceLineNo">363</span>      if (logger.isLoggable(FINE)) {<a name="line.363"></a>
-<span class="sourceLineNo">364</span>        logger.log(FINE, "Facebook responded with {0}", response);<a name="line.364"></a>
-<span class="sourceLineNo">365</span>      }<a name="line.365"></a>
-<span class="sourceLineNo">366</span><a name="line.366"></a>
-<span class="sourceLineNo">367</span>      return response;<a name="line.367"></a>
-<span class="sourceLineNo">368</span>    } finally {<a name="line.368"></a>
-<span class="sourceLineNo">369</span>      closeQuietly(httpUrlConnection);<a name="line.369"></a>
-<span class="sourceLineNo">370</span>    }<a name="line.370"></a>
-<span class="sourceLineNo">371</span>  }<a name="line.371"></a>
-<span class="sourceLineNo">372</span><a name="line.372"></a>
-<span class="sourceLineNo">373</span>  protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {<a name="line.373"></a>
-<span class="sourceLineNo">374</span>    try {<a name="line.374"></a>
-<span class="sourceLineNo">375</span>      inputStream =<a name="line.375"></a>
-<span class="sourceLineNo">376</span>          httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection<a name="line.376"></a>
-<span class="sourceLineNo">377</span>            .getInputStream();<a name="line.377"></a>
-<span class="sourceLineNo">378</span>    } catch (IOException e) {<a name="line.378"></a>
-<span class="sourceLineNo">379</span>      if (logger.isLoggable(WARNING)) {<a name="line.379"></a>
-<span class="sourceLineNo">380</span>        logger.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()<a name="line.380"></a>
-<span class="sourceLineNo">381</span>            + " request to %s: %s", httpUrlConnection.getURL(), e));<a name="line.381"></a>
-<span class="sourceLineNo">382</span>      }<a name="line.382"></a>
-<span class="sourceLineNo">383</span>    }<a name="line.383"></a>
-<span class="sourceLineNo">384</span><a name="line.384"></a>
-<span class="sourceLineNo">385</span>    return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));<a name="line.385"></a>
-<span class="sourceLineNo">386</span>  }<a name="line.386"></a>
-<span class="sourceLineNo">387</span><a name="line.387"></a>
-<span class="sourceLineNo">388</span>}<a name="line.388"></a>
+<span class="sourceLineNo">363</span>      Response response = fetchResponse(inputStream, httpUrlConnection);<a name="line.363"></a>
+<span class="sourceLineNo">364</span><a name="line.364"></a>
+<span class="sourceLineNo">365</span>      if (logger.isLoggable(FINE)) {<a name="line.365"></a>
+<span class="sourceLineNo">366</span>        logger.log(FINE, "Facebook responded with {0}", response);<a name="line.366"></a>
+<span class="sourceLineNo">367</span>      }<a name="line.367"></a>
+<span class="sourceLineNo">368</span><a name="line.368"></a>
+<span class="sourceLineNo">369</span>      return response;<a name="line.369"></a>
+<span class="sourceLineNo">370</span>    } finally {<a name="line.370"></a>
+<span class="sourceLineNo">371</span>      closeQuietly(httpUrlConnection);<a name="line.371"></a>
+<span class="sourceLineNo">372</span>    }<a name="line.372"></a>
+<span class="sourceLineNo">373</span>  }<a name="line.373"></a>
+<span class="sourceLineNo">374</span><a name="line.374"></a>
+<span class="sourceLineNo">375</span>  protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {<a name="line.375"></a>
+<span class="sourceLineNo">376</span>    try {<a name="line.376"></a>
+<span class="sourceLineNo">377</span>      inputStream =<a name="line.377"></a>
+<span class="sourceLineNo">378</span>          httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection<a name="line.378"></a>
+<span class="sourceLineNo">379</span>            .getInputStream();<a name="line.379"></a>
+<span class="sourceLineNo">380</span>    } catch (IOException e) {<a name="line.380"></a>
+<span class="sourceLineNo">381</span>      if (logger.isLoggable(WARNING)) {<a name="line.381"></a>
+<span class="sourceLineNo">382</span>        logger.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()<a name="line.382"></a>
+<span class="sourceLineNo">383</span>            + " request to %s: %s", httpUrlConnection.getURL(), e));<a name="line.383"></a>
+<span class="sourceLineNo">384</span>      }<a name="line.384"></a>
+<span class="sourceLineNo">385</span>    }<a name="line.385"></a>
+<span class="sourceLineNo">386</span><a name="line.386"></a>
+<span class="sourceLineNo">387</span>    return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));<a name="line.387"></a>
+<span class="sourceLineNo">388</span>  }<a name="line.388"></a>
+<span class="sourceLineNo">389</span><a name="line.389"></a>
+<span class="sourceLineNo">390</span>}<a name="line.390"></a>
 
 
 
