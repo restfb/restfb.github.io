@@ -84,7 +84,7 @@
 <span class="sourceLineNo">076</span>    // Otherwise, use the JSON value of the type.<a name="line.76"></a>
 <span class="sourceLineNo">077</span>    this.value =<a name="line.77"></a>
 <span class="sourceLineNo">078</span>        value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value) : jsonMapper<a name="line.78"></a>
-<span class="sourceLineNo">079</span>          .toJson(value);<a name="line.79"></a>
+<span class="sourceLineNo">079</span>          .toJson(value, true);<a name="line.79"></a>
 <span class="sourceLineNo">080</span>  }<a name="line.80"></a>
 <span class="sourceLineNo">081</span><a name="line.81"></a>
 <span class="sourceLineNo">082</span>  /**<a name="line.82"></a>

@@ -1,6 +1,7 @@
 com.restfb
 com.restfb.batch
 com.restfb.exception
+com.restfb.exception.devicetoken
 com.restfb.experimental.api
 com.restfb.experimental.api.impl
 com.restfb.json
