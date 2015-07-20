@@ -1043,167 +1043,117 @@
 /* global ZeroClipboard */
 
 !function ($) {
-  'use strict';
+    'use strict';
 
-  $(function () {
+    $(function () {
 
-    // Scrollspy
-    var $window = $(window)
-    var $body   = $(document.body)
+	// Scrollspy
+	var $window = $(window)
+	var $body = $(document.body)
+	var navHeight = $('.navbar').outerHeight(true) + 10
 
-    $body.scrollspy({
-      target: '.bs-docs-sidebar'
+	$body.scrollspy({
+	    target: '.bs-docs-sidebar',
+	    offset: navHeight
+	})
+
+	/* smooth scrolling sections */
+	$('a[href*=#]:not([href=#])').click(function () {
+	    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+		var target = $(this.hash);
+		target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+		if (target.length) {
+		    $('html,body').scrollTop(target.offset().top - 50);
+		    /* animated scrolling
+		     $('html,body').animate({
+		     scrollTop: target.offset().top - 50
+		     }, 1000);*/
+		    return false;
+		}
+	    }
+	});
+
+	$window.on('load', function () {
+	    $body.scrollspy('refresh')
+	})
+
+	// Kill links
+	$('.bs-docs-container [href=#]').click(function (e) {
+	    e.preventDefault()
+	})
+
+	// Sidenav affixing
+	setTimeout(function () {
+	    var $sideBar = $('.bs-docs-sidebar')
+
+	    $sideBar.affix({
+		offset: {
+		    top: function () {
+			var offsetTop = $sideBar.offset().top
+			var sideBarMargin = parseInt($sideBar.children(0).css('margin-top'), 10)
+			var navOuterHeight = $('.bs-docs-nav').height()
+			var navBarHeight = $('#top').outerHeight(true) - $('#fixed-nav-header').height();
+
+			return (this.top = offsetTop - navOuterHeight - sideBarMargin + navBarHeight)
+		    },
+		    bottom: function () {
+			return (this.bottom = $('.bs-docs-footer').outerHeight(true))
+		    }
+		}
+	    })
+	}, 100)
+
+	setTimeout(function () {
+	    $('.bs-top').affix()
+	}, 100)
+
+	// Config ZeroClipboard
+	ZeroClipboard.config({
+	    moviePath: '/assets/flash/ZeroClipboard.swf',
+	    hoverClass: 'btn-clipboard-hover'
+	})
+
+	// Insert copy to clipboard button before .highlight
+	$('.highlight').each(function () {
+	    var btnHtml = '<div class="zero-clipboard"><span class="btn-clipboard">Copy</span></div>'
+	    $(this).before(btnHtml)
+	})
+	var zeroClipboard = new ZeroClipboard($('.btn-clipboard'))
+	var htmlBridge = $('#global-zeroclipboard-html-bridge')
+
+	// Handlers for ZeroClipboard
+	zeroClipboard.on('load', function () {
+	    htmlBridge
+		    .data('placement', 'top')
+		    .attr('title', 'Copy to clipboard')
+		    .tooltip()
+	})
+
+	// Copy to clipboard
+	zeroClipboard.on('dataRequested', function (client) {
+	    var highlight = $(this).parent().nextAll('.highlight').first()
+	    client.setText(highlight.text())
+	})
+
+	// Notify copy success and reset tooltip title
+	zeroClipboard.on('complete', function () {
+	    htmlBridge
+		    .attr('title', 'Copied!')
+		    .tooltip('fixTitle')
+		    .tooltip('show')
+		    .attr('title', 'Copy to clipboard')
+		    .tooltip('fixTitle')
+	})
+
+	// Notify copy failure
+	zeroClipboard.on('noflash wrongflash', function () {
+	    htmlBridge
+		    .attr('title', 'Flash required')
+		    .tooltip('fixTitle')
+		    .tooltip('show')
+	})
+
     })
-    $window.on('load', function () {
-      $body.scrollspy('refresh')
-    })
-
-    // Kill links
-    $('.bs-docs-container [href=#]').click(function (e) {
-      e.preventDefault()
-    })
-
-    // Sidenav affixing
-    setTimeout(function () {
-      var $sideBar = $('.bs-docs-sidebar')
-
-      $sideBar.affix({
-        offset: {
-          top: function () {
-            var offsetTop      = $sideBar.offset().top
-            var sideBarMargin  = parseInt($sideBar.children(0).css('margin-top'), 10)
-            var navOuterHeight = $('.bs-docs-nav').height()
-            var navBarHeight   = $('#top').outerHeight(true) - $('#fixed-nav-header').height();
-
-            return (this.top = offsetTop - navOuterHeight - sideBarMargin + navBarHeight)
-          },
-          bottom: function () {
-            return (this.bottom = $('.bs-docs-footer').outerHeight(true))
-          }
-        }
-      })
-    }, 100)
-
-    setTimeout(function () {
-      $('.bs-top').affix()
-    }, 100)
-
-    // theme toggler
-    ;(function () {
-      var stylesheetLink = $('#bs-theme-stylesheet')
-      var themeBtn = $('.bs-docs-theme-toggle')
-
-      var activateTheme = function () {
-        stylesheetLink.attr('href', stylesheetLink.attr('data-href'))
-        themeBtn.text('Disable theme preview')
-        localStorage.setItem('previewTheme', true)
-      }
-
-      if (localStorage.getItem('previewTheme')) {
-        activateTheme()
-      }
-
-      themeBtn.click(function () {
-        var href = stylesheetLink.attr('href')
-        if (!href || href.indexOf('data') === 0) {
-          activateTheme()
-        } else {
-          stylesheetLink.attr('href', '')
-          themeBtn.text('Preview theme')
-          localStorage.removeItem('previewTheme')
-        }
-      })
-    })();
-
-    // Tooltip and popover demos
-    $('.tooltip-demo').tooltip({
-      selector: '[data-toggle="tooltip"]',
-      container: 'body'
-    })
-    $('.popover-demo').popover({
-      selector: '[data-toggle="popover"]',
-      container: 'body'
-    })
-
-    // Demos within modals
-    $('.tooltip-test').tooltip()
-    $('.popover-test').popover()
-
-    // Popover demos
-    $('.bs-docs-popover').popover()
-
-    // Button state demo
-    $('#loading-example-btn').on('click', function () {
-      var btn = $(this)
-      btn.button('loading')
-      setTimeout(function () {
-        btn.button('reset')
-      }, 3000)
-    })
-
-    // Modal relatedTarget demo
-    $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    })
-
-    // Activate animated progress bar
-    $('.bs-docs-activate-animated-progressbar').on('click', function () {
-      $(this).siblings('.progress').find('.progress-bar-striped').toggleClass('active')
-    })
-
-    // Config ZeroClipboard
-    ZeroClipboard.config({
-      moviePath: '/assets/flash/ZeroClipboard.swf',
-      hoverClass: 'btn-clipboard-hover'
-    })
-
-    // Insert copy to clipboard button before .highlight
-    $('.highlight').each(function () {
-      var btnHtml = '<div class="zero-clipboard"><span class="btn-clipboard">Copy</span></div>'
-      $(this).before(btnHtml)
-    })
-    var zeroClipboard = new ZeroClipboard($('.btn-clipboard'))
-    var htmlBridge = $('#global-zeroclipboard-html-bridge')
-
-    // Handlers for ZeroClipboard
-    zeroClipboard.on('load', function () {
-      htmlBridge
-        .data('placement', 'top')
-        .attr('title', 'Copy to clipboard')
-        .tooltip()
-    })
-
-    // Copy to clipboard
-    zeroClipboard.on('dataRequested', function (client) {
-      var highlight = $(this).parent().nextAll('.highlight').first()
-      client.setText(highlight.text())
-    })
-
-    // Notify copy success and reset tooltip title
-    zeroClipboard.on('complete', function () {
-      htmlBridge
-        .attr('title', 'Copied!')
-        .tooltip('fixTitle')
-        .tooltip('show')
-        .attr('title', 'Copy to clipboard')
-        .tooltip('fixTitle')
-    })
-
-    // Notify copy failure
-    zeroClipboard.on('noflash wrongflash', function () {
-      htmlBridge
-        .attr('title', 'Flash required')
-        .tooltip('fixTitle')
-        .tooltip('show')
-    })
-
-  })
 
 }(jQuery)
 /**
@@ -1310,25 +1260,25 @@ return g._start.call({},s);};}());Date._parse=Date.parse;Date.parse=function(s){
 try{r=Date.Grammar.start.call({},s);}catch(e){return null;}
 return((r[1].length===0)?r[0]:null);};Date.getParseFunction=function(fx){var fn=Date.Grammar.formats(fx);return function(s){var r=null;try{r=fn.call({},s);}catch(e){return null;}
 return((r[1].length===0)?r[0]:null);};};Date.parseExact=function(s,fx){return Date.getParseFunction(fx)(s);};
-$(document).ready(function() {
-     var url =  "https://api.github.com/repos/restfb/restfb/releases";
-     $.getJSON(url + "?callback=?", null, function(releases) {
+$(document).ready(function () {
+    var url = "https://api.github.com/repos/restfb/restfb/releases";
+    $.getJSON(url + "?callback=?", null, function (releases) {
 
 	if (releases.data.length > 0) {
 	    var tag = releases.data[0].tag_name.substring(1);
 	    var date = new Date(releases.data[0].created_at).toString("MMMM d, yyyy");
 	    $("#restfb-version").text("Version " + tag);
 	    $("#restfb-release-date").text("(released " + date + ")");
-      var zipURL = releases.data[0].html_url;
-      if ("application/zip" == releases.data[0].assets[0].content_type) {
-        zipURL = releases.data[0].assets[0].browser_download_url;
-      }
+	    var zipURL = releases.data[0].html_url;
+	    if ("application/zip" == releases.data[0].assets[0].content_type) {
+		zipURL = releases.data[0].assets[0].browser_download_url;
+	    }
 
-      if ("application/zip" == releases.data[0].assets[1].content_type) {
-        zipURL = releases.data[0].assets[1].browser_download_url;
-      }
+	    if ("application/zip" == releases.data[0].assets[1].content_type) {
+		zipURL = releases.data[0].assets[1].browser_download_url;
+	    }
 
-      $("#downloadURL").attr("href", zipURL);
+	    $("#downloadURL").attr("href", zipURL);
 	}
     });
 });
