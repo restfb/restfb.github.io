@@ -268,7 +268,7 @@
 <span class="sourceLineNo">260</span>    parameters.add(Parameter.with("queries", queriesToJson(queries)));<a name="line.260"></a>
 <span class="sourceLineNo">261</span><a name="line.261"></a>
 <span class="sourceLineNo">262</span>    for (Parameter additionalParameter : additionalParameters) {<a name="line.262"></a>
-<span class="sourceLineNo">263</span>      if (additionalParameter.name.equals("queries")) {<a name="line.263"></a>
+<span class="sourceLineNo">263</span>      if ("queries".equals(additionalParameter.name)) {<a name="line.263"></a>
 <span class="sourceLineNo">264</span>        throw new IllegalArgumentException("You cannot specify a parameter named 'queries' "<a name="line.264"></a>
 <span class="sourceLineNo">265</span>            + "because it's reserved for use by RestFB for this call. "<a name="line.265"></a>
 <span class="sourceLineNo">266</span>            + "Specify your queries in the Map that gets passed to this method.");<a name="line.266"></a>

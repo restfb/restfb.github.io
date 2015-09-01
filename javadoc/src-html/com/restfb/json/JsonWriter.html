@@ -64,7 +64,7 @@
 <span class="sourceLineNo">056</span> * @version 2008-09-22<a name="line.56"></a>
 <span class="sourceLineNo">057</span> */<a name="line.57"></a>
 <span class="sourceLineNo">058</span>public class JsonWriter {<a name="line.58"></a>
-<span class="sourceLineNo">059</span>  private static final int maxdepth = 20;<a name="line.59"></a>
+<span class="sourceLineNo">059</span>  private static final int MAX_DEPTH = 20;<a name="line.59"></a>
 <span class="sourceLineNo">060</span><a name="line.60"></a>
 <span class="sourceLineNo">061</span>  /**<a name="line.61"></a>
 <span class="sourceLineNo">062</span>   * The comma flag determines if a comma should be output before the next value.<a name="line.62"></a>
@@ -97,7 +97,7 @@
 <span class="sourceLineNo">089</span>  public JsonWriter(Writer w) {<a name="line.89"></a>
 <span class="sourceLineNo">090</span>    this.comma = false;<a name="line.90"></a>
 <span class="sourceLineNo">091</span>    this.mode = 'i';<a name="line.91"></a>
-<span class="sourceLineNo">092</span>    this.stack = new JsonObject[maxdepth];<a name="line.92"></a>
+<span class="sourceLineNo">092</span>    this.stack = new JsonObject[MAX_DEPTH];<a name="line.92"></a>
 <span class="sourceLineNo">093</span>    this.top = 0;<a name="line.93"></a>
 <span class="sourceLineNo">094</span>    this.writer = w;<a name="line.94"></a>
 <span class="sourceLineNo">095</span>  }<a name="line.95"></a>
@@ -282,7 +282,7 @@
 <span class="sourceLineNo">274</span>   *           If nesting is too deep.<a name="line.274"></a>
 <span class="sourceLineNo">275</span>   */<a name="line.275"></a>
 <span class="sourceLineNo">276</span>  private void push(JsonObject jo) {<a name="line.276"></a>
-<span class="sourceLineNo">277</span>    if (this.top &gt;= maxdepth) {<a name="line.277"></a>
+<span class="sourceLineNo">277</span>    if (this.top &gt;= MAX_DEPTH) {<a name="line.277"></a>
 <span class="sourceLineNo">278</span>      throw new JsonException("Nesting too deep.");<a name="line.278"></a>
 <span class="sourceLineNo">279</span>    }<a name="line.279"></a>
 <span class="sourceLineNo">280</span>    this.stack[this.top] = jo;<a name="line.280"></a>

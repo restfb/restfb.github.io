@@ -367,7 +367,7 @@
 <span class="sourceLineNo">359</span>    back();<a name="line.359"></a>
 <span class="sourceLineNo">360</span><a name="line.360"></a>
 <span class="sourceLineNo">361</span>    s = sb.toString().trim();<a name="line.361"></a>
-<span class="sourceLineNo">362</span>    if (s.equals("")) {<a name="line.362"></a>
+<span class="sourceLineNo">362</span>    if ("".equals(s)) {<a name="line.362"></a>
 <span class="sourceLineNo">363</span>      throw syntaxError("Missing value");<a name="line.363"></a>
 <span class="sourceLineNo">364</span>    }<a name="line.364"></a>
 <span class="sourceLineNo">365</span>    return JsonObject.stringToValue(s);<a name="line.365"></a>
@@ -418,10 +418,11 @@
 <span class="sourceLineNo">410</span>   * <a name="line.410"></a>
 <span class="sourceLineNo">411</span>   * @return " at character [this.index]"<a name="line.411"></a>
 <span class="sourceLineNo">412</span>   */<a name="line.412"></a>
-<span class="sourceLineNo">413</span>  public String toString() {<a name="line.413"></a>
-<span class="sourceLineNo">414</span>    return " at character " + index;<a name="line.414"></a>
-<span class="sourceLineNo">415</span>  }<a name="line.415"></a>
-<span class="sourceLineNo">416</span>}<a name="line.416"></a>
+<span class="sourceLineNo">413</span>  @Override<a name="line.413"></a>
+<span class="sourceLineNo">414</span>  public String toString() {<a name="line.414"></a>
+<span class="sourceLineNo">415</span>    return " at character " + index;<a name="line.415"></a>
+<span class="sourceLineNo">416</span>  }<a name="line.416"></a>
+<span class="sourceLineNo">417</span>}<a name="line.417"></a>
 
 
 

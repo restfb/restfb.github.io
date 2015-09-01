@@ -1175,16 +1175,16 @@
 <span class="sourceLineNo">1167</span>   * @return A simple JSON value.<a name="line.1167"></a>
 <span class="sourceLineNo">1168</span>   */<a name="line.1168"></a>
 <span class="sourceLineNo">1169</span>  static public Object stringToValue(String s) {<a name="line.1169"></a>
-<span class="sourceLineNo">1170</span>    if (s.equals("")) {<a name="line.1170"></a>
+<span class="sourceLineNo">1170</span>    if ("".equals(s)) {<a name="line.1170"></a>
 <span class="sourceLineNo">1171</span>      return s;<a name="line.1171"></a>
 <span class="sourceLineNo">1172</span>    }<a name="line.1172"></a>
-<span class="sourceLineNo">1173</span>    if (s.equalsIgnoreCase("true")) {<a name="line.1173"></a>
+<span class="sourceLineNo">1173</span>    if ("true".equalsIgnoreCase(s)) {<a name="line.1173"></a>
 <span class="sourceLineNo">1174</span>      return Boolean.TRUE;<a name="line.1174"></a>
 <span class="sourceLineNo">1175</span>    }<a name="line.1175"></a>
-<span class="sourceLineNo">1176</span>    if (s.equalsIgnoreCase("false")) {<a name="line.1176"></a>
+<span class="sourceLineNo">1176</span>    if ("false".equalsIgnoreCase(s)) {<a name="line.1176"></a>
 <span class="sourceLineNo">1177</span>      return Boolean.FALSE;<a name="line.1177"></a>
 <span class="sourceLineNo">1178</span>    }<a name="line.1178"></a>
-<span class="sourceLineNo">1179</span>    if (s.equalsIgnoreCase("null")) {<a name="line.1179"></a>
+<span class="sourceLineNo">1179</span>    if ("null".equalsIgnoreCase(s)) {<a name="line.1179"></a>
 <span class="sourceLineNo">1180</span>      return JsonObject.NULL;<a name="line.1180"></a>
 <span class="sourceLineNo">1181</span>    }<a name="line.1181"></a>
 <span class="sourceLineNo">1182</span><a name="line.1182"></a>
