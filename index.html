@@ -217,6 +217,23 @@ public class FetchObjectsResults {
 }</code></pre></div>
 
 			<h2 id="fetching-connections">Fetching Objects</h2>
+      <p>
+        Some requests - like the comments of a post - a returned as list. Because
+        these lists can be very large, Facebook provides a paging mechanism.
+      </p>
+      <p>
+        RestFB supports the paging, but you need to fetch the endpoint with the
+        special <code>FacebookClient.fetchConnection()</code> method. One page of a pageable result
+        set is called connection. Now you can iterate over the connection and you'll
+        get a lot of lists of the fetched element. The loading of the next list is
+        automatically done by RestFB so you don't need to know how the URLs are build.
+      </p>
+      <p>
+        A common usecase is to fetch all elements of a specific endpoint and work with
+        these items. You can manage this by a nested iteration. So you iterate over the
+        connections and iterate over the list in one connection. These sounds a bit
+        complicated, but the following source code example shows how it works.
+      </p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 Connection&lt;User&gt; myFriends = facebookClient.fetchConnection("me/friends", User.class);
 Connection&lt;Post&gt; myFeed = facebookClient.fetchConnection("me/feed", Post.class);
@@ -229,6 +246,21 @@ out.println("First item in my feed: " + myFeed.getData().get(0));
 for (List&lt;Post&gt; myFeedConnectionPage : myFeed)
   for (Post post : myFeedConnectionPage)
     out.println("Post: " + post);</code></pre></div>
+
+<p>
+  In some rare cases you need to prevent RestFB from automatically load further results.
+  So you must not use the normal iteration process and use a different approach instead.
+  You can simply work with the very common iterator pattern. Or you can use the
+  <code>Connection.hasNext()</code> and <code>Connection.next()</code> methods on a connection-object.
+</p>
+<p>
+  For debugging purpose you can call the <code>Connection.getNextPageUrl()</code> or
+  <code>Connection.getPreviousPageUrl()</code> and do something important with the returned string.
+  It will contain the exact url containing the access token and additional query parameters to
+  fetch the next or the previous page.
+</p>
+
+
 			<h2 id="fetching-insights">Fetching Insights</h2>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Fetching Insights data is as simple as fetching a Connection
