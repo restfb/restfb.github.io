@@ -632,7 +632,7 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());
 
 facebookClient.publish("me/videos", FacebookType.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
-  Parameter.with("message", "Test cat"));</code></pre></div>
+  Parameter.with("description", "Test cat"));</code></pre></div>
 			<h2 id="publishing-checkin">Publishing a Checkin</h2>
 			see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>
 
@@ -727,7 +727,7 @@ List&lt;BatchRequest&gt; batchRequests = Arrays.asList(
   new BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build(),
   new BatchRequestBuilder("me/videos")
     .attachedFiles("cat-vid, cat-vid-2")
-    .body(Parameter.with("message", "This cat is hilarious"))
+    .body(Parameter.with("description", "This cat is hilarious"))
     .build());
 
 // Define the list of attachments to include in the batch.
