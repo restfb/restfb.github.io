@@ -182,6 +182,18 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_AP
 		    <div class="bs-docs-section">
 			<h1 id="fetching" class="page-header">Fetching</h1>
 			<h2 id="fetching-single-objects">Fetching Single Objects</h2>
+			<p>
+				The simplest way to fetch an object from Facebook is the <code>fetchObject</code> method. To use
+				this method you need at least the endpoint you want to access and the result <a 
+				href="#supported-graph-object-types">type</a>.
+			</p>
+			<p>
+				The endpoint can be found in the <a href="https://developers.facebook.com/docs/graph-api/reference" 
+				target="_blank">Facebook Graph API Reference</a>. There you find the correct syntax for the endpoint
+				and how the response json is defined by Facebook. The type you have to provide is a concrete mapping 
+				between json and a java entities. 
+			</p>
+			
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // For all API calls, you need to tell RestFB how to turn the JSON
 // returned by Facebook into Java objects.  In this case, the data
