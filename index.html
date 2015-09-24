@@ -337,21 +337,52 @@ com.restfb.level=WARNING</code></pre></div>
 		    </div>
 		    <div class="bs-docs-section">
 			<h1 id="searching" class="page-header">Searching</h1>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>
 
+			<p>
+			    With RestFB it is very easy to search on Facebook. But before we go deeper in this topic, you
+				need to know some basic information. First Facebook makes a difference between the public search
+				and the targeted search. With the public search you can search for public information and get some 
+				useful insights in what's going on at Facebook. The targeted search is another approach to filter your
+				private information.  
+			</p>
+			<p>
+				The public search uses a special endpoint called <code>search</code>. You have to provide a 
+				query string (<code>q</code>) and a type parameter (<code>type</code>). With these information you get
+				the normal RestFB objects. As a short example: you use for user with the name "Mark" you get a 
+				list of User-objects. Because you receive a list, you have to use the <code>Connection</code> 
+				pattern RestFB provides.
+			</p>
+			<div class="bs-callout bs-callout-warning">
+				<h4>Public search for posts is not longer supported</h4>
+				<div>With Graph API 2.0 Facebook discontinued the support for the search type <code>post</code>. So
+					you cannot longer search for posts and you have to be careful, because some old tutorials are not
+					updated.
+				</div>
+			</div>
+			<p>
+				The supported public search types are <code>user</code>, <code>page</code>, <code>event</code>, 
+				<code>group</code>, <code>place</code>, <code>placetopic</code> and <code>ad_*</code>. Some types like 
+				place for example need additional parameters so you should have a look 
+				at the <a href="https://developers.facebook.com/docs/graph-api/using-graph-api/#search" target="_blank">Facebook Graph API Search documentation.</a> 
+			</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Searching is just a special case of fetching Connections -
 // all you have to do is pass along a few extra parameters.
 
-Connection&lt;Post&gt; publicSearch =
-  facebookClient.fetchConnection("search", Post.class,
-    Parameter.with("q", "watermelon"), Parameter.with("type", "post"));
-
+Connection&lt;User&gt; publicSearch =
+  facebookClient.fetchConnection("search", User.class,
+    Parameter.with("q", "Mark"), Parameter.with("type", "user"));
+			</code></pre></div>
+			<p>
+				With the "targeted search" you are able to search in a user home. You can simply call 
+				the <code>/me/home</code> endpoint and add the <code>q</code> parameter as mentioned in
+				the sections above.
+			</p>
+			<div class="highlight"><pre><code class="language-java" data-lang="java">
 Connection&lt;User&gt; targetedSearch =
   facebookClient.fetchConnection("me/home", User.class,
     Parameter.with("q", "Mark"), Parameter.with("type", "user"));
 
-out.println("Public search: " + publicSearch.getData().get(0).getMessage());
 out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</code></pre></div>
 
 		    </div>
