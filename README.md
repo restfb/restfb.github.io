@@ -1,5 +1,5 @@
 # restfb.github.io
-the restfb website
+The RestFB website
 
 ## how to generate the minimized files
 The css and javascript files are generated from some easy to read files and combined afterwards by gradle.
