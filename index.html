@@ -150,15 +150,15 @@
 
             <h3>Working with source code</h3>
 
-                <p>It's easy possible to work directly with the RestFB source code. This is necessary if you need to use a not released version or
-                you want to contribute to the code. It's very important to know that RestFB is using the <a href="https://projectlombok.org/" target="_self">lombok</a>
-					code generator. So all types use only annotations to generate the boilerplate code for the
-					<code>setter</code> and <code>getter</code>. It's important to know, we made the design decision to
-					handle lists and maps differently. So the <a href="https://projectlombok.org/features/GetterSetter.html" target="_self">lombok</a>
+                <p>It's easy to work directly with the RestFB source code. This is necessary if you need to use an unreleased version or
+                 want to contribute to the code. It's very important to know that RestFB is using the <a href="https://projectlombok.org/" target="_self">lombok</a>
+					code generator. All types use special annotations to generate the boilerplate code for the
+					<code>setter</code>s and <code>getter</code>s. It's important to know that we made the design decision to
+					handle <code>List</code>s and <code>Map</code>s differently - the <a href="https://projectlombok.org/features/GetterSetter.html" target="_self">lombok</a>
 					annotations are not used for them and we provide <code>add</code>, <code>remove</code> and
-					<code>getList</code> methods. The returned list is immutable to prevent inner lists and maps
+					<code>getList</code> methods. The returned <code>List</code> is immutable to prevent inner <code>List</code>s and <code>Map</code>s
                     from being altered in other object. This idea can be found
-					at <a href="http://martinfowler.com/bliki/EncapsulatedCollection.html" target="_self">Martin Fowlers</a> blog.
+					at <a href="http://martinfowler.com/bliki/EncapsulatedCollection.html" target="_self">Martin Fowler's blog</a>.
                 </p>
                 <p>
                     You have to install lombok in your IDE to compile RestFB. If you don't do this, you will see a lot of compile errors and
@@ -174,7 +174,7 @@
                 <ul>
                     <li>The code must be formatted with our code formatter (have a look at the misc folder)</li>
                     <li>The code must meet our design decisions</li>
-                    <li>Existing unit have to run without error (we use a CI)</li>
+                    <li>Existing unit tests have to run without error (we use a CI)</li>
                     <li>The pull request should be mergeable</li>
                     <li>Explain why you made the change and what's the benefit</li>
                     <li>jUnit tests are a big plus</li>
@@ -182,14 +182,14 @@
                     <li>Group and squash your commits, less are better</li>
                 </ul>
                 <p>
-                    This conditions are defined to make everyones life easier and get less conflicts while merging a pull request
-                    into the dev branch. So if you put some work in a pull request and it meets almost all conditions
-                    it's very likely we merge it the same day.
+                    This conditions are defined to make everyone's lives easier and cause fewer conflicts when merging a pull request
+                    into the dev branch. If you put some work in a pull request and it meets our requirements,
+                    it's very likely we'll merge it the same day.
                 </p>
                 <p>
                     If you don't want to dive into the RestFB code you may
 					open an <a href="https://github.com/restfb/restfb/issues" target="_self">issue</a>. We are very thankful for every
-                    issue you open. No matter what kind it is. We solve bugs, explain Facebook and answer your RestFB or
+                    issue you open, no matter what kind it is. We solve bugs, explain Facebook and answer your RestFB or
                     Facebook questions.
                 </p>
 			<div class="bs-callout bs-callout-warning" role="alert">
@@ -233,9 +233,9 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_AP
 			</p>
 			<p>
 				The endpoint can be found in the <a href="https://developers.facebook.com/docs/graph-api/reference" 
-				target="_blank">Facebook Graph API Reference</a>. There you find the correct syntax for the endpoint
+				target="_blank">Facebook Graph API Reference</a>. There you can find the correct syntax for the endpoint
 				and how the response json is defined by Facebook. The type you have to provide is a concrete mapping 
-				between json and a java entities. 
+				between the json and a java object. 
 			</p>
 			
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
@@ -395,30 +395,29 @@ com.restfb.level=WARNING</code></pre></div>
 			<h1 id="searching" class="page-header">Searching</h1>
 
 			<p>
-			    With RestFB it is very easy to search on Facebook. But before we go deeper in this topic, you
-				need to know some basic information. First Facebook makes a difference between the public search
-				and the targeted search. With the public search you can search for public information and get some 
+			    With RestFB it is very easy to search Facebook. But before we go deeper in this topic, you
+				need to know some basic information. First, Facebook differentiates between the public search
+				and the targeted search. With the public search, you can search for public information and get some 
 				useful insights in what's going on at Facebook. The targeted search is another approach to filter your
 				private information.  
 			</p>
 			<p>
 				The public search uses a special endpoint called <code>search</code>. You have to provide a 
-				query string (<code>q</code>) and a type parameter (<code>type</code>). With these information you get
-				the normal RestFB objects. As a short example: you use for user with the name "Mark" you get a 
-				list of User-objects. Because you receive a list, you have to use the <code>Connection</code> 
+				query string (<code>q</code>) and a type parameter (<code>type</code>). With this technique, you'll get
+				back data that can be marshaled to the normal RestFB types. For example, you might search for a user with the name "Mark" and get back a 
+				<code>List</code> of <code>User</code> objects. Because you receive a <code>List</code>, you have to use the <code>Connection</code> 
 				pattern RestFB provides.
 			</p>
 			<div class="bs-callout bs-callout-warning">
-				<h4>Public search for posts is not longer supported</h4>
-				<div>With Graph API 2.0 Facebook discontinued the support for the search type <code>post</code>. So
-					you cannot longer search for posts and you have to be careful, because some old tutorials are not
-					updated.
+				<h4>Public search for posts is no longer supported</h4>
+				<div>With Graph API 2.0, Facebook discontinued support for the search type <code>Post</code>. As a result,
+					you can no longer search for user posts.  Be careful - some old tutorials are not updated yet!
 				</div>
 			</div>
 			<p>
 				The supported public search types are <code>user</code>, <code>page</code>, <code>event</code>, 
 				<code>group</code>, <code>place</code>, <code>placetopic</code> and <code>ad_*</code>. Some types like 
-				place for example need additional parameters so you should have a look 
+				place need additional parameters so you should have a look 
 				at the <a href="https://developers.facebook.com/docs/graph-api/using-graph-api/#search" target="_blank">Facebook Graph API Search documentation.</a> 
 			</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
@@ -430,7 +429,7 @@ Connection&lt;User&gt; publicSearch =
     Parameter.with("q", "Mark"), Parameter.with("type", "user"));
 			</code></pre></div>
 			<p>
-				With the "targeted search" you are able to search in a user home. You can simply call 
+				With "targeted search" you are able to search in a user's home, a.k.a. news feed. You can simply call 
 				the <code>/me/home</code> endpoint and add the <code>q</code> parameter as mentioned in
 				the sections above.
 			</p>
@@ -1058,7 +1057,7 @@ $ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</code></pre></div>
 		    <h1 id="supported-marketing-types" class="page-header">Supported Marketing Types</h1>
 		    <p>
           Since version 1.15.0, RestFB supports the Facebook Marketing API. Because Facebook does not provide
-          some kind of sandbox mode, all types are implemented as defined in the Facebook Marketing API Reference.
+          a sandbox mode, all types are implemented as defined in the Facebook Marketing API Reference.
 		    </p>
         <div class="bs-callout bs-callout-warning" role="alert">
           <h4>Marketing API support is still beta</h4>
