@@ -155,8 +155,8 @@
 					code generator. All types use special annotations to generate the boilerplate code for the
 					<code>setter</code>s and <code>getter</code>s. It's important to know that we made the design decision to
 					handle <code>List</code>s and <code>Map</code>s differently - the <a href="https://projectlombok.org/features/GetterSetter.html" target="_self">lombok</a>
-					annotations are not used for them and we provide <code>add</code>, <code>remove</code> and
-					<code>getList</code> methods. The returned <code>List</code> is immutable to prevent inner <code>List</code>s and <code>Map</code>s
+					annotations are not used for them and we provide <code>add()</code>, <code>remove()</code> and
+					<code>getList()</code> methods. The returned <code>List</code> is immutable to prevent inner <code>List</code>s and <code>Map</code>s
                     from being altered in other object. This idea can be found
 					at <a href="http://martinfowler.com/bliki/EncapsulatedCollection.html" target="_self">Martin Fowler's blog</a>.
                 </p>
