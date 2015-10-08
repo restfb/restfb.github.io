@@ -7,4 +7,5 @@ com.restfb.experimental.api.impl
 com.restfb.json
 com.restfb.scope
 com.restfb.types
+com.restfb.types.ads
 com.restfb.util

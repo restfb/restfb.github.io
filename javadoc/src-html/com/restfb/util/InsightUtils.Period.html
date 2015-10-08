@@ -33,393 +33,383 @@
 <span class="sourceLineNo">025</span>import static java.lang.String.format;<a name="line.25"></a>
 <span class="sourceLineNo">026</span>import static java.util.Collections.singleton;<a name="line.26"></a>
 <span class="sourceLineNo">027</span><a name="line.27"></a>
-<span class="sourceLineNo">028</span>import java.util.ArrayList;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>import java.util.Calendar;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import java.util.Collection;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>import java.util.Collections;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>import java.util.Date;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import java.util.Iterator;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import java.util.LinkedHashMap;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>import java.util.List;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>import java.util.Map;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>import java.util.Set;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>import java.util.SortedMap;<a name="line.38"></a>
-<span class="sourceLineNo">039</span>import java.util.SortedSet;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>import java.util.TimeZone;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import java.util.TreeMap;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>import java.util.TreeSet;<a name="line.42"></a>
-<span class="sourceLineNo">043</span><a name="line.43"></a>
-<span class="sourceLineNo">044</span>import com.restfb.FacebookClient;<a name="line.44"></a>
-<span class="sourceLineNo">045</span>import com.restfb.exception.FacebookJsonMappingException;<a name="line.45"></a>
-<span class="sourceLineNo">046</span>import com.restfb.json.JsonArray;<a name="line.46"></a>
-<span class="sourceLineNo">047</span>import com.restfb.json.JsonException;<a name="line.47"></a>
-<span class="sourceLineNo">048</span>import com.restfb.json.JsonObject;<a name="line.48"></a>
-<span class="sourceLineNo">049</span><a name="line.49"></a>
-<span class="sourceLineNo">050</span>/**<a name="line.50"></a>
-<span class="sourceLineNo">051</span> * Utility methods to ease querying &lt;a target="_blank"<a name="line.51"></a>
-<span class="sourceLineNo">052</span> * href="http://developers.facebook.com/docs/reference/fql/insights/"&gt;Insight Metrics&lt;/a&gt; over a set of dates.<a name="line.52"></a>
-<span class="sourceLineNo">053</span> * <a name="line.53"></a>
-<span class="sourceLineNo">054</span> * @author Andrew Liles<a name="line.54"></a>
-<span class="sourceLineNo">055</span> * @since 1.6.10<a name="line.55"></a>
-<span class="sourceLineNo">056</span> */<a name="line.56"></a>
-<span class="sourceLineNo">057</span>public class InsightUtils {<a name="line.57"></a>
-<span class="sourceLineNo">058</span>  /**<a name="line.58"></a>
-<span class="sourceLineNo">059</span>   * Represents a time period for Facebook Insights queries.<a name="line.59"></a>
-<span class="sourceLineNo">060</span>   */<a name="line.60"></a>
-<span class="sourceLineNo">061</span>  public enum Period {<a name="line.61"></a>
-<span class="sourceLineNo">062</span>    DAY(60 * 60 * 24), WEEK(60 * 60 * 24 * 7), DAYS_28(60 * 60 * 24 * 28), MONTH(2592000), LIFETIME(0);<a name="line.62"></a>
+<span class="sourceLineNo">028</span>import com.restfb.FacebookClient;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.restfb.exception.FacebookJsonMappingException;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.restfb.json.JsonArray;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.restfb.json.JsonException;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.restfb.json.JsonObject;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import java.util.*;<a name="line.34"></a>
+<span class="sourceLineNo">035</span><a name="line.35"></a>
+<span class="sourceLineNo">036</span>/**<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * Utility methods to ease querying<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * &lt;a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights/"&gt;Insight Metrics&lt;/a&gt; over a set<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * of dates.<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * <a name="line.40"></a>
+<span class="sourceLineNo">041</span> * @author Andrew Liles<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * @since 1.6.10<a name="line.42"></a>
+<span class="sourceLineNo">043</span> */<a name="line.43"></a>
+<span class="sourceLineNo">044</span>public class InsightUtils {<a name="line.44"></a>
+<span class="sourceLineNo">045</span>  /**<a name="line.45"></a>
+<span class="sourceLineNo">046</span>   * Represents a time period for Facebook Insights queries.<a name="line.46"></a>
+<span class="sourceLineNo">047</span>   */<a name="line.47"></a>
+<span class="sourceLineNo">048</span>  public enum Period {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    DAY(60 * 60 * 24), WEEK(60 * 60 * 24 * 7), DAYS_28(60 * 60 * 24 * 28), MONTH(2592000), LIFETIME(0);<a name="line.49"></a>
+<span class="sourceLineNo">050</span><a name="line.50"></a>
+<span class="sourceLineNo">051</span>    private final int periodLength;<a name="line.51"></a>
+<span class="sourceLineNo">052</span><a name="line.52"></a>
+<span class="sourceLineNo">053</span>    private Period(int periodLength) {<a name="line.53"></a>
+<span class="sourceLineNo">054</span>      this.periodLength = periodLength;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    }<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>    public int getPeriodLength() {<a name="line.57"></a>
+<span class="sourceLineNo">058</span>      return periodLength;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>    }<a name="line.59"></a>
+<span class="sourceLineNo">060</span>  }<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>  private static final TimeZone PST_TIMEZONE = TimeZone.getTimeZone("PST");<a name="line.62"></a>
 <span class="sourceLineNo">063</span><a name="line.63"></a>
-<span class="sourceLineNo">064</span>    private final int periodLength;<a name="line.64"></a>
-<span class="sourceLineNo">065</span><a name="line.65"></a>
-<span class="sourceLineNo">066</span>    private Period(int periodLength) {<a name="line.66"></a>
-<span class="sourceLineNo">067</span>      this.periodLength = periodLength;<a name="line.67"></a>
-<span class="sourceLineNo">068</span>    }<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>    public int getPeriodLength() {<a name="line.70"></a>
-<span class="sourceLineNo">071</span>      return periodLength;<a name="line.71"></a>
-<span class="sourceLineNo">072</span>    }<a name="line.72"></a>
-<span class="sourceLineNo">073</span>  }<a name="line.73"></a>
-<span class="sourceLineNo">074</span><a name="line.74"></a>
-<span class="sourceLineNo">075</span>  private static final TimeZone PST_TIMEZONE = TimeZone.getTimeZone("PST");<a name="line.75"></a>
-<span class="sourceLineNo">076</span><a name="line.76"></a>
-<span class="sourceLineNo">077</span>  /**<a name="line.77"></a>
-<span class="sourceLineNo">078</span>   * Queries Facebook via FQL for several Insights at different date points.<a name="line.78"></a>
-<span class="sourceLineNo">079</span>   * &lt;p&gt;<a name="line.79"></a>
-<span class="sourceLineNo">080</span>   * The output groups the result by metric and then by date, matching the input arguments. Map entries may be<a name="line.80"></a>
-<span class="sourceLineNo">081</span>   * {@code null} if Facebook does not return corresponding data, e.g. when you query a metric which is not available at<a name="line.81"></a>
-<span class="sourceLineNo">082</span>   * the chosen period. The inner {@code Map}'s {@code Object} value may be a strongly typed value for some metrics, but<a name="line.82"></a>
-<span class="sourceLineNo">083</span>   * in other cases Facebook returns a {@code JsonObject}.<a name="line.83"></a>
-<span class="sourceLineNo">084</span>   * &lt;p&gt;<a name="line.84"></a>
-<span class="sourceLineNo">085</span>   * Sample output, assuming 2 metrics were queried for 5 dates:<a name="line.85"></a>
-<span class="sourceLineNo">086</span>   * <a name="line.86"></a>
-<span class="sourceLineNo">087</span>   * &lt;pre&gt;<a name="line.87"></a>
-<span class="sourceLineNo">088</span>   * {page_active_users = {<a name="line.88"></a>
-<span class="sourceLineNo">089</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-01 = 7,<a name="line.89"></a>
-<span class="sourceLineNo">090</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-02 = 26,<a name="line.90"></a>
-<span class="sourceLineNo">091</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-03 = 15,<a name="line.91"></a>
-<span class="sourceLineNo">092</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-04 = 10,<a name="line.92"></a>
-<span class="sourceLineNo">093</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-05= 687},<a name="line.93"></a>
-<span class="sourceLineNo">094</span>   * page_tab_views_login_top_unique = {<a name="line.94"></a>
-<span class="sourceLineNo">095</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-01 = {"photos":2,"app_4949752878":3,"wall":30},<a name="line.95"></a>
-<span class="sourceLineNo">096</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-02 = {"app_4949752878":1,"photos":1,"app_2373072738":2,"wall":23},<a name="line.96"></a>
-<span class="sourceLineNo">097</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-03 = {"app_4949752878":1,"wall":12},<a name="line.97"></a>
-<span class="sourceLineNo">098</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-04 = {"photos":1,"wall":11},<a name="line.98"></a>
-<span class="sourceLineNo">099</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-05 = {"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}<a name="line.99"></a>
-<span class="sourceLineNo">100</span>   * &lt;/pre&gt;<a name="line.100"></a>
-<span class="sourceLineNo">101</span>   * <a name="line.101"></a>
-<span class="sourceLineNo">102</span>   * @param facebookClient<a name="line.102"></a>
-<span class="sourceLineNo">103</span>   *          The {@code FacebookClient} used to communicate with the Insights API.<a name="line.103"></a>
-<span class="sourceLineNo">104</span>   * @param pageObjectId<a name="line.104"></a>
-<span class="sourceLineNo">105</span>   *          The required object_id to query.<a name="line.105"></a>
-<span class="sourceLineNo">106</span>   * @param metrics<a name="line.106"></a>
-<span class="sourceLineNo">107</span>   *          A not null/empty set of metrics that will be queried for the given {@code period}.<a name="line.107"></a>
-<span class="sourceLineNo">108</span>   * @param period<a name="line.108"></a>
-<span class="sourceLineNo">109</span>   *          The required time period over which to query.<a name="line.109"></a>
-<span class="sourceLineNo">110</span>   * @param periodEndDates<a name="line.110"></a>
-<span class="sourceLineNo">111</span>   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST<a name="line.111"></a>
-<span class="sourceLineNo">112</span>   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.<a name="line.112"></a>
-<span class="sourceLineNo">113</span>   * @return A {@code Map} of {@code Maps}: the outer keys will be all the metrics requested that were available at the<a name="line.113"></a>
-<span class="sourceLineNo">114</span>   *         period/times requested. The inner keys will be the {@code Set} of periodEndDates.<a name="line.114"></a>
-<span class="sourceLineNo">115</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.115"></a>
-<span class="sourceLineNo">116</span>   * @see #executeInsightQueriesByDate(FacebookClient, String, Set, Period, Set)<a name="line.116"></a>
-<span class="sourceLineNo">117</span>   */<a name="line.117"></a>
-<span class="sourceLineNo">118</span>  public static SortedMap&lt;String, SortedMap&lt;Date, Object&gt;&gt; executeInsightQueriesByMetricByDate(<a name="line.118"></a>
-<span class="sourceLineNo">119</span>      FacebookClient facebookClient, String pageObjectId, Set&lt;String&gt; metrics, Period period, Set&lt;Date&gt; periodEndDates) {<a name="line.119"></a>
-<span class="sourceLineNo">120</span>    SortedMap&lt;String, SortedMap&lt;Date, Object&gt;&gt; result = new TreeMap&lt;String, SortedMap&lt;Date, Object&gt;&gt;();<a name="line.120"></a>
-<span class="sourceLineNo">121</span>    SortedMap&lt;Date, JsonArray&gt; raw =<a name="line.121"></a>
-<span class="sourceLineNo">122</span>        executeInsightQueriesByDate(facebookClient, pageObjectId, metrics, period, periodEndDates);<a name="line.122"></a>
-<span class="sourceLineNo">123</span><a name="line.123"></a>
-<span class="sourceLineNo">124</span>    if (!raw.isEmpty()) {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>      for (Date date : raw.keySet()) {<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        JsonArray resultByMetric = raw.get(date);<a name="line.126"></a>
-<span class="sourceLineNo">127</span><a name="line.127"></a>
-<span class="sourceLineNo">128</span>        // [{"metric":"page_active_users","value":582},<a name="line.128"></a>
-<span class="sourceLineNo">129</span>        // {"metric":"page_tab_views_login_top_unique","value":{"wall":12,"app_4949752878":1}}]<a name="line.129"></a>
-<span class="sourceLineNo">130</span>        for (int resultIndex = 0; resultIndex &lt; resultByMetric.length(); resultIndex++) {<a name="line.130"></a>
-<span class="sourceLineNo">131</span>          JsonObject metricResult = resultByMetric.getJsonObject(resultIndex);<a name="line.131"></a>
-<span class="sourceLineNo">132</span><a name="line.132"></a>
-<span class="sourceLineNo">133</span>          try {<a name="line.133"></a>
-<span class="sourceLineNo">134</span>            String metricName = metricResult.getString("metric");<a name="line.134"></a>
-<span class="sourceLineNo">135</span>            Object metricValue = metricResult.get("value");<a name="line.135"></a>
-<span class="sourceLineNo">136</span><a name="line.136"></a>
-<span class="sourceLineNo">137</span>            // store into output collection<a name="line.137"></a>
-<span class="sourceLineNo">138</span>            SortedMap&lt;Date, Object&gt; resultByDate = result.get(metricName);<a name="line.138"></a>
-<span class="sourceLineNo">139</span>            if (resultByDate == null) {<a name="line.139"></a>
-<span class="sourceLineNo">140</span>              resultByDate = new TreeMap&lt;Date, Object&gt;();<a name="line.140"></a>
-<span class="sourceLineNo">141</span>              result.put(metricName, resultByDate);<a name="line.141"></a>
-<span class="sourceLineNo">142</span>            }<a name="line.142"></a>
+<span class="sourceLineNo">064</span>  /**<a name="line.64"></a>
+<span class="sourceLineNo">065</span>   * Queries Facebook via FQL for several Insights at different date points.<a name="line.65"></a>
+<span class="sourceLineNo">066</span>   * &lt;p&gt;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>   * The output groups the result by metric and then by date, matching the input arguments. Map entries may be<a name="line.67"></a>
+<span class="sourceLineNo">068</span>   * {@code null} if Facebook does not return corresponding data, e.g. when you query a metric which is not available at<a name="line.68"></a>
+<span class="sourceLineNo">069</span>   * the chosen period. The inner {@code Map}'s {@code Object} value may be a strongly typed value for some metrics, but<a name="line.69"></a>
+<span class="sourceLineNo">070</span>   * in other cases Facebook returns a {@code JsonObject}.<a name="line.70"></a>
+<span class="sourceLineNo">071</span>   * &lt;p&gt;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>   * Sample output, assuming 2 metrics were queried for 5 dates:<a name="line.72"></a>
+<span class="sourceLineNo">073</span>   * <a name="line.73"></a>
+<span class="sourceLineNo">074</span>   * &lt;pre&gt;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>   * {page_active_users = {<a name="line.75"></a>
+<span class="sourceLineNo">076</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-01 = 7,<a name="line.76"></a>
+<span class="sourceLineNo">077</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-02 = 26,<a name="line.77"></a>
+<span class="sourceLineNo">078</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-03 = 15,<a name="line.78"></a>
+<span class="sourceLineNo">079</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-04 = 10,<a name="line.79"></a>
+<span class="sourceLineNo">080</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-05= 687},<a name="line.80"></a>
+<span class="sourceLineNo">081</span>   * page_tab_views_login_top_unique = {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-01 = {"photos":2,"app_4949752878":3,"wall":30},<a name="line.82"></a>
+<span class="sourceLineNo">083</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-02 = {"app_4949752878":1,"photos":1,"app_2373072738":2,"wall":23},<a name="line.83"></a>
+<span class="sourceLineNo">084</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-03 = {"app_4949752878":1,"wall":12},<a name="line.84"></a>
+<span class="sourceLineNo">085</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-04 = {"photos":1,"wall":11},<a name="line.85"></a>
+<span class="sourceLineNo">086</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; 2011-jan-05 = {"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}<a name="line.86"></a>
+<span class="sourceLineNo">087</span>   * &lt;/pre&gt;<a name="line.87"></a>
+<span class="sourceLineNo">088</span>   * <a name="line.88"></a>
+<span class="sourceLineNo">089</span>   * @param facebookClient<a name="line.89"></a>
+<span class="sourceLineNo">090</span>   *          The {@code FacebookClient} used to communicate with the Insights API.<a name="line.90"></a>
+<span class="sourceLineNo">091</span>   * @param pageObjectId<a name="line.91"></a>
+<span class="sourceLineNo">092</span>   *          The required object_id to query.<a name="line.92"></a>
+<span class="sourceLineNo">093</span>   * @param metrics<a name="line.93"></a>
+<span class="sourceLineNo">094</span>   *          A not null/empty set of metrics that will be queried for the given {@code period}.<a name="line.94"></a>
+<span class="sourceLineNo">095</span>   * @param period<a name="line.95"></a>
+<span class="sourceLineNo">096</span>   *          The required time period over which to query.<a name="line.96"></a>
+<span class="sourceLineNo">097</span>   * @param periodEndDates<a name="line.97"></a>
+<span class="sourceLineNo">098</span>   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST<a name="line.98"></a>
+<span class="sourceLineNo">099</span>   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>   * @return A {@code Map} of {@code Maps}: the outer keys will be all the metrics requested that were available at the<a name="line.100"></a>
+<span class="sourceLineNo">101</span>   *         period/times requested. The inner keys will be the {@code Set} of periodEndDates.<a name="line.101"></a>
+<span class="sourceLineNo">102</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.102"></a>
+<span class="sourceLineNo">103</span>   * @see #executeInsightQueriesByDate(FacebookClient, String, Set, Period, Set)<a name="line.103"></a>
+<span class="sourceLineNo">104</span>   */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>  public static SortedMap&lt;String, SortedMap&lt;Date, Object&gt;&gt; executeInsightQueriesByMetricByDate(<a name="line.105"></a>
+<span class="sourceLineNo">106</span>      FacebookClient facebookClient, String pageObjectId, Set&lt;String&gt; metrics, Period period,<a name="line.106"></a>
+<span class="sourceLineNo">107</span>      Set&lt;Date&gt; periodEndDates) {<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    SortedMap&lt;String, SortedMap&lt;Date, Object&gt;&gt; result = new TreeMap&lt;String, SortedMap&lt;Date, Object&gt;&gt;();<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    SortedMap&lt;Date, JsonArray&gt; raw =<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        executeInsightQueriesByDate(facebookClient, pageObjectId, metrics, period, periodEndDates);<a name="line.110"></a>
+<span class="sourceLineNo">111</span><a name="line.111"></a>
+<span class="sourceLineNo">112</span>    if (!raw.isEmpty()) {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>      for (Date date : raw.keySet()) {<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        JsonArray resultByMetric = raw.get(date);<a name="line.114"></a>
+<span class="sourceLineNo">115</span><a name="line.115"></a>
+<span class="sourceLineNo">116</span>        // [{"metric":"page_active_users","value":582},<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        // {"metric":"page_tab_views_login_top_unique","value":{"wall":12,"app_4949752878":1}}]<a name="line.117"></a>
+<span class="sourceLineNo">118</span>        for (int resultIndex = 0; resultIndex &lt; resultByMetric.length(); resultIndex++) {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>          JsonObject metricResult = resultByMetric.getJsonObject(resultIndex);<a name="line.119"></a>
+<span class="sourceLineNo">120</span><a name="line.120"></a>
+<span class="sourceLineNo">121</span>          try {<a name="line.121"></a>
+<span class="sourceLineNo">122</span>            String metricName = metricResult.getString("metric");<a name="line.122"></a>
+<span class="sourceLineNo">123</span>            Object metricValue = metricResult.get("value");<a name="line.123"></a>
+<span class="sourceLineNo">124</span><a name="line.124"></a>
+<span class="sourceLineNo">125</span>            // store into output collection<a name="line.125"></a>
+<span class="sourceLineNo">126</span>            SortedMap&lt;Date, Object&gt; resultByDate = result.get(metricName);<a name="line.126"></a>
+<span class="sourceLineNo">127</span>            if (resultByDate == null) {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>              resultByDate = new TreeMap&lt;Date, Object&gt;();<a name="line.128"></a>
+<span class="sourceLineNo">129</span>              result.put(metricName, resultByDate);<a name="line.129"></a>
+<span class="sourceLineNo">130</span>            }<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span>            if (resultByDate.put(date, metricValue) != null) {<a name="line.132"></a>
+<span class="sourceLineNo">133</span>              throw new IllegalStateException(<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                format("MultiQuery response has two results for metricName: %s and date: %s", metricName, date));<a name="line.134"></a>
+<span class="sourceLineNo">135</span>            }<a name="line.135"></a>
+<span class="sourceLineNo">136</span>          } catch (JsonException e) {<a name="line.136"></a>
+<span class="sourceLineNo">137</span>            throw new FacebookJsonMappingException(<a name="line.137"></a>
+<span class="sourceLineNo">138</span>              format("Could not decode result for %s: %s", metricResult, e.getMessage()), e);<a name="line.138"></a>
+<span class="sourceLineNo">139</span>          }<a name="line.139"></a>
+<span class="sourceLineNo">140</span>        }<a name="line.140"></a>
+<span class="sourceLineNo">141</span>      }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>    }<a name="line.142"></a>
 <span class="sourceLineNo">143</span><a name="line.143"></a>
-<span class="sourceLineNo">144</span>            if (resultByDate.put(date, metricValue) != null) {<a name="line.144"></a>
-<span class="sourceLineNo">145</span>              throw new IllegalStateException(format(<a name="line.145"></a>
-<span class="sourceLineNo">146</span>                "MultiQuery response has two results for metricName: %s and date: %s", metricName, date));<a name="line.146"></a>
-<span class="sourceLineNo">147</span>            }<a name="line.147"></a>
-<span class="sourceLineNo">148</span>          } catch (JsonException e) {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>            throw new FacebookJsonMappingException(format("Could not decode result for %s: %s", metricResult,<a name="line.149"></a>
-<span class="sourceLineNo">150</span>              e.getMessage()), e);<a name="line.150"></a>
-<span class="sourceLineNo">151</span>          }<a name="line.151"></a>
-<span class="sourceLineNo">152</span>        }<a name="line.152"></a>
-<span class="sourceLineNo">153</span>      }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>    }<a name="line.154"></a>
-<span class="sourceLineNo">155</span><a name="line.155"></a>
-<span class="sourceLineNo">156</span>    return result;<a name="line.156"></a>
-<span class="sourceLineNo">157</span>  }<a name="line.157"></a>
-<span class="sourceLineNo">158</span><a name="line.158"></a>
-<span class="sourceLineNo">159</span>  /**<a name="line.159"></a>
-<span class="sourceLineNo">160</span>   * Queries Facebook via FQL for several Insights at different date points and returns "raw" results.<a name="line.160"></a>
-<span class="sourceLineNo">161</span>   * &lt;p&gt;<a name="line.161"></a>
-<span class="sourceLineNo">162</span>   * A variation on {@link #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)} , this method<a name="line.162"></a>
-<span class="sourceLineNo">163</span>   * returns the raw output from the Facebook, keying the output by date alone. The {@code JsonArray} value will contain<a name="line.163"></a>
-<span class="sourceLineNo">164</span>   * the metrics that were requested and available at the date.<a name="line.164"></a>
-<span class="sourceLineNo">165</span>   * &lt;p&gt;<a name="line.165"></a>
-<span class="sourceLineNo">166</span>   * Sample output, assuming 2 metrics were queried for 5 dates:<a name="line.166"></a>
-<span class="sourceLineNo">167</span>   * <a name="line.167"></a>
-<span class="sourceLineNo">168</span>   * &lt;pre&gt;<a name="line.168"></a>
-<span class="sourceLineNo">169</span>   * {2011-jan-01 = [<a name="line.169"></a>
-<span class="sourceLineNo">170</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":7},<a name="line.170"></a>
-<span class="sourceLineNo">171</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"photos":2,"app_4949752878":3,"wall":30}}], <a name="line.171"></a>
-<span class="sourceLineNo">172</span>   * 2011-jan-02 = [<a name="line.172"></a>
-<span class="sourceLineNo">173</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":26},<a name="line.173"></a>
-<span class="sourceLineNo">174</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_4949752878":1,"photos":1,"app_2373072738":2,"wall":23}}], <a name="line.174"></a>
-<span class="sourceLineNo">175</span>   * 2011-jan-03 = [<a name="line.175"></a>
-<span class="sourceLineNo">176</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":15},<a name="line.176"></a>
-<span class="sourceLineNo">177</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_4949752878":1,"wall":12}}], <a name="line.177"></a>
-<span class="sourceLineNo">178</span>   * 2011-jan-04 = [<a name="line.178"></a>
-<span class="sourceLineNo">179</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":10},<a name="line.179"></a>
-<span class="sourceLineNo">180</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"photos":1,"wall":11}}]<a name="line.180"></a>
-<span class="sourceLineNo">181</span>   * 2011-jan-05 = [<a name="line.181"></a>
-<span class="sourceLineNo">182</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":687},<a name="line.182"></a>
-<span class="sourceLineNo">183</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}]<a name="line.183"></a>
-<span class="sourceLineNo">184</span>   * }<a name="line.184"></a>
-<span class="sourceLineNo">185</span>   * &lt;/pre&gt;<a name="line.185"></a>
-<span class="sourceLineNo">186</span>   * <a name="line.186"></a>
-<span class="sourceLineNo">187</span>   * @param facebookClient<a name="line.187"></a>
-<span class="sourceLineNo">188</span>   *          The {@code FacebookClient} used to communicate with the Insights API.<a name="line.188"></a>
-<span class="sourceLineNo">189</span>   * @param pageObjectId<a name="line.189"></a>
-<span class="sourceLineNo">190</span>   *          The required object_id to query.<a name="line.190"></a>
-<span class="sourceLineNo">191</span>   * @param metrics<a name="line.191"></a>
-<span class="sourceLineNo">192</span>   *          A not null/empty set of metrics that will be queried for the given {@code period}.<a name="line.192"></a>
-<span class="sourceLineNo">193</span>   * @param period<a name="line.193"></a>
-<span class="sourceLineNo">194</span>   *          The required time period over which to query.<a name="line.194"></a>
-<span class="sourceLineNo">195</span>   * @param periodEndDates<a name="line.195"></a>
-<span class="sourceLineNo">196</span>   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST<a name="line.196"></a>
-<span class="sourceLineNo">197</span>   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.<a name="line.197"></a>
-<span class="sourceLineNo">198</span>   * @return Insights query results, grouped by date.<a name="line.198"></a>
-<span class="sourceLineNo">199</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.199"></a>
-<span class="sourceLineNo">200</span>   * @see #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)<a name="line.200"></a>
-<span class="sourceLineNo">201</span>   */<a name="line.201"></a>
-<span class="sourceLineNo">202</span>  public static SortedMap&lt;Date, JsonArray&gt; executeInsightQueriesByDate(FacebookClient facebookClient,<a name="line.202"></a>
-<span class="sourceLineNo">203</span>      String pageObjectId, Set&lt;String&gt; metrics, Period period, Set&lt;Date&gt; periodEndDates) {<a name="line.203"></a>
-<span class="sourceLineNo">204</span>    if (facebookClient == null) {<a name="line.204"></a>
-<span class="sourceLineNo">205</span>      throw new IllegalArgumentException("The 'facebookClient' parameter is required.");<a name="line.205"></a>
-<span class="sourceLineNo">206</span>    }<a name="line.206"></a>
-<span class="sourceLineNo">207</span><a name="line.207"></a>
-<span class="sourceLineNo">208</span>    if (isBlank(pageObjectId)) {<a name="line.208"></a>
-<span class="sourceLineNo">209</span>      throw new IllegalArgumentException(<a name="line.209"></a>
-<span class="sourceLineNo">210</span>        "The 'pageObjectId' parameter should be a non-empty string, probably a positive number.");<a name="line.210"></a>
+<span class="sourceLineNo">144</span>    return result;<a name="line.144"></a>
+<span class="sourceLineNo">145</span>  }<a name="line.145"></a>
+<span class="sourceLineNo">146</span><a name="line.146"></a>
+<span class="sourceLineNo">147</span>  /**<a name="line.147"></a>
+<span class="sourceLineNo">148</span>   * Queries Facebook via FQL for several Insights at different date points and returns "raw" results.<a name="line.148"></a>
+<span class="sourceLineNo">149</span>   * &lt;p&gt;<a name="line.149"></a>
+<span class="sourceLineNo">150</span>   * A variation on {@link #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)} , this method<a name="line.150"></a>
+<span class="sourceLineNo">151</span>   * returns the raw output from the Facebook, keying the output by date alone. The {@code JsonArray} value will contain<a name="line.151"></a>
+<span class="sourceLineNo">152</span>   * the metrics that were requested and available at the date.<a name="line.152"></a>
+<span class="sourceLineNo">153</span>   * &lt;p&gt;<a name="line.153"></a>
+<span class="sourceLineNo">154</span>   * Sample output, assuming 2 metrics were queried for 5 dates:<a name="line.154"></a>
+<span class="sourceLineNo">155</span>   * <a name="line.155"></a>
+<span class="sourceLineNo">156</span>   * &lt;pre&gt;<a name="line.156"></a>
+<span class="sourceLineNo">157</span>   * {2011-jan-01 = [<a name="line.157"></a>
+<span class="sourceLineNo">158</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":7},<a name="line.158"></a>
+<span class="sourceLineNo">159</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"photos":2,"app_4949752878":3,"wall":30}}], <a name="line.159"></a>
+<span class="sourceLineNo">160</span>   * 2011-jan-02 = [<a name="line.160"></a>
+<span class="sourceLineNo">161</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":26},<a name="line.161"></a>
+<span class="sourceLineNo">162</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_4949752878":1,"photos":1,"app_2373072738":2,"wall":23}}], <a name="line.162"></a>
+<span class="sourceLineNo">163</span>   * 2011-jan-03 = [<a name="line.163"></a>
+<span class="sourceLineNo">164</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":15},<a name="line.164"></a>
+<span class="sourceLineNo">165</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_4949752878":1,"wall":12}}], <a name="line.165"></a>
+<span class="sourceLineNo">166</span>   * 2011-jan-04 = [<a name="line.166"></a>
+<span class="sourceLineNo">167</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":10},<a name="line.167"></a>
+<span class="sourceLineNo">168</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"photos":1,"wall":11}}]<a name="line.168"></a>
+<span class="sourceLineNo">169</span>   * 2011-jan-05 = [<a name="line.169"></a>
+<span class="sourceLineNo">170</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_active_users","value":687},<a name="line.170"></a>
+<span class="sourceLineNo">171</span>   * &amp;nbsp;&amp;nbsp;&amp;nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}]<a name="line.171"></a>
+<span class="sourceLineNo">172</span>   * }<a name="line.172"></a>
+<span class="sourceLineNo">173</span>   * &lt;/pre&gt;<a name="line.173"></a>
+<span class="sourceLineNo">174</span>   * <a name="line.174"></a>
+<span class="sourceLineNo">175</span>   * @param facebookClient<a name="line.175"></a>
+<span class="sourceLineNo">176</span>   *          The {@code FacebookClient} used to communicate with the Insights API.<a name="line.176"></a>
+<span class="sourceLineNo">177</span>   * @param pageObjectId<a name="line.177"></a>
+<span class="sourceLineNo">178</span>   *          The required object_id to query.<a name="line.178"></a>
+<span class="sourceLineNo">179</span>   * @param metrics<a name="line.179"></a>
+<span class="sourceLineNo">180</span>   *          A not null/empty set of metrics that will be queried for the given {@code period}.<a name="line.180"></a>
+<span class="sourceLineNo">181</span>   * @param period<a name="line.181"></a>
+<span class="sourceLineNo">182</span>   *          The required time period over which to query.<a name="line.182"></a>
+<span class="sourceLineNo">183</span>   * @param periodEndDates<a name="line.183"></a>
+<span class="sourceLineNo">184</span>   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST<a name="line.184"></a>
+<span class="sourceLineNo">185</span>   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.<a name="line.185"></a>
+<span class="sourceLineNo">186</span>   * @return Insights query results, grouped by date.<a name="line.186"></a>
+<span class="sourceLineNo">187</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.187"></a>
+<span class="sourceLineNo">188</span>   * @see #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)<a name="line.188"></a>
+<span class="sourceLineNo">189</span>   */<a name="line.189"></a>
+<span class="sourceLineNo">190</span>  public static SortedMap&lt;Date, JsonArray&gt; executeInsightQueriesByDate(FacebookClient facebookClient,<a name="line.190"></a>
+<span class="sourceLineNo">191</span>      String pageObjectId, Set&lt;String&gt; metrics, Period period, Set&lt;Date&gt; periodEndDates) {<a name="line.191"></a>
+<span class="sourceLineNo">192</span>    if (facebookClient == null) {<a name="line.192"></a>
+<span class="sourceLineNo">193</span>      throw new IllegalArgumentException("The 'facebookClient' parameter is required.");<a name="line.193"></a>
+<span class="sourceLineNo">194</span>    }<a name="line.194"></a>
+<span class="sourceLineNo">195</span><a name="line.195"></a>
+<span class="sourceLineNo">196</span>    if (isBlank(pageObjectId)) {<a name="line.196"></a>
+<span class="sourceLineNo">197</span>      throw new IllegalArgumentException(<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        "The 'pageObjectId' parameter should be a non-empty string, probably a positive number.");<a name="line.198"></a>
+<span class="sourceLineNo">199</span>    }<a name="line.199"></a>
+<span class="sourceLineNo">200</span><a name="line.200"></a>
+<span class="sourceLineNo">201</span>    if (isEmpty(metrics)) {<a name="line.201"></a>
+<span class="sourceLineNo">202</span>      throw new IllegalArgumentException("The 'metrics' set should be non-empty.");<a name="line.202"></a>
+<span class="sourceLineNo">203</span>    }<a name="line.203"></a>
+<span class="sourceLineNo">204</span><a name="line.204"></a>
+<span class="sourceLineNo">205</span>    if (period == null) {<a name="line.205"></a>
+<span class="sourceLineNo">206</span>      throw new IllegalArgumentException("The 'period' parameter is required.");<a name="line.206"></a>
+<span class="sourceLineNo">207</span>    }<a name="line.207"></a>
+<span class="sourceLineNo">208</span><a name="line.208"></a>
+<span class="sourceLineNo">209</span>    if (isEmpty(periodEndDates)) {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>      throw new IllegalArgumentException("The 'periodEndDates' set should be non-empty");<a name="line.210"></a>
 <span class="sourceLineNo">211</span>    }<a name="line.211"></a>
 <span class="sourceLineNo">212</span><a name="line.212"></a>
-<span class="sourceLineNo">213</span>    if (isEmpty(metrics)) {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>      throw new IllegalArgumentException("The 'metrics' set should be non-empty.");<a name="line.214"></a>
-<span class="sourceLineNo">215</span>    }<a name="line.215"></a>
-<span class="sourceLineNo">216</span><a name="line.216"></a>
-<span class="sourceLineNo">217</span>    if (period == null) {<a name="line.217"></a>
-<span class="sourceLineNo">218</span>      throw new IllegalArgumentException("The 'period' parameter is required.");<a name="line.218"></a>
-<span class="sourceLineNo">219</span>    }<a name="line.219"></a>
+<span class="sourceLineNo">213</span>    // put dates into an array where we can easily access the index of each<a name="line.213"></a>
+<span class="sourceLineNo">214</span>    // date, as these ordinal positions will be used as query identifiers<a name="line.214"></a>
+<span class="sourceLineNo">215</span>    // in the MultiQuery<a name="line.215"></a>
+<span class="sourceLineNo">216</span>    List&lt;Date&gt; datesByQueryIndex = new ArrayList&lt;Date&gt;(periodEndDates);<a name="line.216"></a>
+<span class="sourceLineNo">217</span>    // sort the list in Date order so the implementation is tolerant of a<a name="line.217"></a>
+<span class="sourceLineNo">218</span>    // chaotic periodEndDates iteration order<a name="line.218"></a>
+<span class="sourceLineNo">219</span>    Collections.sort(datesByQueryIndex);<a name="line.219"></a>
 <span class="sourceLineNo">220</span><a name="line.220"></a>
-<span class="sourceLineNo">221</span>    if (isEmpty(periodEndDates)) {<a name="line.221"></a>
-<span class="sourceLineNo">222</span>      throw new IllegalArgumentException("The 'periodEndDates' set should be non-empty");<a name="line.222"></a>
-<span class="sourceLineNo">223</span>    }<a name="line.223"></a>
+<span class="sourceLineNo">221</span>    String baseQuery = createBaseQuery(period, pageObjectId, metrics);<a name="line.221"></a>
+<span class="sourceLineNo">222</span><a name="line.222"></a>
+<span class="sourceLineNo">223</span>    Map&lt;String, String&gt; fqlByQueryIndex = buildQueries(baseQuery, datesByQueryIndex);<a name="line.223"></a>
 <span class="sourceLineNo">224</span><a name="line.224"></a>
-<span class="sourceLineNo">225</span>    // put dates into an array where we can easily access the index of each<a name="line.225"></a>
-<span class="sourceLineNo">226</span>    // date, as these ordinal positions will be used as query identifiers<a name="line.226"></a>
-<span class="sourceLineNo">227</span>    // in the MultiQuery<a name="line.227"></a>
-<span class="sourceLineNo">228</span>    List&lt;Date&gt; datesByQueryIndex = new ArrayList&lt;Date&gt;(periodEndDates);<a name="line.228"></a>
-<span class="sourceLineNo">229</span>    // sort the list in Date order so the implementation is tolerant of a<a name="line.229"></a>
-<span class="sourceLineNo">230</span>    // chaotic periodEndDates iteration order<a name="line.230"></a>
-<span class="sourceLineNo">231</span>    Collections.sort(datesByQueryIndex);<a name="line.231"></a>
-<span class="sourceLineNo">232</span><a name="line.232"></a>
-<span class="sourceLineNo">233</span>    String baseQuery = createBaseQuery(period, pageObjectId, metrics);<a name="line.233"></a>
-<span class="sourceLineNo">234</span><a name="line.234"></a>
-<span class="sourceLineNo">235</span>    Map&lt;String, String&gt; fqlByQueryIndex = buildQueries(baseQuery, datesByQueryIndex);<a name="line.235"></a>
+<span class="sourceLineNo">225</span>    SortedMap&lt;Date, JsonArray&gt; result = new TreeMap&lt;Date, JsonArray&gt;();<a name="line.225"></a>
+<span class="sourceLineNo">226</span><a name="line.226"></a>
+<span class="sourceLineNo">227</span>    if (!fqlByQueryIndex.isEmpty()) {<a name="line.227"></a>
+<span class="sourceLineNo">228</span>      // request the client sends all the queries in fqlByQueryIndex to Facebook<a name="line.228"></a>
+<span class="sourceLineNo">229</span>      // in one go and have the raw JsonObject be returned<a name="line.229"></a>
+<span class="sourceLineNo">230</span>      JsonObject response = facebookClient.executeFqlMultiquery(fqlByQueryIndex, JsonObject.class);<a name="line.230"></a>
+<span class="sourceLineNo">231</span><a name="line.231"></a>
+<span class="sourceLineNo">232</span>      // transform the response into a Map<a name="line.232"></a>
+<span class="sourceLineNo">233</span>      for (Iterator&lt;?&gt; it = response.keys(); it.hasNext();) {<a name="line.233"></a>
+<span class="sourceLineNo">234</span>        String key = (String) it.next();<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        JsonArray innerResult = (JsonArray) response.get(key);<a name="line.235"></a>
 <span class="sourceLineNo">236</span><a name="line.236"></a>
-<span class="sourceLineNo">237</span>    SortedMap&lt;Date, JsonArray&gt; result = new TreeMap&lt;Date, JsonArray&gt;();<a name="line.237"></a>
-<span class="sourceLineNo">238</span><a name="line.238"></a>
-<span class="sourceLineNo">239</span>    if (!fqlByQueryIndex.isEmpty()) {<a name="line.239"></a>
-<span class="sourceLineNo">240</span>      // request the client sends all the queries in fqlByQueryIndex to Facebook<a name="line.240"></a>
-<span class="sourceLineNo">241</span>      // in one go and have the raw JsonObject be returned<a name="line.241"></a>
-<span class="sourceLineNo">242</span>      JsonObject response = facebookClient.executeFqlMultiquery(fqlByQueryIndex, JsonObject.class);<a name="line.242"></a>
-<span class="sourceLineNo">243</span><a name="line.243"></a>
-<span class="sourceLineNo">244</span>      // transform the response into a Map<a name="line.244"></a>
-<span class="sourceLineNo">245</span>      for (Iterator&lt;?&gt; it = response.keys(); it.hasNext();) {<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        String key = (String) it.next();<a name="line.246"></a>
-<span class="sourceLineNo">247</span>        JsonArray innerResult = (JsonArray) response.get(key);<a name="line.247"></a>
-<span class="sourceLineNo">248</span><a name="line.248"></a>
-<span class="sourceLineNo">249</span>        try {<a name="line.249"></a>
-<span class="sourceLineNo">250</span>          // resolve the map key back into a date<a name="line.250"></a>
-<span class="sourceLineNo">251</span>          int queryIndex = Integer.parseInt(key);<a name="line.251"></a>
-<span class="sourceLineNo">252</span>          Date d = datesByQueryIndex.get(queryIndex);<a name="line.252"></a>
-<span class="sourceLineNo">253</span>          if (d == null) {<a name="line.253"></a>
-<span class="sourceLineNo">254</span>            throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key);<a name="line.254"></a>
-<span class="sourceLineNo">255</span>          }<a name="line.255"></a>
-<span class="sourceLineNo">256</span><a name="line.256"></a>
-<span class="sourceLineNo">257</span>          result.put(d, innerResult);<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        } catch (NumberFormatException nfe) {<a name="line.258"></a>
-<span class="sourceLineNo">259</span>          throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key, nfe);<a name="line.259"></a>
-<span class="sourceLineNo">260</span>        }<a name="line.260"></a>
-<span class="sourceLineNo">261</span>      }<a name="line.261"></a>
-<span class="sourceLineNo">262</span>    }<a name="line.262"></a>
-<span class="sourceLineNo">263</span>    return result;<a name="line.263"></a>
-<span class="sourceLineNo">264</span>  }<a name="line.264"></a>
-<span class="sourceLineNo">265</span><a name="line.265"></a>
-<span class="sourceLineNo">266</span>  static Map&lt;String, String&gt; buildQueries(String baseQuery, List&lt;Date&gt; datesByQueryIndex) {<a name="line.266"></a>
-<span class="sourceLineNo">267</span>    Map&lt;String, String&gt; fqlByQueryIndex = new LinkedHashMap&lt;String, String&gt;();<a name="line.267"></a>
-<span class="sourceLineNo">268</span>    for (int queryIndex = 0; queryIndex &lt; datesByQueryIndex.size(); queryIndex++) {<a name="line.268"></a>
-<span class="sourceLineNo">269</span>      Date d = datesByQueryIndex.get(queryIndex);<a name="line.269"></a>
-<span class="sourceLineNo">270</span>      String query = baseQuery + convertToUnixTimeOneDayLater(d);<a name="line.270"></a>
-<span class="sourceLineNo">271</span>      fqlByQueryIndex.put(String.valueOf(queryIndex), query);<a name="line.271"></a>
-<span class="sourceLineNo">272</span>    }<a name="line.272"></a>
-<span class="sourceLineNo">273</span>    return fqlByQueryIndex;<a name="line.273"></a>
-<span class="sourceLineNo">274</span>  }<a name="line.274"></a>
-<span class="sourceLineNo">275</span><a name="line.275"></a>
-<span class="sourceLineNo">276</span>  static String createBaseQuery(Period period, String pageObjectId, Set&lt;String&gt; metrics) {<a name="line.276"></a>
-<span class="sourceLineNo">277</span>    StringBuilder q = new StringBuilder();<a name="line.277"></a>
-<span class="sourceLineNo">278</span>    q.append("SELECT metric, value ");<a name="line.278"></a>
-<span class="sourceLineNo">279</span>    q.append("FROM insights ");<a name="line.279"></a>
-<span class="sourceLineNo">280</span>    q.append("WHERE object_id='");<a name="line.280"></a>
-<span class="sourceLineNo">281</span>    q.append(pageObjectId);<a name="line.281"></a>
-<span class="sourceLineNo">282</span>    q.append('\'');<a name="line.282"></a>
-<span class="sourceLineNo">283</span><a name="line.283"></a>
-<span class="sourceLineNo">284</span>    String metricInList = buildMetricInList(metrics);<a name="line.284"></a>
-<span class="sourceLineNo">285</span>    if (!isBlank(metricInList)) {<a name="line.285"></a>
-<span class="sourceLineNo">286</span>      q.append(" AND metric IN (");<a name="line.286"></a>
-<span class="sourceLineNo">287</span>      q.append(metricInList);<a name="line.287"></a>
-<span class="sourceLineNo">288</span>      q.append(")");<a name="line.288"></a>
-<span class="sourceLineNo">289</span>    }<a name="line.289"></a>
-<span class="sourceLineNo">290</span><a name="line.290"></a>
-<span class="sourceLineNo">291</span>    q.append(" AND period=");<a name="line.291"></a>
-<span class="sourceLineNo">292</span>    q.append(period.getPeriodLength());<a name="line.292"></a>
-<span class="sourceLineNo">293</span>    q.append(" AND end_time=");<a name="line.293"></a>
-<span class="sourceLineNo">294</span>    return q.toString();<a name="line.294"></a>
-<span class="sourceLineNo">295</span>  }<a name="line.295"></a>
-<span class="sourceLineNo">296</span><a name="line.296"></a>
-<span class="sourceLineNo">297</span>  static String buildMetricInList(Set&lt;String&gt; metrics) {<a name="line.297"></a>
-<span class="sourceLineNo">298</span>    StringBuilder in = new StringBuilder();<a name="line.298"></a>
-<span class="sourceLineNo">299</span>    if (!isEmpty(metrics)) {<a name="line.299"></a>
-<span class="sourceLineNo">300</span>      int metricCount = 0;<a name="line.300"></a>
-<span class="sourceLineNo">301</span>      for (String metric : metrics) {<a name="line.301"></a>
-<span class="sourceLineNo">302</span>        if (!isBlank(metric)) {<a name="line.302"></a>
-<span class="sourceLineNo">303</span>          if (metricCount &gt; 0) {<a name="line.303"></a>
-<span class="sourceLineNo">304</span>            in.append(',');<a name="line.304"></a>
-<span class="sourceLineNo">305</span>          }<a name="line.305"></a>
-<span class="sourceLineNo">306</span><a name="line.306"></a>
-<span class="sourceLineNo">307</span>          in.append('\'');<a name="line.307"></a>
-<span class="sourceLineNo">308</span>          in.append(metric.trim());<a name="line.308"></a>
-<span class="sourceLineNo">309</span>          in.append('\'');<a name="line.309"></a>
-<span class="sourceLineNo">310</span>          metricCount++;<a name="line.310"></a>
-<span class="sourceLineNo">311</span>        }<a name="line.311"></a>
-<span class="sourceLineNo">312</span>      }<a name="line.312"></a>
-<span class="sourceLineNo">313</span>    }<a name="line.313"></a>
-<span class="sourceLineNo">314</span>    return in.toString();<a name="line.314"></a>
-<span class="sourceLineNo">315</span>  }<a name="line.315"></a>
-<span class="sourceLineNo">316</span><a name="line.316"></a>
-<span class="sourceLineNo">317</span>  /**<a name="line.317"></a>
-<span class="sourceLineNo">318</span>   * Slides this date back to midnight in the PST timezone fit for the Facebook Query Language.<a name="line.318"></a>
-<span class="sourceLineNo">319</span>   * &lt;p&gt;<a name="line.319"></a>
-<span class="sourceLineNo">320</span>   * More details are available at &lt;a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"<a name="line.320"></a>
-<span class="sourceLineNo">321</span>   * &gt;http://developers.facebook.com/docs/reference/fql/insights&lt;/a&gt;.<a name="line.321"></a>
-<span class="sourceLineNo">322</span>   * <a name="line.322"></a>
-<span class="sourceLineNo">323</span>   * @param date<a name="line.323"></a>
-<span class="sourceLineNo">324</span>   *          The date to slide back.<a name="line.324"></a>
-<span class="sourceLineNo">325</span>   * @return A midnight-PST version of the provided {@code date}.<a name="line.325"></a>
-<span class="sourceLineNo">326</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.326"></a>
-<span class="sourceLineNo">327</span>   */<a name="line.327"></a>
-<span class="sourceLineNo">328</span>  public static Date convertToMidnightInPacificTimeZone(Date date) {<a name="line.328"></a>
-<span class="sourceLineNo">329</span>    if (date == null) {<a name="line.329"></a>
-<span class="sourceLineNo">330</span>      throw new IllegalArgumentException("The 'date' parameter is required.");<a name="line.330"></a>
-<span class="sourceLineNo">331</span>    }<a name="line.331"></a>
-<span class="sourceLineNo">332</span><a name="line.332"></a>
-<span class="sourceLineNo">333</span>    Set&lt;Date&gt; convertedDates = convertToMidnightInPacificTimeZone(singleton(date));<a name="line.333"></a>
-<span class="sourceLineNo">334</span><a name="line.334"></a>
-<span class="sourceLineNo">335</span>    if (convertedDates.size() != 1) {<a name="line.335"></a>
-<span class="sourceLineNo">336</span>      throw new IllegalStateException("Internal error, expected 1 date.");<a name="line.336"></a>
-<span class="sourceLineNo">337</span>    }<a name="line.337"></a>
-<span class="sourceLineNo">338</span><a name="line.338"></a>
-<span class="sourceLineNo">339</span>    return convertedDates.iterator().next();<a name="line.339"></a>
-<span class="sourceLineNo">340</span>  }<a name="line.340"></a>
-<span class="sourceLineNo">341</span><a name="line.341"></a>
-<span class="sourceLineNo">342</span>  /**<a name="line.342"></a>
-<span class="sourceLineNo">343</span>   * Slides these dates back to midnight in the PST timezone fit for the Facebook Query Language.<a name="line.343"></a>
-<span class="sourceLineNo">344</span>   * &lt;p&gt;<a name="line.344"></a>
-<span class="sourceLineNo">345</span>   * More details are available at &lt;a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"<a name="line.345"></a>
-<span class="sourceLineNo">346</span>   * &gt;http://developers.facebook.com/docs/reference/fql/insights&lt;/a&gt;.<a name="line.346"></a>
-<span class="sourceLineNo">347</span>   * <a name="line.347"></a>
-<span class="sourceLineNo">348</span>   * @param dates<a name="line.348"></a>
-<span class="sourceLineNo">349</span>   *          The dates to slide back.<a name="line.349"></a>
-<span class="sourceLineNo">350</span>   * @return Midnight-PST versions of the provided {@code dates}.<a name="line.350"></a>
-<span class="sourceLineNo">351</span>   * @see #convertToMidnightInPacificTimeZone(Date)<a name="line.351"></a>
-<span class="sourceLineNo">352</span>   */<a name="line.352"></a>
-<span class="sourceLineNo">353</span>  public static SortedSet&lt;Date&gt; convertToMidnightInPacificTimeZone(Set&lt;Date&gt; dates) {<a name="line.353"></a>
-<span class="sourceLineNo">354</span>    Calendar calendar = Calendar.getInstance(PST_TIMEZONE);<a name="line.354"></a>
-<span class="sourceLineNo">355</span>    SortedSet&lt;Date&gt; convertedDates = new TreeSet&lt;Date&gt;();<a name="line.355"></a>
-<span class="sourceLineNo">356</span>    for (Date d : dates) {<a name="line.356"></a>
-<span class="sourceLineNo">357</span>      calendar.setTime(d);<a name="line.357"></a>
-<span class="sourceLineNo">358</span>      calendar.set(Calendar.HOUR_OF_DAY, 0);<a name="line.358"></a>
-<span class="sourceLineNo">359</span>      calendar.set(Calendar.MINUTE, 0);<a name="line.359"></a>
-<span class="sourceLineNo">360</span>      calendar.set(Calendar.SECOND, 0);<a name="line.360"></a>
-<span class="sourceLineNo">361</span>      calendar.set(Calendar.MILLISECOND, 0);<a name="line.361"></a>
-<span class="sourceLineNo">362</span>      convertedDates.add(calendar.getTime());<a name="line.362"></a>
-<span class="sourceLineNo">363</span>    }<a name="line.363"></a>
-<span class="sourceLineNo">364</span>    return convertedDates;<a name="line.364"></a>
-<span class="sourceLineNo">365</span>  }<a name="line.365"></a>
-<span class="sourceLineNo">366</span><a name="line.366"></a>
-<span class="sourceLineNo">367</span>  /**<a name="line.367"></a>
-<span class="sourceLineNo">368</span>   * Converts into a "unix time", which means convert into the number of seconds (NOT milliseconds) from the Epoch fit<a name="line.368"></a>
-<span class="sourceLineNo">369</span>   * for the Facebook Query Language. Notice that if you want data for September 15th then you need to present to<a name="line.369"></a>
-<span class="sourceLineNo">370</span>   * Facebook the NEXT DAY, ie. the upper exclusive limit of your date range. So beyond all the sliding to midnight code<a name="line.370"></a>
-<span class="sourceLineNo">371</span>   * you see in {@link #convertToMidnightInPacificTimeZone(Date)}, we need to go further and slide this input date<a name="line.371"></a>
-<span class="sourceLineNo">372</span>   * forward one day.<a name="line.372"></a>
-<span class="sourceLineNo">373</span>   * <a name="line.373"></a>
-<span class="sourceLineNo">374</span>   * In retrospect, this should have been implemented via the Facebook end_time_date() function.<a name="line.374"></a>
-<span class="sourceLineNo">375</span>   * <a name="line.375"></a>
-<span class="sourceLineNo">376</span>   * @param date<a name="line.376"></a>
-<span class="sourceLineNo">377</span>   *          The date to convert.<a name="line.377"></a>
-<span class="sourceLineNo">378</span>   * @return Unix time representation of the given {@code date}.<a name="line.378"></a>
-<span class="sourceLineNo">379</span>   */<a name="line.379"></a>
-<span class="sourceLineNo">380</span>  static long convertToUnixTimeOneDayLater(Date date) {<a name="line.380"></a>
-<span class="sourceLineNo">381</span>    long time = date.getTime() / 1000L;<a name="line.381"></a>
-<span class="sourceLineNo">382</span>    // note we cannot use a Daylight sensitive Calendar here since that would<a name="line.382"></a>
-<span class="sourceLineNo">383</span>    // adjust the time incorrectly over the DST junction<a name="line.383"></a>
-<span class="sourceLineNo">384</span>    time += Period.DAY.getPeriodLength();<a name="line.384"></a>
-<span class="sourceLineNo">385</span>    return time;<a name="line.385"></a>
-<span class="sourceLineNo">386</span>  }<a name="line.386"></a>
-<span class="sourceLineNo">387</span><a name="line.387"></a>
-<span class="sourceLineNo">388</span>  /**<a name="line.388"></a>
-<span class="sourceLineNo">389</span>   * Slides this time back to midnight in the PST timezone and converts into a "unix time", which means convert into the<a name="line.389"></a>
-<span class="sourceLineNo">390</span>   * number of seconds (NOT milliseconds) from the Epoch fit for the Facebook Query Language. Notice that if you want<a name="line.390"></a>
-<span class="sourceLineNo">391</span>   * data for September 15th then you need to present to Facebook the NEXT DAY, ie. the upper exclusive limit of your<a name="line.391"></a>
-<span class="sourceLineNo">392</span>   * date range. So beyond all the sliding to midnight issue, we need to go further and slide this input date forward<a name="line.392"></a>
-<span class="sourceLineNo">393</span>   * one day.<a name="line.393"></a>
-<span class="sourceLineNo">394</span>   * <a name="line.394"></a>
-<span class="sourceLineNo">395</span>   * @param date<a name="line.395"></a>
-<span class="sourceLineNo">396</span>   *          The date to convert.<a name="line.396"></a>
-<span class="sourceLineNo">397</span>   * @return Midnight-PST Unix time representation of the given {@code date}.<a name="line.397"></a>
-<span class="sourceLineNo">398</span>   * @see #convertToMidnightInPacificTimeZone(Date)<a name="line.398"></a>
-<span class="sourceLineNo">399</span>   */<a name="line.399"></a>
-<span class="sourceLineNo">400</span>  static long convertToUnixTimeAtPacificTimeZoneMidnightOneDayLater(Date date) {<a name="line.400"></a>
-<span class="sourceLineNo">401</span>    return convertToUnixTimeOneDayLater(convertToMidnightInPacificTimeZone(date));<a name="line.401"></a>
-<span class="sourceLineNo">402</span>  }<a name="line.402"></a>
-<span class="sourceLineNo">403</span><a name="line.403"></a>
-<span class="sourceLineNo">404</span>  /**<a name="line.404"></a>
-<span class="sourceLineNo">405</span>   * Is the provided {@code collection} {@code null} or empty?<a name="line.405"></a>
-<span class="sourceLineNo">406</span>   * <a name="line.406"></a>
-<span class="sourceLineNo">407</span>   * @param collection<a name="line.407"></a>
-<span class="sourceLineNo">408</span>   *          The collection to check.<a name="line.408"></a>
-<span class="sourceLineNo">409</span>   * @return {@code true} if {@code collection} is {@code null} or empty, {@code false} otherwise.<a name="line.409"></a>
-<span class="sourceLineNo">410</span>   */<a name="line.410"></a>
-<span class="sourceLineNo">411</span>  static &lt;T extends Object&gt; boolean isEmpty(Collection&lt;T&gt; collection) {<a name="line.411"></a>
-<span class="sourceLineNo">412</span>    return collection == null || collection.isEmpty();<a name="line.412"></a>
-<span class="sourceLineNo">413</span>  }<a name="line.413"></a>
-<span class="sourceLineNo">414</span>}<a name="line.414"></a>
+<span class="sourceLineNo">237</span>        try {<a name="line.237"></a>
+<span class="sourceLineNo">238</span>          // resolve the map key back into a date<a name="line.238"></a>
+<span class="sourceLineNo">239</span>          int queryIndex = Integer.parseInt(key);<a name="line.239"></a>
+<span class="sourceLineNo">240</span>          Date d = datesByQueryIndex.get(queryIndex);<a name="line.240"></a>
+<span class="sourceLineNo">241</span>          if (d == null) {<a name="line.241"></a>
+<span class="sourceLineNo">242</span>            throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key);<a name="line.242"></a>
+<span class="sourceLineNo">243</span>          }<a name="line.243"></a>
+<span class="sourceLineNo">244</span><a name="line.244"></a>
+<span class="sourceLineNo">245</span>          result.put(d, innerResult);<a name="line.245"></a>
+<span class="sourceLineNo">246</span>        } catch (NumberFormatException nfe) {<a name="line.246"></a>
+<span class="sourceLineNo">247</span>          throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key, nfe);<a name="line.247"></a>
+<span class="sourceLineNo">248</span>        }<a name="line.248"></a>
+<span class="sourceLineNo">249</span>      }<a name="line.249"></a>
+<span class="sourceLineNo">250</span>    }<a name="line.250"></a>
+<span class="sourceLineNo">251</span>    return result;<a name="line.251"></a>
+<span class="sourceLineNo">252</span>  }<a name="line.252"></a>
+<span class="sourceLineNo">253</span><a name="line.253"></a>
+<span class="sourceLineNo">254</span>  static Map&lt;String, String&gt; buildQueries(String baseQuery, List&lt;Date&gt; datesByQueryIndex) {<a name="line.254"></a>
+<span class="sourceLineNo">255</span>    Map&lt;String, String&gt; fqlByQueryIndex = new LinkedHashMap&lt;String, String&gt;();<a name="line.255"></a>
+<span class="sourceLineNo">256</span>    for (int queryIndex = 0; queryIndex &lt; datesByQueryIndex.size(); queryIndex++) {<a name="line.256"></a>
+<span class="sourceLineNo">257</span>      Date d = datesByQueryIndex.get(queryIndex);<a name="line.257"></a>
+<span class="sourceLineNo">258</span>      String query = baseQuery + convertToUnixTimeOneDayLater(d);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>      fqlByQueryIndex.put(String.valueOf(queryIndex), query);<a name="line.259"></a>
+<span class="sourceLineNo">260</span>    }<a name="line.260"></a>
+<span class="sourceLineNo">261</span>    return fqlByQueryIndex;<a name="line.261"></a>
+<span class="sourceLineNo">262</span>  }<a name="line.262"></a>
+<span class="sourceLineNo">263</span><a name="line.263"></a>
+<span class="sourceLineNo">264</span>  static String createBaseQuery(Period period, String pageObjectId, Set&lt;String&gt; metrics) {<a name="line.264"></a>
+<span class="sourceLineNo">265</span>    StringBuilder q = new StringBuilder();<a name="line.265"></a>
+<span class="sourceLineNo">266</span>    q.append("SELECT metric, value ");<a name="line.266"></a>
+<span class="sourceLineNo">267</span>    q.append("FROM insights ");<a name="line.267"></a>
+<span class="sourceLineNo">268</span>    q.append("WHERE object_id='");<a name="line.268"></a>
+<span class="sourceLineNo">269</span>    q.append(pageObjectId);<a name="line.269"></a>
+<span class="sourceLineNo">270</span>    q.append('\'');<a name="line.270"></a>
+<span class="sourceLineNo">271</span><a name="line.271"></a>
+<span class="sourceLineNo">272</span>    String metricInList = buildMetricInList(metrics);<a name="line.272"></a>
+<span class="sourceLineNo">273</span>    if (!isBlank(metricInList)) {<a name="line.273"></a>
+<span class="sourceLineNo">274</span>      q.append(" AND metric IN (");<a name="line.274"></a>
+<span class="sourceLineNo">275</span>      q.append(metricInList);<a name="line.275"></a>
+<span class="sourceLineNo">276</span>      q.append(")");<a name="line.276"></a>
+<span class="sourceLineNo">277</span>    }<a name="line.277"></a>
+<span class="sourceLineNo">278</span><a name="line.278"></a>
+<span class="sourceLineNo">279</span>    q.append(" AND period=");<a name="line.279"></a>
+<span class="sourceLineNo">280</span>    q.append(period.getPeriodLength());<a name="line.280"></a>
+<span class="sourceLineNo">281</span>    q.append(" AND end_time=");<a name="line.281"></a>
+<span class="sourceLineNo">282</span>    return q.toString();<a name="line.282"></a>
+<span class="sourceLineNo">283</span>  }<a name="line.283"></a>
+<span class="sourceLineNo">284</span><a name="line.284"></a>
+<span class="sourceLineNo">285</span>  static String buildMetricInList(Set&lt;String&gt; metrics) {<a name="line.285"></a>
+<span class="sourceLineNo">286</span>    StringBuilder in = new StringBuilder();<a name="line.286"></a>
+<span class="sourceLineNo">287</span>    if (!isEmpty(metrics)) {<a name="line.287"></a>
+<span class="sourceLineNo">288</span>      int metricCount = 0;<a name="line.288"></a>
+<span class="sourceLineNo">289</span>      for (String metric : metrics) {<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        if (!isBlank(metric)) {<a name="line.290"></a>
+<span class="sourceLineNo">291</span>          if (metricCount &gt; 0) {<a name="line.291"></a>
+<span class="sourceLineNo">292</span>            in.append(',');<a name="line.292"></a>
+<span class="sourceLineNo">293</span>          }<a name="line.293"></a>
+<span class="sourceLineNo">294</span><a name="line.294"></a>
+<span class="sourceLineNo">295</span>          in.append('\'');<a name="line.295"></a>
+<span class="sourceLineNo">296</span>          in.append(metric.trim());<a name="line.296"></a>
+<span class="sourceLineNo">297</span>          in.append('\'');<a name="line.297"></a>
+<span class="sourceLineNo">298</span>          metricCount++;<a name="line.298"></a>
+<span class="sourceLineNo">299</span>        }<a name="line.299"></a>
+<span class="sourceLineNo">300</span>      }<a name="line.300"></a>
+<span class="sourceLineNo">301</span>    }<a name="line.301"></a>
+<span class="sourceLineNo">302</span>    return in.toString();<a name="line.302"></a>
+<span class="sourceLineNo">303</span>  }<a name="line.303"></a>
+<span class="sourceLineNo">304</span><a name="line.304"></a>
+<span class="sourceLineNo">305</span>  /**<a name="line.305"></a>
+<span class="sourceLineNo">306</span>   * Slides this date back to midnight in the PST timezone fit for the Facebook Query Language.<a name="line.306"></a>
+<span class="sourceLineNo">307</span>   * &lt;p&gt;<a name="line.307"></a>
+<span class="sourceLineNo">308</span>   * More details are available at<a name="line.308"></a>
+<span class="sourceLineNo">309</span>   * &lt;a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights" &gt;http://developers.facebook.<a name="line.309"></a>
+<span class="sourceLineNo">310</span>   * com/docs/reference/fql/insights&lt;/a&gt;.<a name="line.310"></a>
+<span class="sourceLineNo">311</span>   * <a name="line.311"></a>
+<span class="sourceLineNo">312</span>   * @param date<a name="line.312"></a>
+<span class="sourceLineNo">313</span>   *          The date to slide back.<a name="line.313"></a>
+<span class="sourceLineNo">314</span>   * @return A midnight-PST version of the provided {@code date}.<a name="line.314"></a>
+<span class="sourceLineNo">315</span>   * @see #convertToMidnightInPacificTimeZone(Set)<a name="line.315"></a>
+<span class="sourceLineNo">316</span>   */<a name="line.316"></a>
+<span class="sourceLineNo">317</span>  public static Date convertToMidnightInPacificTimeZone(Date date) {<a name="line.317"></a>
+<span class="sourceLineNo">318</span>    if (date == null) {<a name="line.318"></a>
+<span class="sourceLineNo">319</span>      throw new IllegalArgumentException("The 'date' parameter is required.");<a name="line.319"></a>
+<span class="sourceLineNo">320</span>    }<a name="line.320"></a>
+<span class="sourceLineNo">321</span><a name="line.321"></a>
+<span class="sourceLineNo">322</span>    Set&lt;Date&gt; convertedDates = convertToMidnightInPacificTimeZone(singleton(date));<a name="line.322"></a>
+<span class="sourceLineNo">323</span><a name="line.323"></a>
+<span class="sourceLineNo">324</span>    if (convertedDates.size() != 1) {<a name="line.324"></a>
+<span class="sourceLineNo">325</span>      throw new IllegalStateException("Internal error, expected 1 date.");<a name="line.325"></a>
+<span class="sourceLineNo">326</span>    }<a name="line.326"></a>
+<span class="sourceLineNo">327</span><a name="line.327"></a>
+<span class="sourceLineNo">328</span>    return convertedDates.iterator().next();<a name="line.328"></a>
+<span class="sourceLineNo">329</span>  }<a name="line.329"></a>
+<span class="sourceLineNo">330</span><a name="line.330"></a>
+<span class="sourceLineNo">331</span>  /**<a name="line.331"></a>
+<span class="sourceLineNo">332</span>   * Slides these dates back to midnight in the PST timezone fit for the Facebook Query Language.<a name="line.332"></a>
+<span class="sourceLineNo">333</span>   * &lt;p&gt;<a name="line.333"></a>
+<span class="sourceLineNo">334</span>   * More details are available at<a name="line.334"></a>
+<span class="sourceLineNo">335</span>   * &lt;a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights" &gt;http://developers.facebook.<a name="line.335"></a>
+<span class="sourceLineNo">336</span>   * com/docs/reference/fql/insights&lt;/a&gt;.<a name="line.336"></a>
+<span class="sourceLineNo">337</span>   * <a name="line.337"></a>
+<span class="sourceLineNo">338</span>   * @param dates<a name="line.338"></a>
+<span class="sourceLineNo">339</span>   *          The dates to slide back.<a name="line.339"></a>
+<span class="sourceLineNo">340</span>   * @return Midnight-PST versions of the provided {@code dates}.<a name="line.340"></a>
+<span class="sourceLineNo">341</span>   * @see #convertToMidnightInPacificTimeZone(Date)<a name="line.341"></a>
+<span class="sourceLineNo">342</span>   */<a name="line.342"></a>
+<span class="sourceLineNo">343</span>  public static SortedSet&lt;Date&gt; convertToMidnightInPacificTimeZone(Set&lt;Date&gt; dates) {<a name="line.343"></a>
+<span class="sourceLineNo">344</span>    Calendar calendar = Calendar.getInstance(PST_TIMEZONE);<a name="line.344"></a>
+<span class="sourceLineNo">345</span>    SortedSet&lt;Date&gt; convertedDates = new TreeSet&lt;Date&gt;();<a name="line.345"></a>
+<span class="sourceLineNo">346</span>    for (Date d : dates) {<a name="line.346"></a>
+<span class="sourceLineNo">347</span>      calendar.setTime(d);<a name="line.347"></a>
+<span class="sourceLineNo">348</span>      calendar.set(Calendar.HOUR_OF_DAY, 0);<a name="line.348"></a>
+<span class="sourceLineNo">349</span>      calendar.set(Calendar.MINUTE, 0);<a name="line.349"></a>
+<span class="sourceLineNo">350</span>      calendar.set(Calendar.SECOND, 0);<a name="line.350"></a>
+<span class="sourceLineNo">351</span>      calendar.set(Calendar.MILLISECOND, 0);<a name="line.351"></a>
+<span class="sourceLineNo">352</span>      convertedDates.add(calendar.getTime());<a name="line.352"></a>
+<span class="sourceLineNo">353</span>    }<a name="line.353"></a>
+<span class="sourceLineNo">354</span>    return convertedDates;<a name="line.354"></a>
+<span class="sourceLineNo">355</span>  }<a name="line.355"></a>
+<span class="sourceLineNo">356</span><a name="line.356"></a>
+<span class="sourceLineNo">357</span>  /**<a name="line.357"></a>
+<span class="sourceLineNo">358</span>   * Converts into a "unix time", which means convert into the number of seconds (NOT milliseconds) from the Epoch fit<a name="line.358"></a>
+<span class="sourceLineNo">359</span>   * for the Facebook Query Language. Notice that if you want data for September 15th then you need to present to<a name="line.359"></a>
+<span class="sourceLineNo">360</span>   * Facebook the NEXT DAY, ie. the upper exclusive limit of your date range. So beyond all the sliding to midnight code<a name="line.360"></a>
+<span class="sourceLineNo">361</span>   * you see in {@link #convertToMidnightInPacificTimeZone(Date)}, we need to go further and slide this input date<a name="line.361"></a>
+<span class="sourceLineNo">362</span>   * forward one day.<a name="line.362"></a>
+<span class="sourceLineNo">363</span>   * <a name="line.363"></a>
+<span class="sourceLineNo">364</span>   * In retrospect, this should have been implemented via the Facebook end_time_date() function.<a name="line.364"></a>
+<span class="sourceLineNo">365</span>   * <a name="line.365"></a>
+<span class="sourceLineNo">366</span>   * @param date<a name="line.366"></a>
+<span class="sourceLineNo">367</span>   *          The date to convert.<a name="line.367"></a>
+<span class="sourceLineNo">368</span>   * @return Unix time representation of the given {@code date}.<a name="line.368"></a>
+<span class="sourceLineNo">369</span>   */<a name="line.369"></a>
+<span class="sourceLineNo">370</span>  static long convertToUnixTimeOneDayLater(Date date) {<a name="line.370"></a>
+<span class="sourceLineNo">371</span>    long time = date.getTime() / 1000L;<a name="line.371"></a>
+<span class="sourceLineNo">372</span>    // note we cannot use a Daylight sensitive Calendar here since that would<a name="line.372"></a>
+<span class="sourceLineNo">373</span>    // adjust the time incorrectly over the DST junction<a name="line.373"></a>
+<span class="sourceLineNo">374</span>    time += Period.DAY.getPeriodLength();<a name="line.374"></a>
+<span class="sourceLineNo">375</span>    return time;<a name="line.375"></a>
+<span class="sourceLineNo">376</span>  }<a name="line.376"></a>
+<span class="sourceLineNo">377</span><a name="line.377"></a>
+<span class="sourceLineNo">378</span>  /**<a name="line.378"></a>
+<span class="sourceLineNo">379</span>   * Slides this time back to midnight in the PST timezone and converts into a "unix time", which means convert into the<a name="line.379"></a>
+<span class="sourceLineNo">380</span>   * number of seconds (NOT milliseconds) from the Epoch fit for the Facebook Query Language. Notice that if you want<a name="line.380"></a>
+<span class="sourceLineNo">381</span>   * data for September 15th then you need to present to Facebook the NEXT DAY, ie. the upper exclusive limit of your<a name="line.381"></a>
+<span class="sourceLineNo">382</span>   * date range. So beyond all the sliding to midnight issue, we need to go further and slide this input date forward<a name="line.382"></a>
+<span class="sourceLineNo">383</span>   * one day.<a name="line.383"></a>
+<span class="sourceLineNo">384</span>   * <a name="line.384"></a>
+<span class="sourceLineNo">385</span>   * @param date<a name="line.385"></a>
+<span class="sourceLineNo">386</span>   *          The date to convert.<a name="line.386"></a>
+<span class="sourceLineNo">387</span>   * @return Midnight-PST Unix time representation of the given {@code date}.<a name="line.387"></a>
+<span class="sourceLineNo">388</span>   * @see #convertToMidnightInPacificTimeZone(Date)<a name="line.388"></a>
+<span class="sourceLineNo">389</span>   */<a name="line.389"></a>
+<span class="sourceLineNo">390</span>  static long convertToUnixTimeAtPacificTimeZoneMidnightOneDayLater(Date date) {<a name="line.390"></a>
+<span class="sourceLineNo">391</span>    return convertToUnixTimeOneDayLater(convertToMidnightInPacificTimeZone(date));<a name="line.391"></a>
+<span class="sourceLineNo">392</span>  }<a name="line.392"></a>
+<span class="sourceLineNo">393</span><a name="line.393"></a>
+<span class="sourceLineNo">394</span>  /**<a name="line.394"></a>
+<span class="sourceLineNo">395</span>   * Is the provided {@code collection} {@code null} or empty?<a name="line.395"></a>
+<span class="sourceLineNo">396</span>   * <a name="line.396"></a>
+<span class="sourceLineNo">397</span>   * @param collection<a name="line.397"></a>
+<span class="sourceLineNo">398</span>   *          The collection to check.<a name="line.398"></a>
+<span class="sourceLineNo">399</span>   * @return {@code true} if {@code collection} is {@code null} or empty, {@code false} otherwise.<a name="line.399"></a>
+<span class="sourceLineNo">400</span>   */<a name="line.400"></a>
+<span class="sourceLineNo">401</span>  static &lt;T&gt; boolean isEmpty(Collection&lt;T&gt; collection) {<a name="line.401"></a>
+<span class="sourceLineNo">402</span>    return collection == null || collection.isEmpty();<a name="line.402"></a>
+<span class="sourceLineNo">403</span>  }<a name="line.403"></a>
+<span class="sourceLineNo">404</span>}<a name="line.404"></a>
 
 
 

@@ -34,16 +34,16 @@
 <span class="sourceLineNo">026</span>import static java.util.Arrays.asList;<a name="line.26"></a>
 <span class="sourceLineNo">027</span>import static java.util.Collections.unmodifiableList;<a name="line.27"></a>
 <span class="sourceLineNo">028</span><a name="line.28"></a>
-<span class="sourceLineNo">029</span>import java.util.ArrayList;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>import java.util.List;<a name="line.30"></a>
-<span class="sourceLineNo">031</span><a name="line.31"></a>
-<span class="sourceLineNo">032</span>import com.restfb.Facebook;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>import com.restfb.Parameter;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>import com.restfb.util.ReflectionUtils;<a name="line.34"></a>
+<span class="sourceLineNo">029</span>import com.restfb.Facebook;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.restfb.Parameter;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.restfb.util.ReflectionUtils;<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>import java.util.ArrayList;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import java.util.List;<a name="line.34"></a>
 <span class="sourceLineNo">035</span><a name="line.35"></a>
 <span class="sourceLineNo">036</span>/**<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * Encapsulates a discrete part of an entire &lt;a href="https://developers.facebook.com/docs/reference/api/batch/"<a name="line.37"></a>
-<span class="sourceLineNo">038</span> * target="_blank"&gt;Facebook Batch API&lt;/a&gt; request.<a name="line.38"></a>
+<span class="sourceLineNo">037</span> * Encapsulates a discrete part of an entire<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * &lt;a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank"&gt;Facebook Batch API&lt;/a&gt; request.<a name="line.38"></a>
 <span class="sourceLineNo">039</span> * &lt;p&gt;<a name="line.39"></a>
 <span class="sourceLineNo">040</span> * Must be constructed by {@link BatchRequestBuilder}.<a name="line.40"></a>
 <span class="sourceLineNo">041</span> * <a name="line.41"></a>
@@ -103,23 +103,23 @@
 <span class="sourceLineNo">095</span>   *           If {@code relativeUrl} is {@code null}.<a name="line.95"></a>
 <span class="sourceLineNo">096</span>   */<a name="line.96"></a>
 <span class="sourceLineNo">097</span>  protected BatchRequest(String relativeUrl, List&lt;Parameter&gt; parameters, String method, List&lt;BatchHeader&gt; headers,<a name="line.97"></a>
-<span class="sourceLineNo">098</span>      List&lt;Parameter&gt; bodyParameters, String attachedFiles, String dependsOn, String name, boolean omitResponseOnSuccess) {<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    if (relativeUrl == null) {<a name="line.99"></a>
-<span class="sourceLineNo">100</span>      throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");<a name="line.100"></a>
-<span class="sourceLineNo">101</span>    }<a name="line.101"></a>
-<span class="sourceLineNo">102</span><a name="line.102"></a>
-<span class="sourceLineNo">103</span>    this.relativeUrl = relativeUrl;<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    this.method = method;<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    this.headers = headers;<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    this.attachedFiles = attachedFiles;<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    this.dependsOn = dependsOn;<a name="line.107"></a>
-<span class="sourceLineNo">108</span>    this.name = name;<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    this.omitResponseOnSuccess = omitResponseOnSuccess;<a name="line.109"></a>
-<span class="sourceLineNo">110</span><a name="line.110"></a>
-<span class="sourceLineNo">111</span>    if (!parameters.isEmpty()) {<a name="line.111"></a>
-<span class="sourceLineNo">112</span>      this.relativeUrl =<a name="line.112"></a>
-<span class="sourceLineNo">113</span>          format(this.relativeUrl.indexOf("?") == -1 ? "%s?%s" : "%s&amp;%s", this.relativeUrl,<a name="line.113"></a>
-<span class="sourceLineNo">114</span>            generateParameterString(parameters));<a name="line.114"></a>
+<span class="sourceLineNo">098</span>      List&lt;Parameter&gt; bodyParameters, String attachedFiles, String dependsOn, String name,<a name="line.98"></a>
+<span class="sourceLineNo">099</span>      boolean omitResponseOnSuccess) {<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    if (relativeUrl == null) {<a name="line.100"></a>
+<span class="sourceLineNo">101</span>      throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");<a name="line.101"></a>
+<span class="sourceLineNo">102</span>    }<a name="line.102"></a>
+<span class="sourceLineNo">103</span><a name="line.103"></a>
+<span class="sourceLineNo">104</span>    this.relativeUrl = relativeUrl;<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    this.method = method;<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    this.headers = headers;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    this.attachedFiles = attachedFiles;<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    this.dependsOn = dependsOn;<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    this.name = name;<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    this.omitResponseOnSuccess = omitResponseOnSuccess;<a name="line.110"></a>
+<span class="sourceLineNo">111</span><a name="line.111"></a>
+<span class="sourceLineNo">112</span>    if (!parameters.isEmpty()) {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>      this.relativeUrl = format(!this.relativeUrl.contains("?") ? "%s?%s" : "%s&amp;%s", this.relativeUrl,<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        generateParameterString(parameters));<a name="line.114"></a>
 <span class="sourceLineNo">115</span>    }<a name="line.115"></a>
 <span class="sourceLineNo">116</span><a name="line.116"></a>
 <span class="sourceLineNo">117</span>    this.body = generateParameterString(bodyParameters);<a name="line.117"></a>
