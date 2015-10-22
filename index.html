@@ -757,6 +757,99 @@ FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
     Parameter.with("coordinates", coordinates), Parameter.with("place", 1234)));
 
 out.println("Published checkin ID: " + publishCheckinResponse.getId());</code></pre></div>
+
+				<h2 id="publishing-big-video">Publishing a Video (via resumable upload)</h2>
+				see <a target="_blank" href="https://developers.facebook.com/docs/graph-api/video-uploads">Graph API documentation</a><br />
+				<p>Uploading a short video is the same as uploading a picture. You should have a look at the picture section
+				to understand how it works.</p>
+				<p>
+				A new feature Facebook added with Graph API 2.4 is the resumable upload. Big videos should be uploaded
+				with this new approach. So you can upload a video with a file size of about 2GB. The current max value
+				can be found in the Graph API documentation or you simply try to start the upload and handle the error.
+				</p>
+				<p>
+				The resumable upload is divided in 3 phases. <i>Start</i>, <i>Transfer</i> and <i>Finish</i>. If you are
+				familiar with databases and transactions, you can compare the start with open a transaction and finish
+				with closing it. The transfer phase is where the real action takes place.
+				</p>
+
+				<h3>The <code>Start</code>-Phase</h3>
+				The first phase is the Start-phase and instead of uploading the file you tell Facebook you want to upload
+				a file and how big it is. The file size you send to Facebook is in bytes. Facebook checks the size and
+				returns an error if something is not okay, but normally you should get a Video id, a Session id and the
+				first information which bytes Facebook expects you to send first. So you get a start and an end offset.
+				<div class="highlight"><pre><code class="language-java" data-lang="java">File videoFile = new File(uploadableFile.getFile());
+long filesizeInBytes = videoFile.length();
+// we need the file size in bytes to make the start request
+FacebookClient fbc = new DefaultFacebookClient(accessToken, Version.LATEST);
+ResumableUploadStartResponse returnValue = fbc.publish("pageid/videos",
+     ResumableUploadStartResponse.class, // the return value
+     Parameter.with("upload_phase", "start"), // the upload phase
+     Parameter.with("file_size", filesizeInBytes)); // the file size
+
+long startOffset = returnValue.getStartOffset();
+long endOffset = returnValue.getEndOffset();
+Long length = endOffset - startOffset;
+
+// the upload session id is very important, because Facebook needs
+// this id to identify all the uploads that belong together
+String uploadSessionId = returnValue.getUploadSessionId();</code></pre></div>
+
+				<h3>The <code>Transfer</code>-Phase</h3>
+				<p>
+				So you know what is the first part of the upload and you enter the Transfer-phase. You upload a defined
+				part of the file as you upload a binary file to Facebook. You simply have to add some additional information
+				about the offset and session you upload the bytes for. So Facebook can join the file correctly.
+				</p>
+				<p>
+				As response you get the information what offsets are expected next. This happens in a loop. So you upload the
+				next part and get new offsets, and upload these bytes and so on.
+				</p>
+				<div class="highlight"><pre><code class="language-java" data-lang="java">// We have to upload the chunks in a loop
+while (length > 0) {
+     // first copy bytes in byte array
+     byte fileBytes[] = new byte[length];
+     in.read(fileBytes);
+
+     // make the request to Facebook
+     ResumableUploadTransferResponse filePart = fbc.publish("pageid/videos",
+     	  // the returned object 
+	  ResumableUploadTransferResponse.class,
+	  // the file chunk that should be uploaded now
+	  BinaryAttachment.with("video_file_chunk", fileBytes),
+	  // tell Facebook that we are in the transfer phase now 
+	  Parameter.with("upload_phase", "transfer"),
+	  // the offset the file chunk starts
+	  Parameter.with("start_offset", startOffset),
+	  // the important session id of this file transfer
+          Parameter.with("upload_session_id", uploadSessionId));
+
+     // after uploading the chunk we recalculate the offsets accordingly to the 
+     // information provided by Facebook
+     startOffset = returnValue.getStartOffset();
+     endOffset = returnValue.getEndOffset();
+     length = endOffset - startOffset;
+}</code></pre></div>
+				<p>
+				At some point you get a response where start and end offset are equals and you may enter the last phase.
+				</p>
+				<h3>The <code>Finish</code>-Phase</h3>
+				After uploading all binary parts you enter the third phase and send Facebook the request to publish the video. The
+				response is the often used success JSON and you may use the <code>GraphResponse</code>-type to easily access
+				the <code>success</code> field.
+				<div class="highlight"><pre><code class="language-java" data-lang="java">
+GraphResponse finishResponse = fbc.publish("pageid/videos",
+     GraphResponse.class,
+     Parameter.with("upload_phase", "finish"), // tell Facebook to finish the upload
+     Parameter.with("upload_session_id", uploadSessionId)); // again the session id</code></pre></div>
+				<p>
+				After you received the success-response, you have to wait until Facebook converted the video. This takes
+				some minutes and you'll receive a notification. A Mail, a Facebook message and if you have a working real time
+				update subscription a call regarding the new video.
+				</p>
+				<p>
+				Now the video is online and can be played.
+				</p>
 		    </div>
 
 		    <div class="bs-docs-section">
@@ -1693,6 +1786,7 @@ THE SOFTWARE.</pre>
 				<li><a href="#publishing-message-event">a Message and Event</a></li>
 				<li><a href="#publishing-photo">a Photo</a></li>
 				<li><a href="#publishing-checkin">a Checkin</a></li>
+					<li><a href="#publishing-big-video">a Video (resumable Upload)</a></li>
 			    </ul>
 			</li>
 
