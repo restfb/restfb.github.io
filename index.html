@@ -226,6 +226,15 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_AP
 		    </div>
 		    <div class="bs-docs-section">
 			<h1 id="fetching" class="page-header">Fetching</h1>
+
+				<div class="bs-callout bs-callout-warning" role="alert">
+					<h4>Important change with Graph API 2.4</h4>
+					<div>Facebook did a "breaking change" with Graph API 2.4 and you have to provide the <code>fields</code> parameter to get the fields you need.
+					<a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">According to Facebook</a> reducing the default
+						fields leads to faster performance. In the "<a href="#selecting-specific-fields">advanced usage</a>" section you'll find a example how the fields are requested with RestFB.</div>
+				</div>
+
+
 			<h2 id="fetching-single-objects">Fetching Single Objects</h2>
 			<p>
 				The simplest way to fetch an object from Facebook is the <code>fetchObject</code> method. To use
@@ -525,7 +534,7 @@ User userWithMetadata =
 out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());</code></pre></div>
 			<h2 id="passing-parameters">Passing Parameters</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			see <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion">Graph API documentation</a>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// You can pass along any parameters you'd like to the Facebook endpoint.
 
@@ -536,15 +545,72 @@ Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", 
     Parameter.with("since", oneWeekAgo));
 
 out.println("Filtered feed count: " + filteredFeed.getData().size());</code></pre></div>
-			<h2 id="selecting-specific-fields">Selecting Specific Fields</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
-
-			<div class="highlight"><pre><code class="language-java" data-lang="java">
+			<h2 id="selecting-specific-fields">Selecting Specific Fields &amp; Field expansion</h2>
+			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a><br />
+			<p>
+				If you fetch a type from Facebook you get a prefilled version. With Graph API 2.4 Facebook changed the behavior and
+				you get only a very minimalistic object. The basic idea of this approach is to save bandwidth and make the
+				transfer much faster, but you have to tell Facebook which fields you need. The requested fields have to be
+				provided as comma separated list.
+			</p>
+				<p>
+				Basically you should add the <code>fields</code> parameter on every request. So you can be sure to get
+				the right information. The fields a type supports can be found in the Graph API Reference.
+				</p>
+				<h4>Request with fields (first level)</h4>
+				<p>
+				A simple example looks like the following snippet. A user is fetched with <code>id</code>, <code>name</code>
+				and <code>email</code> field filled.
+ 			</p>
+			<div class="highlight">
+				<pre><code class="language-java" data-lang="java">// fetch user type with id, name and email prefilled
 User user = facebookClient.fetchObject("me", User.class,
-  Parameter.with("fields", "id, name"));
+     Parameter.with("fields", "id,name,email")); 
 
-out.println("User name: " + user.getName());</code></pre></div>
-			<h2 id="fetch-post-total-count">Fetch Post with comments/likes total count</h2>
+out.println("User name: " + user.getName());</code>
+				</pre>
+			</div>
+				<h4>Request with fields (limit)</h4>
+				<p>
+					A even more interesting feature is the <code>limit(x)</code> method. If a type contains a field that
+					represents a list of other types, for example the comments field on a post, you can limit the transferred
+					objects with the <code>limit()</code>. This sounds very complicated and abstract but is very easy to use.
+					To show the usage we have a simple example.
+				</p>
+
+				<div class="highlight"><pre><code class="language-java" data-lang="java">// fetch post type with from, to and two comments prefilled
+Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
+     Parameter.with("fields", "from,tp,comments.limit(2)"));</code></pre></div>
+
+				<h4>Request with fields (second level)</h4>
+				<p>
+					Now we go a step further and have a look at the second level of the fields. Until now we worked only
+					with the first level, but Facebook supports more levels. In this example we use the second level.
+
+					The next level is added with the curly brackets and they encapsulate the fields of the next level type.
+					This sounds complicated too, but is easy as soon as you see a example. And here we go:
+				</p>
+
+				<div class="highlight"><pre><code class="language-java" data-lang="java">// fetch post type with from, to and two comments prefilled,
+// the comments contain only the from and message fields
+Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
+     Parameter.with("fields", "comments.limit(2){from,message}"));</code></pre></div>
+
+				<h4>Request with fields (third to n-th level)</h4>
+				<p>
+					And the last example is the third level. Now we take the last example and request only the <code>id</code>
+					from the <code>from</code> field. This is similar to the second level and so you get a idea how the different
+					levels work and so you can work with n-levels if necessary.
+				</p>
+
+				<div class="highlight"><pre><code class="language-java" data-lang="java">// fetch post type with from, to and two comments prefilled,
+// the comments contain only the from and message fields
+// the inner from field contains only the id
+Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
+     Parameter.with("fields", "comments.limit(2){from{id},message}"));</code></pre></div>
+
+
+				<h2 id="fetch-post-total-count">Fetch Post with comments/likes total count</h2>
 			see <a target="_blank" href="https://developers.facebook.com/docs/apps/migrations/completed-changes#july_2013">July 2013 Breaking Changes</a>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Some Post from the GoT Fanpage with likes and comments total count
@@ -1613,7 +1679,7 @@ THE SOFTWARE.</pre>
 			    <ul class="nav">
 				<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
 				<li><a href="#passing-parameters">Passing Parameters</a></li>
-				<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
+				<li><a href="#selecting-specific-fields">Selecting Specific Fields &amp; Field expansion</a></li>
 				<li><a href="#fetch-post-total-count">Fetch Post with comments/likes total count</a></li>
 			    </ul>
 			</li>
