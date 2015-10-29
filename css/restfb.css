@@ -20,9 +20,16 @@ body{position:relative}.table code{font-size:13px;font-weight:400}.btn-outline{c
 
 @font-face {
     font-family: 'Monserrat';
-
     src: url('../fonts/montserrat-regular-webfont.eot');
     src: url('../fonts/montserrat-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/montserrat-regular-webfont.woff2') format('woff2'), url('../fonts/montserrat-regular-webfont.woff') format('woff'), url('../fonts/montserrat-regular-webfont.ttf') format('truetype'), url('../fonts/montserrat-regular-webfont.svg#monserrat_regular') format('svg');
+}
+
+body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+.bs-docs-section {
+    line-height: 1.6em;
 }
 
 .restfb-brand-highlight {
