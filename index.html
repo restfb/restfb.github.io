@@ -987,7 +987,11 @@ FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
 String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
 			</code></pre></div>
 			<h2 id="access-token-extend">Extending an Access Token</h2>
-			see <a target="_blank" href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Graph API documentation</a>
+			see <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension">Graph API documentation</a>
+				<p>
+					Normally access tokens are only valid for a short time, but you can extend the lifetime with a simple
+					Facebook call. RestFB provides a method to make this even more easy.
+				</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Tells Facebook to extend the lifetime of MY_ACCESS_TOKEN.
@@ -999,7 +1003,7 @@ AccessToken accessToken =
 
 out.println("My extended access token: " + accessToken);</code></pre></div>
 			<h2 id="access-token-application">Getting an Application Access Token</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/authentication/applications/">Graph API documentation</a>
+			see <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens">Graph API documentation</a>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Obtains an access token which can be used to perform Graph API operations
@@ -1125,7 +1129,7 @@ DeAuth deauthObj = facebookClient.parseSignedRequest(signedRequest,
 out.println("This user just deleted your app: " + deauthObj.getUserId());
 out.println("Deauthorization at: " + deauthObj.getIssuedAt());</code></pre></div>
 
-		    <h2 id="security-appsecret">Generating appsecret_proof</h2>
+		    <h2 id="security-appsecret">Generating <code>appsecret_proof</code></h2>
 
 		    <div class="highlight"><pre><code class="language-java" data-lang="java">
 // If you create a DefaultFacebookClient instance with your app secret, RestFB will
