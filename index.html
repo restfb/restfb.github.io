@@ -454,9 +454,24 @@ out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData(
 
 		    </div>
 		    <div class="bs-docs-section">
-			<h1 id="executing-fql" class="page-header">Using FQL</h1>
+				<h1 id="executing-fql" class="page-header">Using FQL</h1>
+
+				<div class="bs-callout bs-callout-warning">
+					<h4>FQL is deprecated and removed with Graph API 2.1</h4>
+
+					<div><p>With Graph API 2.1, Facebook discontinued support for FQL (Facebook Query Language). All applications
+						using Graph 2.1 or newer need to change their request and should work with the Graph API.</p>
+						<p>Because not every kind of request can transferred to Graph API, you should have a look at the
+						<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Webhooks (former Real-Time Updates)</a>.
+						</p>
+
+						<p>We still provide access to FQL, because some Applications out there are still using Graph API 2.0. On August 7, 2016 Facebook
+						will remove the Graph API 2.0 and FQL is completely gone.</p>
+					</div>
+				</div>
+
 			<h2 id="executing-fql-queries">Executing FQL Queries</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>
+			see <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/">FQL documentation</a>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
 List&lt;FqlUser&gt; users = facebookClient.executeFqlQuery(query, FqlUser.class);
@@ -482,7 +497,7 @@ public class FqlUser {
   }
 }</code></pre></div>
 			<h2 id="executing-multiple-fql-queries">Executing Multiple FQL Queries in One Call</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>
+			see <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/#multi">FQL documentation</a>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 Map&lt;String, String&gt; queries = new HashMap&lt;String, String&gt;() {
