@@ -231,9 +231,9 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_AP
 
 				<div class="bs-callout bs-callout-warning" role="alert">
 					<h4>Important change with Graph API 2.4</h4>
-					<div>Facebook did a "breaking change" with Graph API 2.4 and you have to provide the <code>fields</code> parameter to get the fields you need.
-					<a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">According to Facebook</a> reducing the default
-						fields leads to faster performance. In the "<a href="#selecting-specific-fields">advanced usage</a>" section you'll find a example how the fields are requested with RestFB.</div>
+					<div>Facebook make a breaking change with Graph API 2.4 and you now have to provide the <code>fields</code> parameter to get the fields you need.
+					<a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">According to Facebook</a>, reducing the default
+						fields leads to faster performance. In the <a href="#selecting-specific-fields">Advanced Usage</a> section you'll find a example how the fields are requested with RestFB.</div>
 				</div>
 
 
@@ -263,7 +263,9 @@ out.println("User name: " + user.getName());
 out.println("Page likes: " + page.getLikes());</code></pre></div>
 
 			<h2 id="fetching-multiple-objects">Fetching Multiple Objects</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 FetchObjectsResults fetchObjectsResults =
   facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
@@ -466,12 +468,14 @@ out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData(
 						</p>
 
 						<p>We still provide access to FQL, because some Applications out there are still using Graph API 2.0. On August 7, 2016 Facebook
-						will remove the Graph API 2.0 and FQL is completely gone.</p>
+						will disable support for both Graph API 2.0 and FQL.</p>
 					</div>
 				</div>
 
 			<h2 id="executing-fql-queries">Executing FQL Queries</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/">FQL documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/">FQL documentation</a>
+			</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
 List&lt;FqlUser&gt; users = facebookClient.executeFqlQuery(query, FqlUser.class);
@@ -497,7 +501,9 @@ public class FqlUser {
   }
 }</code></pre></div>
 			<h2 id="executing-multiple-fql-queries">Executing Multiple FQL Queries in One Call</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/#multi">FQL documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/#multi">FQL documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 Map&lt;String, String&gt; queries = new HashMap&lt;String, String&gt;() {
@@ -538,9 +544,11 @@ public class MultiqueryResults {
 		    </div>
 
 		    <div class="bs-docs-section">
-			<h1 id="advanced-usage" class="page-header">Advanced usage</h1>
+			<h1 id="advanced-usage" class="page-header">Advanced Usage</h1>
 			<h2 id="metadata-introspection">Metadata &amp; Introspection</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// You can specify metadata=1 for many calls, not just this one.
 // See the Facebook Graph API documentation for more details.
@@ -551,8 +559,9 @@ User userWithMetadata =
 out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());</code></pre></div>
 			<h2 id="passing-parameters">Passing Parameters</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion">Graph API documentation</a>
-
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion">Graph API documentation</a>
+			</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// You can pass along any parameters you'd like to the Facebook endpoint.
 
 Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
@@ -562,8 +571,10 @@ Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", 
     Parameter.with("since", oneWeekAgo));
 
 out.println("Filtered feed count: " + filteredFeed.getData().size());</code></pre></div>
-			<h2 id="selecting-specific-fields">Selecting Specific Fields &amp; Field expansion</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a><br />
+			<h2 id="selecting-specific-fields">Selecting Specific Fields &amp; Field Expansion</h2>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+			</p>
 			<p>
 				If you fetch a type from Facebook you get a prefilled version. With Graph API 2.4 Facebook changed the behavior and
 				you get only a very minimalistic object. The basic idea of this approach is to save bandwidth and make the
@@ -722,7 +733,9 @@ out.println("URL is " + url);</code></pre></div>
 			    </div>
 			</div>
 			<h2 id="publishing-message-event">Publishing a Message and Event</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// Publishing a simple message.
 // FacebookType represents any Facebook Graph Object that has an ID property.
@@ -744,7 +757,9 @@ FacebookType publishEventResponse = facebookClient.publish("me/events", Facebook
 
 out.println("Published event ID: " + publishEventResponse.getId());</code></pre></div>
 			<h2 id="publishing-photo">Publishing a Photo</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
@@ -761,7 +776,9 @@ facebookClient.publish("me/videos", FacebookType.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
   Parameter.with("description", "Test cat"));</code></pre></div>
 			<h2 id="publishing-checkin">Publishing a Checkin</h2>
-			see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">Map&lt;String, String&gt; coordinates = new HashMap&lt;String, String&gt;();
 coordinates.put("latitude", "37.06");
@@ -773,103 +790,110 @@ FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
 
 out.println("Published checkin ID: " + publishCheckinResponse.getId());</code></pre></div>
 
-				<h2 id="publishing-big-video">Publishing a Video (via resumable upload)</h2>
-				see <a target="_blank" href="https://developers.facebook.com/docs/graph-api/video-uploads">Graph API documentation</a><br />
-				<p>Uploading a short video is the same as uploading a picture. You should have a look at the picture section
+				<h2 id="publishing-big-video">Publishing a Video Via Resumable Upload</h2>
+				<p>
+				See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/video-uploads">Graph API documentation</a><br />
+				</p>
+				<p>Uploading a short video is the same as uploading a picture. You should take a look at the picture section
 				to understand how it works.</p>
 				<p>
-				A new feature Facebook added with Graph API 2.4 is the resumable upload. Big videos should be uploaded
-				with this new approach. So you can upload a video with a file size of about 2GB. The current max value
-				can be found in the Graph API documentation or you simply try to start the upload and handle the error.
+				A new feature Facebook added with Graph API 2.4 is resumable upload support. Large videos (up to a file size of about 2GB) should be uploaded with this new approach. The current max value
+				can be found in the Graph API documentation, or you can simply try to start the upload and handle any filesize errors that occur.
 				</p>
 				<p>
-				The resumable upload is divided in 3 phases. <i>Start</i>, <i>Transfer</i> and <i>Finish</i>. If you are
-				familiar with databases and transactions, you can compare the start with open a transaction and finish
-				with closing it. The transfer phase is where the real action takes place.
+				The resumable upload is divided in 3 phases: <i>Start</i>, <i>Transfer</i>, and <i>Finish</i>. If you are
+				familiar with databases and transactions, you can compare the start with starting a transaction and finish
+				with committing it. The transfer phase is where the real action takes place.
 				</p>
 
-				<h3>The <code>Start</code>-Phase</h3>
-				The first phase is the Start-phase and instead of uploading the file you tell Facebook you want to upload
+				<h3>The <code>Start</code> Phase</h3>
+				<p>
+				The first phase is the Start phase. Instead of uploading the file itself, you tell Facebook you want to upload
 				a file and how big it is. The file size you send to Facebook is in bytes. Facebook checks the size and
-				returns an error if something is not okay, but normally you should get a Video id, a Session id and the
-				first information which bytes Facebook expects you to send first. So you get a start and an end offset.
+				returns an error if something is not okay, but normally you should get a Video ID, a Session ID, and the
+				range of bytes (expressed as a start and end offset) Facebook expects you to send in the first transfer chunk.
+				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">File videoFile = new File(uploadableFile.getFile());
 long filesizeInBytes = videoFile.length();
-// we need the file size in bytes to make the start request
+// We need the file size in bytes to make the start request
 FacebookClient fbc = new DefaultFacebookClient(accessToken, Version.LATEST);
-ResumableUploadStartResponse returnValue = fbc.publish("pageid/videos",
-     ResumableUploadStartResponse.class, // the return value
-     Parameter.with("upload_phase", "start"), // the upload phase
-     Parameter.with("file_size", filesizeInBytes)); // the file size
+ResumableUploadStartResponse returnValue = fbc.publish("PAGE_ID/videos",
+     ResumableUploadStartResponse.class, // The return value
+     Parameter.with("upload_phase", "start"), // The upload phase
+     Parameter.with("file_size", filesizeInBytes)); // The file size
 
 long startOffset = returnValue.getStartOffset();
 long endOffset = returnValue.getEndOffset();
 Long length = endOffset - startOffset;
 
-// the upload session id is very important, because Facebook needs
-// this id to identify all the uploads that belong together
+// The upload session ID is very important, because Facebook needs
+// this ID to identify all the uploads that belong together
 String uploadSessionId = returnValue.getUploadSessionId();</code></pre></div>
 
-				<h3>The <code>Transfer</code>-Phase</h3>
+				<h3>The <code>Transfer</code> Phase</h3>
 				<p>
-				So you know what is the first part of the upload and you enter the Transfer-phase. You upload a defined
-				part of the file as you upload a binary file to Facebook. You simply have to add some additional information
-				about the offset and session you upload the bytes for. So Facebook can join the file correctly.
+				From Facebook's response, you'll know what the first chunk of the file you need to upload is. Now you enter the Transfer phase. You upload a chunk
+				of the file the same way you normally upload a binary file to Facebook - you simply have to add some additional information
+				about the offset and session so Facebook can join the file correctly.
 				</p>
 				<p>
-				As response you get the information what offsets are expected next. This happens in a loop. So you upload the
-				next part and get new offsets, and upload these bytes and so on.
+				With each chunk transfer, Facebook will return the next byte range it's expecting. This happens in a loop. So you upload the
+				next part and get new offsets, and upload those bytes and so on.
 				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">// We have to upload the chunks in a loop
 while (length > 0) {
-     // first copy bytes in byte array
+     // First copy bytes in byte array
      byte fileBytes[] = new byte[length];
      in.read(fileBytes);
 
-     // make the request to Facebook
-     ResumableUploadTransferResponse filePart = fbc.publish("pageid/videos",
-     	  // the returned object 
+     // Make the request to Facebook
+     ResumableUploadTransferResponse filePart = fbc.publish("PAGE_ID/videos",
+      // The returned object 
 	  ResumableUploadTransferResponse.class,
-	  // the file chunk that should be uploaded now
+	  // The file chunk that should be uploaded now
 	  BinaryAttachment.with("video_file_chunk", fileBytes),
-	  // tell Facebook that we are in the transfer phase now 
+	  // Tell Facebook that we are in the transfer phase now 
 	  Parameter.with("upload_phase", "transfer"),
-	  // the offset the file chunk starts
+	  // The offset the file chunk starts
 	  Parameter.with("start_offset", startOffset),
-	  // the important session id of this file transfer
+	  // The important session ID of this file transfer
           Parameter.with("upload_session_id", uploadSessionId));
 
-     // after uploading the chunk we recalculate the offsets accordingly to the 
+     // After uploading the chunk we recalculate the offsets according to the 
      // information provided by Facebook
      startOffset = returnValue.getStartOffset();
      endOffset = returnValue.getEndOffset();
      length = endOffset - startOffset;
 }</code></pre></div>
 				<p>
-				At some point you get a response where start and end offset are equals and you may enter the last phase.
+				At some point you'll receive a response where start and end byte offsets are equal.  This signifies that it's time to enter the Finish phase.
 				</p>
-				<h3>The <code>Finish</code>-Phase</h3>
-				After uploading all binary parts you enter the third phase and send Facebook the request to publish the video. The
-				response is the often used success JSON and you may use the <code>GraphResponse</code>-type to easily access
+				<h3>The <code>Finish</code> Phase</h3>
+				<p>
+				After uploading all binary chunks you enter the third phase and send Facebook the request to publish the video. The
+				response is the frequently-used "success" JSON and you may use the <code>GraphResponse</code> type to easily access
 				the <code>success</code> field.
+				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">
-GraphResponse finishResponse = fbc.publish("pageid/videos",
+GraphResponse finishResponse = fbc.publish("PAGE_ID/videos",
      GraphResponse.class,
-     Parameter.with("upload_phase", "finish"), // tell Facebook to finish the upload
-     Parameter.with("upload_session_id", uploadSessionId)); // again the session id</code></pre></div>
+     Parameter.with("upload_phase", "finish"), // Tell Facebook to finish the upload
+     Parameter.with("upload_session_id", uploadSessionId)); // The corresponding session ID</code></pre></div>
 				<p>
-				After you received the success-response, you have to wait until Facebook converted the video. This takes
-				some minutes and you'll receive a notification. A Mail, a Facebook message and if you have a working real time
-				update subscription a call regarding the new video.
+				After you receive a success response, you'll have to wait until Facebook finishes processing the video. This might take
+				a few minutes. Once done, you'll receive one or more notifications: an email, a Facebook message, and - if you have a working real time
+				update subscription - a call regarding the new video.
 				</p>
 				<p>
-				Now the video is online and can be played.
+				Once you receive a notification, the video is online and ready to be played.
 				</p>
 		    </div>
 
 		    <div class="bs-docs-section">
 			<h1 id="deleting" class="page-header">Deleting</h1>
-			see <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</code></pre></div>
@@ -878,7 +902,9 @@ out.println("Deleted object? " + deleted);</code></pre></div>
 		    <div class="bs-docs-section">
 			<h1 id="batch-api" class="page-header">Batch API</h1>
 			<h2 id="batch-api-request">Using Batch Request API</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// The Batch API is great if you have multiple operations you'd like to
 // perform in one server trip. Let's build a batch with three GET requests and
@@ -935,7 +961,9 @@ for (List&lt;Post&gt; m83musicPostsConnectionPage : m83musicPosts)
 
 out.println(postResponse.getBody());</code></pre></div>
 			<h2 id="batch-api-photo">Including Binary Attachments Using the Batch Request API</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// Per the FB Batch API documentation, attached_files is a comma-separated list
 // of attachment names to include in the API call.
@@ -987,10 +1015,12 @@ FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
 String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
 			</code></pre></div>
 			<h2 id="access-token-extend">Extending an Access Token</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension">Graph API documentation</a>
+			</p>
 				<p>
 					Normally access tokens are only valid for a short time, but you can extend the lifetime with a simple
-					Facebook call. RestFB provides a method to make this even more easy.
+					Facebook call. RestFB provides a method to make this easy.
 				</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
@@ -1003,7 +1033,9 @@ AccessToken accessToken =
 
 out.println("My extended access token: " + accessToken);</code></pre></div>
 			<h2 id="access-token-application">Getting an Application Access Token</h2>
-			see <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens">Graph API documentation</a>
+			<p>
+			See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens">Graph API documentation</a>
+			</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">
 // Obtains an access token which can be used to perform Graph API operations
@@ -1014,7 +1046,7 @@ AccessToken accessToken =
 
 out.println("My application access token: " + accessToken);</code></pre></div>
 		    <h2 id="access-token-device">Getting an Device Access Token</h2>
-		    <p>see <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices">Graph API documentation</a></p>
+		    <p>See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices">Graph API documentation</a></p>
 
 		    <p>
 			With the Device Access Token Facebook provides a possibility to connect to devices with limited
@@ -1789,12 +1821,12 @@ THE SOFTWARE.</pre>
 			    </ul>
 			</li>
 
-			<li><a href="#advanced-usage">Advanced usage</a>
+			<li><a href="#advanced-usage">Advanced Usage</a>
 			    <ul class="nav">
 				<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
 				<li><a href="#passing-parameters">Passing Parameters</a></li>
-				<li><a href="#selecting-specific-fields">Selecting Specific Fields &amp; Field expansion</a></li>
-				<li><a href="#fetch-post-total-count">Fetch Post with comments/likes total count</a></li>
+				<li><a href="#selecting-specific-fields">Selecting Specific Fields &amp; Field Expansion</a></li>
+				<li><a href="#fetch-post-total-count">Fetch Post with Comments/Likes Total Count</a></li>
 			    </ul>
 			</li>
 
@@ -1802,10 +1834,10 @@ THE SOFTWARE.</pre>
 
 			<li><a href="#publishing">Publishing</a>
 			    <ul class="nav">
-				<li><a href="#publishing-message-event">a Message and Event</a></li>
-				<li><a href="#publishing-photo">a Photo</a></li>
-				<li><a href="#publishing-checkin">a Checkin</a></li>
-					<li><a href="#publishing-big-video">a Video (resumable Upload)</a></li>
+				<li><a href="#publishing-message-event">A Message and Event</a></li>
+				<li><a href="#publishing-photo">A Photo</a></li>
+				<li><a href="#publishing-checkin">A Checkin</a></li>
+					<li><a href="#publishing-big-video">A Video (resumable Upload)</a></li>
 			    </ul>
 			</li>
 
@@ -1814,7 +1846,7 @@ THE SOFTWARE.</pre>
 
 			<li><a href="#batch-api">Batch API</a>
 			    <ul class="nav">
-				<li><a href="#batch-api-request">using Batch API</a></li>
+				<li><a href="#batch-api-request">Using Batch API</a></li>
 				<li><a href="#batch-api-photo">Batch API with Photo</a></li>
 			    </ul>
 			</li>
