@@ -861,8 +861,8 @@ while (length > 0) {
 
      // After uploading the chunk we recalculate the offsets according to the 
      // information provided by Facebook
-     startOffset = returnValue.getStartOffset();
-     endOffset = returnValue.getEndOffset();
+     startOffset = filePart.getStartOffset();
+     endOffset = filePart.getEndOffset();
      length = endOffset - startOffset;
 }</code></pre></div>
 				<p>
