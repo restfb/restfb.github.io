@@ -562,6 +562,15 @@ out.println("User metadata: has albums? "
 			<p>
 			See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion">Graph API documentation</a>
 			</p>
+				<p>
+					Some requests need additional parameters. With Graph API 2.4 for example it is mandatory to provide the <code>fields</code>
+					parameter to get a <a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">more extensive response</a>. RestFB provides the <code>Parameter</code> class to serve the purpose.
+				</p>
+				<p>
+					The <code>Parameter</code> class needs a name and a object that is send to Facebook. The object is internally processed by a
+					json mapper, so you can provide a <code>JsonObject</code>, a primitive java type (like <code>String</code>, <code>Boolean</code>
+					and so on) or a class that uses the <code>@Facebook</code> annotation (for example the RestFB types or custom ones).
+				</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// You can pass along any parameters you'd like to the Facebook endpoint.
 
 Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
@@ -756,11 +765,31 @@ FacebookType publishEventResponse = facebookClient.publish("me/events", Facebook
     Parameter.with("end_time", twoDaysFromNow));
 
 out.println("Published event ID: " + publishEventResponse.getId());</code></pre></div>
-			<h2 id="publishing-photo">Publishing a Photo</h2>
+			<h2 id="publishing-photo">Publishing a binary Photo/Video</h2>
 			<p>
 			See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>
 			</p>
+				<p>
+					Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to
+					Facebook. The old and deprecated way with a <code>InputStream</code> and the new way with a <code>ByteArray</code>.
+					Although the InputStream method is deprecated you may use it and we don't intend to remove it in the near future.
+				</p>
+				<p>
+					You may use some endpoints to publish a photo and it depends on your usecase which one you have to use. Important
+					is the correct access token, because some endpoints need specific permissions to be used.
+				</p>
+				<div class="bs-callout bs-callout-warning">
+					<h4>Note regarding publishing multiple photos at once</h4>
+					<div>Publishing multiple photos simple does NOT work.
+						You can read at the Facebook Graph
+						API documentation:
+						<p>&quot;<em>There is no way to publish more then one photo in the same graph API call.</em>&quot;</p>
+						(see <a href="https://developers.facebook.com/docs/graph-api/reference/user/photos/" target="_blank">here</a> at <em>creating</em> section)</div>
+				</div>
 
+				<p>The first example shows the <code>InputStream</code>.
+					In addition to the binary content a message is added in the first case and a desription in the second one.
+				</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
 
@@ -775,20 +804,35 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());
 facebookClient.publish("me/videos", FacebookType.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
   Parameter.with("description", "Test cat"));</code></pre></div>
+				<p>
+					This second example shows how to use the <code>BinaryAttachment</code> with a ByteArray. The generation
+					of the array is not part of the example code, because it highly depends on the libs used in your project and
+					the way you receive the binary content.
+				</p>
+				<div class="highlight"><pre><code class="language-java" data-lang="java">
+byte[] imageAsBytes = fetchBytesFromImage();
+DefaultFacebookClient client =
+	new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
+JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
+	BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
+					</code></pre></div>
+
 			<h2 id="publishing-checkin">Publishing a Checkin</h2>
 			<p>
-			See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>
+			See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/reference/user/feed">Graph API documentation</a>
 			</p>
-
-			<div class="highlight"><pre><code class="language-java" data-lang="java">Map&lt;String, String&gt; coordinates = new HashMap&lt;String, String&gt;();
-coordinates.put("latitude", "37.06");
-coordinates.put("longitude", "-95.67");
-
-FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
+				<p>
+					Publishing a checkin works like publishing a normal post to the user feed. You simply have to provide a
+					<code>place</code> parameter with a <code>place id</code>. If you only have longitude and latitude, you have to search for places
+					in the given area first and let the user select the correct place. Publishing via longitude/latitude is not possible
+					since Graph API version 2.0. (see
+					<a href="http://stackoverflow.com/questions/11626783/post-location-on-facebook-with-latitude-and-longitude-coordinates-only" target="_blank">Stackoverflow question</a>)
+				</p>
+			<div class="highlight"><pre><code class="language-java" data-lang="java">FacebookType publishCheckinResponse = facebookClient.publish("me/feed",
   FacebookType.class, Parameter.with("message", "I'm here!"),
-    Parameter.with("coordinates", coordinates), Parameter.with("place", 1234)));
+    Parameter.with("place", 1234)));
 
-out.println("Published checkin ID: " + publishCheckinResponse.getId());</code></pre></div>
+out.println("Published checkin: " + publishCheckinResponse.getId());</code></pre></div>
 
 				<h2 id="publishing-big-video">Publishing a Video Via Resumable Upload</h2>
 				<p>
@@ -874,8 +918,7 @@ while (length > 0) {
 				response is the frequently-used "success" JSON and you may use the <code>GraphResponse</code> type to easily access
 				the <code>success</code> field.
 				</p>
-				<div class="highlight"><pre><code class="language-java" data-lang="java">
-GraphResponse finishResponse = fbc.publish("PAGE_ID/videos",
+				<div class="highlight"><pre><code class="language-java" data-lang="java">GraphResponse finishResponse = fbc.publish("PAGE_ID/videos",
      GraphResponse.class,
      Parameter.with("upload_phase", "finish"), // Tell Facebook to finish the upload
      Parameter.with("upload_session_id", uploadSessionId)); // The corresponding session ID</code></pre></div>
@@ -894,6 +937,12 @@ GraphResponse finishResponse = fbc.publish("PAGE_ID/videos",
 			<p>
 			See <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>
 			</p>
+				<p>
+					To delete a object on Facebook, RestFB provides a <code>deleteObject</code>-method. You have to provide
+					the id of the object and RestFB does the magic. As return value you receive a boolean. <code>true</code>
+					means the object had been deleted, <code>false</code> otherwise. Mabye you get one of the common exceptions
+					if something happened.
+				</p>
 
 			<div class="highlight"><pre><code class="language-java" data-lang="java">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</code></pre></div>
@@ -1002,18 +1051,14 @@ facebookClient.executeBatch(batchRequests, binaryAttachments);</code></pre></div
 			    RestFB supports the developer building the scope and so you should use the <code><a target="_blank" href="javadoc/com/restfb/scope/ScopeBuilder.html">ScopeBuilder</a></code>. The permissions
 			    are implemented as Enums. Here's an example how to build a scope:
 			</p>
-			<div class="highlight"><pre><code class='language-java' data-land='java'>
-ScopeBuilder scopeBuilder = new ScopeBuilder();
+			<div class="highlight"><pre><code class='language-java' data-land='java'>ScopeBuilder scopeBuilder = new ScopeBuilder();
 scopeBuilder.addPermission(UserDataPermissions.USER_STATUS);
-scopeBuilder.addPermission(UserDataPermissions.USER_ABOUT_ME);
-			</code></pre></div>
+scopeBuilder.addPermission(UserDataPermissions.USER_ABOUT_ME);</code></pre></div>
 			<p>
 			    With the ScopeBuilder you can now easily build the login dialog url, like this:
 			</p>
-			<div class="highlight"><pre><code class='language-java' data-land='java'>
-FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
-String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
-			</code></pre></div>
+			<div class="highlight"><pre><code class='language-java' data-land='java'>FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
+String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);</code></pre></div>
 			<h2 id="access-token-extend">Extending an Access Token</h2>
 			<p>
 			See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension">Graph API documentation</a>
@@ -1023,8 +1068,7 @@ String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scope
 					Facebook call. RestFB provides a method to make this easy.
 				</p>
 
-			<div class="highlight"><pre><code class="language-java" data-lang="java">
-// Tells Facebook to extend the lifetime of MY_ACCESS_TOKEN.
+			<div class="highlight"><pre><code class="language-java" data-lang="java">// Tells Facebook to extend the lifetime of MY_ACCESS_TOKEN.
 // Facebook may return the same token or a new one.
 
 AccessToken accessToken =
@@ -1037,8 +1081,7 @@ out.println("My extended access token: " + accessToken);</code></pre></div>
 			See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens">Graph API documentation</a>
 			</p>
 
-			<div class="highlight"><pre><code class="language-java" data-lang="java">
-// Obtains an access token which can be used to perform Graph API operations
+			<div class="highlight"><pre><code class="language-java" data-lang="java">// Obtains an access token which can be used to perform Graph API operations
 // on behalf of an application instead of a user.
 
 AccessToken accessToken =
@@ -1769,7 +1812,7 @@ git clone git://github.com/restfb/restfb.git</pre>
 		    </p>
 
 		    <pre>
-Copyright (c) 2010-2015 Mark Allen, Norbert Bartels.
+Copyright (c) 2010-2016 Mark Allen, Norbert Bartels.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
