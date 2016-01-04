@@ -564,12 +564,12 @@ out.println("User metadata: has albums? "
 			</p>
 				<p>
 					Some requests need additional parameters. With Graph API 2.4 for example it is mandatory to provide the <code>fields</code>
-					parameter to get a <a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">more extensive response</a>. RestFB provides the <code>Parameter</code> class to serve the purpose.
+					parameter to get a <a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">more extensive response</a>. RestFB provides the <code>Parameter</code> class to serve this purpose.
 				</p>
 				<p>
-					The <code>Parameter</code> class needs a name and a object that is send to Facebook. The object is internally processed by a
+					The <code>Parameter</code> class needs a name and a value to be sent to Facebook. The value is internally processed by a
 					json mapper, so you can provide a <code>JsonObject</code>, a primitive java type (like <code>String</code>, <code>Boolean</code>
-					and so on) or a class that uses the <code>@Facebook</code> annotation (for example the RestFB types or custom ones).
+					and so on), or a class that uses the <code>@Facebook</code> annotation (for example the RestFB types or custom ones).
 				</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// You can pass along any parameters you'd like to the Facebook endpoint.
 
@@ -765,30 +765,30 @@ FacebookType publishEventResponse = facebookClient.publish("me/events", Facebook
     Parameter.with("end_time", twoDaysFromNow));
 
 out.println("Published event ID: " + publishEventResponse.getId());</code></pre></div>
-			<h2 id="publishing-photo">Publishing a binary Photo/Video</h2>
+			<h2 id="publishing-photo">Publishing a Binary Photo/Video</h2>
 			<p>
 			See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>
 			</p>
 				<p>
 					Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to
-					Facebook. The old and deprecated way with a <code>InputStream</code> and the new way with a <code>ByteArray</code>.
+					Facebook. The old and deprecated way is with an <code>InputStream</code> and the new way with a <code>ByteArray</code>.
 					Although the InputStream method is deprecated you may use it and we don't intend to remove it in the near future.
 				</p>
 				<p>
-					You may use some endpoints to publish a photo and it depends on your usecase which one you have to use. Important
-					is the correct access token, because some endpoints need specific permissions to be used.
+					You may use some endpoints to publish a photo and it depends on your usecase which one you have to use. It is important
+					to use the correct access token, because some endpoints have specific permission requirements.
 				</p>
 				<div class="bs-callout bs-callout-warning">
 					<h4>Note regarding publishing multiple photos at once</h4>
 					<div>Publishing multiple photos simple does NOT work.
-						You can read at the Facebook Graph
+						Directly from the Facebook Graph
 						API documentation:
 						<p>&quot;<em>There is no way to publish more then one photo in the same graph API call.</em>&quot;</p>
 						(see <a href="https://developers.facebook.com/docs/graph-api/reference/user/photos/" target="_blank">here</a> at <em>creating</em> section)</div>
 				</div>
 
 				<p>The first example shows the <code>InputStream</code>.
-					In addition to the binary content a message is added in the first case and a desription in the second one.
+					In addition to the binary content a message is added in the first case and a description in the second one.
 				</p>
 			<div class="highlight"><pre><code class="language-java" data-lang="java">// Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
@@ -805,8 +805,8 @@ facebookClient.publish("me/videos", FacebookType.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
   Parameter.with("description", "Test cat"));</code></pre></div>
 				<p>
-					This second example shows how to use the <code>BinaryAttachment</code> with a ByteArray. The generation
-					of the array is not part of the example code, because it highly depends on the libs used in your project and
+					This second example shows how to use a <code>BinaryAttachment</code> with a byte array. The generation
+					of the array is not part of the example code, because it is highly dependent on the libraries used in your project and
 					the way you receive the binary content.
 				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">
@@ -822,7 +822,7 @@ JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObj
 			See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/reference/user/feed">Graph API documentation</a>
 			</p>
 				<p>
-					Publishing a checkin works like publishing a normal post to the user feed. You simply have to provide a
+					Publishing a checkin works like publishing a normal post to a user's feed. You simply have to provide a
 					<code>place</code> parameter with a <code>place id</code>. If you only have longitude and latitude, you have to search for places
 					in the given area first and let the user select the correct place. Publishing via longitude/latitude is not possible
 					since Graph API version 2.0. (see
@@ -938,9 +938,9 @@ while (length > 0) {
 			See <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>
 			</p>
 				<p>
-					To delete a object on Facebook, RestFB provides a <code>deleteObject</code>-method. You have to provide
-					the id of the object and RestFB does the magic. As return value you receive a boolean. <code>true</code>
-					means the object had been deleted, <code>false</code> otherwise. Mabye you get one of the common exceptions
+					To delete an object on Facebook, RestFB provides a <code>deleteObject</code>-method. You have to provide
+					the ID of the object and RestFB does the magic. As a return value you receive a boolean - <code>true</code>
+					means the object had been deleted, <code>false</code> otherwise. You might encounter one of the common exceptions
 					if something happened.
 				</p>
 
