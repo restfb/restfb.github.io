@@ -102,7 +102,7 @@
 			</p>
 
 			<p>
-			    The project zip contains sample code in the <code>source/example</code> directory which can help you get up and running quickly.
+			   You can find a sample project at <a href="https://github.com/restfb/restfb-examples" target="_blank">Github</a>. That project can help you get up and running quickly.
 			</p>
 
 			<p>
@@ -148,7 +148,7 @@
 
 			<p>
 			    If you're looking for help or additional examples, please check out the <a target="_blank" href="http://groups.google.com/group/restfb">RestFB Google Group</a>
-			    or visit the <code>source/examples</code> directory in the RestFB distribution.
+			    or visit the <code>restfb-examples</code> repository at <a href="https://github.com/restfb/restfb-examples" target="_blank">Github</a>.
 			</p>
 
             <h3>Working with source code</h3>
@@ -1227,14 +1227,20 @@ out.println("Here's my proof: " + proof);</code></pre></div>
 
 		<div class="bs-docs-section">
 		    <h1 id="running-examples" class="page-header">Running The Examples</h1>
-		    <p>
-			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token inside the quotes!
-		    </p>
-
-		    <div class="highlight"><pre><code class="language-bash" data-lang="bash">$ cd source/example
-$ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</code></pre></div>
+		    	<p>
+				RestFB provides a repository on github with an <a href="https://github.com/restfb/restfb-examples" target="_blank">example project</a>. In this repository RestFB is used to fetch several information from
+				Facebook, publish some information and run a legacy example. The whole project is <a href="https://maven.apache.org/" target="_blank">maven based</a> and you may use this
+				repository to start your own project using RestFB.
+				</p>
+				<p>
+					To run the examples you need to download the <a href="https://github.com/restfb/restfb-examples" target="_blank">restfb-examples project</a> as <a href="https://github.com/restfb/restfb-examples/archive/master.zip">zip file</a> or clone it from Github.
+					Don't forget to replace the <code>MY_ACCESS_TOKEN</code> with your access token, otherwise the examples won't
+					run.
+		    	</p>
+		    <div class="highlight"><pre><code class="language-bash" data-lang="bash">$ mvn compile
+$ mvn exec:java@run-reader-examples -Daccess_token=MY_ACCESS_TOKEN
+$ mvn exec:java@run-publisher-examples -Daccess_token=MY_ACCESS_TOKEN
+$ mvn exec:java@run-legacy-examples -Daccess_token=MY_ACCESS_TOKEN</code></pre></div>
 		</div>
 
 		<div class="bs-docs-section">
