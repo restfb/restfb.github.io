@@ -817,6 +817,51 @@ JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObj
 	BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
 					</code></pre></div>
 
+				<h2 id="publishing-photo-with-tag">Publishing a tagged Photo</h2>
+				<p>
+					In the previous section the publishing of a photo was the main topic.
+					Now we expand this a bit and add a Tag during the publishing.
+					With a <code>tag</code> you link a Facebook user to a photo. So you get
+					more information who is in the photo.
+				</p>
+				<p>
+					To tag a user you need two things. First a custom <code>PhotoTag</code> type and you have to modify the reuqest from the
+					previous section. Beacuse the custom type is the most important and exciting thing we start with the custom type.
+				</p>
+				<div class="highlight"><pre><code class="language-java" data-lang="java">public class MyPhotoTag {
+   @Facebook("tag_uid")
+   private String tagUid;
+
+   @Facebook("tag_text")
+   private String tagText;
+
+   @Facebook
+   private Double x;
+
+   @Facebook
+   private Double y;
+
+   // add getter and setter here
+}</code></pre></div>
+				<p>
+					Now we have the custom type and may create a new instance. This is just good old java. Important is the publishing part.
+					To make it more easy we use the publish call from the previous section and simply add the new parameter. If everything is wired together it looks like this:
+				</p>
+				<div class="highlight"><pre><code class="language-java" data-lang="java">byte[] imageAsBytes = fetchBytesFromImage();
+MyPhotoTag myTag = new MyPhotoTag();
+// fill myTag here
+ArrayList<MyPhotoTag> myTagList = new ArrayList<MyPhotoTag>();
+myTagList.add(myTag);
+DefaultFacebookClient client =
+	new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
+JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
+	BinaryAttachment.with("test.png", imageAsBytes, "image/png"),
+	Parameter.with("message", "TestImage"),
+	Parameter.with("tags", myTagList));</code></pre></div>
+				<p>
+					We use the list in this example because Facebook allows up to 40 tags per photo.
+				</p>
+
 			<h2 id="publishing-checkin">Publishing a Checkin</h2>
 			<p>
 			See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/reference/user/feed">Graph API documentation</a>
@@ -1884,6 +1929,7 @@ THE SOFTWARE.</pre>
 			    <ul class="nav">
 				<li><a href="#publishing-message-event">A Message and Event</a></li>
 				<li><a href="#publishing-photo">A Photo</a></li>
+				<li><a href="#publishing-photo-with-tag">A tagged Photo</a></li>
 				<li><a href="#publishing-checkin">A Checkin</a></li>
 					<li><a href="#publishing-big-video">A Video (resumable Upload)</a></li>
 			    </ul>
