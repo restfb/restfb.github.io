@@ -466,6 +466,9 @@ out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData(
 						<p>Because not every kind of request can transferred to Graph API, you should have a look at the
 						<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Webhooks (former Real-Time Updates)</a>.
 						</p>
+						<p>
+						We support the webhooks with special types and you should look at the <a href="#using-webhooks">Webhooks section in this documentation</a>.
+						</p>
 
 						<p>We still provide access to FQL, because some Applications out there are still using Graph API 2.0. On August 7, 2016 Facebook
 						will disable support for both Graph API 2.0 and FQL.</p>
@@ -541,7 +544,76 @@ public class MultiqueryResults {
   @Facebook
   List&lt;FqlLiker&gt; likers;
 }</code></pre></div>
-		    </div>
+			</div>
+			<div class="bs-docs-section">
+			       <h1 id="using-webhooks" class="page-header">Using Webhooks</h1>
+			       <h2 id="using-webhooks-basics">Basic Webhooks Know-How</h2>
+			       <p>
+			       The Graph API supports real time updates for a long time and with Graph API 2.2 the real time updates for 
+			       pages have been improved a lot. Since Graph API 2.5 the real time updates (RTU) are renamed and are now called
+				 <code>Webhooks</code>. 
+				 </p>
+				 <p>
+				 Webhooks are used to replace the polling mechanism by a pushing solution. After the deprecation 
+				 of the FQL API this is the only way to get notification about changes in a news feed and other Facebook objects. 
+				 These changes are very lightweight and that's the reason why you only get some basic information. But you
+				 receive everything that is important and may fill missing information with a normal Graph API call.
+				</p>
+				<p>
+				Technically you have to provide a endpoint on a server that is reachable by Facebook and understands 
+				the <code>POST</code> requests that are received from Facebook. The objects your server receives,
+				are JSONs. These can simply parse them with a JSON-lib or you can use the new <code>Webhook</code> types from RestFB. 
+				</p>
+				<p>
+				To get a much deeper insight and a better overview you should take a look at the 
+				<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Facebook explanation of the Webhooks</a>.
+				</p>
+				<h2 id="using-webhooks-types">Webhook Types in RestFB</h2>
+				<p>
+				The Webhook types in RestFB are a very special construction, because they are fetched different to the other types 
+				and they are from a top view all the same but in their inner view completely different. The JSON is pushed to your server
+				and so you cannot use the common <code>fetchObject</code> method. You have simply a String and you can now use the <code>JsonMapper</code>
+				to convert it to a Java object.
+				</p>
+				<p>
+				The result is a <code>Webhook</code> entity and so you only need to call something like this:
+				</p>
+				<div class="highlight"><pre><code class="language-java" data-lang="java">String pushedJsonAsString; // It's up to you to fill this String
+JsonMapper mapper = new DefaultJsonMapper();
+WebhookObject webhookObject = 
+         mapper.toJavaObject(pushedJsonAsString, WebhookObject.class);</code></pre></div>
+				<p>
+				Now you can step through the <code>WebhookObject</code> and fetch the necessary information. The structure is a bit cumbersome, but RestFB has to reflect the
+				original Facebook structure of the JSON. So we are able to react on changes much faster and are able to expand the webhooks as new possibilities arrive. 
+				</p>
+				<p>
+				Very interesting is the <code>value</code>-field of the <code>Change</code> object, because here 
+				we added a new solution and made use of the <code>@JsonMappingCompleted</code> annotation in combination 
+				with a <code>ChangeValueFactory</code>.
+				</p>
+				<p>
+				Beacuse the difference between the <code>WebhookObjects</code> you receive from Facebook lies in the change value
+				we implemented a factory so you can work with the correct entity and don't need to implement some logic. Because
+				some change values contain a <code>postId</code>, some a photo URL and other specific differences. These are provided
+				by a bunch of classes which names end with <code>Value</code>.
+				</p>
+				<div class="bs-callout bs-callout-warning">
+					<h4>Important notice regarding the new Webhook types</h4>
+					<div>
+						<p>
+						At the moment we only support a subset of all possible webhook JSONs. The main focus lies 
+						on the page webhooks. You should be able to use the Webhooks nevertheless, but perhaps you have to deal with the 
+						<code>FallBackChangeValue</code>. It encapsulates the raw JSON that represents the change value and you may
+						work with the JSONObject, but it lacks some convenience methods.
+						</p>
+						<p>
+						If this happens you see a log message with the hint to send us the JSON. We really like to implement more 
+						<code>Value</code> classes and with the help of our users and the RestFB community we can provide a complete solution
+						for the Webhooks.
+						</p>
+					</div>
+				</div>
+		       </div>       
 
 		    <div class="bs-docs-section">
 			<h1 id="advanced-usage" class="page-header">Advanced Usage</h1>
@@ -1911,6 +1983,12 @@ THE SOFTWARE.</pre>
 			    <ul class="nav">
 				<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
 				<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
+			    </ul>
+		        </li>
+			<li><a href="#using-webhooks">Using Webhooks</a>
+			    <ul class="nav">
+				<li><a href="#using-webhooks-basics">Basic Know-How</a></li>
+				<li><a href="#using-webhooks-types">Webhook Types in RestFB</a></li>
 			    </ul>
 			</li>
 
