@@ -467,7 +467,7 @@ out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData(
 						<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Webhooks (former Real-Time Updates)</a>.
 						</p>
 						<p>
-						We support the webhooks with special types and you should look at the <a href="#using-webhooks">Webhooks section in this documentation</a>.
+						We support Webhooks with special types and you should look at the <a href="#using-webhooks">Webhooks section in this documentation</a>.
 						</p>
 
 						<p>We still provide access to FQL, because some Applications out there are still using Graph API 2.0. On August 7, 2016 Facebook
@@ -549,34 +549,33 @@ public class MultiqueryResults {
 			       <h1 id="using-webhooks" class="page-header">Using Webhooks</h1>
 			       <h2 id="using-webhooks-basics">Basic Webhooks Know-How</h2>
 			       <p>
-			       The Graph API supports real time updates for a long time and with Graph API 2.2 the real time updates for 
-			       pages have been improved a lot. Since Graph API 2.5 the real time updates (RTU) are renamed and are now called
+			       The Graph API has supported real time updates for a long time and with Graph API 2.2 the real time updates for 
+			       pages have been improved a lot. Since, Graph API 2.5 the real time updates (RTU) have been renamed and are now called
 				 <code>Webhooks</code>. 
 				 </p>
 				 <p>
-				 Webhooks are used to replace the polling mechanism by a pushing solution. After the deprecation 
-				 of the FQL API this is the only way to get notification about changes in a news feed and other Facebook objects. 
+				 Webhooks replace the polling mechanism with a pushing solution. With the deprecation 
+				 of the FQL API, this is the only way to get notification about changes in a news feed and other Facebook objects. 
 				 These changes are very lightweight and that's the reason why you only get some basic information. But you
 				 receive everything that is important and may fill missing information with a normal Graph API call.
 				</p>
 				<p>
-				Technically you have to provide a endpoint on a server that is reachable by Facebook and understands 
-				the <code>POST</code> requests that are received from Facebook. The objects your server receives,
-				are JSONs. These can simply parse them with a JSON-lib or you can use the new <code>Webhook</code> types from RestFB. 
+				Technically you have to provide an endpoint on a server that is reachable by Facebook and understands 
+				the JSON-formatted <code>POST</code> requests received from Facebook. You may simply parse them with a JSON library or you can use the new <code>Webhook</code> types from RestFB. 
 				</p>
 				<p>
 				To get a much deeper insight and a better overview you should take a look at the 
-				<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Facebook explanation of the Webhooks</a>.
+				<a href="https://developers.facebook.com/docs/graph-api/webhooks/" target="_blank">Facebook explanation of  Webhooks</a>.
 				</p>
 				<h2 id="using-webhooks-types">Webhook Types in RestFB</h2>
 				<p>
-				The Webhook types in RestFB are a very special construction, because they are fetched different to the other types 
-				and they are from a top view all the same but in their inner view completely different. The JSON is pushed to your server
-				and so you cannot use the common <code>fetchObject</code> method. You have simply a String and you can now use the <code>JsonMapper</code>
+				The Webhook types in RestFB are a very special construction.  They are fetched differently from  other types 
+				and while they appear similar on the surface, their internals are completely different. The JSON is pushed to your server
+				and so you cannot use the normal <code>fetchObject</code> method. You have simply a JSON String and you can now use a <code>JsonMapper</code>
 				to convert it to a Java object.
 				</p>
 				<p>
-				The result is a <code>Webhook</code> entity and so you only need to call something like this:
+				The result is a <code>Webhook</code> entity and you only need to call something like this:
 				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">String pushedJsonAsString; // It's up to you to fill this String
 JsonMapper mapper = new DefaultJsonMapper();
@@ -584,32 +583,32 @@ WebhookObject webhookObject =
          mapper.toJavaObject(pushedJsonAsString, WebhookObject.class);</code></pre></div>
 				<p>
 				Now you can step through the <code>WebhookObject</code> and fetch the necessary information. The structure is a bit cumbersome, but RestFB has to reflect the
-				original Facebook structure of the JSON. So we are able to react on changes much faster and are able to expand the webhooks as new possibilities arrive. 
+				original Facebook JSON structure. In this way, we are able to react to changes much faster and are able to expand our Webhooks support as new possibilities arrive. 
 				</p>
 				<p>
-				Very interesting is the <code>value</code>-field of the <code>Change</code> object, because here 
+				The <code>value</code>-field of the <code>Change</code> object is very interesting. Here 
 				we added a new solution and made use of the <code>@JsonMappingCompleted</code> annotation in combination 
 				with a <code>ChangeValueFactory</code>.
 				</p>
 				<p>
-				Beacuse the difference between the <code>WebhookObjects</code> you receive from Facebook lies in the change value
+				Beacuse the difference between the <code>WebhookObjects</code> you receive from Facebook lies in the change value,
 				we implemented a factory so you can work with the correct entity and don't need to implement some logic. Because
 				some change values contain a <code>postId</code>, some a photo URL and other specific differences. These are provided
-				by a bunch of classes which names end with <code>Value</code>.
+				by a group of classes whose names end with <code>Value</code>.
 				</p>
 				<div class="bs-callout bs-callout-warning">
 					<h4>Important notice regarding the new Webhook types</h4>
 					<div>
 						<p>
-						At the moment we only support a subset of all possible webhook JSONs. The main focus lies 
+						At the moment we only support a subset of all possible webhook JSON types. The main focus lies 
 						on the page webhooks. You should be able to use the Webhooks nevertheless, but perhaps you have to deal with the 
 						<code>FallBackChangeValue</code>. It encapsulates the raw JSON that represents the change value and you may
 						work with the JSONObject, but it lacks some convenience methods.
 						</p>
 						<p>
-						If this happens you see a log message with the hint to send us the JSON. We really like to implement more 
+						If this happens, you will see a log message with a hint to send us the JSON. We would really like to implement more 
 						<code>Value</code> classes and with the help of our users and the RestFB community we can provide a complete solution
-						for the Webhooks.
+						for Webhooks.
 						</p>
 					</div>
 				</div>
@@ -891,14 +890,14 @@ JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObj
 
 				<h2 id="publishing-photo-with-tag">Publishing a tagged Photo</h2>
 				<p>
-					In the previous section the publishing of a photo was the main topic.
-					Now we expand this a bit and add a Tag during the publishing.
-					With a <code>tag</code> you link a Facebook user to a photo. So you get
-					more information who is in the photo.
+					In the previous section focused on publishing a photo.
+					Now we expand on this a bit and include a Tag as part of the publishing process.
+					A <code>tag</code> permits you to link a Facebook user to a photo, providing
+					formal information about who is in the photo.
 				</p>
 				<p>
-					To tag a user you need two things. First a custom <code>PhotoTag</code> type and you have to modify the reuqest from the
-					previous section. Beacuse the custom type is the most important and exciting thing we start with the custom type.
+					To tag a user you need two things. First, a custom <code>PhotoTag</code> type, and second, you have to modify the request from the
+					previous section. Because the custom type is the most important and exciting thing, we start with the custom type.
 				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">public class MyPhotoTag {
    @Facebook("tag_uid")
@@ -916,8 +915,8 @@ JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObj
    // add getter and setter here
 }</code></pre></div>
 				<p>
-					Now we have the custom type and may create a new instance. This is just good old java. Important is the publishing part.
-					To make it more easy we use the publish call from the previous section and simply add the new parameter. If everything is wired together it looks like this:
+					Now we have the custom type and may create a new instance. This is just good old Java. Now, let's get to the publishing part.
+					To make it easier, we use the publish call from the previous section and simply add the new parameter. When everything is wired together it looks like this:
 				</p>
 				<div class="highlight"><pre><code class="language-java" data-lang="java">byte[] imageAsBytes = fetchBytesFromImage();
 MyPhotoTag myTag = new MyPhotoTag();
@@ -1345,8 +1344,8 @@ out.println("Here's my proof: " + proof);</code></pre></div>
 		<div class="bs-docs-section">
 		    <h1 id="running-examples" class="page-header">Running The Examples</h1>
 		    	<p>
-				RestFB provides a repository on github with an <a href="https://github.com/restfb/restfb-examples" target="_blank">example project</a>. In this repository RestFB is used to fetch several information from
-				Facebook, publish some information and run a legacy example. The whole project is <a href="https://maven.apache.org/" target="_blank">maven based</a> and you may use this
+				RestFB provides a repository on Github with an <a href="https://github.com/restfb/restfb-examples" target="_blank">example project</a>. In this repository RestFB is used to fetch several pieces of information from
+				Facebook, publish some information, and run a legacy example. The whole project is <a href="https://maven.apache.org/" target="_blank">Maven-based</a> and you may use this
 				repository to start your own project using RestFB.
 				</p>
 				<p>
