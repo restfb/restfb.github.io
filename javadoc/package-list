@@ -8,4 +8,6 @@ com.restfb.json
 com.restfb.scope
 com.restfb.types
 com.restfb.types.ads
+com.restfb.types.webhook
+com.restfb.types.webhook.base
 com.restfb.util
