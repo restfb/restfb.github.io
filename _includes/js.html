@@ -1,0 +1,29 @@
+<!-- jQuery Version 1.11.0 -->
+<script src="{{ "/js/jquery-1.12.1.min.js" | prepend: site.baseurl }}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ "/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="{{ "/js/jquery.easing.min.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/classie.min.js" | prepend: site.baseurl }}"></script>
+
+    
+{% if page.header == "landing" %}
+    <script src="{{ "/js/cbpAnimatedHeader.min.js" | prepend: site.baseurl }}"></script>
+<!-- Custom Theme JavaScript -->
+    <script src="{{ "/js/restfb.min.js" | prepend: site.baseurl }}"></script>
+{% else %}
+    <script src="{{ "/js/restfb-docs.min.js" | prepend: site.baseurl }}"></script>
+{% endif %}
+<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+	try {
+		var pageTracker = _gat._getTracker("UA-12795899-1");
+		pageTracker._trackPageview();
+	} catch (err) {
+	}
+</script>

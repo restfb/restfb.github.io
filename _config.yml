@@ -1,0 +1,77 @@
+url: http://restfb.com
+baseurl: 
+
+# Site settings
+title: 
+  default: restfb
+  light: <span class="restfb-brand light">rest</span><span class="restfb-brand highlight">fb</span>
+  dark: <span class="restfb-brand dark">rest</span><span class="restfb-brand highlight">fb</span>
+description: "RestFB is a simple and flexible Facebook Graph API client written in Java."
+
+# code and explanantion
+collections:
+  documentation:
+    title: Documentation
+    render: true
+    output: true
+
+# Color settings (hex-codes without the leading hash-tag)
+color:
+  primary: 337ab7
+  secondary: 337ab7  
+  secondary-dark: 333
+
+# Team names, titles and social links
+people:
+- name: Mark Allen
+  pic: 1
+  position: Founder
+  social:
+    - title: github
+      url: https://github.com/revetkn
+    - title: linkedin
+      url: http://www.linkedin.com/pub/mark-allen/1/b75/721/
+
+- name: Norbert Bartels
+  pic: 2
+  position: Maintainer and Lead Developer
+  social:
+    - title: github
+      url: https://github.com/nbartels
+    - title: stack-overflow
+      url: http://stackoverflow.com/users/1379528/norbert
+    - title: xing
+      url: https://www.xing.com/profile/Norbert_Bartels2
+
+- name: many Contributors
+  pic: 3
+
+# site Social network links and types (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+social:
+  - title: facebook
+    url: https://www.facebook.com/Restfb-909653922461664
+  - title: stack-overflow
+    url: http://stackoverflow.com/questions/tagged/restfb
+  - title: github
+    url: http://github.com/restfb/restfb
+  - title: envelope
+    url: http://groups.google.com/group/restfb
+
+# additional links
+navigation:
+  - text: Documentation
+    url: /documentation/
+#  - text: Cookbook
+#    url: /cookbook/
+
+gems:
+  - jekyll-sitemap
+
+sass:
+  style: compressed
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+exclude: [README.md, LICENSE]

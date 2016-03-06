@@ -1,0 +1,32 @@
+.rfb-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+	h4 {
+	    margin-top: 0;
+	    margin-bottom: 15px;
+		font-size: 18px;
+		text-transform: none;
+		font-weight: 200;
+	}
+	&.info {
+	    border-left-color: #1b809e;
+		h4 {
+			color: #1b809e;
+		}
+	}
+	&.warning {
+    	border-left-color: #aa6708;
+		h4 {
+	    	color: #aa6708;
+		}
+	}
+	&.danger {
+    	border-left-color: #ce4844;
+		h4 {
+	    	color: #ce4844;
+		}
+	}
+}

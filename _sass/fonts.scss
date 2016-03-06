@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Monserrat';
+    src: url('/css/fonts/montserrat-regular-webfont.eot');
+    src: url('/css/fonts/montserrat-regular-webfont.eot?#iefix') format('embedded-opentype'), 
+		url('/css/fonts/montserrat-regular-webfont.woff2') format('woff2'), 
+		url('/css/fonts/montserrat-regular-webfont.woff') format('woff'), 
+		url('/css/fonts/montserrat-regular-webfont.ttf') format('truetype'), 
+		url('/css/fonts/montserrat-regular-webfont.svg#monserrat_regular') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/css/fonts/OpenSans-Regular.eot');
+    src: url('/css/fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), 
+		url('/css/fonts/OpenSans-Regular.woff2') format('woff2'), 
+		url('/css/fonts/OpenSans-Regular.woff') format('woff'), 
+		url('/css/fonts/OpenSans-Regular.ttf') format('truetype'), 
+		url('/css/fonts/OpenSans-Regular.svg#OpenSans_Regular') format('svg');
+}
