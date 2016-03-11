@@ -12,13 +12,17 @@
         file: documentation/fetching-multiple-objects.md
         href: fetching-multiple-objects
       -
-        title: Fetching Objects
+        title: Fetching Object Lists
         file: documentation/fetching-connections.md
         href: fetching-connections
       -
         title: Fetching Insights
         file: documentation/fetching-insights.md
         href: fetching-insights
+      -
+        title: Fetching User Picture
+        file: documentation/fetching-user-picture.md
+        href: fetching-user-picture
 - 
   title: Logging
   file: documentation/logging.md
