@@ -181,8 +181,8 @@
         file: documentation/security-deauth-callback.md
         href: security-deauth-callback
       -
-        title: Generating <code>appsecret_proof</code>
-        menu_title: Generating appsecret_proof
+        title: Securing Graph API Requests
+        menu_title: Secure Requests
         file: documentation/security-appsecret.md
         href: security-appsecret
 - 
