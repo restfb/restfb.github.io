@@ -1,7 +1,7 @@
-Fetching objects with RestFB is straight forward, but there's a special endpoint 
-that is a bit different and can confuse the developer a bit.
+Fetching objects with RestFB is straightforward, but there's a special endpoint 
+that is a bit different and can be a little confusing.
 
-If you call the `<userid>/picture` endpoint you don't get a JSON in return. This endpoint 
+If you call the `<userid>/picture` endpoint you don't receive a JSON response object. This endpoint 
 redirects directly to the user picture and you get the image's binary data.
 
 {% highlight shell %}
@@ -17,8 +17,7 @@ pragma: no-cache
 location: https://example.fbcdn.net/example_profile_picture.jpg
 {% endhighlight %}
 
-Now, we want to receive the image url in a JSON instead of the binary data. This is
-realized by adding a special parameter to the request URL. The query parameter is `redirect=false`.
+Now, we want to receive the image url in a JSON instead of the binary data. This can be achieved by adding a special parameter to the request URL. The query parameter is `redirect=false`.
 
 The corresponding Java code looks like this:
 
@@ -29,7 +28,7 @@ JsonObject picture =
 	      JsonObject.class, Parameter.with("redirect","false"));
 {% endhighlight %}
 
-With this "trick" you receive a JSON as expected, when calling a Facebook Graph endpoint.
+With this "trick" you receive a JSON response as expected when calling the Facebook Graph endpoint.
 
 {% highlight json %}
 {
