@@ -26,9 +26,10 @@ $(document).ready(function () {
 
 	if (releases.data.length > 0) {
 	    var tag = releases.data[0].tag_name.substring(1);
-	    var date = new Date(releases.data[0].created_at).toString("MMMM d, yyyy");
+	    var date = new Date(releases.data[0].created_at);
+		var prettyDate = $.format.date(date.getTime(), "MMMM d, yyyy");
 	    $("#restfb-version").text("Version " + tag);
-	    $("#restfb-release-date").text("(released " + date + ")");
+	    $("#restfb-release-date").text("(released " + prettyDate + ")");
 	    var zipURL = releases.data[0].html_url;
 	    if ("application/zip" == releases.data[0].assets[0].content_type) {
 		zipURL = releases.data[0].assets[0].browser_download_url;

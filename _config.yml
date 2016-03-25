@@ -70,6 +70,8 @@ gems:
 sass:
   style: compressed
 
+usecdn: true
+
 # Build settings
 markdown: kramdown
 permalink: pretty
