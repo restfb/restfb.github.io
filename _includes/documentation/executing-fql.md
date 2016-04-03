@@ -7,6 +7,6 @@
 		<p>
 		We support Webhooks with special types and you should look at the <a href="#using-webhooks">Webhooks section in this documentation</a>.
 		</p>
-		<p>We still provide access to FQL, because some Applications out there are still using Graph API 2.0. On August 7, 2016 Facebook will disable support for both Graph API 2.0 and FQL.</p>
+		<p markdown="1">We still provide access to FQL, because some Applications out there are still using Graph API 2.0. **On August 7, 2016 Facebook will disable support for both Graph API 2.0 and FQL.**</p>
 	</div>
 </div>
