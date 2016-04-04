@@ -1,4 +1,4 @@
-See <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>
+See <a target="_blank" href="http://developers.facebook.com/docs/api#editing" class="label label-primary">Graph API documentation</a>
 
 {% highlight java %}
 // Publishing a simple message.

@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/">FQL documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/" class="label label-primary">FQL documentation</a>
 
 {% highlight java %}
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";

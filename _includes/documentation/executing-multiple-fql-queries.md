@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/#multi">FQL documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/#multi" class="label label-primary">FQL documentation</a>
 
 {% highlight java %}
 Map<String, String> queries = new HashMap<String, String>() {

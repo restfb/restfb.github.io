@@ -1,4 +1,4 @@
-See <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>
+See <a target="_blank" href="http://developers.facebook.com/docs/api#reading" class="label label-primary">Graph API documentation</a>
 
 If you fetch a type from Facebook you get a prefilled version. With Graph API 2.4 Facebook changed the behavior and
 you get only a very minimalistic object. The basic idea of this approach is to save bandwidth and make the

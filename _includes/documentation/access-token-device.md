@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices" class="label label-primary">Graph API documentation</a>
 
 With the Device Access Token Facebook provides a possibility to connect to devices with limited input or display capabilities. RestFB supports this kind of access tokens since version 1.12.0.
 

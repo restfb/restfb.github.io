@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/" class="label label-primary">Graph API documentation</a>
 
 {% highlight java %}
 // The Batch API is great if you have multiple operations you'd like to

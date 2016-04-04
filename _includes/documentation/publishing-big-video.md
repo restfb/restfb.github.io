@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/video-uploads">Graph API documentation</a><br />
+See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/video-uploads" class="label label-primary">Graph API documentation</a><br />
 
 Uploading a short video is the same as uploading a picture. You should take a look at the picture section to understand how it works.
 

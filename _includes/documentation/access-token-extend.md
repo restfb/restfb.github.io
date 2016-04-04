@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens/expiration-and-extension" class="label label-primary">Graph API documentation</a>
 
 Normally access tokens are only valid for a short time, but you can extend the lifetime with a simple Facebook call. RestFB provides a method to make this easy.
 

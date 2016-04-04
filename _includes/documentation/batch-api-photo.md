@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/" class="label label-primary">Graph API documentation</a>
 
 {% highlight java %}
 // Per the FB Batch API documentation, attached_files is a comma-separated list
