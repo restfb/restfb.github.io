@@ -55,6 +55,7 @@
         href: executing-fql-queries
       -
         title: Executing Multiple FQL Queries in One Call
+        menu_title: Executing Multiple FQL Queries
         file: documentation/executing-multiple-fql-queries.md
         href: executing-multiple-fql-queries
 -
@@ -70,6 +71,39 @@
         title: Webhook Types in RestFB
         file: documentation/using-webhooks-types.md
         href: using-webhooks-types
+-
+  title: Messenger Platform
+  file: documentation/messenger-overview.md
+  href: messenger-overview
+  subsection:
+      -
+        title: Creating a recipient
+        file: documentation/messenger-recipient.md
+        href: messenger-recipient
+      -
+        title: Creating a text message
+        file: documentation/messenger-textmessage.md
+        href: messenger-textmessage
+      -
+        title: Creating a image message
+        file: documentation/messenger-imagemessage.md
+        href: messenger-imagemessage
+      -
+        title: Use the button template
+        file: documentation/messenger-buttontemplate.md
+        href: messenger-buttontemplate
+      -
+        title: Use the generic template
+        file: documentation/messenger-generictemplate.md
+        href: messenger-generictemplate
+      -
+        title: Sending a message
+        file: documentation/messenger-sendapi.md
+        href: messenger-sendapi
+      -
+        title: Limitations
+        file: documentation/messenger-limitations.md
+        href: messenger-limitations
 - 
   title: Advanced Usage
   file: documentation/advanced-usage.md
