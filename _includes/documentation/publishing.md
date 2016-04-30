@@ -25,10 +25,9 @@
 		A note regarding the difference between live and dev apps
 	</h4>
 	<p>
-		Newly created Facebook apps are in development mode. These apps work similar to live apps, but some actions act a bit different. In particular the publishing of elements is completely different. Even public elements are not visible to other
-		users.
+		Newly created Facebook apps are in development mode. These apps work similar to live apps, but some actions act a bit differently. In particular, the publishing of elements is completely different. Even public elements are not visible to other users.
 	</p>
 	<p>
-		So plese check the state of the app, if your application acts strange or you miss published elements.
+		So please check the state of the app if your application behaves strangely or you don't see published elements.
 	</p>
 </div>
