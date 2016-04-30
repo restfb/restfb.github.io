@@ -1,6 +1,6 @@
-Sending a message to a user requires a unique recipient identifier. There are two types of identifiers that are supported by the `Send API`. 
+Sending a message to a user requires a unique recipient identifier. There are two types of identifiers that are supported by the `Send API`.
 
-The first is the `id`-identifier. You can get the recipient `id` as soon as a user sends a message to your bot. Please be aware of the fact that the `recipient id` is *not* the user id. If you try to send a message to a `user id` this will not work. You necessarily need the `recipient id`.
+The first is the `id`-identifier. You can get the recipient `id` as soon as a user sends a message to your bot. Please be aware of the fact that the `recipient id` is *not* the user id. If you try to send a message to a `user id` this will not work. You are required to use the `recipient id`.
 
 If you received a message and took the `id` from that message you can create a new `IdMessageRecipient` with this simple line of code:
 

@@ -1,8 +1,8 @@
-A more complex example is the "generic" template. 
+A more complex example is the "generic" template.
 
-It may contain some of the so called bubbles that are aligned in a horizontal order and the user may switch between them. Every `Bubble` can contain further information like subtitles and image and the buttons we already saw in the example before.
+It may contain some of the so-called "bubbles" that are aligned in a horizontal order and the user may switch between them. Every `Bubble` can contain further information like subtitles and images and the buttons we already saw in the example before.
 
-The `GenericTemplate` allows the developer to create great looking messages the user can interact in a very new way. 
+The `GenericTemplate` allows a developer to create great-looking messages users can interact with in very new ways. 
 
 {% highlight java %}
 GenericTemplatePayload payload = new GenericTemplatePayload();

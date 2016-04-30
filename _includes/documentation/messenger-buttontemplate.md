@@ -1,8 +1,8 @@
-Facebook allows more complex objects and with these it is possible to define postbacks the user can use. 
+Facebook allows more complex objects and with these it is possible to define postbacks the user can use.
 
-The postback is a button that is presented to the user in the messenger. On click a special defined string is send back to the bot via the webhook api. So the bot knows which button was pressed.
+The postback is a button that is presented to the user in the messenger. On click, a specially-defined string is sent back to the bot via the webhook api so the bot knows which button was pressed.
 
-Like the postback button there exists a `WebButton`. The click on that button directs the user to a webpage.
+Like the postback button, there exists a `WebButton`. A click on that button directs the user to a webpage.
 
 In this example we create both types of buttons and add them to a `Message`.
 
