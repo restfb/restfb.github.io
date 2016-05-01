@@ -289,83 +289,98 @@
 <span class="sourceLineNo">281</span>  READ_INSIGHTS("read_insights"), //<a name="line.281"></a>
 <span class="sourceLineNo">282</span><a name="line.282"></a>
 <span class="sourceLineNo">283</span>  /**<a name="line.283"></a>
-<span class="sourceLineNo">284</span>   * Provides the ability to read the messages in a person's Facebook Inbox through the inbox edge and the thread node.<a name="line.284"></a>
-<span class="sourceLineNo">285</span>   *<a name="line.285"></a>
-<span class="sourceLineNo">286</span>   * &lt;p&gt;<a name="line.286"></a>
-<span class="sourceLineNo">287</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.287"></a>
-<span class="sourceLineNo">288</span>   *<a name="line.288"></a>
-<span class="sourceLineNo">289</span>   * &lt;p&gt;<a name="line.289"></a>
-<span class="sourceLineNo">290</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.290"></a>
-<span class="sourceLineNo">291</span>   *<a name="line.291"></a>
-<span class="sourceLineNo">292</span>   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning<a name="line.292"></a>
-<span class="sourceLineNo">293</span>   * @RestFB.GraphApi.Until 2.3<a name="line.293"></a>
-<span class="sourceLineNo">294</span>   */<a name="line.294"></a>
-<span class="sourceLineNo">295</span>  @Deprecated READ_MAILBOX("read_mailbox"), //<a name="line.295"></a>
-<span class="sourceLineNo">296</span><a name="line.296"></a>
-<span class="sourceLineNo">297</span>  /**<a name="line.297"></a>
-<span class="sourceLineNo">298</span>   * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used<a name="line.298"></a>
-<span class="sourceLineNo">299</span>   * alongside the manage_pages permission.<a name="line.299"></a>
+<span class="sourceLineNo">284</span>   * Facebook has not yet officially documented this permission, but it is necessary for certain integrations with the<a name="line.284"></a>
+<span class="sourceLineNo">285</span>   * new Messenger Platform.<a name="line.285"></a>
+<span class="sourceLineNo">286</span>   *<a name="line.286"></a>
+<span class="sourceLineNo">287</span>   * &lt;p&gt;<a name="line.287"></a>
+<span class="sourceLineNo">288</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.288"></a>
+<span class="sourceLineNo">289</span>   *<a name="line.289"></a>
+<span class="sourceLineNo">290</span>   * &lt;p&gt;<a name="line.290"></a>
+<span class="sourceLineNo">291</span>   * Your app will need to be approved and whitelisted by Facebook to use of this permission.<a name="line.291"></a>
+<span class="sourceLineNo">292</span>   * <a name="line.292"></a>
+<span class="sourceLineNo">293</span>   * @since Graph API 2.5<a name="line.293"></a>
+<span class="sourceLineNo">294</span>   * @RestFB.GraphApi.Until 2.5<a name="line.294"></a>
+<span class="sourceLineNo">295</span>   */<a name="line.295"></a>
+<span class="sourceLineNo">296</span>  XMPP_LOGIN("xmpp_login"), //<a name="line.296"></a>
+<span class="sourceLineNo">297</span><a name="line.297"></a>
+<span class="sourceLineNo">298</span>  /**<a name="line.298"></a>
+<span class="sourceLineNo">299</span>   * Provides the ability to read the messages in a person's Facebook Inbox through the inbox edge and the thread node.<a name="line.299"></a>
 <span class="sourceLineNo">300</span>   *<a name="line.300"></a>
 <span class="sourceLineNo">301</span>   * &lt;p&gt;<a name="line.301"></a>
-<span class="sourceLineNo">302</span>   * This permission does not let your app read the page owner's mailbox. It only applies to the page's mailbox.<a name="line.302"></a>
+<span class="sourceLineNo">302</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.302"></a>
 <span class="sourceLineNo">303</span>   *<a name="line.303"></a>
 <span class="sourceLineNo">304</span>   * &lt;p&gt;<a name="line.304"></a>
-<span class="sourceLineNo">305</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.305"></a>
+<span class="sourceLineNo">305</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.305"></a>
 <span class="sourceLineNo">306</span>   *<a name="line.306"></a>
-<span class="sourceLineNo">307</span>   * &lt;p&gt;<a name="line.307"></a>
-<span class="sourceLineNo">308</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.308"></a>
+<span class="sourceLineNo">307</span>   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning<a name="line.307"></a>
+<span class="sourceLineNo">308</span>   * @RestFB.GraphApi.Until 2.3<a name="line.308"></a>
 <span class="sourceLineNo">309</span>   */<a name="line.309"></a>
-<span class="sourceLineNo">310</span>  READ_PAGE_MAILBOXES("read_page_mailboxes"), //<a name="line.310"></a>
+<span class="sourceLineNo">310</span>  @Deprecated READ_MAILBOX("read_mailbox"), //<a name="line.310"></a>
 <span class="sourceLineNo">311</span><a name="line.311"></a>
 <span class="sourceLineNo">312</span>  /**<a name="line.312"></a>
-<span class="sourceLineNo">313</span>   * Provides access to read the posts in a person's News Feed, or the posts on their Profile.<a name="line.313"></a>
-<span class="sourceLineNo">314</span>   *<a name="line.314"></a>
-<span class="sourceLineNo">315</span>   * &lt;p&gt;<a name="line.315"></a>
-<span class="sourceLineNo">316</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.316"></a>
-<span class="sourceLineNo">317</span>   *<a name="line.317"></a>
-<span class="sourceLineNo">318</span>   * &lt;p&gt;<a name="line.318"></a>
-<span class="sourceLineNo">319</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.319"></a>
-<span class="sourceLineNo">320</span>   *<a name="line.320"></a>
-<span class="sourceLineNo">321</span>   * &lt;p&gt;<a name="line.321"></a>
-<span class="sourceLineNo">322</span>   * <a name="line.322"></a>
-<span class="sourceLineNo">323</span>   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning<a name="line.323"></a>
-<span class="sourceLineNo">324</span>   * @RestFB.GraphApi.Until 2.3<a name="line.324"></a>
-<span class="sourceLineNo">325</span>   */<a name="line.325"></a>
-<span class="sourceLineNo">326</span>  @Deprecated READ_STREAM("read_stream"), //<a name="line.326"></a>
-<span class="sourceLineNo">327</span><a name="line.327"></a>
-<span class="sourceLineNo">328</span>  /**<a name="line.328"></a>
-<span class="sourceLineNo">329</span>   * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).<a name="line.329"></a>
-<span class="sourceLineNo">330</span>   *<a name="line.330"></a>
-<span class="sourceLineNo">331</span>   * &lt;p&gt;<a name="line.331"></a>
-<span class="sourceLineNo">332</span>   * This permission does not let you invite people to an event.<a name="line.332"></a>
-<span class="sourceLineNo">333</span>   *<a name="line.333"></a>
-<span class="sourceLineNo">334</span>   * &lt;p&gt;<a name="line.334"></a>
-<span class="sourceLineNo">335</span>   * This permission does not let you update an event's details.<a name="line.335"></a>
-<span class="sourceLineNo">336</span>   *<a name="line.336"></a>
-<span class="sourceLineNo">337</span>   * &lt;p&gt;<a name="line.337"></a>
-<span class="sourceLineNo">338</span>   * This permission does not let you create an event. There is no way to create an event via the API as of Graph API<a name="line.338"></a>
-<span class="sourceLineNo">339</span>   * v2.0.<a name="line.339"></a>
-<span class="sourceLineNo">340</span>   *<a name="line.340"></a>
-<span class="sourceLineNo">341</span>   * &lt;p&gt;<a name="line.341"></a>
-<span class="sourceLineNo">342</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.342"></a>
-<span class="sourceLineNo">343</span>   *<a name="line.343"></a>
-<span class="sourceLineNo">344</span>   * &lt;p&gt;<a name="line.344"></a>
-<span class="sourceLineNo">345</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.345"></a>
-<span class="sourceLineNo">346</span>   */<a name="line.346"></a>
-<span class="sourceLineNo">347</span>  RSVP_EVENT("rsvp_event");<a name="line.347"></a>
-<span class="sourceLineNo">348</span><a name="line.348"></a>
-<span class="sourceLineNo">349</span>  String permissionString;<a name="line.349"></a>
-<span class="sourceLineNo">350</span><a name="line.350"></a>
-<span class="sourceLineNo">351</span>  ExtendedPermissions(String facebookPermissionString) {<a name="line.351"></a>
-<span class="sourceLineNo">352</span>    this.permissionString = facebookPermissionString;<a name="line.352"></a>
-<span class="sourceLineNo">353</span>  }<a name="line.353"></a>
-<span class="sourceLineNo">354</span><a name="line.354"></a>
-<span class="sourceLineNo">355</span>  @Override<a name="line.355"></a>
-<span class="sourceLineNo">356</span>  public String getPermissionString() {<a name="line.356"></a>
-<span class="sourceLineNo">357</span>    return this.permissionString;<a name="line.357"></a>
-<span class="sourceLineNo">358</span>  }<a name="line.358"></a>
-<span class="sourceLineNo">359</span><a name="line.359"></a>
-<span class="sourceLineNo">360</span>}<a name="line.360"></a>
+<span class="sourceLineNo">313</span>   * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used<a name="line.313"></a>
+<span class="sourceLineNo">314</span>   * alongside the manage_pages permission.<a name="line.314"></a>
+<span class="sourceLineNo">315</span>   *<a name="line.315"></a>
+<span class="sourceLineNo">316</span>   * &lt;p&gt;<a name="line.316"></a>
+<span class="sourceLineNo">317</span>   * This permission does not let your app read the page owner's mailbox. It only applies to the page's mailbox.<a name="line.317"></a>
+<span class="sourceLineNo">318</span>   *<a name="line.318"></a>
+<span class="sourceLineNo">319</span>   * &lt;p&gt;<a name="line.319"></a>
+<span class="sourceLineNo">320</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.320"></a>
+<span class="sourceLineNo">321</span>   *<a name="line.321"></a>
+<span class="sourceLineNo">322</span>   * &lt;p&gt;<a name="line.322"></a>
+<span class="sourceLineNo">323</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.323"></a>
+<span class="sourceLineNo">324</span>   */<a name="line.324"></a>
+<span class="sourceLineNo">325</span>  READ_PAGE_MAILBOXES("read_page_mailboxes"), //<a name="line.325"></a>
+<span class="sourceLineNo">326</span><a name="line.326"></a>
+<span class="sourceLineNo">327</span>  /**<a name="line.327"></a>
+<span class="sourceLineNo">328</span>   * Provides access to read the posts in a person's News Feed, or the posts on their Profile.<a name="line.328"></a>
+<span class="sourceLineNo">329</span>   *<a name="line.329"></a>
+<span class="sourceLineNo">330</span>   * &lt;p&gt;<a name="line.330"></a>
+<span class="sourceLineNo">331</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.331"></a>
+<span class="sourceLineNo">332</span>   *<a name="line.332"></a>
+<span class="sourceLineNo">333</span>   * &lt;p&gt;<a name="line.333"></a>
+<span class="sourceLineNo">334</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.334"></a>
+<span class="sourceLineNo">335</span>   *<a name="line.335"></a>
+<span class="sourceLineNo">336</span>   * &lt;p&gt;<a name="line.336"></a>
+<span class="sourceLineNo">337</span>   *<a name="line.337"></a>
+<span class="sourceLineNo">338</span>   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning<a name="line.338"></a>
+<span class="sourceLineNo">339</span>   * @RestFB.GraphApi.Until 2.3<a name="line.339"></a>
+<span class="sourceLineNo">340</span>   */<a name="line.340"></a>
+<span class="sourceLineNo">341</span>  @Deprecated READ_STREAM("read_stream"), //<a name="line.341"></a>
+<span class="sourceLineNo">342</span><a name="line.342"></a>
+<span class="sourceLineNo">343</span>  /**<a name="line.343"></a>
+<span class="sourceLineNo">344</span>   * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).<a name="line.344"></a>
+<span class="sourceLineNo">345</span>   *<a name="line.345"></a>
+<span class="sourceLineNo">346</span>   * &lt;p&gt;<a name="line.346"></a>
+<span class="sourceLineNo">347</span>   * This permission does not let you invite people to an event.<a name="line.347"></a>
+<span class="sourceLineNo">348</span>   *<a name="line.348"></a>
+<span class="sourceLineNo">349</span>   * &lt;p&gt;<a name="line.349"></a>
+<span class="sourceLineNo">350</span>   * This permission does not let you update an event's details.<a name="line.350"></a>
+<span class="sourceLineNo">351</span>   *<a name="line.351"></a>
+<span class="sourceLineNo">352</span>   * &lt;p&gt;<a name="line.352"></a>
+<span class="sourceLineNo">353</span>   * This permission does not let you create an event. There is no way to create an event via the API as of Graph API<a name="line.353"></a>
+<span class="sourceLineNo">354</span>   * v2.0.<a name="line.354"></a>
+<span class="sourceLineNo">355</span>   *<a name="line.355"></a>
+<span class="sourceLineNo">356</span>   * &lt;p&gt;<a name="line.356"></a>
+<span class="sourceLineNo">357</span>   * &lt;strong&gt;Review&lt;/strong&gt;<a name="line.357"></a>
+<span class="sourceLineNo">358</span>   *<a name="line.358"></a>
+<span class="sourceLineNo">359</span>   * &lt;p&gt;<a name="line.359"></a>
+<span class="sourceLineNo">360</span>   * If your app requests this permission Facebook will have to review how your app uses it.<a name="line.360"></a>
+<span class="sourceLineNo">361</span>   */<a name="line.361"></a>
+<span class="sourceLineNo">362</span>  RSVP_EVENT("rsvp_event");<a name="line.362"></a>
+<span class="sourceLineNo">363</span><a name="line.363"></a>
+<span class="sourceLineNo">364</span>  String permissionString;<a name="line.364"></a>
+<span class="sourceLineNo">365</span><a name="line.365"></a>
+<span class="sourceLineNo">366</span>  ExtendedPermissions(String facebookPermissionString) {<a name="line.366"></a>
+<span class="sourceLineNo">367</span>    this.permissionString = facebookPermissionString;<a name="line.367"></a>
+<span class="sourceLineNo">368</span>  }<a name="line.368"></a>
+<span class="sourceLineNo">369</span><a name="line.369"></a>
+<span class="sourceLineNo">370</span>  @Override<a name="line.370"></a>
+<span class="sourceLineNo">371</span>  public String getPermissionString() {<a name="line.371"></a>
+<span class="sourceLineNo">372</span>    return this.permissionString;<a name="line.372"></a>
+<span class="sourceLineNo">373</span>  }<a name="line.373"></a>
+<span class="sourceLineNo">374</span><a name="line.374"></a>
+<span class="sourceLineNo">375</span>}<a name="line.375"></a>
 
 
 

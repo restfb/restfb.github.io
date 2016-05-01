@@ -77,7 +77,7 @@
 <span class="sourceLineNo">069</span>      throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");<a name="line.69"></a>
 <span class="sourceLineNo">070</span>    }<a name="line.70"></a>
 <span class="sourceLineNo">071</span><a name="line.71"></a>
-<span class="sourceLineNo">072</span>    this.name = trimToEmpty(name).toLowerCase();<a name="line.72"></a>
+<span class="sourceLineNo">072</span>    this.name = trimToEmpty(name);<a name="line.72"></a>
 <span class="sourceLineNo">073</span><a name="line.73"></a>
 <span class="sourceLineNo">074</span>    // Special handling for Date types - turn them into Facebook date strings.<a name="line.74"></a>
 <span class="sourceLineNo">075</span>    // Otherwise, use the JSON value of the type.<a name="line.75"></a>
