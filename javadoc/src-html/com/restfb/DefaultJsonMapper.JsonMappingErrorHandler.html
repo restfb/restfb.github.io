@@ -70,7 +70,7 @@
 <span class="sourceLineNo">062</span>  /**<a name="line.62"></a>
 <span class="sourceLineNo">063</span>   * Logger.<a name="line.63"></a>
 <span class="sourceLineNo">064</span>   */<a name="line.64"></a>
-<span class="sourceLineNo">065</span>  private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class.getName());<a name="line.65"></a>
+<span class="sourceLineNo">065</span>  private static final Logger LOGGER = Logger.getLogger(DefaultJsonMapper.class.getName());<a name="line.65"></a>
 <span class="sourceLineNo">066</span><a name="line.66"></a>
 <span class="sourceLineNo">067</span>  /**<a name="line.67"></a>
 <span class="sourceLineNo">068</span>   * Creates a JSON mapper which will throw {@link com.restfb.exception.FacebookJsonMappingException} whenever an error<a name="line.68"></a>
@@ -130,279 +130,279 @@
 <span class="sourceLineNo">122</span>      // affiliations - it's a list except when there are none, then it turns<a name="line.122"></a>
 <span class="sourceLineNo">123</span>      // into an object). Check for that special case here.<a name="line.123"></a>
 <span class="sourceLineNo">124</span>      if (isEmptyObject(json)) {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>        if (logger.isLoggable(FINER)) {<a name="line.125"></a>
-<span class="sourceLineNo">126</span>          logger<a name="line.126"></a>
-<span class="sourceLineNo">127</span>            .finer("Encountered {} when we should've seen []. " + "Mapping the {} as an empty list and moving on...");<a name="line.127"></a>
-<span class="sourceLineNo">128</span>        }<a name="line.128"></a>
-<span class="sourceLineNo">129</span><a name="line.129"></a>
-<span class="sourceLineNo">130</span>        return new ArrayList&lt;T&gt;();<a name="line.130"></a>
-<span class="sourceLineNo">131</span>      }<a name="line.131"></a>
-<span class="sourceLineNo">132</span><a name="line.132"></a>
-<span class="sourceLineNo">133</span>      // Special case: if the only element of this object is an array called<a name="line.133"></a>
-<span class="sourceLineNo">134</span>      // "data", then treat it as a list. The Graph API uses this convention for<a name="line.134"></a>
-<span class="sourceLineNo">135</span>      // connections and in a few other places, e.g. comments on the Post<a name="line.135"></a>
-<span class="sourceLineNo">136</span>      // object.<a name="line.136"></a>
-<span class="sourceLineNo">137</span>      // Doing this simplifies mapping, so we don't have to worry about having a<a name="line.137"></a>
-<span class="sourceLineNo">138</span>      // little placeholder object that only has a "data" value.<a name="line.138"></a>
-<span class="sourceLineNo">139</span>      try {<a name="line.139"></a>
-<span class="sourceLineNo">140</span>        JsonObject jsonObject = new JsonObject(json);<a name="line.140"></a>
-<span class="sourceLineNo">141</span>        String[] fieldNames = JsonObject.getNames(jsonObject);<a name="line.141"></a>
-<span class="sourceLineNo">142</span><a name="line.142"></a>
-<span class="sourceLineNo">143</span>        if (fieldNames != null) {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>          boolean hasSingleDataProperty = fieldNames.length == 1 &amp;&amp; "data".equals(fieldNames[0]);<a name="line.144"></a>
-<span class="sourceLineNo">145</span>          Object jsonDataObject = jsonObject.get("data");<a name="line.145"></a>
-<span class="sourceLineNo">146</span><a name="line.146"></a>
-<span class="sourceLineNo">147</span>          if (!hasSingleDataProperty &amp;&amp; !(jsonDataObject instanceof JsonArray)) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>              return null;<a name="line.149"></a>
-<span class="sourceLineNo">150</span>            } else {<a name="line.150"></a>
-<span class="sourceLineNo">151</span>              throw new FacebookJsonMappingException(<a name="line.151"></a>
-<span class="sourceLineNo">152</span>                "JSON is an object but is being mapped as a list " + "instead. Offending JSON is '" + json + "'.");<a name="line.152"></a>
-<span class="sourceLineNo">153</span>            }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>          }<a name="line.154"></a>
-<span class="sourceLineNo">155</span><a name="line.155"></a>
-<span class="sourceLineNo">156</span>          json = jsonDataObject.toString();<a name="line.156"></a>
-<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
-<span class="sourceLineNo">158</span>      } catch (JsonException e) {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>        // Should never get here, but just in case...<a name="line.159"></a>
-<span class="sourceLineNo">160</span>        if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.160"></a>
-<span class="sourceLineNo">161</span>          return null;<a name="line.161"></a>
-<span class="sourceLineNo">162</span>        } else {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>          throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "<a name="line.163"></a>
-<span class="sourceLineNo">164</span>              + type.getName() + " instances.  Offending JSON is " + json,<a name="line.164"></a>
-<span class="sourceLineNo">165</span>            e);<a name="line.165"></a>
-<span class="sourceLineNo">166</span>        }<a name="line.166"></a>
-<span class="sourceLineNo">167</span>      }<a name="line.167"></a>
-<span class="sourceLineNo">168</span>    }<a name="line.168"></a>
-<span class="sourceLineNo">169</span><a name="line.169"></a>
-<span class="sourceLineNo">170</span>    try {<a name="line.170"></a>
-<span class="sourceLineNo">171</span>      List&lt;T&gt; list = new ArrayList&lt;T&gt;();<a name="line.171"></a>
-<span class="sourceLineNo">172</span><a name="line.172"></a>
-<span class="sourceLineNo">173</span>      JsonArray jsonArray = new JsonArray(json);<a name="line.173"></a>
-<span class="sourceLineNo">174</span>      for (int i = 0; i &lt; jsonArray.length(); i++)<a name="line.174"></a>
-<span class="sourceLineNo">175</span>        list.add(toJavaObject(jsonArray.get(i).toString(), type));<a name="line.175"></a>
-<span class="sourceLineNo">176</span><a name="line.176"></a>
-<span class="sourceLineNo">177</span>      return unmodifiableList(list);<a name="line.177"></a>
-<span class="sourceLineNo">178</span>    } catch (FacebookJsonMappingException e) {<a name="line.178"></a>
-<span class="sourceLineNo">179</span>      throw e;<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    } catch (Exception e) {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.181"></a>
-<span class="sourceLineNo">182</span>        return null;<a name="line.182"></a>
-<span class="sourceLineNo">183</span>      } else {<a name="line.183"></a>
-<span class="sourceLineNo">184</span>        throw new FacebookJsonMappingException(<a name="line.184"></a>
-<span class="sourceLineNo">185</span>          "Unable to convert Facebook response " + "JSON to a list of " + type.getName() + " instances", e);<a name="line.185"></a>
-<span class="sourceLineNo">186</span>      }<a name="line.186"></a>
-<span class="sourceLineNo">187</span>    }<a name="line.187"></a>
-<span class="sourceLineNo">188</span>  }<a name="line.188"></a>
-<span class="sourceLineNo">189</span><a name="line.189"></a>
-<span class="sourceLineNo">190</span>  /**<a name="line.190"></a>
-<span class="sourceLineNo">191</span>   * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)<a name="line.191"></a>
-<span class="sourceLineNo">192</span>   */<a name="line.192"></a>
-<span class="sourceLineNo">193</span>  @Override<a name="line.193"></a>
-<span class="sourceLineNo">194</span>  @SuppressWarnings("unchecked")<a name="line.194"></a>
-<span class="sourceLineNo">195</span>  public &lt;T&gt; T toJavaObject(String json, Class&lt;T&gt; type) {<a name="line.195"></a>
-<span class="sourceLineNo">196</span>    if ("[]".equals(json)) {<a name="line.196"></a>
-<span class="sourceLineNo">197</span>      return toJavaObject("{}", type);<a name="line.197"></a>
-<span class="sourceLineNo">198</span>    }<a name="line.198"></a>
-<span class="sourceLineNo">199</span><a name="line.199"></a>
-<span class="sourceLineNo">200</span>    if (isBlank(json)) {<a name="line.200"></a>
-<span class="sourceLineNo">201</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.201"></a>
-<span class="sourceLineNo">202</span>        return null;<a name="line.202"></a>
-<span class="sourceLineNo">203</span>      } else {<a name="line.203"></a>
-<span class="sourceLineNo">204</span>        throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");<a name="line.204"></a>
-<span class="sourceLineNo">205</span>      }<a name="line.205"></a>
-<span class="sourceLineNo">206</span>    }<a name="line.206"></a>
-<span class="sourceLineNo">207</span><a name="line.207"></a>
-<span class="sourceLineNo">208</span>    if (json.startsWith("[")) {<a name="line.208"></a>
-<span class="sourceLineNo">209</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.209"></a>
-<span class="sourceLineNo">210</span>        return null;<a name="line.210"></a>
-<span class="sourceLineNo">211</span>      } else {<a name="line.211"></a>
-<span class="sourceLineNo">212</span>        throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "<a name="line.212"></a>
-<span class="sourceLineNo">213</span>            + "- you should map it as a List instead. Offending JSON is '" + json + "'.");<a name="line.213"></a>
-<span class="sourceLineNo">214</span>      }<a name="line.214"></a>
-<span class="sourceLineNo">215</span>    }<a name="line.215"></a>
-<span class="sourceLineNo">216</span><a name="line.216"></a>
-<span class="sourceLineNo">217</span>    try {<a name="line.217"></a>
-<span class="sourceLineNo">218</span>      // Are we asked to map to JsonObject? If so, short-circuit right away.<a name="line.218"></a>
-<span class="sourceLineNo">219</span>      if (type.equals(JsonObject.class)) {<a name="line.219"></a>
-<span class="sourceLineNo">220</span>        return (T) new JsonObject(json);<a name="line.220"></a>
-<span class="sourceLineNo">221</span>      }<a name="line.221"></a>
-<span class="sourceLineNo">222</span><a name="line.222"></a>
-<span class="sourceLineNo">223</span>      List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);<a name="line.223"></a>
-<span class="sourceLineNo">224</span>      Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);<a name="line.224"></a>
-<span class="sourceLineNo">225</span><a name="line.225"></a>
-<span class="sourceLineNo">226</span>      // If there are no annotated fields, assume we're mapping to a built-in<a name="line.226"></a>
-<span class="sourceLineNo">227</span>      // type. If this is actually the empty object, just return a new instance<a name="line.227"></a>
-<span class="sourceLineNo">228</span>      // of the corresponding Java type.<a name="line.228"></a>
-<span class="sourceLineNo">229</span>      if (fieldsWithAnnotation.isEmpty()) {<a name="line.229"></a>
-<span class="sourceLineNo">230</span>        if (isEmptyObject(json)) {<a name="line.230"></a>
-<span class="sourceLineNo">231</span>          T instance = createInstance(type);<a name="line.231"></a>
-<span class="sourceLineNo">232</span><a name="line.232"></a>
-<span class="sourceLineNo">233</span>          // If there are any methods annotated with @JsonMappingCompleted,<a name="line.233"></a>
-<span class="sourceLineNo">234</span>          // invoke them.<a name="line.234"></a>
-<span class="sourceLineNo">235</span>          invokeJsonMappingCompletedMethods(instance);<a name="line.235"></a>
-<span class="sourceLineNo">236</span><a name="line.236"></a>
-<span class="sourceLineNo">237</span>          return instance;<a name="line.237"></a>
-<span class="sourceLineNo">238</span>        } else {<a name="line.238"></a>
-<span class="sourceLineNo">239</span>          return toPrimitiveJavaType(json, type);<a name="line.239"></a>
-<span class="sourceLineNo">240</span>        }<a name="line.240"></a>
-<span class="sourceLineNo">241</span>      }<a name="line.241"></a>
-<span class="sourceLineNo">242</span><a name="line.242"></a>
-<span class="sourceLineNo">243</span>      // Facebook will sometimes return the string "null".<a name="line.243"></a>
-<span class="sourceLineNo">244</span>      // Check for that and bail early if we find it.<a name="line.244"></a>
-<span class="sourceLineNo">245</span>      if ("null".equals(json)) {<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        return null;<a name="line.246"></a>
-<span class="sourceLineNo">247</span>      }<a name="line.247"></a>
-<span class="sourceLineNo">248</span><a name="line.248"></a>
-<span class="sourceLineNo">249</span>      // Facebook will sometimes return the string "false" to mean null.<a name="line.249"></a>
-<span class="sourceLineNo">250</span>      // Check for that and bail early if we find it.<a name="line.250"></a>
-<span class="sourceLineNo">251</span>      if ("false".equals(json)) {<a name="line.251"></a>
-<span class="sourceLineNo">252</span>        if (logger.isLoggable(FINE)) {<a name="line.252"></a>
-<span class="sourceLineNo">253</span>          logger.fine("Encountered 'false' from Facebook when trying to map to " + type.getSimpleName()<a name="line.253"></a>
-<span class="sourceLineNo">254</span>              + " - mapping null instead.");<a name="line.254"></a>
-<span class="sourceLineNo">255</span>        }<a name="line.255"></a>
-<span class="sourceLineNo">256</span>        return null;<a name="line.256"></a>
-<span class="sourceLineNo">257</span>      }<a name="line.257"></a>
-<span class="sourceLineNo">258</span><a name="line.258"></a>
-<span class="sourceLineNo">259</span>      JsonObject jsonObject = new JsonObject(json);<a name="line.259"></a>
-<span class="sourceLineNo">260</span>      T instance = createInstance(type);<a name="line.260"></a>
-<span class="sourceLineNo">261</span><a name="line.261"></a>
-<span class="sourceLineNo">262</span>      if (instance instanceof JsonObject) {<a name="line.262"></a>
-<span class="sourceLineNo">263</span>        return (T) jsonObject;<a name="line.263"></a>
-<span class="sourceLineNo">264</span>      }<a name="line.264"></a>
-<span class="sourceLineNo">265</span><a name="line.265"></a>
-<span class="sourceLineNo">266</span>      // For each Facebook-annotated field on the current Java object, pull data<a name="line.266"></a>
-<span class="sourceLineNo">267</span>      // out of the JSON object and put it in the Java object<a name="line.267"></a>
-<span class="sourceLineNo">268</span>      for (FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation : fieldsWithAnnotation) {<a name="line.268"></a>
-<span class="sourceLineNo">269</span>        String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);<a name="line.269"></a>
-<span class="sourceLineNo">270</span><a name="line.270"></a>
-<span class="sourceLineNo">271</span>        if (!jsonObject.has(facebookFieldName)) {<a name="line.271"></a>
-<span class="sourceLineNo">272</span>          if (logger.isLoggable(FINER)) {<a name="line.272"></a>
-<span class="sourceLineNo">273</span>            logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. JSON is '" + json + "'.");<a name="line.273"></a>
-<span class="sourceLineNo">274</span>          }<a name="line.274"></a>
-<span class="sourceLineNo">275</span><a name="line.275"></a>
-<span class="sourceLineNo">276</span>          continue;<a name="line.276"></a>
-<span class="sourceLineNo">277</span>        }<a name="line.277"></a>
-<span class="sourceLineNo">278</span><a name="line.278"></a>
-<span class="sourceLineNo">279</span>        fieldWithAnnotation.getField().setAccessible(true);<a name="line.279"></a>
-<span class="sourceLineNo">280</span><a name="line.280"></a>
-<span class="sourceLineNo">281</span>        // Set the Java field's value.<a name="line.281"></a>
-<span class="sourceLineNo">282</span>        //<a name="line.282"></a>
-<span class="sourceLineNo">283</span>        // If we notice that this Facebook field name is mapped more than once,<a name="line.283"></a>
-<span class="sourceLineNo">284</span>        // go into a special mode where we swallow any exceptions that occur<a name="line.284"></a>
-<span class="sourceLineNo">285</span>        // when mapping to the Java field. This is because Facebook will<a name="line.285"></a>
-<span class="sourceLineNo">286</span>        // sometimes return data in different formats for the same field name.<a name="line.286"></a>
-<span class="sourceLineNo">287</span>        // See issues 56 and 90 for examples of this behavior and discussion.<a name="line.287"></a>
-<span class="sourceLineNo">288</span>        if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {<a name="line.288"></a>
-<span class="sourceLineNo">289</span>          try {<a name="line.289"></a>
-<span class="sourceLineNo">290</span>            fieldWithAnnotation.getField().set(instance,<a name="line.290"></a>
-<span class="sourceLineNo">291</span>              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));<a name="line.291"></a>
-<span class="sourceLineNo">292</span>          } catch (FacebookJsonMappingException e) {<a name="line.292"></a>
-<span class="sourceLineNo">293</span>            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);<a name="line.293"></a>
-<span class="sourceLineNo">294</span>          } catch (JsonException e) {<a name="line.294"></a>
-<span class="sourceLineNo">295</span>            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);<a name="line.295"></a>
-<span class="sourceLineNo">296</span>          }<a name="line.296"></a>
-<span class="sourceLineNo">297</span>        } else {<a name="line.297"></a>
-<span class="sourceLineNo">298</span>          try {<a name="line.298"></a>
-<span class="sourceLineNo">299</span>            fieldWithAnnotation.getField().set(instance,<a name="line.299"></a>
-<span class="sourceLineNo">300</span>              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));<a name="line.300"></a>
-<span class="sourceLineNo">301</span>          } catch (Exception e) {<a name="line.301"></a>
-<span class="sourceLineNo">302</span>            if (!jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.302"></a>
-<span class="sourceLineNo">303</span>              throw e;<a name="line.303"></a>
-<span class="sourceLineNo">304</span>            }<a name="line.304"></a>
-<span class="sourceLineNo">305</span>          }<a name="line.305"></a>
-<span class="sourceLineNo">306</span>        }<a name="line.306"></a>
-<span class="sourceLineNo">307</span>      }<a name="line.307"></a>
-<span class="sourceLineNo">308</span><a name="line.308"></a>
-<span class="sourceLineNo">309</span>      // If there are any methods annotated with @JsonMappingCompleted,<a name="line.309"></a>
-<span class="sourceLineNo">310</span>      // invoke them.<a name="line.310"></a>
-<span class="sourceLineNo">311</span>      invokeJsonMappingCompletedMethods(instance);<a name="line.311"></a>
-<span class="sourceLineNo">312</span><a name="line.312"></a>
-<span class="sourceLineNo">313</span>      return instance;<a name="line.313"></a>
-<span class="sourceLineNo">314</span>    } catch (FacebookJsonMappingException e) {<a name="line.314"></a>
-<span class="sourceLineNo">315</span>      throw e;<a name="line.315"></a>
-<span class="sourceLineNo">316</span>    } catch (Exception e) {<a name="line.316"></a>
-<span class="sourceLineNo">317</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.317"></a>
-<span class="sourceLineNo">318</span>        return null;<a name="line.318"></a>
-<span class="sourceLineNo">319</span>      } else {<a name="line.319"></a>
-<span class="sourceLineNo">320</span>        throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);<a name="line.320"></a>
-<span class="sourceLineNo">321</span>      }<a name="line.321"></a>
-<span class="sourceLineNo">322</span>    }<a name="line.322"></a>
-<span class="sourceLineNo">323</span>  }<a name="line.323"></a>
-<span class="sourceLineNo">324</span><a name="line.324"></a>
-<span class="sourceLineNo">325</span>  /**<a name="line.325"></a>
-<span class="sourceLineNo">326</span>   * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.<a name="line.326"></a>
-<span class="sourceLineNo">327</span>   * &lt;p&gt;<a name="line.327"></a>
-<span class="sourceLineNo">328</span>   * This will even work on {@code private} methods.<a name="line.328"></a>
-<span class="sourceLineNo">329</span>   * <a name="line.329"></a>
-<span class="sourceLineNo">330</span>   * @param object<a name="line.330"></a>
-<span class="sourceLineNo">331</span>   *          The object on which to invoke the method.<a name="line.331"></a>
-<span class="sourceLineNo">332</span>   * @throws IllegalArgumentException<a name="line.332"></a>
-<span class="sourceLineNo">333</span>   *           If unable to invoke the method.<a name="line.333"></a>
-<span class="sourceLineNo">334</span>   * @throws IllegalAccessException<a name="line.334"></a>
-<span class="sourceLineNo">335</span>   *           If unable to invoke the method.<a name="line.335"></a>
-<span class="sourceLineNo">336</span>   * @throws InvocationTargetException<a name="line.336"></a>
-<span class="sourceLineNo">337</span>   *           If unable to invoke the method.<a name="line.337"></a>
-<span class="sourceLineNo">338</span>   */<a name="line.338"></a>
-<span class="sourceLineNo">339</span>  protected void invokeJsonMappingCompletedMethods(Object object)<a name="line.339"></a>
-<span class="sourceLineNo">340</span>      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {<a name="line.340"></a>
-<span class="sourceLineNo">341</span>    for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {<a name="line.341"></a>
-<span class="sourceLineNo">342</span>      method.setAccessible(true);<a name="line.342"></a>
-<span class="sourceLineNo">343</span><a name="line.343"></a>
-<span class="sourceLineNo">344</span>      if (method.getParameterTypes().length == 0)<a name="line.344"></a>
-<span class="sourceLineNo">345</span>        method.invoke(object);<a name="line.345"></a>
-<span class="sourceLineNo">346</span>      else if (method.getParameterTypes().length == 1 &amp;&amp; JsonMapper.class.equals(method.getParameterTypes()[0]))<a name="line.346"></a>
-<span class="sourceLineNo">347</span>        method.invoke(object, this);<a name="line.347"></a>
-<span class="sourceLineNo">348</span>      else<a name="line.348"></a>
-<span class="sourceLineNo">349</span>        throw new FacebookJsonMappingException(<a name="line.349"></a>
-<span class="sourceLineNo">350</span>          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",<a name="line.350"></a>
-<span class="sourceLineNo">351</span>            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));<a name="line.351"></a>
-<span class="sourceLineNo">352</span>    }<a name="line.352"></a>
-<span class="sourceLineNo">353</span>  }<a name="line.353"></a>
-<span class="sourceLineNo">354</span><a name="line.354"></a>
-<span class="sourceLineNo">355</span>  /**<a name="line.355"></a>
-<span class="sourceLineNo">356</span>   * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.<a name="line.356"></a>
-<span class="sourceLineNo">357</span>   * <a name="line.357"></a>
-<span class="sourceLineNo">358</span>   * @param facebookFieldName<a name="line.358"></a>
-<span class="sourceLineNo">359</span>   *          The Facebook field name.<a name="line.359"></a>
-<span class="sourceLineNo">360</span>   * @param fieldWithAnnotation<a name="line.360"></a>
-<span class="sourceLineNo">361</span>   *          The Java field to map to and its annotation.<a name="line.361"></a>
-<span class="sourceLineNo">362</span>   * @param json<a name="line.362"></a>
-<span class="sourceLineNo">363</span>   *          The JSON that failed to map to the Java field.<a name="line.363"></a>
-<span class="sourceLineNo">364</span>   */<a name="line.364"></a>
-<span class="sourceLineNo">365</span>  protected void logMultipleMappingFailedForField(String facebookFieldName,<a name="line.365"></a>
-<span class="sourceLineNo">366</span>      FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String json) {<a name="line.366"></a>
-<span class="sourceLineNo">367</span>    if (!logger.isLoggable(FINER)) {<a name="line.367"></a>
-<span class="sourceLineNo">368</span>      return;<a name="line.368"></a>
-<span class="sourceLineNo">369</span>    }<a name="line.369"></a>
-<span class="sourceLineNo">370</span><a name="line.370"></a>
-<span class="sourceLineNo">371</span>    Field field = fieldWithAnnotation.getField();<a name="line.371"></a>
-<span class="sourceLineNo">372</span><a name="line.372"></a>
-<span class="sourceLineNo">373</span>    if (logger.isLoggable(FINER)) {<a name="line.373"></a>
-<span class="sourceLineNo">374</span>      logger.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."<a name="line.374"></a>
-<span class="sourceLineNo">375</span>          + field.getName() + ", but continuing on because '" + facebookFieldName + "' is mapped to multiple fields in "<a name="line.375"></a>
-<span class="sourceLineNo">376</span>          + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);<a name="line.376"></a>
-<span class="sourceLineNo">377</span>    }<a name="line.377"></a>
-<span class="sourceLineNo">378</span>  }<a name="line.378"></a>
-<span class="sourceLineNo">379</span><a name="line.379"></a>
-<span class="sourceLineNo">380</span>  /**<a name="line.380"></a>
-<span class="sourceLineNo">381</span>   * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON<a name="line.381"></a>
-<span class="sourceLineNo">382</span>   * field name to map to it is.<a name="line.382"></a>
-<span class="sourceLineNo">383</span>   * <a name="line.383"></a>
-<span class="sourceLineNo">384</span>   * @param fieldWithAnnotation<a name="line.384"></a>
-<span class="sourceLineNo">385</span>   *          A Java field annotated with the {@code Facebook} annotation.<a name="line.385"></a>
-<span class="sourceLineNo">386</span>   * @return The Facebook JSON field name that should be mapped to this Java field.<a name="line.386"></a>
-<span class="sourceLineNo">387</span>   */<a name="line.387"></a>
-<span class="sourceLineNo">388</span>  protected String getFacebookFieldName(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation) {<a name="line.388"></a>
-<span class="sourceLineNo">389</span>    String facebookFieldName = fieldWithAnnotation.getAnnotation().value();<a name="line.389"></a>
-<span class="sourceLineNo">390</span>    Field field = fieldWithAnnotation.getField();<a name="line.390"></a>
-<span class="sourceLineNo">391</span><a name="line.391"></a>
-<span class="sourceLineNo">392</span>    // If no Facebook field name was specified in the annotation, assume<a name="line.392"></a>
-<span class="sourceLineNo">393</span>    // it's the same name as the Java field<a name="line.393"></a>
-<span class="sourceLineNo">394</span>    if (isBlank(facebookFieldName)) {<a name="line.394"></a>
-<span class="sourceLineNo">395</span>      if (logger.isLoggable(FINEST)) {<a name="line.395"></a>
-<span class="sourceLineNo">396</span>        logger.finest("No explicit Facebook field name found for " + field<a name="line.396"></a>
-<span class="sourceLineNo">397</span>            + ", so defaulting to the field name itself (" + field.getName() + ")");<a name="line.397"></a>
+<span class="sourceLineNo">125</span>        if (LOGGER.isLoggable(FINER)) {<a name="line.125"></a>
+<span class="sourceLineNo">126</span>          LOGGER.finer("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        }<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span>        return new ArrayList&lt;T&gt;();<a name="line.129"></a>
+<span class="sourceLineNo">130</span>      }<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span>      // Special case: if the only element of this object is an array called<a name="line.132"></a>
+<span class="sourceLineNo">133</span>      // "data", then treat it as a list. The Graph API uses this convention for<a name="line.133"></a>
+<span class="sourceLineNo">134</span>      // connections and in a few other places, e.g. comments on the Post<a name="line.134"></a>
+<span class="sourceLineNo">135</span>      // object.<a name="line.135"></a>
+<span class="sourceLineNo">136</span>      // Doing this simplifies mapping, so we don't have to worry about having a<a name="line.136"></a>
+<span class="sourceLineNo">137</span>      // little placeholder object that only has a "data" value.<a name="line.137"></a>
+<span class="sourceLineNo">138</span>      try {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        JsonObject jsonObject = new JsonObject(json);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>        String[] fieldNames = JsonObject.getNames(jsonObject);<a name="line.140"></a>
+<span class="sourceLineNo">141</span><a name="line.141"></a>
+<span class="sourceLineNo">142</span>        if (fieldNames != null) {<a name="line.142"></a>
+<span class="sourceLineNo">143</span>          boolean hasSingleDataProperty = fieldNames.length == 1 &amp;&amp; "data".equals(fieldNames[0]);<a name="line.143"></a>
+<span class="sourceLineNo">144</span>          Object jsonDataObject = jsonObject.get("data");<a name="line.144"></a>
+<span class="sourceLineNo">145</span><a name="line.145"></a>
+<span class="sourceLineNo">146</span>          if (!hasSingleDataProperty &amp;&amp; !(jsonDataObject instanceof JsonArray)) {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>            if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>              return null;<a name="line.148"></a>
+<span class="sourceLineNo">149</span>            } else {<a name="line.149"></a>
+<span class="sourceLineNo">150</span>              throw new FacebookJsonMappingException(<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");<a name="line.151"></a>
+<span class="sourceLineNo">152</span>            }<a name="line.152"></a>
+<span class="sourceLineNo">153</span>          }<a name="line.153"></a>
+<span class="sourceLineNo">154</span><a name="line.154"></a>
+<span class="sourceLineNo">155</span>          json = jsonDataObject.toString();<a name="line.155"></a>
+<span class="sourceLineNo">156</span>        }<a name="line.156"></a>
+<span class="sourceLineNo">157</span>      } catch (JsonException e) {<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        // Should never get here, but just in case...<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.159"></a>
+<span class="sourceLineNo">160</span>          return null;<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        } else {<a name="line.161"></a>
+<span class="sourceLineNo">162</span>          throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of "<a name="line.162"></a>
+<span class="sourceLineNo">163</span>              + type.getName() + " instances.  Offending JSON is " + json,<a name="line.163"></a>
+<span class="sourceLineNo">164</span>            e);<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        }<a name="line.165"></a>
+<span class="sourceLineNo">166</span>      }<a name="line.166"></a>
+<span class="sourceLineNo">167</span>    }<a name="line.167"></a>
+<span class="sourceLineNo">168</span><a name="line.168"></a>
+<span class="sourceLineNo">169</span>    try {<a name="line.169"></a>
+<span class="sourceLineNo">170</span>      List&lt;T&gt; list = new ArrayList&lt;T&gt;();<a name="line.170"></a>
+<span class="sourceLineNo">171</span><a name="line.171"></a>
+<span class="sourceLineNo">172</span>      JsonArray jsonArray = new JsonArray(json);<a name="line.172"></a>
+<span class="sourceLineNo">173</span>      for (int i = 0; i &lt; jsonArray.length(); i++)<a name="line.173"></a>
+<span class="sourceLineNo">174</span>        list.add(toJavaObject(jsonArray.get(i).toString(), type));<a name="line.174"></a>
+<span class="sourceLineNo">175</span><a name="line.175"></a>
+<span class="sourceLineNo">176</span>      return unmodifiableList(list);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>    } catch (FacebookJsonMappingException e) {<a name="line.177"></a>
+<span class="sourceLineNo">178</span>      throw e;<a name="line.178"></a>
+<span class="sourceLineNo">179</span>    } catch (Exception e) {<a name="line.179"></a>
+<span class="sourceLineNo">180</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.180"></a>
+<span class="sourceLineNo">181</span>        return null;<a name="line.181"></a>
+<span class="sourceLineNo">182</span>      } else {<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        throw new FacebookJsonMappingException(<a name="line.183"></a>
+<span class="sourceLineNo">184</span>          "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances", e);<a name="line.184"></a>
+<span class="sourceLineNo">185</span>      }<a name="line.185"></a>
+<span class="sourceLineNo">186</span>    }<a name="line.186"></a>
+<span class="sourceLineNo">187</span>  }<a name="line.187"></a>
+<span class="sourceLineNo">188</span><a name="line.188"></a>
+<span class="sourceLineNo">189</span>  /**<a name="line.189"></a>
+<span class="sourceLineNo">190</span>   * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)<a name="line.190"></a>
+<span class="sourceLineNo">191</span>   */<a name="line.191"></a>
+<span class="sourceLineNo">192</span>  @Override<a name="line.192"></a>
+<span class="sourceLineNo">193</span>  @SuppressWarnings("unchecked")<a name="line.193"></a>
+<span class="sourceLineNo">194</span>  public &lt;T&gt; T toJavaObject(String json, Class&lt;T&gt; type) {<a name="line.194"></a>
+<span class="sourceLineNo">195</span>    if ("[]".equals(json)) {<a name="line.195"></a>
+<span class="sourceLineNo">196</span>      return toJavaObject("{}", type);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>    }<a name="line.197"></a>
+<span class="sourceLineNo">198</span><a name="line.198"></a>
+<span class="sourceLineNo">199</span>    if (isBlank(json)) {<a name="line.199"></a>
+<span class="sourceLineNo">200</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        return null;<a name="line.201"></a>
+<span class="sourceLineNo">202</span>      } else {<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");<a name="line.203"></a>
+<span class="sourceLineNo">204</span>      }<a name="line.204"></a>
+<span class="sourceLineNo">205</span>    }<a name="line.205"></a>
+<span class="sourceLineNo">206</span><a name="line.206"></a>
+<span class="sourceLineNo">207</span>    if (json.startsWith("[")) {<a name="line.207"></a>
+<span class="sourceLineNo">208</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        return null;<a name="line.209"></a>
+<span class="sourceLineNo">210</span>      } else {<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "<a name="line.211"></a>
+<span class="sourceLineNo">212</span>            + "- you should map it as a List instead. Offending JSON is '" + json + "'.");<a name="line.212"></a>
+<span class="sourceLineNo">213</span>      }<a name="line.213"></a>
+<span class="sourceLineNo">214</span>    }<a name="line.214"></a>
+<span class="sourceLineNo">215</span><a name="line.215"></a>
+<span class="sourceLineNo">216</span>    try {<a name="line.216"></a>
+<span class="sourceLineNo">217</span>      // Are we asked to map to JsonObject? If so, short-circuit right away.<a name="line.217"></a>
+<span class="sourceLineNo">218</span>      if (type.equals(JsonObject.class)) {<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        return (T) new JsonObject(json);<a name="line.219"></a>
+<span class="sourceLineNo">220</span>      }<a name="line.220"></a>
+<span class="sourceLineNo">221</span><a name="line.221"></a>
+<span class="sourceLineNo">222</span>      List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);<a name="line.222"></a>
+<span class="sourceLineNo">223</span>      Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);<a name="line.223"></a>
+<span class="sourceLineNo">224</span><a name="line.224"></a>
+<span class="sourceLineNo">225</span>      // If there are no annotated fields, assume we're mapping to a built-in<a name="line.225"></a>
+<span class="sourceLineNo">226</span>      // type. If this is actually the empty object, just return a new instance<a name="line.226"></a>
+<span class="sourceLineNo">227</span>      // of the corresponding Java type.<a name="line.227"></a>
+<span class="sourceLineNo">228</span>      if (fieldsWithAnnotation.isEmpty()) {<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        if (isEmptyObject(json)) {<a name="line.229"></a>
+<span class="sourceLineNo">230</span>          T instance = createInstance(type);<a name="line.230"></a>
+<span class="sourceLineNo">231</span><a name="line.231"></a>
+<span class="sourceLineNo">232</span>          // If there are any methods annotated with @JsonMappingCompleted,<a name="line.232"></a>
+<span class="sourceLineNo">233</span>          // invoke them.<a name="line.233"></a>
+<span class="sourceLineNo">234</span>          invokeJsonMappingCompletedMethods(instance);<a name="line.234"></a>
+<span class="sourceLineNo">235</span><a name="line.235"></a>
+<span class="sourceLineNo">236</span>          return instance;<a name="line.236"></a>
+<span class="sourceLineNo">237</span>        } else {<a name="line.237"></a>
+<span class="sourceLineNo">238</span>          return toPrimitiveJavaType(json, type);<a name="line.238"></a>
+<span class="sourceLineNo">239</span>        }<a name="line.239"></a>
+<span class="sourceLineNo">240</span>      }<a name="line.240"></a>
+<span class="sourceLineNo">241</span><a name="line.241"></a>
+<span class="sourceLineNo">242</span>      // Facebook will sometimes return the string "null".<a name="line.242"></a>
+<span class="sourceLineNo">243</span>      // Check for that and bail early if we find it.<a name="line.243"></a>
+<span class="sourceLineNo">244</span>      if ("null".equals(json)) {<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        return null;<a name="line.245"></a>
+<span class="sourceLineNo">246</span>      }<a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>      // Facebook will sometimes return the string "false" to mean null.<a name="line.248"></a>
+<span class="sourceLineNo">249</span>      // Check for that and bail early if we find it.<a name="line.249"></a>
+<span class="sourceLineNo">250</span>      if ("false".equals(json)) {<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        if (LOGGER.isLoggable(FINE)) {<a name="line.251"></a>
+<span class="sourceLineNo">252</span>          LOGGER.fine(format("Encountered 'false' from Facebook when trying to map to %s - mapping null instead.",<a name="line.252"></a>
+<span class="sourceLineNo">253</span>            type.getSimpleName()));<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        return null;<a name="line.255"></a>
+<span class="sourceLineNo">256</span>      }<a name="line.256"></a>
+<span class="sourceLineNo">257</span><a name="line.257"></a>
+<span class="sourceLineNo">258</span>      JsonObject jsonObject = new JsonObject(json);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>      T instance = createInstance(type);<a name="line.259"></a>
+<span class="sourceLineNo">260</span><a name="line.260"></a>
+<span class="sourceLineNo">261</span>      if (instance instanceof JsonObject) {<a name="line.261"></a>
+<span class="sourceLineNo">262</span>        return (T) jsonObject;<a name="line.262"></a>
+<span class="sourceLineNo">263</span>      }<a name="line.263"></a>
+<span class="sourceLineNo">264</span><a name="line.264"></a>
+<span class="sourceLineNo">265</span>      // For each Facebook-annotated field on the current Java object, pull data<a name="line.265"></a>
+<span class="sourceLineNo">266</span>      // out of the JSON object and put it in the Java object<a name="line.266"></a>
+<span class="sourceLineNo">267</span>      for (FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation : fieldsWithAnnotation) {<a name="line.267"></a>
+<span class="sourceLineNo">268</span>        String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);<a name="line.268"></a>
+<span class="sourceLineNo">269</span><a name="line.269"></a>
+<span class="sourceLineNo">270</span>        if (!jsonObject.has(facebookFieldName)) {<a name="line.270"></a>
+<span class="sourceLineNo">271</span>          if (LOGGER.isLoggable(FINER)) {<a name="line.271"></a>
+<span class="sourceLineNo">272</span>            LOGGER.finer(format("No JSON value present for '%s', skipping. JSON is '%s'.", facebookFieldName, json));<a name="line.272"></a>
+<span class="sourceLineNo">273</span>          }<a name="line.273"></a>
+<span class="sourceLineNo">274</span><a name="line.274"></a>
+<span class="sourceLineNo">275</span>          continue;<a name="line.275"></a>
+<span class="sourceLineNo">276</span>        }<a name="line.276"></a>
+<span class="sourceLineNo">277</span><a name="line.277"></a>
+<span class="sourceLineNo">278</span>        fieldWithAnnotation.getField().setAccessible(true);<a name="line.278"></a>
+<span class="sourceLineNo">279</span><a name="line.279"></a>
+<span class="sourceLineNo">280</span>        // Set the Java field's value.<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        //<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        // If we notice that this Facebook field name is mapped more than once,<a name="line.282"></a>
+<span class="sourceLineNo">283</span>        // go into a special mode where we swallow any exceptions that occur<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        // when mapping to the Java field. This is because Facebook will<a name="line.284"></a>
+<span class="sourceLineNo">285</span>        // sometimes return data in different formats for the same field name.<a name="line.285"></a>
+<span class="sourceLineNo">286</span>        // See issues 56 and 90 for examples of this behavior and discussion.<a name="line.286"></a>
+<span class="sourceLineNo">287</span>        if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {<a name="line.287"></a>
+<span class="sourceLineNo">288</span>          try {<a name="line.288"></a>
+<span class="sourceLineNo">289</span>            fieldWithAnnotation.getField().set(instance,<a name="line.289"></a>
+<span class="sourceLineNo">290</span>              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));<a name="line.290"></a>
+<span class="sourceLineNo">291</span>          } catch (FacebookJsonMappingException e) {<a name="line.291"></a>
+<span class="sourceLineNo">292</span>            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);<a name="line.292"></a>
+<span class="sourceLineNo">293</span>          } catch (JsonException e) {<a name="line.293"></a>
+<span class="sourceLineNo">294</span>            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);<a name="line.294"></a>
+<span class="sourceLineNo">295</span>          }<a name="line.295"></a>
+<span class="sourceLineNo">296</span>        } else {<a name="line.296"></a>
+<span class="sourceLineNo">297</span>          try {<a name="line.297"></a>
+<span class="sourceLineNo">298</span>            fieldWithAnnotation.getField().set(instance,<a name="line.298"></a>
+<span class="sourceLineNo">299</span>              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));<a name="line.299"></a>
+<span class="sourceLineNo">300</span>          } catch (Exception e) {<a name="line.300"></a>
+<span class="sourceLineNo">301</span>            if (!jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.301"></a>
+<span class="sourceLineNo">302</span>              throw e;<a name="line.302"></a>
+<span class="sourceLineNo">303</span>            }<a name="line.303"></a>
+<span class="sourceLineNo">304</span>          }<a name="line.304"></a>
+<span class="sourceLineNo">305</span>        }<a name="line.305"></a>
+<span class="sourceLineNo">306</span>      }<a name="line.306"></a>
+<span class="sourceLineNo">307</span><a name="line.307"></a>
+<span class="sourceLineNo">308</span>      // If there are any methods annotated with @JsonMappingCompleted,<a name="line.308"></a>
+<span class="sourceLineNo">309</span>      // invoke them.<a name="line.309"></a>
+<span class="sourceLineNo">310</span>      invokeJsonMappingCompletedMethods(instance);<a name="line.310"></a>
+<span class="sourceLineNo">311</span><a name="line.311"></a>
+<span class="sourceLineNo">312</span>      return instance;<a name="line.312"></a>
+<span class="sourceLineNo">313</span>    } catch (FacebookJsonMappingException e) {<a name="line.313"></a>
+<span class="sourceLineNo">314</span>      throw e;<a name="line.314"></a>
+<span class="sourceLineNo">315</span>    } catch (Exception e) {<a name="line.315"></a>
+<span class="sourceLineNo">316</span>      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {<a name="line.316"></a>
+<span class="sourceLineNo">317</span>        return null;<a name="line.317"></a>
+<span class="sourceLineNo">318</span>      } else {<a name="line.318"></a>
+<span class="sourceLineNo">319</span>        throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);<a name="line.319"></a>
+<span class="sourceLineNo">320</span>      }<a name="line.320"></a>
+<span class="sourceLineNo">321</span>    }<a name="line.321"></a>
+<span class="sourceLineNo">322</span>  }<a name="line.322"></a>
+<span class="sourceLineNo">323</span><a name="line.323"></a>
+<span class="sourceLineNo">324</span>  /**<a name="line.324"></a>
+<span class="sourceLineNo">325</span>   * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.<a name="line.325"></a>
+<span class="sourceLineNo">326</span>   * &lt;p&gt;<a name="line.326"></a>
+<span class="sourceLineNo">327</span>   * This will even work on {@code private} methods.<a name="line.327"></a>
+<span class="sourceLineNo">328</span>   * <a name="line.328"></a>
+<span class="sourceLineNo">329</span>   * @param object<a name="line.329"></a>
+<span class="sourceLineNo">330</span>   *          The object on which to invoke the method.<a name="line.330"></a>
+<span class="sourceLineNo">331</span>   * @throws IllegalArgumentException<a name="line.331"></a>
+<span class="sourceLineNo">332</span>   *           If unable to invoke the method.<a name="line.332"></a>
+<span class="sourceLineNo">333</span>   * @throws IllegalAccessException<a name="line.333"></a>
+<span class="sourceLineNo">334</span>   *           If unable to invoke the method.<a name="line.334"></a>
+<span class="sourceLineNo">335</span>   * @throws InvocationTargetException<a name="line.335"></a>
+<span class="sourceLineNo">336</span>   *           If unable to invoke the method.<a name="line.336"></a>
+<span class="sourceLineNo">337</span>   */<a name="line.337"></a>
+<span class="sourceLineNo">338</span>  protected void invokeJsonMappingCompletedMethods(Object object)<a name="line.338"></a>
+<span class="sourceLineNo">339</span>      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>    for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {<a name="line.340"></a>
+<span class="sourceLineNo">341</span>      method.setAccessible(true);<a name="line.341"></a>
+<span class="sourceLineNo">342</span><a name="line.342"></a>
+<span class="sourceLineNo">343</span>      if (method.getParameterTypes().length == 0)<a name="line.343"></a>
+<span class="sourceLineNo">344</span>        method.invoke(object);<a name="line.344"></a>
+<span class="sourceLineNo">345</span>      else if (method.getParameterTypes().length == 1 &amp;&amp; JsonMapper.class.equals(method.getParameterTypes()[0]))<a name="line.345"></a>
+<span class="sourceLineNo">346</span>        method.invoke(object, this);<a name="line.346"></a>
+<span class="sourceLineNo">347</span>      else<a name="line.347"></a>
+<span class="sourceLineNo">348</span>        throw new FacebookJsonMappingException(<a name="line.348"></a>
+<span class="sourceLineNo">349</span>          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",<a name="line.349"></a>
+<span class="sourceLineNo">350</span>            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));<a name="line.350"></a>
+<span class="sourceLineNo">351</span>    }<a name="line.351"></a>
+<span class="sourceLineNo">352</span>  }<a name="line.352"></a>
+<span class="sourceLineNo">353</span><a name="line.353"></a>
+<span class="sourceLineNo">354</span>  /**<a name="line.354"></a>
+<span class="sourceLineNo">355</span>   * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.<a name="line.355"></a>
+<span class="sourceLineNo">356</span>   * <a name="line.356"></a>
+<span class="sourceLineNo">357</span>   * @param facebookFieldName<a name="line.357"></a>
+<span class="sourceLineNo">358</span>   *          The Facebook field name.<a name="line.358"></a>
+<span class="sourceLineNo">359</span>   * @param fieldWithAnnotation<a name="line.359"></a>
+<span class="sourceLineNo">360</span>   *          The Java field to map to and its annotation.<a name="line.360"></a>
+<span class="sourceLineNo">361</span>   * @param json<a name="line.361"></a>
+<span class="sourceLineNo">362</span>   *          The JSON that failed to map to the Java field.<a name="line.362"></a>
+<span class="sourceLineNo">363</span>   */<a name="line.363"></a>
+<span class="sourceLineNo">364</span>  protected void logMultipleMappingFailedForField(String facebookFieldName,<a name="line.364"></a>
+<span class="sourceLineNo">365</span>      FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String json) {<a name="line.365"></a>
+<span class="sourceLineNo">366</span>    if (!LOGGER.isLoggable(FINER)) {<a name="line.366"></a>
+<span class="sourceLineNo">367</span>      return;<a name="line.367"></a>
+<span class="sourceLineNo">368</span>    }<a name="line.368"></a>
+<span class="sourceLineNo">369</span><a name="line.369"></a>
+<span class="sourceLineNo">370</span>    Field field = fieldWithAnnotation.getField();<a name="line.370"></a>
+<span class="sourceLineNo">371</span><a name="line.371"></a>
+<span class="sourceLineNo">372</span>    if (LOGGER.isLoggable(FINER)) {<a name="line.372"></a>
+<span class="sourceLineNo">373</span>      LOGGER.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."<a name="line.373"></a>
+<span class="sourceLineNo">374</span>          + field.getName() + ", but continuing on because '" + facebookFieldName + "' is mapped to multiple fields in "<a name="line.374"></a>
+<span class="sourceLineNo">375</span>          + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);<a name="line.375"></a>
+<span class="sourceLineNo">376</span>    }<a name="line.376"></a>
+<span class="sourceLineNo">377</span>  }<a name="line.377"></a>
+<span class="sourceLineNo">378</span><a name="line.378"></a>
+<span class="sourceLineNo">379</span>  /**<a name="line.379"></a>
+<span class="sourceLineNo">380</span>   * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON<a name="line.380"></a>
+<span class="sourceLineNo">381</span>   * field name to map to it is.<a name="line.381"></a>
+<span class="sourceLineNo">382</span>   * <a name="line.382"></a>
+<span class="sourceLineNo">383</span>   * @param fieldWithAnnotation<a name="line.383"></a>
+<span class="sourceLineNo">384</span>   *          A Java field annotated with the {@code Facebook} annotation.<a name="line.384"></a>
+<span class="sourceLineNo">385</span>   * @return The Facebook JSON field name that should be mapped to this Java field.<a name="line.385"></a>
+<span class="sourceLineNo">386</span>   */<a name="line.386"></a>
+<span class="sourceLineNo">387</span>  protected String getFacebookFieldName(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation) {<a name="line.387"></a>
+<span class="sourceLineNo">388</span>    String facebookFieldName = fieldWithAnnotation.getAnnotation().value();<a name="line.388"></a>
+<span class="sourceLineNo">389</span>    Field field = fieldWithAnnotation.getField();<a name="line.389"></a>
+<span class="sourceLineNo">390</span><a name="line.390"></a>
+<span class="sourceLineNo">391</span>    // If no Facebook field name was specified in the annotation, assume<a name="line.391"></a>
+<span class="sourceLineNo">392</span>    // it's the same name as the Java field<a name="line.392"></a>
+<span class="sourceLineNo">393</span>    if (isBlank(facebookFieldName)) {<a name="line.393"></a>
+<span class="sourceLineNo">394</span>      if (LOGGER.isLoggable(FINEST)) {<a name="line.394"></a>
+<span class="sourceLineNo">395</span>        LOGGER<a name="line.395"></a>
+<span class="sourceLineNo">396</span>          .finest(format("No explicit Facebook field name found for %s, so defaulting to the field name itself (%s)",<a name="line.396"></a>
+<span class="sourceLineNo">397</span>            field, field.getName()));<a name="line.397"></a>
 <span class="sourceLineNo">398</span>      }<a name="line.398"></a>
 <span class="sourceLineNo">399</span><a name="line.399"></a>
 <span class="sourceLineNo">400</span>      facebookFieldName = field.getName();<a name="line.400"></a>
@@ -536,9 +536,9 @@
 <span class="sourceLineNo">528</span>    // it has is a non-null value and the other duplicate values are null, use<a name="line.528"></a>
 <span class="sourceLineNo">529</span>    // the non-null field.<a name="line.529"></a>
 <span class="sourceLineNo">530</span>    Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);<a name="line.530"></a>
-<span class="sourceLineNo">531</span>    if (facebookFieldNamesWithMultipleMappings.size() &gt; 0 &amp;&amp; logger.isLoggable(FINE)) {<a name="line.531"></a>
-<span class="sourceLineNo">532</span>      logger.fine("Unable to convert to JSON because multiple @" + Facebook.class.getSimpleName()<a name="line.532"></a>
-<span class="sourceLineNo">533</span>          + " annotations for the same name are present: " + facebookFieldNamesWithMultipleMappings);<a name="line.533"></a>
+<span class="sourceLineNo">531</span>    if (facebookFieldNamesWithMultipleMappings.size() &gt; 0 &amp;&amp; LOGGER.isLoggable(FINE)) {<a name="line.531"></a>
+<span class="sourceLineNo">532</span>      LOGGER.fine(format("Unable to convert to JSON because multiple @%s annotations for the same name are present: %s",<a name="line.532"></a>
+<span class="sourceLineNo">533</span>        Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings));<a name="line.533"></a>
 <span class="sourceLineNo">534</span>    }<a name="line.534"></a>
 <span class="sourceLineNo">535</span><a name="line.535"></a>
 <span class="sourceLineNo">536</span>    for (FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation : fieldsWithAnnotation) {<a name="line.536"></a>
@@ -669,8 +669,8 @@
 <span class="sourceLineNo">661</span>      // instead of an empty string. Look for that here.<a name="line.661"></a>
 <span class="sourceLineNo">662</span>      if (rawValue instanceof JsonArray) {<a name="line.662"></a>
 <span class="sourceLineNo">663</span>        if (((JsonArray) rawValue).length() == 0) {<a name="line.663"></a>
-<span class="sourceLineNo">664</span>          if (logger.isLoggable(FINER)) {<a name="line.664"></a>
-<span class="sourceLineNo">665</span>            logger.finer("Coercing an empty JSON array " + "to an empty string for " + fieldWithAnnotation);<a name="line.665"></a>
+<span class="sourceLineNo">664</span>          if (LOGGER.isLoggable(FINER)) {<a name="line.664"></a>
+<span class="sourceLineNo">665</span>            LOGGER.finer(format("Coercing an empty JSON array to an empty string for %s", fieldWithAnnotation));<a name="line.665"></a>
 <span class="sourceLineNo">666</span>          }<a name="line.666"></a>
 <span class="sourceLineNo">667</span><a name="line.667"></a>
 <span class="sourceLineNo">668</span>          return "";<a name="line.668"></a>
@@ -709,115 +709,142 @@
 <span class="sourceLineNo">701</span>    if (List.class.equals(type)) {<a name="line.701"></a>
 <span class="sourceLineNo">702</span>      return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));<a name="line.702"></a>
 <span class="sourceLineNo">703</span>    }<a name="line.703"></a>
-<span class="sourceLineNo">704</span>    if (type.isEnum()) {<a name="line.704"></a>
-<span class="sourceLineNo">705</span>      Class&lt;? extends Enum&gt; enumType = type.asSubclass(Enum.class);<a name="line.705"></a>
-<span class="sourceLineNo">706</span>      try {<a name="line.706"></a>
-<span class="sourceLineNo">707</span>        return Enum.valueOf(enumType, jsonObject.getString(facebookFieldName));<a name="line.707"></a>
-<span class="sourceLineNo">708</span>      } catch (IllegalArgumentException iae) {<a name="line.708"></a>
-<span class="sourceLineNo">709</span>        if (logger.isLoggable(FINE)) {<a name="line.709"></a>
-<span class="sourceLineNo">710</span>          logger<a name="line.710"></a>
-<span class="sourceLineNo">711</span>            .fine("Cannot map string " + jsonObject.getString(facebookFieldName) + " to enum " + enumType.getName());<a name="line.711"></a>
-<span class="sourceLineNo">712</span>        }<a name="line.712"></a>
-<span class="sourceLineNo">713</span>      }<a name="line.713"></a>
-<span class="sourceLineNo">714</span>    }<a name="line.714"></a>
-<span class="sourceLineNo">715</span><a name="line.715"></a>
-<span class="sourceLineNo">716</span>    String rawValueAsString = rawValue.toString();<a name="line.716"></a>
-<span class="sourceLineNo">717</span><a name="line.717"></a>
-<span class="sourceLineNo">718</span>    // Hack for issue 76 where FB will sometimes return a Post's Comments as<a name="line.718"></a>
-<span class="sourceLineNo">719</span>    // "[]" instead of an object type (wtf)<a name="line.719"></a>
-<span class="sourceLineNo">720</span>    if (Comments.class.isAssignableFrom(type) &amp;&amp; rawValue instanceof JsonArray) {<a name="line.720"></a>
-<span class="sourceLineNo">721</span>      if (logger.isLoggable(FINE)) {<a name="line.721"></a>
-<span class="sourceLineNo">722</span>        logger.fine("Encountered comment array '" + rawValueAsString + "' but expected a "<a name="line.722"></a>
-<span class="sourceLineNo">723</span>            + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "<a name="line.723"></a>
-<span class="sourceLineNo">724</span>            + Comments.class.getSimpleName() + " instance...");<a name="line.724"></a>
-<span class="sourceLineNo">725</span>      }<a name="line.725"></a>
-<span class="sourceLineNo">726</span><a name="line.726"></a>
-<span class="sourceLineNo">727</span>      JsonObject workaroundJsonObject = new JsonObject();<a name="line.727"></a>
-<span class="sourceLineNo">728</span>      workaroundJsonObject.put("total_count", 0);<a name="line.728"></a>
-<span class="sourceLineNo">729</span>      workaroundJsonObject.put("data", new JsonArray());<a name="line.729"></a>
-<span class="sourceLineNo">730</span>      rawValueAsString = workaroundJsonObject.toString();<a name="line.730"></a>
-<span class="sourceLineNo">731</span>    }<a name="line.731"></a>
-<span class="sourceLineNo">732</span><a name="line.732"></a>
-<span class="sourceLineNo">733</span>    // Some other type - recurse into it<a name="line.733"></a>
-<span class="sourceLineNo">734</span>    return toJavaObject(rawValueAsString, type);<a name="line.734"></a>
-<span class="sourceLineNo">735</span>  }<a name="line.735"></a>
+<span class="sourceLineNo">704</span>    if (Map.class.equals(type)) {<a name="line.704"></a>
+<span class="sourceLineNo">705</span>      return convertJsonObjectToMap(rawValue.toString(), fieldWithAnnotation.getField());<a name="line.705"></a>
+<span class="sourceLineNo">706</span>    }<a name="line.706"></a>
+<span class="sourceLineNo">707</span><a name="line.707"></a>
+<span class="sourceLineNo">708</span>    if (type.isEnum()) {<a name="line.708"></a>
+<span class="sourceLineNo">709</span>      Class&lt;? extends Enum&gt; enumType = type.asSubclass(Enum.class);<a name="line.709"></a>
+<span class="sourceLineNo">710</span>      try {<a name="line.710"></a>
+<span class="sourceLineNo">711</span>        return Enum.valueOf(enumType, jsonObject.getString(facebookFieldName));<a name="line.711"></a>
+<span class="sourceLineNo">712</span>      } catch (IllegalArgumentException iae) {<a name="line.712"></a>
+<span class="sourceLineNo">713</span>        if (LOGGER.isLoggable(FINE)) {<a name="line.713"></a>
+<span class="sourceLineNo">714</span>          LOGGER.fine(<a name="line.714"></a>
+<span class="sourceLineNo">715</span>            format("Cannot map string %s to enum %s", jsonObject.getString(facebookFieldName), enumType.getName()));<a name="line.715"></a>
+<span class="sourceLineNo">716</span>        }<a name="line.716"></a>
+<span class="sourceLineNo">717</span>      }<a name="line.717"></a>
+<span class="sourceLineNo">718</span>    }<a name="line.718"></a>
+<span class="sourceLineNo">719</span><a name="line.719"></a>
+<span class="sourceLineNo">720</span>    String rawValueAsString = rawValue.toString();<a name="line.720"></a>
+<span class="sourceLineNo">721</span><a name="line.721"></a>
+<span class="sourceLineNo">722</span>    // Hack for issue 76 where FB will sometimes return a Post's Comments as<a name="line.722"></a>
+<span class="sourceLineNo">723</span>    // "[]" instead of an object type (wtf)<a name="line.723"></a>
+<span class="sourceLineNo">724</span>    if (Comments.class.isAssignableFrom(type) &amp;&amp; rawValue instanceof JsonArray) {<a name="line.724"></a>
+<span class="sourceLineNo">725</span>      if (LOGGER.isLoggable(FINE)) {<a name="line.725"></a>
+<span class="sourceLineNo">726</span>        LOGGER.fine("Encountered comment array '" + rawValueAsString + "' but expected a "<a name="line.726"></a>
+<span class="sourceLineNo">727</span>            + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "<a name="line.727"></a>
+<span class="sourceLineNo">728</span>            + Comments.class.getSimpleName() + " instance...");<a name="line.728"></a>
+<span class="sourceLineNo">729</span>      }<a name="line.729"></a>
+<span class="sourceLineNo">730</span><a name="line.730"></a>
+<span class="sourceLineNo">731</span>      JsonObject workaroundJsonObject = new JsonObject();<a name="line.731"></a>
+<span class="sourceLineNo">732</span>      workaroundJsonObject.put("total_count", 0);<a name="line.732"></a>
+<span class="sourceLineNo">733</span>      workaroundJsonObject.put("data", new JsonArray());<a name="line.733"></a>
+<span class="sourceLineNo">734</span>      rawValueAsString = workaroundJsonObject.toString();<a name="line.734"></a>
+<span class="sourceLineNo">735</span>    }<a name="line.735"></a>
 <span class="sourceLineNo">736</span><a name="line.736"></a>
-<span class="sourceLineNo">737</span>  /**<a name="line.737"></a>
-<span class="sourceLineNo">738</span>   * Creates a new instance of the given {@code type}.<a name="line.738"></a>
-<span class="sourceLineNo">739</span>   * &lt;p&gt;<a name="line.739"></a>
-<span class="sourceLineNo">740</span>   * <a name="line.740"></a>
-<span class="sourceLineNo">741</span>   * <a name="line.741"></a>
-<span class="sourceLineNo">742</span>   * @param &lt;T&gt;<a name="line.742"></a>
-<span class="sourceLineNo">743</span>   *          Java type to map to.<a name="line.743"></a>
-<span class="sourceLineNo">744</span>   * @param type<a name="line.744"></a>
-<span class="sourceLineNo">745</span>   *          Type token.<a name="line.745"></a>
-<span class="sourceLineNo">746</span>   * @return A new instance of {@code type}.<a name="line.746"></a>
-<span class="sourceLineNo">747</span>   * @throws FacebookJsonMappingException<a name="line.747"></a>
-<span class="sourceLineNo">748</span>   *           If an error occurs when creating a new instance ({@code type} is inaccessible, doesn't have a no-arg<a name="line.748"></a>
-<span class="sourceLineNo">749</span>   *           constructor, etc.)<a name="line.749"></a>
-<span class="sourceLineNo">750</span>   */<a name="line.750"></a>
-<span class="sourceLineNo">751</span>  protected &lt;T&gt; T createInstance(Class&lt;T&gt; type) {<a name="line.751"></a>
-<span class="sourceLineNo">752</span>    String errorMessage = "Unable to create an instance of " + type<a name="line.752"></a>
-<span class="sourceLineNo">753</span>        + ". Please make sure that if it's a nested class, is marked 'static'. "<a name="line.753"></a>
-<span class="sourceLineNo">754</span>        + "It should have a no-argument constructor.";<a name="line.754"></a>
-<span class="sourceLineNo">755</span><a name="line.755"></a>
-<span class="sourceLineNo">756</span>    try {<a name="line.756"></a>
-<span class="sourceLineNo">757</span>      Constructor&lt;T&gt; defaultConstructor = type.getDeclaredConstructor();<a name="line.757"></a>
-<span class="sourceLineNo">758</span><a name="line.758"></a>
-<span class="sourceLineNo">759</span>      if (defaultConstructor == null) {<a name="line.759"></a>
-<span class="sourceLineNo">760</span>        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);<a name="line.760"></a>
-<span class="sourceLineNo">761</span>      }<a name="line.761"></a>
-<span class="sourceLineNo">762</span><a name="line.762"></a>
-<span class="sourceLineNo">763</span>      // Allows protected, private, and package-private constructors to be<a name="line.763"></a>
-<span class="sourceLineNo">764</span>      // invoked<a name="line.764"></a>
-<span class="sourceLineNo">765</span>      defaultConstructor.setAccessible(true);<a name="line.765"></a>
-<span class="sourceLineNo">766</span>      return defaultConstructor.newInstance();<a name="line.766"></a>
-<span class="sourceLineNo">767</span>    } catch (Exception e) {<a name="line.767"></a>
-<span class="sourceLineNo">768</span>      throw new FacebookJsonMappingException(errorMessage, e);<a name="line.768"></a>
-<span class="sourceLineNo">769</span>    }<a name="line.769"></a>
-<span class="sourceLineNo">770</span>  }<a name="line.770"></a>
-<span class="sourceLineNo">771</span><a name="line.771"></a>
-<span class="sourceLineNo">772</span>  /**<a name="line.772"></a>
-<span class="sourceLineNo">773</span>   * Is the given JSON equivalent to the empty object (&lt;code&gt;{}&lt;/code&gt;)?<a name="line.773"></a>
-<span class="sourceLineNo">774</span>   * <a name="line.774"></a>
-<span class="sourceLineNo">775</span>   * @param json<a name="line.775"></a>
-<span class="sourceLineNo">776</span>   *          The JSON to check.<a name="line.776"></a>
-<span class="sourceLineNo">777</span>   * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.<a name="line.777"></a>
-<span class="sourceLineNo">778</span>   */<a name="line.778"></a>
-<span class="sourceLineNo">779</span>  protected boolean isEmptyObject(String json) {<a name="line.779"></a>
-<span class="sourceLineNo">780</span>    return "{}".equals(json);<a name="line.780"></a>
-<span class="sourceLineNo">781</span>  }<a name="line.781"></a>
+<span class="sourceLineNo">737</span>    // Some other type - recurse into it<a name="line.737"></a>
+<span class="sourceLineNo">738</span>    return toJavaObject(rawValueAsString, type);<a name="line.738"></a>
+<span class="sourceLineNo">739</span>  }<a name="line.739"></a>
+<span class="sourceLineNo">740</span><a name="line.740"></a>
+<span class="sourceLineNo">741</span>  private Map convertJsonObjectToMap(String json, Field field) {<a name="line.741"></a>
+<span class="sourceLineNo">742</span>    Class&lt;?&gt; firstParam = getFirstParameterizedTypeArgument(field);<a name="line.742"></a>
+<span class="sourceLineNo">743</span>    if (!String.class.equals(firstParam)) {<a name="line.743"></a>
+<span class="sourceLineNo">744</span>      throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);<a name="line.744"></a>
+<span class="sourceLineNo">745</span>    }<a name="line.745"></a>
+<span class="sourceLineNo">746</span><a name="line.746"></a>
+<span class="sourceLineNo">747</span>    Class&lt;?&gt; secondParam = getSecondParameterizedTypeArgument(field);<a name="line.747"></a>
+<span class="sourceLineNo">748</span><a name="line.748"></a>
+<span class="sourceLineNo">749</span>    if (json.startsWith("{")) {<a name="line.749"></a>
+<span class="sourceLineNo">750</span>      JsonObject jsonObject = new JsonObject(json);<a name="line.750"></a>
+<span class="sourceLineNo">751</span>      Map map = new HashMap();<a name="line.751"></a>
+<span class="sourceLineNo">752</span>      Iterator&lt;?&gt; keyIt = jsonObject.keys();<a name="line.752"></a>
+<span class="sourceLineNo">753</span>      while (keyIt.hasNext()) {<a name="line.753"></a>
+<span class="sourceLineNo">754</span>        String key = (String) keyIt.next();<a name="line.754"></a>
+<span class="sourceLineNo">755</span>        String value = jsonObject.getString(key);<a name="line.755"></a>
+<span class="sourceLineNo">756</span>        map.put(key, toJavaObject(value, secondParam));<a name="line.756"></a>
+<span class="sourceLineNo">757</span>      }<a name="line.757"></a>
+<span class="sourceLineNo">758</span>      return map;<a name="line.758"></a>
+<span class="sourceLineNo">759</span>    }<a name="line.759"></a>
+<span class="sourceLineNo">760</span><a name="line.760"></a>
+<span class="sourceLineNo">761</span>    return null;<a name="line.761"></a>
+<span class="sourceLineNo">762</span>  }<a name="line.762"></a>
+<span class="sourceLineNo">763</span><a name="line.763"></a>
+<span class="sourceLineNo">764</span>  /**<a name="line.764"></a>
+<span class="sourceLineNo">765</span>   * Creates a new instance of the given {@code type}.<a name="line.765"></a>
+<span class="sourceLineNo">766</span>   * &lt;p&gt;<a name="line.766"></a>
+<span class="sourceLineNo">767</span>   * <a name="line.767"></a>
+<span class="sourceLineNo">768</span>   * <a name="line.768"></a>
+<span class="sourceLineNo">769</span>   * @param &lt;T&gt;<a name="line.769"></a>
+<span class="sourceLineNo">770</span>   *          Java type to map to.<a name="line.770"></a>
+<span class="sourceLineNo">771</span>   * @param type<a name="line.771"></a>
+<span class="sourceLineNo">772</span>   *          Type token.<a name="line.772"></a>
+<span class="sourceLineNo">773</span>   * @return A new instance of {@code type}.<a name="line.773"></a>
+<span class="sourceLineNo">774</span>   * @throws FacebookJsonMappingException<a name="line.774"></a>
+<span class="sourceLineNo">775</span>   *           If an error occurs when creating a new instance ({@code type} is inaccessible, doesn't have a no-arg<a name="line.775"></a>
+<span class="sourceLineNo">776</span>   *           constructor, etc.)<a name="line.776"></a>
+<span class="sourceLineNo">777</span>   */<a name="line.777"></a>
+<span class="sourceLineNo">778</span>  protected &lt;T&gt; T createInstance(Class&lt;T&gt; type) {<a name="line.778"></a>
+<span class="sourceLineNo">779</span>    String errorMessage = "Unable to create an instance of " + type<a name="line.779"></a>
+<span class="sourceLineNo">780</span>        + ". Please make sure that if it's a nested class, is marked 'static'. "<a name="line.780"></a>
+<span class="sourceLineNo">781</span>        + "It should have a no-argument constructor.";<a name="line.781"></a>
 <span class="sourceLineNo">782</span><a name="line.782"></a>
-<span class="sourceLineNo">783</span>  /**<a name="line.783"></a>
-<span class="sourceLineNo">784</span>   * Callback interface which allows client code to specify how JSON mapping errors should be handled.<a name="line.784"></a>
-<span class="sourceLineNo">785</span>   * <a name="line.785"></a>
-<span class="sourceLineNo">786</span>   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;<a name="line.786"></a>
-<span class="sourceLineNo">787</span>   * @since 1.6.2<a name="line.787"></a>
-<span class="sourceLineNo">788</span>   */<a name="line.788"></a>
-<span class="sourceLineNo">789</span>  public interface JsonMappingErrorHandler {<a name="line.789"></a>
-<span class="sourceLineNo">790</span>    /**<a name="line.790"></a>
-<span class="sourceLineNo">791</span>     * This method will be called by {@code DefaultJsonMapper} if it encounters an error while attempting to map JSON to<a name="line.791"></a>
-<span class="sourceLineNo">792</span>     * a Java object.<a name="line.792"></a>
-<span class="sourceLineNo">793</span>     * &lt;p&gt;<a name="line.793"></a>
-<span class="sourceLineNo">794</span>     * You may perform any behavior you'd like here in response to an error, e.g. logging it.<a name="line.794"></a>
-<span class="sourceLineNo">795</span>     * &lt;p&gt;<a name="line.795"></a>
-<span class="sourceLineNo">796</span>     * If the mapper should continue processing, return {@code true} and {@code null} will be mapped to the target type.<a name="line.796"></a>
-<span class="sourceLineNo">797</span>     * If you would like the mapper to stop processing and throw<a name="line.797"></a>
-<span class="sourceLineNo">798</span>     * {@link com.restfb.exception.FacebookJsonMappingException}, return {@code false}.<a name="line.798"></a>
-<span class="sourceLineNo">799</span>     * <a name="line.799"></a>
-<span class="sourceLineNo">800</span>     * @param unmappableJson<a name="line.800"></a>
-<span class="sourceLineNo">801</span>     *          The JSON that couldn't be mapped to a Java type.<a name="line.801"></a>
-<span class="sourceLineNo">802</span>     * @param targetType<a name="line.802"></a>
-<span class="sourceLineNo">803</span>     *          The Java type we were attempting to map to.<a name="line.803"></a>
-<span class="sourceLineNo">804</span>     * @param e<a name="line.804"></a>
-<span class="sourceLineNo">805</span>     *          The exception that occurred while performing the mapping operation, or {@code null} if there was no<a name="line.805"></a>
-<span class="sourceLineNo">806</span>     *          exception.<a name="line.806"></a>
-<span class="sourceLineNo">807</span>     * @return {@code true} to continue processing, {@code false} to throw a<a name="line.807"></a>
-<span class="sourceLineNo">808</span>     *         {@link com.restfb.exception.FacebookJsonMappingException}.<a name="line.808"></a>
-<span class="sourceLineNo">809</span>     */<a name="line.809"></a>
-<span class="sourceLineNo">810</span>    boolean handleMappingError(String unmappableJson, Class&lt;?&gt; targetType, Exception e);<a name="line.810"></a>
-<span class="sourceLineNo">811</span>  }<a name="line.811"></a>
-<span class="sourceLineNo">812</span>}<a name="line.812"></a>
+<span class="sourceLineNo">783</span>    try {<a name="line.783"></a>
+<span class="sourceLineNo">784</span>      Constructor&lt;T&gt; defaultConstructor = type.getDeclaredConstructor();<a name="line.784"></a>
+<span class="sourceLineNo">785</span><a name="line.785"></a>
+<span class="sourceLineNo">786</span>      if (defaultConstructor == null) {<a name="line.786"></a>
+<span class="sourceLineNo">787</span>        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);<a name="line.787"></a>
+<span class="sourceLineNo">788</span>      }<a name="line.788"></a>
+<span class="sourceLineNo">789</span><a name="line.789"></a>
+<span class="sourceLineNo">790</span>      // Allows protected, private, and package-private constructors to be<a name="line.790"></a>
+<span class="sourceLineNo">791</span>      // invoked<a name="line.791"></a>
+<span class="sourceLineNo">792</span>      defaultConstructor.setAccessible(true);<a name="line.792"></a>
+<span class="sourceLineNo">793</span>      return defaultConstructor.newInstance();<a name="line.793"></a>
+<span class="sourceLineNo">794</span>    } catch (Exception e) {<a name="line.794"></a>
+<span class="sourceLineNo">795</span>      throw new FacebookJsonMappingException(errorMessage, e);<a name="line.795"></a>
+<span class="sourceLineNo">796</span>    }<a name="line.796"></a>
+<span class="sourceLineNo">797</span>  }<a name="line.797"></a>
+<span class="sourceLineNo">798</span><a name="line.798"></a>
+<span class="sourceLineNo">799</span>  /**<a name="line.799"></a>
+<span class="sourceLineNo">800</span>   * Is the given JSON equivalent to the empty object (&lt;code&gt;{}&lt;/code&gt;)?<a name="line.800"></a>
+<span class="sourceLineNo">801</span>   * <a name="line.801"></a>
+<span class="sourceLineNo">802</span>   * @param json<a name="line.802"></a>
+<span class="sourceLineNo">803</span>   *          The JSON to check.<a name="line.803"></a>
+<span class="sourceLineNo">804</span>   * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.<a name="line.804"></a>
+<span class="sourceLineNo">805</span>   */<a name="line.805"></a>
+<span class="sourceLineNo">806</span>  protected boolean isEmptyObject(String json) {<a name="line.806"></a>
+<span class="sourceLineNo">807</span>    return "{}".equals(json);<a name="line.807"></a>
+<span class="sourceLineNo">808</span>  }<a name="line.808"></a>
+<span class="sourceLineNo">809</span><a name="line.809"></a>
+<span class="sourceLineNo">810</span>  /**<a name="line.810"></a>
+<span class="sourceLineNo">811</span>   * Callback interface which allows client code to specify how JSON mapping errors should be handled.<a name="line.811"></a>
+<span class="sourceLineNo">812</span>   * <a name="line.812"></a>
+<span class="sourceLineNo">813</span>   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;<a name="line.813"></a>
+<span class="sourceLineNo">814</span>   * @since 1.6.2<a name="line.814"></a>
+<span class="sourceLineNo">815</span>   */<a name="line.815"></a>
+<span class="sourceLineNo">816</span>  public interface JsonMappingErrorHandler {<a name="line.816"></a>
+<span class="sourceLineNo">817</span>    /**<a name="line.817"></a>
+<span class="sourceLineNo">818</span>     * This method will be called by {@code DefaultJsonMapper} if it encounters an error while attempting to map JSON to<a name="line.818"></a>
+<span class="sourceLineNo">819</span>     * a Java object.<a name="line.819"></a>
+<span class="sourceLineNo">820</span>     * &lt;p&gt;<a name="line.820"></a>
+<span class="sourceLineNo">821</span>     * You may perform any behavior you'd like here in response to an error, e.g. logging it.<a name="line.821"></a>
+<span class="sourceLineNo">822</span>     * &lt;p&gt;<a name="line.822"></a>
+<span class="sourceLineNo">823</span>     * If the mapper should continue processing, return {@code true} and {@code null} will be mapped to the target type.<a name="line.823"></a>
+<span class="sourceLineNo">824</span>     * If you would like the mapper to stop processing and throw<a name="line.824"></a>
+<span class="sourceLineNo">825</span>     * {@link com.restfb.exception.FacebookJsonMappingException}, return {@code false}.<a name="line.825"></a>
+<span class="sourceLineNo">826</span>     * <a name="line.826"></a>
+<span class="sourceLineNo">827</span>     * @param unmappableJson<a name="line.827"></a>
+<span class="sourceLineNo">828</span>     *          The JSON that couldn't be mapped to a Java type.<a name="line.828"></a>
+<span class="sourceLineNo">829</span>     * @param targetType<a name="line.829"></a>
+<span class="sourceLineNo">830</span>     *          The Java type we were attempting to map to.<a name="line.830"></a>
+<span class="sourceLineNo">831</span>     * @param e<a name="line.831"></a>
+<span class="sourceLineNo">832</span>     *          The exception that occurred while performing the mapping operation, or {@code null} if there was no<a name="line.832"></a>
+<span class="sourceLineNo">833</span>     *          exception.<a name="line.833"></a>
+<span class="sourceLineNo">834</span>     * @return {@code true} to continue processing, {@code false} to throw a<a name="line.834"></a>
+<span class="sourceLineNo">835</span>     *         {@link com.restfb.exception.FacebookJsonMappingException}.<a name="line.835"></a>
+<span class="sourceLineNo">836</span>     */<a name="line.836"></a>
+<span class="sourceLineNo">837</span>    boolean handleMappingError(String unmappableJson, Class&lt;?&gt; targetType, Exception e);<a name="line.837"></a>
+<span class="sourceLineNo">838</span>  }<a name="line.838"></a>
+<span class="sourceLineNo">839</span>}<a name="line.839"></a>
 
 
 
