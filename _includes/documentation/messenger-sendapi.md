@@ -13,7 +13,7 @@ String pageAccessToken = "MY PAGE ACCESS TOKEN";
 // create a version 2.6 client
 FacebookClient pageClient = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
 
-pageclient.publish("me/messages", 
+SendResponse resp = pageclient.publish("me/messages", SendResponse.class,
      Parameter.with("recipient", recipient), // the id or phone recipient
 	 Parameter.with("message", message)); // one of the messages from above
 {% endhighlight %}
