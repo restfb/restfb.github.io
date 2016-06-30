@@ -1389,7 +1389,7 @@
 <span class="sourceLineNo">1381</span>   *           If the value is or contains an invalid number.<a name="line.1381"></a>
 <span class="sourceLineNo">1382</span>   */<a name="line.1382"></a>
 <span class="sourceLineNo">1383</span>  static String valueToString(Object value) {<a name="line.1383"></a>
-<span class="sourceLineNo">1384</span>    if (value == null || value.equals(null)) {<a name="line.1384"></a>
+<span class="sourceLineNo">1384</span>    if ((value == null) || value.equals(null)) {<a name="line.1384"></a>
 <span class="sourceLineNo">1385</span>      return "null";<a name="line.1385"></a>
 <span class="sourceLineNo">1386</span>    }<a name="line.1386"></a>
 <span class="sourceLineNo">1387</span>    if (value instanceof JsonString) {<a name="line.1387"></a>

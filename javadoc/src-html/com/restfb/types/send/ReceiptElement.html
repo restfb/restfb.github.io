@@ -31,27 +31,34 @@
 <span class="sourceLineNo">023</span><a name="line.23"></a>
 <span class="sourceLineNo">024</span>import com.restfb.Facebook;<a name="line.24"></a>
 <span class="sourceLineNo">025</span><a name="line.25"></a>
-<span class="sourceLineNo">026</span>public class ImageAttachment extends MessageAttachment {<a name="line.26"></a>
-<span class="sourceLineNo">027</span><a name="line.27"></a>
-<span class="sourceLineNo">028</span>  @Facebook<a name="line.28"></a>
-<span class="sourceLineNo">029</span>  private UrlPayload payload;<a name="line.29"></a>
-<span class="sourceLineNo">030</span><a name="line.30"></a>
-<span class="sourceLineNo">031</span>  public ImageAttachment(String imageUrl) {<a name="line.31"></a>
-<span class="sourceLineNo">032</span>    setType("image");<a name="line.32"></a>
-<span class="sourceLineNo">033</span>    payload = new UrlPayload(imageUrl);<a name="line.33"></a>
-<span class="sourceLineNo">034</span>  }<a name="line.34"></a>
+<span class="sourceLineNo">026</span>public class ReceiptElement {<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    @Facebook<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    private String title;<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span>    @Facebook<a name="line.30"></a>
+<span class="sourceLineNo">031</span>    private String subtitle;<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>    @Facebook<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    private int quantity;<a name="line.34"></a>
 <span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>  private static class UrlPayload {<a name="line.36"></a>
-<span class="sourceLineNo">037</span><a name="line.37"></a>
-<span class="sourceLineNo">038</span>    @Facebook<a name="line.38"></a>
-<span class="sourceLineNo">039</span>    private String url;<a name="line.39"></a>
-<span class="sourceLineNo">040</span><a name="line.40"></a>
-<span class="sourceLineNo">041</span>    public UrlPayload(String urlString) {<a name="line.41"></a>
-<span class="sourceLineNo">042</span>      url = urlString;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>    }<a name="line.43"></a>
+<span class="sourceLineNo">036</span>    @Facebook<a name="line.36"></a>
+<span class="sourceLineNo">037</span>    private double price;<a name="line.37"></a>
+<span class="sourceLineNo">038</span><a name="line.38"></a>
+<span class="sourceLineNo">039</span>    @Facebook<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    private String currency;<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>    @Facebook("image_url")<a name="line.42"></a>
+<span class="sourceLineNo">043</span>    private String imageUrl;<a name="line.43"></a>
 <span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>  }<a name="line.45"></a>
-<span class="sourceLineNo">046</span>}<a name="line.46"></a>
+<span class="sourceLineNo">045</span>    public ReceiptElement(String title, String subtitle, int quantity, double price, String currency, String imageUrl) {<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        this.title = title;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        this.subtitle = subtitle;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        this.quantity = quantity;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        this.price = price;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        this.currency = currency;<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        this.imageUrl = imageUrl;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    }<a name="line.52"></a>
+<span class="sourceLineNo">053</span>}<a name="line.53"></a>
 
 
 
