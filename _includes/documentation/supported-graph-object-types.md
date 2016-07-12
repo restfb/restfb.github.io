@@ -11,45 +11,59 @@ The builtin types are as follows:
 			    <ul class="list-group">
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Account.html">Account</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Album.html">Album</a></li>
-				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/AppRequest.html">AppRequest</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Category.html">Category</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Conversation.html">Conversation</a></li>
-			    </ul>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/DeAuth.html">DeAuth</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/DeviceCode.html">Device Code</a></li>
+			    <li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
+				</ul>
 			</div>
 			<div class="col-sm-3">
 			    <ul class="list-group">
-				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/DeAuth.html">DeAuth</a></li>
-				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/FriendList.html">FriendList</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Group.html">Group</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Insight.html">Insight</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Likes.html">Likes</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Link.html">Link</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Message.html">Message</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Milestone.html">Milestone</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Note.html">Note</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Notification.html">Notification</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/PageRating.html">PageRating</a></li>
 			    </ul>
 			</div>
 			<div class="col-sm-3">
 			    <ul class="list-group">
-				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
-				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/PageRating.html">PageRating</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Payment.html">Payment</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Place.html">Place</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/PlaceTag.html">PlaceTag</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Post.html">Post</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Privacy.html">Privacy</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/ProfilePictureSource.html">ProfilePictureSource</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Question.html">Question</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/QuestionOption.html">QuestionOption</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Review.html">Review</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Reactions.html">Reactions</a></li>
 			    </ul>
 			</div>
 			<div class="col-sm-3">
 			    <ul class="list-group">
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/StoryAttachment.html">StoryAttachment</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/TestUser.html">TestUser</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Thread.html">Thread</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Translation.html">Translation</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Url.html">Url</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
 				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/Video.html">Video</a></li>
+				<li class="list-group-item"><a target="_blank" href="/javadoc/com/restfb/types/VideoList.html">VideoList</a></li>
 			    </ul>
 			</div>
 		    </div>
