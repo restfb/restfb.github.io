@@ -75,7 +75,7 @@
 <span class="sourceLineNo">067</span>        return mapper.toJavaObject(value.toString(), changeValueEnum.getValueClass());<a name="line.67"></a>
 <span class="sourceLineNo">068</span>      } catch (IllegalArgumentException iae) {<a name="line.68"></a>
 <span class="sourceLineNo">069</span>        if (LOGGER.isLoggable(Level.WARNING)) {<a name="line.69"></a>
-<span class="sourceLineNo">070</span>          LOGGER.warning("undefined change value detected");<a name="line.70"></a>
+<span class="sourceLineNo">070</span>          LOGGER.warning("undefined change value detected: " + classDefinition);<a name="line.70"></a>
 <span class="sourceLineNo">071</span>          LOGGER.warning("please provide this information to the restfb team: " + value.toString());<a name="line.71"></a>
 <span class="sourceLineNo">072</span>        }<a name="line.72"></a>
 <span class="sourceLineNo">073</span>        return new FallBackChangeValue(value);<a name="line.73"></a>
@@ -86,42 +86,52 @@
 <span class="sourceLineNo">078</span>  }<a name="line.78"></a>
 <span class="sourceLineNo">079</span><a name="line.79"></a>
 <span class="sourceLineNo">080</span>  enum ChangeValueEnumeration {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    FEED_COMMENT_ADD(FeedCommentValue.class), //<a name="line.81"></a>
-<span class="sourceLineNo">082</span>    FEED_COMMENT_EDITED(FeedCommentValue.class), //<a name="line.82"></a>
-<span class="sourceLineNo">083</span>    FEED_COMMENT_REMOVE(FeedCommentValue.class), //<a name="line.83"></a>
-<span class="sourceLineNo">084</span>    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //<a name="line.84"></a>
-<span class="sourceLineNo">085</span>    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //<a name="line.85"></a>
-<span class="sourceLineNo">086</span>    FEED_STATUS_ADD(FeedStatusValue.class), //<a name="line.86"></a>
-<span class="sourceLineNo">087</span>    FEED_STATUS_EDITED(FeedStatusValue.class), //<a name="line.87"></a>
-<span class="sourceLineNo">088</span>    FEED_STATUS_HIDE(FeedStatusValue.class), //<a name="line.88"></a>
-<span class="sourceLineNo">089</span>    FEED_POST_ADD(FeedPostValue.class), //<a name="line.89"></a>
-<span class="sourceLineNo">090</span>    FEED_POST_EDITED(FeedPostValue.class), //<a name="line.90"></a>
-<span class="sourceLineNo">091</span>    FEED_POST_REMOVE(FeedPostValue.class), //<a name="line.91"></a>
-<span class="sourceLineNo">092</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.94"></a>
-<span class="sourceLineNo">095</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.96"></a>
-<span class="sourceLineNo">097</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.100"></a>
-<span class="sourceLineNo">101</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.101"></a>
-<span class="sourceLineNo">102</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.102"></a>
-<span class="sourceLineNo">103</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    CONVERSATIONS(PageConversation.class);<a name="line.104"></a>
-<span class="sourceLineNo">105</span><a name="line.105"></a>
-<span class="sourceLineNo">106</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.106"></a>
-<span class="sourceLineNo">107</span><a name="line.107"></a>
-<span class="sourceLineNo">108</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.108"></a>
-<span class="sourceLineNo">109</span>      this.valueClass = valueClass;<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    }<a name="line.110"></a>
-<span class="sourceLineNo">111</span><a name="line.111"></a>
-<span class="sourceLineNo">112</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.112"></a>
-<span class="sourceLineNo">113</span>      return valueClass;<a name="line.113"></a>
-<span class="sourceLineNo">114</span>    }<a name="line.114"></a>
-<span class="sourceLineNo">115</span>  }<a name="line.115"></a>
-<span class="sourceLineNo">116</span>}<a name="line.116"></a>
+<span class="sourceLineNo">081</span>    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //<a name="line.81"></a>
+<span class="sourceLineNo">082</span>    FEED_COMMENT_ADD(FeedCommentValue.class), //<a name="line.82"></a>
+<span class="sourceLineNo">083</span>    FEED_COMMENT_EDITED(FeedCommentValue.class), //<a name="line.83"></a>
+<span class="sourceLineNo">084</span>    FEED_COMMENT_REMOVE(FeedCommentValue.class), //<a name="line.84"></a>
+<span class="sourceLineNo">085</span>    FEED_COMMENT_HIDE(FeedCommentValue.class), //<a name="line.85"></a>
+<span class="sourceLineNo">086</span>    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //<a name="line.86"></a>
+<span class="sourceLineNo">087</span>    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //<a name="line.87"></a>
+<span class="sourceLineNo">088</span>    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    FEED_VIDEO_ADD(FeedVideoAddValue.class), //<a name="line.91"></a>
+<span class="sourceLineNo">092</span>    FEED_STATUS_ADD(FeedStatusValue.class), //<a name="line.92"></a>
+<span class="sourceLineNo">093</span>    FEED_STATUS_EDITED(FeedStatusValue.class), //<a name="line.93"></a>
+<span class="sourceLineNo">094</span>    FEED_STATUS_HIDE(FeedStatusValue.class), //<a name="line.94"></a>
+<span class="sourceLineNo">095</span>    FEED_POST_ADD(FeedPostValue.class), //<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    FEED_POST_EDITED(FeedPostValue.class), //<a name="line.96"></a>
+<span class="sourceLineNo">097</span>    FEED_POST_HIDE(FeedPostValue.class), //<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    FEED_POST_REMOVE(FeedPostValue.class), //<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    FEED_POST_UNHIDE(FeedPostValue.class), //<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.101"></a>
+<span class="sourceLineNo">102</span>    FEED_SHARE_HIDE(FeedShareValue.class), //<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    FEED_SHARE_UNHIDE(FeedShareValue.class), //<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.110"></a>
+<span class="sourceLineNo">111</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.112"></a>
+<span class="sourceLineNo">113</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    CONVERSATIONS(PageConversation.class);<a name="line.114"></a>
+<span class="sourceLineNo">115</span><a name="line.115"></a>
+<span class="sourceLineNo">116</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.116"></a>
+<span class="sourceLineNo">117</span><a name="line.117"></a>
+<span class="sourceLineNo">118</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>      this.valueClass = valueClass;<a name="line.119"></a>
+<span class="sourceLineNo">120</span>    }<a name="line.120"></a>
+<span class="sourceLineNo">121</span><a name="line.121"></a>
+<span class="sourceLineNo">122</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>      return valueClass;<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    }<a name="line.124"></a>
+<span class="sourceLineNo">125</span>  }<a name="line.125"></a>
+<span class="sourceLineNo">126</span>}<a name="line.126"></a>
 
 
 
