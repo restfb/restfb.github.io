@@ -245,6 +245,11 @@
   title: Error Handling
   file: documentation/error-handling.md
   href: error-handling
+  subsection:
+      -
+        title: Rate Limiting
+        file: documentation/error-ratelimiting.md
+        href: error-ratelimiting
 -
   title: Extensibility and Unit Testing
   file: documentation/extensibility-and-unit-testing.md
