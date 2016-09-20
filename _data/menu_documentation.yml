@@ -105,6 +105,10 @@
         file: documentation/messenger-welcome.md
         href: messenger-welcome
       -
+        title: Simulate typing
+        file: documentation/messenger-typing.md
+        href: messenger-typing
+      -
         title: Limitations
         file: documentation/messenger-limitations.md
         href: messenger-limitations
