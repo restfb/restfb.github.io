@@ -1,8 +1,8 @@
-A special use case for the new messages is the welcome message. You can set a special message on a page that is send as soon as a new user starts a conversation with your page.
+A special use case for the new messages is the welcome message. You can set a special message on a page that is sent as soon as a new user starts a conversation with your page.
 
 This welcome message contains three parameters: `setting_type`, `thread_state` and `call_to_actions`. 
 
-Facebook expects that `setting_type` and `thread_state` are used as they define in the documentatio and you should not modify them. Only the `call_to_actions` is the parameter that you have to change modify the welcome message. It's a list of messages and these messages may be created as explained in the chapters above. 
+Facebook expects that `setting_type` and `thread_state` are used as they are defined in the documentation and you should not modify them. Only `call_to_actions` is a parameter that you have to change to modify the welcome message. It's a list of messages and these messages may be created as explained in the chapters above. 
 
 Now we dive into coding. We configure a welcome message and send it to Facebook.
 
@@ -13,7 +13,7 @@ Parameter settingType = Parameter.with("setting_type", "call_to_actions");
 Parameter threadState = Parameter.with("thread_state", "new_thread");
 {% endhighlight %}
 
-Now a message object is created and added to our convenience object `CallToAction` to make the process a bit more easy.
+Now a message object is created and added to our convenience object `CallToAction` to make the process a bit easier.
 In our example we only create a simple text message, but it's possible to create more complicated objects.
 
 {% highlight java %}
