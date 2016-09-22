@@ -321,7 +321,7 @@
 <span class="sourceLineNo">313</span>    // Perform a POST to the API endpoint<a name="line.313"></a>
 <span class="sourceLineNo">314</span>    try {<a name="line.314"></a>
 <span class="sourceLineNo">315</span>      response = webRequestor.executePost(createEndpointForApiCall(method, false), parametersAsString);<a name="line.315"></a>
-<span class="sourceLineNo">316</span>    } catch (Throwable t) {<a name="line.316"></a>
+<span class="sourceLineNo">316</span>    } catch (Exception t) {<a name="line.316"></a>
 <span class="sourceLineNo">317</span>      throw new FacebookNetworkException("Facebook POST failed", t);<a name="line.317"></a>
 <span class="sourceLineNo">318</span>    }<a name="line.318"></a>
 <span class="sourceLineNo">319</span><a name="line.319"></a>

@@ -45,10 +45,10 @@
 <span class="sourceLineNo">037</span>import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;<a name="line.37"></a>
 <span class="sourceLineNo">038</span>import com.restfb.json.JsonObject;<a name="line.38"></a>
 <span class="sourceLineNo">039</span>import com.restfb.scope.ScopeBuilder;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>import com.restfb.types.DeviceCode;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>import com.restfb.util.ReflectionUtils;<a name="line.41"></a>
-<span class="sourceLineNo">042</span><a name="line.42"></a>
-<span class="sourceLineNo">043</span>import java.io.Serializable;<a name="line.43"></a>
+<span class="sourceLineNo">040</span>import com.restfb.types.AbstractFacebookType;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import com.restfb.types.DeviceCode;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import com.restfb.util.ReflectionUtils;<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
 <span class="sourceLineNo">044</span>import java.util.ArrayList;<a name="line.44"></a>
 <span class="sourceLineNo">045</span>import java.util.Date;<a name="line.45"></a>
 <span class="sourceLineNo">046</span>import java.util.List;<a name="line.46"></a>
@@ -804,183 +804,158 @@
 <span class="sourceLineNo">796</span>   * <a name="line.796"></a>
 <span class="sourceLineNo">797</span>   * @author Broc Seib<a name="line.797"></a>
 <span class="sourceLineNo">798</span>   */<a name="line.798"></a>
-<span class="sourceLineNo">799</span>  class DebugTokenInfo implements Serializable {<a name="line.799"></a>
-<span class="sourceLineNo">800</span>    @Facebook("app_id")<a name="line.800"></a>
-<span class="sourceLineNo">801</span>    private String appId;<a name="line.801"></a>
+<span class="sourceLineNo">799</span>  class DebugTokenInfo extends AbstractFacebookType {<a name="line.799"></a>
+<span class="sourceLineNo">800</span><a name="line.800"></a>
+<span class="sourceLineNo">801</span>    private static final long serialVersionUID = 1L;<a name="line.801"></a>
 <span class="sourceLineNo">802</span><a name="line.802"></a>
-<span class="sourceLineNo">803</span>    @Facebook<a name="line.803"></a>
-<span class="sourceLineNo">804</span>    private String application;<a name="line.804"></a>
+<span class="sourceLineNo">803</span>    @Facebook("app_id")<a name="line.803"></a>
+<span class="sourceLineNo">804</span>    private String appId;<a name="line.804"></a>
 <span class="sourceLineNo">805</span><a name="line.805"></a>
-<span class="sourceLineNo">806</span>    @Facebook("expires_at")<a name="line.806"></a>
-<span class="sourceLineNo">807</span>    private Long expiresAt;<a name="line.807"></a>
+<span class="sourceLineNo">806</span>    @Facebook<a name="line.806"></a>
+<span class="sourceLineNo">807</span>    private String application;<a name="line.807"></a>
 <span class="sourceLineNo">808</span><a name="line.808"></a>
-<span class="sourceLineNo">809</span>    @Facebook("issued_at")<a name="line.809"></a>
-<span class="sourceLineNo">810</span>    private Long issuedAt;<a name="line.810"></a>
+<span class="sourceLineNo">809</span>    @Facebook("expires_at")<a name="line.809"></a>
+<span class="sourceLineNo">810</span>    private Long expiresAt;<a name="line.810"></a>
 <span class="sourceLineNo">811</span><a name="line.811"></a>
-<span class="sourceLineNo">812</span>    @Facebook("is_valid")<a name="line.812"></a>
-<span class="sourceLineNo">813</span>    private Boolean isValid;<a name="line.813"></a>
+<span class="sourceLineNo">812</span>    @Facebook("issued_at")<a name="line.812"></a>
+<span class="sourceLineNo">813</span>    private Long issuedAt;<a name="line.813"></a>
 <span class="sourceLineNo">814</span><a name="line.814"></a>
-<span class="sourceLineNo">815</span>    @Facebook("user_id")<a name="line.815"></a>
-<span class="sourceLineNo">816</span>    private String userId;<a name="line.816"></a>
+<span class="sourceLineNo">815</span>    @Facebook("is_valid")<a name="line.815"></a>
+<span class="sourceLineNo">816</span>    private Boolean isValid;<a name="line.816"></a>
 <span class="sourceLineNo">817</span><a name="line.817"></a>
-<span class="sourceLineNo">818</span>    @Facebook("profile_id")<a name="line.818"></a>
-<span class="sourceLineNo">819</span>    private String profileId;<a name="line.819"></a>
+<span class="sourceLineNo">818</span>    @Facebook("user_id")<a name="line.818"></a>
+<span class="sourceLineNo">819</span>    private String userId;<a name="line.819"></a>
 <span class="sourceLineNo">820</span><a name="line.820"></a>
-<span class="sourceLineNo">821</span>    @Facebook<a name="line.821"></a>
-<span class="sourceLineNo">822</span>    private JsonObject metadata;<a name="line.822"></a>
+<span class="sourceLineNo">821</span>    @Facebook("profile_id")<a name="line.821"></a>
+<span class="sourceLineNo">822</span>    private String profileId;<a name="line.822"></a>
 <span class="sourceLineNo">823</span><a name="line.823"></a>
 <span class="sourceLineNo">824</span>    @Facebook<a name="line.824"></a>
-<span class="sourceLineNo">825</span>    private DebugTokenError error;<a name="line.825"></a>
+<span class="sourceLineNo">825</span>    private JsonObject metadata;<a name="line.825"></a>
 <span class="sourceLineNo">826</span><a name="line.826"></a>
 <span class="sourceLineNo">827</span>    @Facebook<a name="line.827"></a>
-<span class="sourceLineNo">828</span>    private List&lt;String&gt; scopes = new ArrayList&lt;String&gt;();<a name="line.828"></a>
+<span class="sourceLineNo">828</span>    private DebugTokenError error;<a name="line.828"></a>
 <span class="sourceLineNo">829</span><a name="line.829"></a>
-<span class="sourceLineNo">830</span>    // FIXME let's read 'metadata' if it exist. It's a nested structure...<a name="line.830"></a>
-<span class="sourceLineNo">831</span><a name="line.831"></a>
-<span class="sourceLineNo">832</span>    /**<a name="line.832"></a>
-<span class="sourceLineNo">833</span>     * The application id.<a name="line.833"></a>
-<span class="sourceLineNo">834</span>     * <a name="line.834"></a>
-<span class="sourceLineNo">835</span>     * @return The id of the application.<a name="line.835"></a>
-<span class="sourceLineNo">836</span>     */<a name="line.836"></a>
-<span class="sourceLineNo">837</span>    public String getAppId() {<a name="line.837"></a>
-<span class="sourceLineNo">838</span>      return appId;<a name="line.838"></a>
-<span class="sourceLineNo">839</span>    }<a name="line.839"></a>
-<span class="sourceLineNo">840</span><a name="line.840"></a>
-<span class="sourceLineNo">841</span>    /**<a name="line.841"></a>
-<span class="sourceLineNo">842</span>     * The application name.<a name="line.842"></a>
-<span class="sourceLineNo">843</span>     * <a name="line.843"></a>
-<span class="sourceLineNo">844</span>     * @return The name of the application.<a name="line.844"></a>
-<span class="sourceLineNo">845</span>     */<a name="line.845"></a>
-<span class="sourceLineNo">846</span>    public String getApplication() {<a name="line.846"></a>
-<span class="sourceLineNo">847</span>      return application;<a name="line.847"></a>
-<span class="sourceLineNo">848</span>    }<a name="line.848"></a>
-<span class="sourceLineNo">849</span><a name="line.849"></a>
-<span class="sourceLineNo">850</span>    /**<a name="line.850"></a>
-<span class="sourceLineNo">851</span>     * The date on which the access token expires.<a name="line.851"></a>
-<span class="sourceLineNo">852</span>     * <a name="line.852"></a>
-<span class="sourceLineNo">853</span>     * @return The date on which the access token expires.<a name="line.853"></a>
-<span class="sourceLineNo">854</span>     */<a name="line.854"></a>
-<span class="sourceLineNo">855</span>    public Date getExpiresAt() {<a name="line.855"></a>
-<span class="sourceLineNo">856</span>      // note that the expire timestamp is in *seconds*, not milliseconds<a name="line.856"></a>
-<span class="sourceLineNo">857</span>      return expiresAt == null ? null : new Date(expiresAt * 1000L);<a name="line.857"></a>
-<span class="sourceLineNo">858</span>    }<a name="line.858"></a>
-<span class="sourceLineNo">859</span><a name="line.859"></a>
-<span class="sourceLineNo">860</span>    /**<a name="line.860"></a>
-<span class="sourceLineNo">861</span>     * The date on which the access token was issued.<a name="line.861"></a>
-<span class="sourceLineNo">862</span>     * <a name="line.862"></a>
-<span class="sourceLineNo">863</span>     * @return The date on which the access token was issued.<a name="line.863"></a>
-<span class="sourceLineNo">864</span>     */<a name="line.864"></a>
-<span class="sourceLineNo">865</span>    public Date getIssuedAt() {<a name="line.865"></a>
-<span class="sourceLineNo">866</span>      // note that the issue timestamp is in *seconds*, not milliseconds<a name="line.866"></a>
-<span class="sourceLineNo">867</span>      return issuedAt == null ? null : new Date(issuedAt * 1000L);<a name="line.867"></a>
-<span class="sourceLineNo">868</span>    }<a name="line.868"></a>
-<span class="sourceLineNo">869</span><a name="line.869"></a>
-<span class="sourceLineNo">870</span>    /**<a name="line.870"></a>
-<span class="sourceLineNo">871</span>     * Whether or not the token is valid.<a name="line.871"></a>
-<span class="sourceLineNo">872</span>     * <a name="line.872"></a>
-<span class="sourceLineNo">873</span>     * @return Whether or not the token is valid.<a name="line.873"></a>
-<span class="sourceLineNo">874</span>     */<a name="line.874"></a>
-<span class="sourceLineNo">875</span>    public Boolean isValid() {<a name="line.875"></a>
-<span class="sourceLineNo">876</span>      return isValid;<a name="line.876"></a>
-<span class="sourceLineNo">877</span>    }<a name="line.877"></a>
-<span class="sourceLineNo">878</span><a name="line.878"></a>
-<span class="sourceLineNo">879</span>    /**<a name="line.879"></a>
-<span class="sourceLineNo">880</span>     * The user id.<a name="line.880"></a>
-<span class="sourceLineNo">881</span>     * <a name="line.881"></a>
-<span class="sourceLineNo">882</span>     * @return The user id.<a name="line.882"></a>
-<span class="sourceLineNo">883</span>     */<a name="line.883"></a>
-<span class="sourceLineNo">884</span>    public String getUserId() {<a name="line.884"></a>
-<span class="sourceLineNo">885</span>      return userId;<a name="line.885"></a>
-<span class="sourceLineNo">886</span>    }<a name="line.886"></a>
-<span class="sourceLineNo">887</span><a name="line.887"></a>
-<span class="sourceLineNo">888</span>    /**<a name="line.888"></a>
-<span class="sourceLineNo">889</span>     * List of scopes the access token 'contains'<a name="line.889"></a>
-<span class="sourceLineNo">890</span>     * <a name="line.890"></a>
-<span class="sourceLineNo">891</span>     * @return list of scopes<a name="line.891"></a>
-<span class="sourceLineNo">892</span>     */<a name="line.892"></a>
-<span class="sourceLineNo">893</span>    public List&lt;String&gt; getScopes() {<a name="line.893"></a>
-<span class="sourceLineNo">894</span>      return unmodifiableList(scopes);<a name="line.894"></a>
-<span class="sourceLineNo">895</span>    }<a name="line.895"></a>
-<span class="sourceLineNo">896</span><a name="line.896"></a>
-<span class="sourceLineNo">897</span>    /**<a name="line.897"></a>
-<span class="sourceLineNo">898</span>     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'<a name="line.898"></a>
-<span class="sourceLineNo">899</span>     * <a name="line.899"></a>
-<span class="sourceLineNo">900</span>     * @return General metadata associated with the access token<a name="line.900"></a>
-<span class="sourceLineNo">901</span>     */<a name="line.901"></a>
-<span class="sourceLineNo">902</span>    public JsonObject getMetaData() {<a name="line.902"></a>
-<span class="sourceLineNo">903</span>      return metadata;<a name="line.903"></a>
-<span class="sourceLineNo">904</span>    }<a name="line.904"></a>
-<span class="sourceLineNo">905</span><a name="line.905"></a>
-<span class="sourceLineNo">906</span>    @Override<a name="line.906"></a>
-<span class="sourceLineNo">907</span>    public int hashCode() {<a name="line.907"></a>
-<span class="sourceLineNo">908</span>      return ReflectionUtils.hashCode(this);<a name="line.908"></a>
-<span class="sourceLineNo">909</span>    }<a name="line.909"></a>
+<span class="sourceLineNo">830</span>    @Facebook<a name="line.830"></a>
+<span class="sourceLineNo">831</span>    private List&lt;String&gt; scopes = new ArrayList&lt;String&gt;();<a name="line.831"></a>
+<span class="sourceLineNo">832</span><a name="line.832"></a>
+<span class="sourceLineNo">833</span>    // FIXME let's read 'metadata' if it exist. It's a nested structure...<a name="line.833"></a>
+<span class="sourceLineNo">834</span><a name="line.834"></a>
+<span class="sourceLineNo">835</span>    /**<a name="line.835"></a>
+<span class="sourceLineNo">836</span>     * The application id.<a name="line.836"></a>
+<span class="sourceLineNo">837</span>     * <a name="line.837"></a>
+<span class="sourceLineNo">838</span>     * @return The id of the application.<a name="line.838"></a>
+<span class="sourceLineNo">839</span>     */<a name="line.839"></a>
+<span class="sourceLineNo">840</span>    public String getAppId() {<a name="line.840"></a>
+<span class="sourceLineNo">841</span>      return appId;<a name="line.841"></a>
+<span class="sourceLineNo">842</span>    }<a name="line.842"></a>
+<span class="sourceLineNo">843</span><a name="line.843"></a>
+<span class="sourceLineNo">844</span>    /**<a name="line.844"></a>
+<span class="sourceLineNo">845</span>     * The application name.<a name="line.845"></a>
+<span class="sourceLineNo">846</span>     * <a name="line.846"></a>
+<span class="sourceLineNo">847</span>     * @return The name of the application.<a name="line.847"></a>
+<span class="sourceLineNo">848</span>     */<a name="line.848"></a>
+<span class="sourceLineNo">849</span>    public String getApplication() {<a name="line.849"></a>
+<span class="sourceLineNo">850</span>      return application;<a name="line.850"></a>
+<span class="sourceLineNo">851</span>    }<a name="line.851"></a>
+<span class="sourceLineNo">852</span><a name="line.852"></a>
+<span class="sourceLineNo">853</span>    /**<a name="line.853"></a>
+<span class="sourceLineNo">854</span>     * The date on which the access token expires.<a name="line.854"></a>
+<span class="sourceLineNo">855</span>     * <a name="line.855"></a>
+<span class="sourceLineNo">856</span>     * @return The date on which the access token expires.<a name="line.856"></a>
+<span class="sourceLineNo">857</span>     */<a name="line.857"></a>
+<span class="sourceLineNo">858</span>    public Date getExpiresAt() {<a name="line.858"></a>
+<span class="sourceLineNo">859</span>      // note that the expire timestamp is in *seconds*, not milliseconds<a name="line.859"></a>
+<span class="sourceLineNo">860</span>      return expiresAt == null ? null : new Date(expiresAt * 1000L);<a name="line.860"></a>
+<span class="sourceLineNo">861</span>    }<a name="line.861"></a>
+<span class="sourceLineNo">862</span><a name="line.862"></a>
+<span class="sourceLineNo">863</span>    /**<a name="line.863"></a>
+<span class="sourceLineNo">864</span>     * The date on which the access token was issued.<a name="line.864"></a>
+<span class="sourceLineNo">865</span>     * <a name="line.865"></a>
+<span class="sourceLineNo">866</span>     * @return The date on which the access token was issued.<a name="line.866"></a>
+<span class="sourceLineNo">867</span>     */<a name="line.867"></a>
+<span class="sourceLineNo">868</span>    public Date getIssuedAt() {<a name="line.868"></a>
+<span class="sourceLineNo">869</span>      // note that the issue timestamp is in *seconds*, not milliseconds<a name="line.869"></a>
+<span class="sourceLineNo">870</span>      return issuedAt == null ? null : new Date(issuedAt * 1000L);<a name="line.870"></a>
+<span class="sourceLineNo">871</span>    }<a name="line.871"></a>
+<span class="sourceLineNo">872</span><a name="line.872"></a>
+<span class="sourceLineNo">873</span>    /**<a name="line.873"></a>
+<span class="sourceLineNo">874</span>     * Whether or not the token is valid.<a name="line.874"></a>
+<span class="sourceLineNo">875</span>     * <a name="line.875"></a>
+<span class="sourceLineNo">876</span>     * @return Whether or not the token is valid.<a name="line.876"></a>
+<span class="sourceLineNo">877</span>     */<a name="line.877"></a>
+<span class="sourceLineNo">878</span>    public Boolean isValid() {<a name="line.878"></a>
+<span class="sourceLineNo">879</span>      return isValid;<a name="line.879"></a>
+<span class="sourceLineNo">880</span>    }<a name="line.880"></a>
+<span class="sourceLineNo">881</span><a name="line.881"></a>
+<span class="sourceLineNo">882</span>    /**<a name="line.882"></a>
+<span class="sourceLineNo">883</span>     * The user id.<a name="line.883"></a>
+<span class="sourceLineNo">884</span>     * <a name="line.884"></a>
+<span class="sourceLineNo">885</span>     * @return The user id.<a name="line.885"></a>
+<span class="sourceLineNo">886</span>     */<a name="line.886"></a>
+<span class="sourceLineNo">887</span>    public String getUserId() {<a name="line.887"></a>
+<span class="sourceLineNo">888</span>      return userId;<a name="line.888"></a>
+<span class="sourceLineNo">889</span>    }<a name="line.889"></a>
+<span class="sourceLineNo">890</span><a name="line.890"></a>
+<span class="sourceLineNo">891</span>    /**<a name="line.891"></a>
+<span class="sourceLineNo">892</span>     * List of scopes the access token 'contains'<a name="line.892"></a>
+<span class="sourceLineNo">893</span>     * <a name="line.893"></a>
+<span class="sourceLineNo">894</span>     * @return list of scopes<a name="line.894"></a>
+<span class="sourceLineNo">895</span>     */<a name="line.895"></a>
+<span class="sourceLineNo">896</span>    public List&lt;String&gt; getScopes() {<a name="line.896"></a>
+<span class="sourceLineNo">897</span>      return unmodifiableList(scopes);<a name="line.897"></a>
+<span class="sourceLineNo">898</span>    }<a name="line.898"></a>
+<span class="sourceLineNo">899</span><a name="line.899"></a>
+<span class="sourceLineNo">900</span>    /**<a name="line.900"></a>
+<span class="sourceLineNo">901</span>     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'<a name="line.901"></a>
+<span class="sourceLineNo">902</span>     * <a name="line.902"></a>
+<span class="sourceLineNo">903</span>     * @return General metadata associated with the access token<a name="line.903"></a>
+<span class="sourceLineNo">904</span>     */<a name="line.904"></a>
+<span class="sourceLineNo">905</span>    public JsonObject getMetaData() {<a name="line.905"></a>
+<span class="sourceLineNo">906</span>      return metadata;<a name="line.906"></a>
+<span class="sourceLineNo">907</span>    }<a name="line.907"></a>
+<span class="sourceLineNo">908</span><a name="line.908"></a>
+<span class="sourceLineNo">909</span>  }<a name="line.909"></a>
 <span class="sourceLineNo">910</span><a name="line.910"></a>
-<span class="sourceLineNo">911</span>    @Override<a name="line.911"></a>
-<span class="sourceLineNo">912</span>    public boolean equals(Object that) {<a name="line.912"></a>
-<span class="sourceLineNo">913</span>      return ReflectionUtils.equals(this, that);<a name="line.913"></a>
-<span class="sourceLineNo">914</span>    }<a name="line.914"></a>
+<span class="sourceLineNo">911</span>  class DebugTokenError extends AbstractFacebookType {<a name="line.911"></a>
+<span class="sourceLineNo">912</span><a name="line.912"></a>
+<span class="sourceLineNo">913</span>    @Facebook<a name="line.913"></a>
+<span class="sourceLineNo">914</span>    private Integer code;<a name="line.914"></a>
 <span class="sourceLineNo">915</span><a name="line.915"></a>
-<span class="sourceLineNo">916</span>    @Override<a name="line.916"></a>
-<span class="sourceLineNo">917</span>    public String toString() {<a name="line.917"></a>
-<span class="sourceLineNo">918</span>      return ReflectionUtils.toString(this);<a name="line.918"></a>
-<span class="sourceLineNo">919</span>    }<a name="line.919"></a>
-<span class="sourceLineNo">920</span>  }<a name="line.920"></a>
+<span class="sourceLineNo">916</span>    @Facebook<a name="line.916"></a>
+<span class="sourceLineNo">917</span>    private String message;<a name="line.917"></a>
+<span class="sourceLineNo">918</span><a name="line.918"></a>
+<span class="sourceLineNo">919</span>    @Facebook<a name="line.919"></a>
+<span class="sourceLineNo">920</span>    private Integer subcode;<a name="line.920"></a>
 <span class="sourceLineNo">921</span><a name="line.921"></a>
-<span class="sourceLineNo">922</span>  class DebugTokenError implements Serializable {<a name="line.922"></a>
-<span class="sourceLineNo">923</span><a name="line.923"></a>
-<span class="sourceLineNo">924</span>    @Facebook<a name="line.924"></a>
-<span class="sourceLineNo">925</span>    private Integer code;<a name="line.925"></a>
-<span class="sourceLineNo">926</span><a name="line.926"></a>
-<span class="sourceLineNo">927</span>    @Facebook<a name="line.927"></a>
-<span class="sourceLineNo">928</span>    private String message;<a name="line.928"></a>
-<span class="sourceLineNo">929</span><a name="line.929"></a>
-<span class="sourceLineNo">930</span>    @Facebook<a name="line.930"></a>
-<span class="sourceLineNo">931</span>    private Integer subcode;<a name="line.931"></a>
-<span class="sourceLineNo">932</span><a name="line.932"></a>
-<span class="sourceLineNo">933</span>    /**<a name="line.933"></a>
-<span class="sourceLineNo">934</span>     * The error code for the error.<a name="line.934"></a>
-<span class="sourceLineNo">935</span>     * <a name="line.935"></a>
-<span class="sourceLineNo">936</span>     * @return The error code for the error.<a name="line.936"></a>
-<span class="sourceLineNo">937</span>     */<a name="line.937"></a>
-<span class="sourceLineNo">938</span>    public Integer getCode() {<a name="line.938"></a>
-<span class="sourceLineNo">939</span>      return code;<a name="line.939"></a>
-<span class="sourceLineNo">940</span>    }<a name="line.940"></a>
-<span class="sourceLineNo">941</span><a name="line.941"></a>
-<span class="sourceLineNo">942</span>    /**<a name="line.942"></a>
-<span class="sourceLineNo">943</span>     * The error message for the error.<a name="line.943"></a>
-<span class="sourceLineNo">944</span>     * <a name="line.944"></a>
-<span class="sourceLineNo">945</span>     * @return The error message for the error.<a name="line.945"></a>
-<span class="sourceLineNo">946</span>     */<a name="line.946"></a>
-<span class="sourceLineNo">947</span>    public String getMessage() {<a name="line.947"></a>
-<span class="sourceLineNo">948</span>      return message;<a name="line.948"></a>
-<span class="sourceLineNo">949</span>    }<a name="line.949"></a>
-<span class="sourceLineNo">950</span><a name="line.950"></a>
-<span class="sourceLineNo">951</span>    /**<a name="line.951"></a>
-<span class="sourceLineNo">952</span>     * The error subcode for the error.<a name="line.952"></a>
-<span class="sourceLineNo">953</span>     * <a name="line.953"></a>
-<span class="sourceLineNo">954</span>     * @return The error subcode for the error.<a name="line.954"></a>
-<span class="sourceLineNo">955</span>     */<a name="line.955"></a>
-<span class="sourceLineNo">956</span>    public Integer getSubcode() {<a name="line.956"></a>
-<span class="sourceLineNo">957</span>      return subcode;<a name="line.957"></a>
-<span class="sourceLineNo">958</span>    }<a name="line.958"></a>
-<span class="sourceLineNo">959</span><a name="line.959"></a>
-<span class="sourceLineNo">960</span>    @Override<a name="line.960"></a>
-<span class="sourceLineNo">961</span>    public int hashCode() {<a name="line.961"></a>
-<span class="sourceLineNo">962</span>      return ReflectionUtils.hashCode(this);<a name="line.962"></a>
-<span class="sourceLineNo">963</span>    }<a name="line.963"></a>
-<span class="sourceLineNo">964</span><a name="line.964"></a>
-<span class="sourceLineNo">965</span>    @Override<a name="line.965"></a>
-<span class="sourceLineNo">966</span>    public boolean equals(Object that) {<a name="line.966"></a>
-<span class="sourceLineNo">967</span>      return ReflectionUtils.equals(this, that);<a name="line.967"></a>
-<span class="sourceLineNo">968</span>    }<a name="line.968"></a>
-<span class="sourceLineNo">969</span><a name="line.969"></a>
-<span class="sourceLineNo">970</span>    @Override<a name="line.970"></a>
-<span class="sourceLineNo">971</span>    public String toString() {<a name="line.971"></a>
-<span class="sourceLineNo">972</span>      return ReflectionUtils.toString(this);<a name="line.972"></a>
-<span class="sourceLineNo">973</span>    }<a name="line.973"></a>
-<span class="sourceLineNo">974</span>  }<a name="line.974"></a>
-<span class="sourceLineNo">975</span>}<a name="line.975"></a>
+<span class="sourceLineNo">922</span>    /**<a name="line.922"></a>
+<span class="sourceLineNo">923</span>     * The error code for the error.<a name="line.923"></a>
+<span class="sourceLineNo">924</span>     * <a name="line.924"></a>
+<span class="sourceLineNo">925</span>     * @return The error code for the error.<a name="line.925"></a>
+<span class="sourceLineNo">926</span>     */<a name="line.926"></a>
+<span class="sourceLineNo">927</span>    public Integer getCode() {<a name="line.927"></a>
+<span class="sourceLineNo">928</span>      return code;<a name="line.928"></a>
+<span class="sourceLineNo">929</span>    }<a name="line.929"></a>
+<span class="sourceLineNo">930</span><a name="line.930"></a>
+<span class="sourceLineNo">931</span>    /**<a name="line.931"></a>
+<span class="sourceLineNo">932</span>     * The error message for the error.<a name="line.932"></a>
+<span class="sourceLineNo">933</span>     * <a name="line.933"></a>
+<span class="sourceLineNo">934</span>     * @return The error message for the error.<a name="line.934"></a>
+<span class="sourceLineNo">935</span>     */<a name="line.935"></a>
+<span class="sourceLineNo">936</span>    public String getMessage() {<a name="line.936"></a>
+<span class="sourceLineNo">937</span>      return message;<a name="line.937"></a>
+<span class="sourceLineNo">938</span>    }<a name="line.938"></a>
+<span class="sourceLineNo">939</span><a name="line.939"></a>
+<span class="sourceLineNo">940</span>    /**<a name="line.940"></a>
+<span class="sourceLineNo">941</span>     * The error subcode for the error.<a name="line.941"></a>
+<span class="sourceLineNo">942</span>     * <a name="line.942"></a>
+<span class="sourceLineNo">943</span>     * @return The error subcode for the error.<a name="line.943"></a>
+<span class="sourceLineNo">944</span>     */<a name="line.944"></a>
+<span class="sourceLineNo">945</span>    public Integer getSubcode() {<a name="line.945"></a>
+<span class="sourceLineNo">946</span>      return subcode;<a name="line.946"></a>
+<span class="sourceLineNo">947</span>    }<a name="line.947"></a>
+<span class="sourceLineNo">948</span><a name="line.948"></a>
+<span class="sourceLineNo">949</span>  }<a name="line.949"></a>
+<span class="sourceLineNo">950</span>}<a name="line.950"></a>
 
 
 

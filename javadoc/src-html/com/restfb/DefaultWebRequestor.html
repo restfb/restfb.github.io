@@ -255,7 +255,7 @@
 <span class="sourceLineNo">247</span>    }<a name="line.247"></a>
 <span class="sourceLineNo">248</span>    try {<a name="line.248"></a>
 <span class="sourceLineNo">249</span>      closeable.close();<a name="line.249"></a>
-<span class="sourceLineNo">250</span>    } catch (Throwable t) {<a name="line.250"></a>
+<span class="sourceLineNo">250</span>    } catch (Exception t) {<a name="line.250"></a>
 <span class="sourceLineNo">251</span>      if (LOGGER.isLoggable(WARNING)) {<a name="line.251"></a>
 <span class="sourceLineNo">252</span>        LOGGER.log(WARNING, format("Unable to close %s: ", closeable), t);<a name="line.252"></a>
 <span class="sourceLineNo">253</span>      }<a name="line.253"></a>
@@ -277,7 +277,7 @@
 <span class="sourceLineNo">269</span>    }<a name="line.269"></a>
 <span class="sourceLineNo">270</span>    try {<a name="line.270"></a>
 <span class="sourceLineNo">271</span>      httpUrlConnection.disconnect();<a name="line.271"></a>
-<span class="sourceLineNo">272</span>    } catch (Throwable t) {<a name="line.272"></a>
+<span class="sourceLineNo">272</span>    } catch (Exception t) {<a name="line.272"></a>
 <span class="sourceLineNo">273</span>      if (LOGGER.isLoggable(WARNING)) {<a name="line.273"></a>
 <span class="sourceLineNo">274</span>        LOGGER.log(WARNING, format("Unable to disconnect %s: ", httpUrlConnection), t);<a name="line.274"></a>
 <span class="sourceLineNo">275</span>      }<a name="line.275"></a>
@@ -320,7 +320,7 @@
 <span class="sourceLineNo">312</span>   */<a name="line.312"></a>
 <span class="sourceLineNo">313</span>  protected String createFormFieldName(BinaryAttachment binaryAttachment) {<a name="line.313"></a>
 <span class="sourceLineNo">314</span>    String name = binaryAttachment.getFilename();<a name="line.314"></a>
-<span class="sourceLineNo">315</span>    int fileExtensionIndex = name.lastIndexOf(".");<a name="line.315"></a>
+<span class="sourceLineNo">315</span>    int fileExtensionIndex = name.lastIndexOf('.');<a name="line.315"></a>
 <span class="sourceLineNo">316</span>    return fileExtensionIndex &gt; 0 ? name.substring(0, fileExtensionIndex) : name;<a name="line.316"></a>
 <span class="sourceLineNo">317</span>  }<a name="line.317"></a>
 <span class="sourceLineNo">318</span><a name="line.318"></a>
