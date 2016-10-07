@@ -10,12 +10,12 @@ GenericTemplatePayload payload = new GenericTemplatePayload();
 // create a bubble with a web button
 Bubble firstBubble = new Bubble("Title of first bubble");
 WebButton webButton = new WebButton("EXAMPLE TITLE", "http://example.org/sample.html");
-firstBubble.add(webButton);
+firstBubble.addButton(webButton);
 
 // create a bubble with a postback button
 Bubble secondBubble = new Bubble("Title of second bubble");
 PostbackButton postbackButton = new PostbackButton("EXAMPLE TITLE", "POSTBACK_STRING");
-secondBubble.add(postbackButton);
+secondBubble.addButton(postbackButton);
 
 payload.add(firstBubble);
 payload.add(secondBubble);

@@ -7,7 +7,7 @@ Like the postback button, there exists a `WebButton`. A click on that button dir
 In this example we create both types of buttons and add them to a `Message`.
 
 {% highlight java %}
-ButtonTemplatePayload payload = new ButtonTemplatePayload();
+ButtonTemplatePayload payload = new ButtonTemplatePayload("TEMPLATE TITLE");
 
 // build a new button that links to a web url
 WebButton webButton = new WebButton("EXAMPLE TITLE", "http://example.org/sample.html");
@@ -15,8 +15,8 @@ WebButton webButton = new WebButton("EXAMPLE TITLE", "http://example.org/sample.
 // build a button that sends a postback
 PostbackButton postbackButton = new PostbackButton("EXAMPLE TITLE", "POSTBACK_STRING");
 
-payload.add(webButton);
-payload.add(postbackButton);
+payload.addButton(webButton);
+payload.addButton(postbackButton);
 
 TemplateAttachment templateAttachment = new TemplateAttachment(payload);
 Message imageMessage = new Message(templateAttachment);
