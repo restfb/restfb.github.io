@@ -108,33 +108,35 @@
 <span class="sourceLineNo">100</span>    FEED_POST_HIDE(FeedPostValue.class), //<a name="line.100"></a>
 <span class="sourceLineNo">101</span>    FEED_POST_REMOVE(FeedPostValue.class), //<a name="line.101"></a>
 <span class="sourceLineNo">102</span>    FEED_POST_UNHIDE(FeedPostValue.class), //<a name="line.102"></a>
-<span class="sourceLineNo">103</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    FEED_SHARE_HIDE(FeedShareValue.class), //<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    FEED_SHARE_UNHIDE(FeedShareValue.class), //<a name="line.107"></a>
-<span class="sourceLineNo">108</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.110"></a>
-<span class="sourceLineNo">111</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.111"></a>
-<span class="sourceLineNo">112</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.112"></a>
-<span class="sourceLineNo">113</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.113"></a>
-<span class="sourceLineNo">114</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.115"></a>
-<span class="sourceLineNo">116</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.116"></a>
-<span class="sourceLineNo">117</span>    CONVERSATIONS(PageConversation.class);<a name="line.117"></a>
-<span class="sourceLineNo">118</span><a name="line.118"></a>
-<span class="sourceLineNo">119</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.119"></a>
+<span class="sourceLineNo">103</span>    FEED_REACTION_ADD(FeedReactionValue.class), //<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    FEED_REACTION_REMOVE(FeedReactionValue.class), //<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    FEED_SHARE_HIDE(FeedShareValue.class), //<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    FEED_SHARE_UNHIDE(FeedShareValue.class), //<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.110"></a>
+<span class="sourceLineNo">111</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.112"></a>
+<span class="sourceLineNo">113</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.114"></a>
+<span class="sourceLineNo">115</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.115"></a>
+<span class="sourceLineNo">116</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.116"></a>
+<span class="sourceLineNo">117</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.118"></a>
+<span class="sourceLineNo">119</span>    CONVERSATIONS(PageConversation.class);<a name="line.119"></a>
 <span class="sourceLineNo">120</span><a name="line.120"></a>
-<span class="sourceLineNo">121</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.121"></a>
-<span class="sourceLineNo">122</span>      this.valueClass = valueClass;<a name="line.122"></a>
-<span class="sourceLineNo">123</span>    }<a name="line.123"></a>
-<span class="sourceLineNo">124</span><a name="line.124"></a>
-<span class="sourceLineNo">125</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.125"></a>
-<span class="sourceLineNo">126</span>      return valueClass;<a name="line.126"></a>
-<span class="sourceLineNo">127</span>    }<a name="line.127"></a>
-<span class="sourceLineNo">128</span>  }<a name="line.128"></a>
-<span class="sourceLineNo">129</span>}<a name="line.129"></a>
+<span class="sourceLineNo">121</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.123"></a>
+<span class="sourceLineNo">124</span>      this.valueClass = valueClass;<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    }<a name="line.125"></a>
+<span class="sourceLineNo">126</span><a name="line.126"></a>
+<span class="sourceLineNo">127</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>      return valueClass;<a name="line.128"></a>
+<span class="sourceLineNo">129</span>    }<a name="line.129"></a>
+<span class="sourceLineNo">130</span>  }<a name="line.130"></a>
+<span class="sourceLineNo">131</span>}<a name="line.131"></a>
 
 
 
