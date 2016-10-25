@@ -2,36 +2,13 @@
     <aside class="clients">
         <div class="container">
             <div class="row">
+				{% for client in site.clients %}
                 <div class="col-md-2 col-sm-6">
-                    <a href="https://apps.facebook.com/angrybirds/" target="_blank">
-                        <img src="img/clients/angry-birds-friends.grey.jpg" class="img-responsive center-block" alt="">
+                    <a href="{{ client.url }}" target="_blank" title="Client {{ client.name }}">
+                        <img src="{{ client.pic }}" class="img-responsive center-block" alt="{{ client.name }} logo">
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-6">
-                    <a href="http://www.hubspot.com/" target="_blank">
-                        <img src="img/clients/hubspot.grey.jpg" class="img-responsive center-block" alt="">
-                    </a>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <a href="http://dwinq.com/" target="_blank">
-                        <img src="img/clients/dwinq.grey.jpg" class="img-responsive center-block" alt="">
-                    </a>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <a href="http://www.ibm.com/" target="_blank">
-                        <img src="img/clients/ibm.grey.jpg" class="img-responsive center-block" alt="">
-                    </a>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <a href="http://www.friend2friend.com/" target="_blank">
-                        <img src="img/clients/friend2friend.grey.jpg" class="img-responsive center-block" alt="">
-                    </a>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <a href="http://www.tynamo.org/" target="_blank">
-                        <img src="img/clients/tynamo.grey.jpg" class="img-responsive center-block" alt="">
-                    </a>
-                </div>
+				{% endfor %}
             </div>
 			<div class="row">
 				<div class="col-lg-12">

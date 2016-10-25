@@ -6,7 +6,7 @@ title:
   default: restfb
   light: <span class="restfb-brand light">rest</span><span class="restfb-brand highlight">fb</span>
   dark: <span class="restfb-brand dark">rest</span><span class="restfb-brand highlight">fb</span>
-description: "RestFB is a simple and flexible Facebook Graph API client written in Java."
+description: "RestFB is a simple and flexible Facebook Graph API client written in Java. It contains support for the Facebook Messenger Platform and the Facebook Marketing API."
 
 # code and explanantion
 collections:
@@ -63,6 +63,26 @@ navigation:
     url: /documentation/
 #  - text: Cookbook
 #    url: /cookbook/
+
+clients:
+   - name: Angry Birds
+     url: https://apps.facebook.com/angrybirds/
+     pic: img/clients/angry-birds-friends.grey.jpg
+   - name: Hubspot
+     url: http://www.hubspot.com/
+     pic: img/clients/hubspot.grey.jpg
+   - name: Dwinq
+     url: http://dwinq.com/
+     pic: img/clients/dwinq.grey.jpg
+   - name: IBM
+     url: http://www.ibm.com/
+     pic: img/clients/ibm.grey.jpg
+   - name: Friend2Friend
+     url: http://www.friend2friend.com/
+     pic: img/clients/friend2friend.grey.jpg
+   - name: Tynamo
+     url: http://www.tynamo.org/
+     pic: img/clients/tynamo.grey.jpg
 
 gems:
   - jekyll-sitemap
