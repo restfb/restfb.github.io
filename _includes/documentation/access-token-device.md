@@ -2,7 +2,7 @@ See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login
 
 With the Device Access Token Facebook provides a possibility to connect to devices with limited input or display capabilities. RestFB supports this kind of access tokens since version 1.12.0.
 
-The device access token is generated in a two step way. First you have to call <a href="http://localhost:8080/restfb.github.io/javadoc/com/restfb/FacebookClient.html#fetchDeviceCode(java.lang.String, com.restfb.scope.ScopeBuilder)" target="_blank"><code>FacebookClient.fetchDeviceCode</code></a>(see example code). You receive a user code, a code and some additional information. The user code has to be shown to the user and he have to enter it on a special Facebook page. The url is part of the DeviceCode object. As soon as you presented these information to the user, you have to poll Facebook and try to fetch the device access token.
+The device access token is generated in a two step way. First you have to call <a href="/javadoc/com/restfb/FacebookClient.html#fetchDeviceCode-java.lang.String-com.restfb.scope.ScopeBuilder-" target="_blank"><code>FacebookClient.fetchDeviceCode</code></a>(see example code). You receive a user code, a code and some additional information. The user code has to be shown to the user and he have to enter it on a special Facebook page. The url is part of the DeviceCode object. As soon as you presented these information to the user, you have to poll Facebook and try to fetch the device access token.
 
 {% highlight java %}
 DefaultFacebookClient client = new DefaultFacebookClient(Version.VERSION_2_3);

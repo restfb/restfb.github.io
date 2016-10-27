@@ -72,13 +72,13 @@ GET graph.facebook.com
 	<h4>
 		Summary of multiple ids misusage 
 	</h4>
-	<p>
+	<div>
 		<ol>
 			<li><code>ids</code> with non intersecting fields requested: Only intersecting fields are allowed.</li>
 			<li>Edges are requested that are not part of all <code>ids</code>.</li>
 			<li>More than 50 ids requested: Only 50 ids are allowed in one request.</li>
 		</ol>
-	</p>
+	</div>
 </div>
 <div class="rfb-callout info">
 	<h4>
