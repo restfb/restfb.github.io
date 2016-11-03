@@ -67,22 +67,34 @@ navigation:
 clients:
    - name: Angry Birds
      url: https://apps.facebook.com/angrybirds/
-     pic: img/clients/angry-birds-friends.grey.jpg
+     pic: img/clients/angry-birds-friends.min.png
    - name: Hubspot
      url: http://www.hubspot.com/
-     pic: img/clients/hubspot.grey.jpg
+     pic: img/clients/hubspot.min.png
+   - name: Atchik Services
+     url: https://apps.facebook.com/angrybirds/
+     pic: img/clients/atchikservices.min.png
+   - name: Lithium
+     url: http://www.lithium.com/
+     pic: img/clients/lithium.min.png
    - name: Dwinq
      url: http://dwinq.com/
-     pic: img/clients/dwinq.grey.jpg
+     pic: img/clients/dwinq.min.png
    - name: IBM
      url: http://www.ibm.com/
-     pic: img/clients/ibm.grey.jpg
+     pic: img/clients/ibm.min.png
+   - name: The Socialstation
+     url: http://thesocialstation.com/
+     pic: img/clients/thesocialstation.color.jpg
+   - name: Sparkcentral
+     url: https://www.sparkcentral.com/
+     pic: img/clients/sparkcentral.min.png 
    - name: Friend2Friend
      url: http://www.friend2friend.com/
-     pic: img/clients/friend2friend.grey.jpg
+     pic: img/clients/friend2friend.min.png
    - name: Tynamo
      url: http://www.tynamo.org/
-     pic: img/clients/tynamo.grey.jpg
+     pic: img/clients/tynamo.min.png
 
 gems:
   - jekyll-sitemap

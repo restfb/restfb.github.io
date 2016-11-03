@@ -42,4 +42,13 @@ $(document).ready(function () {
 	    $("#downloadURL").attr("href", zipURL);
 	}
     });
+	$(".owl-carousel").owlCarousel({
+		loop:true,
+		items:8,
+		merge:true,
+		autoplay:true,
+		autoplayHoverPause:true,
+		margin:10,
+		autoplayTimeout:3000
+	});
 });

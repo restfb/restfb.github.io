@@ -2,13 +2,13 @@
     <aside class="clients">
         <div class="container">
             <div class="row">
+				<div class="owl-carousel owl-theme">
 				{% for client in site.clients %}
-                <div class="col-md-2 col-sm-6">
-                    <a href="{{ client.url }}" target="_blank" title="Client {{ client.name }}">
-                        <img src="{{ client.pic }}" class="img-responsive center-block" alt="{{ client.name }} logo">
+                    <a href="{{ client.url }}" target="_blank" title="{{ client.name }}">
+						<img src="{{ client.pic }}" class="grayscale grayscale-fade" alt="{{ client.name }} logo">
                     </a>
-                </div>
 				{% endfor %}
+			</div>
             </div>
 	    <div class="row">
 		<div class="col-lg-12">

@@ -20,11 +20,19 @@
 
 {% endif %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
     
 {% if page.header == "landing" %}
     <script src="{{ "/js/cbpAnimatedHeader.min.js" | prepend: site.baseurl }}"></script>
-<!-- Custom Theme JavaScript -->
+
+	<!-- owl -->
+	<script src="{{ "/js/owl.carousel.min.js" | prepend: site.baseurl }}"></script>
+	
+	<!-- gray -->
+	<script src="{{ "/js/jquery.gray.min.js" | prepend: site.baseurl }}"></script>
+	
+    <!-- Custom Theme JavaScript -->
     <script src="{{ "/js/restfb.min.js" | prepend: site.baseurl }}"></script>
 {% else %}
     <script src="{{ "/js/restfb-docs.min.js" | prepend: site.baseurl }}"></script>
