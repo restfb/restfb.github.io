@@ -5,7 +5,7 @@
 				<div class="owl-carousel owl-theme">
 				{% for client in site.clients %}
                     <a href="{{ client.url }}" target="_blank" title="{{ client.name }}">
-						<img src="{{ client.pic }}" class="grayscale grayscale-fade" alt="{{ client.name }} logo">
+						<img src="{{ client.pic }}" class="grayscale grayscale-fade" alt="{{ client.name }} logo" title="{{ client.name }}">
                     </a>
 				{% endfor %}
 			</div>
