@@ -11,6 +11,6 @@ scopeBuilder.addPermission(UserDataPermissions.USER_ABOUT_ME);
 With the ScopeBuilder you can now easily build the login dialog url, like this:
 
 {% highlight java %}
-FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
+FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_6);
 String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
 {% endhighlight %}

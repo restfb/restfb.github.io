@@ -48,16 +48,6 @@
   title: Using FQL
   file: documentation/executing-fql.md
   href: executing-fql
-  subsection:
-      -
-        title: Executing FQL Queries
-        file: documentation/executing-fql-queries.md
-        href: executing-fql-queries
-      -
-        title: Executing Multiple FQL Queries in One Call
-        menu_title: Executing Multiple FQL Queries
-        file: documentation/executing-multiple-fql-queries.md
-        href: executing-multiple-fql-queries
 -
   title: Using Webhooks
   file: documentation/using-webhooks.md

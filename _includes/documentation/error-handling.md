@@ -116,10 +116,9 @@ These are the `FacebookException` subclasses that you may catch:
 Here's some example code to illustrate the above.  Keep in mind that your code doesn't need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
 
 {% highlight java %}
-String query = "SELECT name FROM user WHERE uid=220439 or uid=7901103";
-
 try {
-  List<User> users = facebookClient.executeFqlQuery(query, User.class);
+  Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
+
 } catch (FacebookJsonMappingException e) {
   // Looks like this API method didn't really return a list of users
 } catch (FacebookNetworkException e) {

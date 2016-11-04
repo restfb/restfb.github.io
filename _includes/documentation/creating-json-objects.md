@@ -17,12 +17,6 @@ JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject
 String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
 out.println(firstPhotoUrl);
 
-// Here's how to handle an FQL query
-
-String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
-List<JsonObject> queryResults = facebookClient.executeFqlQuery(query, JsonObject.class);
-out.println(queryResults.get(0).getString("name"));
-
 // Sometimes it's helpful to use JsonMapper directly if you're working with JsonObjects.
 
 List<String> ids = new ArrayList<String>();
