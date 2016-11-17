@@ -108,7 +108,7 @@
 <span class="sourceLineNo">100</span>   *          Value of the Facebook response attribute {@code error.error_user_msg}.<a name="line.100"></a>
 <span class="sourceLineNo">101</span>   */<a name="line.101"></a>
 <span class="sourceLineNo">102</span>  public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,<a name="line.102"></a>
-<span class="sourceLineNo">103</span>                                Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {<a name="line.103"></a>
+<span class="sourceLineNo">103</span>      Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {<a name="line.103"></a>
 <span class="sourceLineNo">104</span>    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,<a name="line.104"></a>
 <span class="sourceLineNo">105</span>      errorCode, errorSubcode));<a name="line.105"></a>
 <span class="sourceLineNo">106</span>    this.errorType = errorType;<a name="line.106"></a>
@@ -187,7 +187,24 @@
 <span class="sourceLineNo">179</span>    return errorUserMessage;<a name="line.179"></a>
 <span class="sourceLineNo">180</span>  }<a name="line.180"></a>
 <span class="sourceLineNo">181</span><a name="line.181"></a>
-<span class="sourceLineNo">182</span>}<a name="line.182"></a>
+<span class="sourceLineNo">182</span>  /**<a name="line.182"></a>
+<span class="sourceLineNo">183</span>   * Gets the Facebook API error {@code fbtrace_id}.<a name="line.183"></a>
+<span class="sourceLineNo">184</span>   *<a name="line.184"></a>
+<span class="sourceLineNo">185</span>   * Internal support identifier. When reporting a bug related to a Graph API<a name="line.185"></a>
+<span class="sourceLineNo">186</span>   * call, include the fbtrace_id to help us find log data for debugging.<a name="line.186"></a>
+<span class="sourceLineNo">187</span>   *<a name="line.187"></a>
+<span class="sourceLineNo">188</span>   * @return the Facebook API error {@code fbtrace_id}<a name="line.188"></a>
+<span class="sourceLineNo">189</span>   */<a name="line.189"></a>
+<span class="sourceLineNo">190</span>  public String getFbtraceId() {<a name="line.190"></a>
+<span class="sourceLineNo">191</span>    if (getRawErrorJson() != null &amp;&amp; getRawErrorJson().optJsonObject("error") != null) {<a name="line.191"></a>
+<span class="sourceLineNo">192</span>      JsonObject errorJson = getRawErrorJson().optJsonObject("error");<a name="line.192"></a>
+<span class="sourceLineNo">193</span>      return errorJson.optString("fbtrace_id");<a name="line.193"></a>
+<span class="sourceLineNo">194</span>    }<a name="line.194"></a>
+<span class="sourceLineNo">195</span><a name="line.195"></a>
+<span class="sourceLineNo">196</span>    return "";<a name="line.196"></a>
+<span class="sourceLineNo">197</span>  }<a name="line.197"></a>
+<span class="sourceLineNo">198</span><a name="line.198"></a>
+<span class="sourceLineNo">199</span>}<a name="line.199"></a>
 
 
 
