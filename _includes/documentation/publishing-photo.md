@@ -20,7 +20,7 @@ The first example shows the `InputStream`. In addition to the binary content a m
 // Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
 
-FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
+GraphResponse publishPhotoResponse = facebookClient.publish("me/photos", GraphResponse.class,
   BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/cat.png")),
   Parameter.with("message", "Test cat"));
 
@@ -28,7 +28,7 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());
 
 // Publishing a video works the same way.
 
-facebookClient.publish("me/videos", FacebookType.class,
+facebookClient.publish("me/videos", GraphResponse.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
   Parameter.with("description", "Test cat"));
 {% endhighlight %}  

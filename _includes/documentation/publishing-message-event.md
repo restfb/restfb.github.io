@@ -2,10 +2,11 @@ See <a target="_blank" href="http://developers.facebook.com/docs/api#editing" cl
 
 {% highlight java %}
 // Publishing a simple message.
-// FacebookType represents any Facebook Graph Object that has an ID property.
+// GraphResponse represents any Facebook Graph response that has an ID property.
+// The GraphResponse type supports the optional post_id field
 
-FacebookType publishMessageResponse =
-  facebookClient.publish("me/feed", FacebookType.class,
+GraphResponse publishMessageResponse =
+  facebookClient.publish("me/feed", GraphResponse.class,
     Parameter.with("message", "RestFB test"));
 
 out.println("Published message ID: " + publishMessageResponse.getId());
@@ -15,7 +16,7 @@ out.println("Published message ID: " + publishMessageResponse.getId());
 Date tomorrow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 24L);
 Date twoDaysFromNow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 48L);
 
-FacebookType publishEventResponse = facebookClient.publish("me/events", FacebookType.class,
+GraphResponse publishEventResponse = facebookClient.publish("me/events", GraphResponse.class,
   Parameter.with("name", "Party"), Parameter.with("start_time", tomorrow),
     Parameter.with("end_time", twoDaysFromNow));
 
