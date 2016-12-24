@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package com.restfb.json;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import java.io.IOException;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import java.io.Writer;<a name="line.4"></a>
+<span class="sourceLineNo">005</span><a name="line.5"></a>
+<span class="sourceLineNo">006</span>public class UnicodeJsonWriter extends JsonWriter {<a name="line.6"></a>
+<span class="sourceLineNo">007</span><a name="line.7"></a>
+<span class="sourceLineNo">008</span>  private static final char[] QUOT_CHARS = { '\\', '"' };<a name="line.8"></a>
+<span class="sourceLineNo">009</span>  private static final char[] BS_CHARS = { '\\', '\\' };<a name="line.9"></a>
+<span class="sourceLineNo">010</span>  private static final char[] LF_CHARS = { '\\', 'n' };<a name="line.10"></a>
+<span class="sourceLineNo">011</span>  private static final char[] CR_CHARS = { '\\', 'r' };<a name="line.11"></a>
+<span class="sourceLineNo">012</span>  private static final char[] TAB_CHARS = { '\\', 't' };<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>  private static final char[] HEX_DIGITS =<a name="line.14"></a>
+<span class="sourceLineNo">015</span>      { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };<a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span>  UnicodeJsonWriter(Writer writer) {<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    super(writer);<a name="line.18"></a>
+<span class="sourceLineNo">019</span>  }<a name="line.19"></a>
+<span class="sourceLineNo">020</span><a name="line.20"></a>
+<span class="sourceLineNo">021</span>  @Override<a name="line.21"></a>
+<span class="sourceLineNo">022</span>  protected void writeJsonString(String string) throws IOException {<a name="line.22"></a>
+<span class="sourceLineNo">023</span>    int length = string.length();<a name="line.23"></a>
+<span class="sourceLineNo">024</span>    int start = 0;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>    for (int index = 0; index &lt; length; index++) {<a name="line.25"></a>
+<span class="sourceLineNo">026</span>      char[] replacement = getReplacementChars(string.charAt(index));<a name="line.26"></a>
+<span class="sourceLineNo">027</span>      if (replacement != null) {<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        writer.write(string, start, index - start);<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        writer.write(replacement);<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        start = index + 1;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>      }<a name="line.31"></a>
+<span class="sourceLineNo">032</span>    }<a name="line.32"></a>
+<span class="sourceLineNo">033</span>    writer.write(string, start, length - start);<a name="line.33"></a>
+<span class="sourceLineNo">034</span>  }<a name="line.34"></a>
+<span class="sourceLineNo">035</span><a name="line.35"></a>
+<span class="sourceLineNo">036</span>  private static char[] getReplacementChars(char ch) {<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>    if (ch == '\\') {<a name="line.38"></a>
+<span class="sourceLineNo">039</span>      return BS_CHARS;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    }<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    if (ch == '"') {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>      return QUOT_CHARS;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>    }<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    if (ch == '\n') {<a name="line.44"></a>
+<span class="sourceLineNo">045</span>      return LF_CHARS;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>    }<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    if (ch == '\r') {<a name="line.47"></a>
+<span class="sourceLineNo">048</span>      return CR_CHARS;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    }<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    if (ch == '\t') {<a name="line.50"></a>
+<span class="sourceLineNo">051</span>      return TAB_CHARS;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    }<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    if (ch &lt; 0x20 || ch &gt; 0x7f) {<a name="line.53"></a>
+<span class="sourceLineNo">054</span>      return new char[] { '\\', 'u', HEX_DIGITS[ch &gt;&gt; 12 &amp; 0x000f], HEX_DIGITS[ch &gt;&gt; 8 &amp; 0x000f],<a name="line.54"></a>
+<span class="sourceLineNo">055</span>          HEX_DIGITS[ch &gt;&gt; 4 &amp; 0x000f], HEX_DIGITS[ch &amp; 0x000f] };<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    } else {<a name="line.56"></a>
+<span class="sourceLineNo">057</span>      return null;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>    }<a name="line.58"></a>
+<span class="sourceLineNo">059</span>  }<a name="line.59"></a>
+<span class="sourceLineNo">060</span>}<a name="line.60"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

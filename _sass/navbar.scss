@@ -48,7 +48,8 @@
 	
 	}
 	
-	.navbar-nav>.active>a {
+	.navbar-nav>.active>a,
+	.navbar-nav>.open>a {
 	    border-radius: 0;
 	    color: #fff;
 	    background-color: $siteColorPrimary;
@@ -57,6 +58,15 @@
 		    color: #fff;
 		    background-color: $siteColorSecondary;
 		}
+	}
+		
+	.navbar-nav>li>.dropdown-menu {
+		background-color: #222;
+	}
+	
+	.dropdown-menu>li>a:focus, 
+	.dropdown-menu>li>a:hover {
+		background-color: #222;
 	}
 }
 
@@ -76,7 +86,8 @@
 	        transition: all .3s;
 		}
 		
-		.navbar-nav>.active>a {
+		.navbar-nav>.active>a,
+		.navbar-nav>.open>a {
 	        border-radius: 3px;
 	    }
 		
