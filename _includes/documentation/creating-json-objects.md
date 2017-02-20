@@ -5,13 +5,13 @@ so the `@Facebook` annotation can't be used.
 Or maybe you'd like full control over the data that gets returned.
 Either way, RestFB has you covered. Just map any API call to `JsonObject`.
 
-`JsonObject` is the lowest possible object type. You have full control over the 
-object, but you don't have the convenient transformation at hand. So date fields 
+`JsonObject` is the lowest-level object type. You have full control over the 
+object, but you don't have convenient type mapping support available. For example, date fields 
 are just `Strings` and you have to map them manually to a `Date` object. The version
-indepence regarding the Graph API is gone, too. You should only work 
-with the `JsonObject` if you now what you are doing.
+independence regarding the Graph API is gone, too. You should only work 
+with the `JsonObject` if you know what you are doing.
 
-Fetching a single object is almost the same as with a given RestFB type. You simply
+Fetching a single object is almost the same as with a standard RestFB type. You simply
 choose the JsonObject as returned type and you are ready to go. Afterwards you can 
 use the `JsonObject` API. 
 
@@ -23,10 +23,10 @@ use the `JsonObject` API.
 		provided by [json.org](https://github.com/stleary/JSON-java). Our `JsonObject` 
 		API is therefore the same as in that library. 
 	</p>
-	<p markdown="1">With RestFB 2.x the internal used `JsonObject` implementation changed and is based on the
-		[minimal-json](https://github.com/ralfstx/minimal-json) library. In our benchmarks this implementation
-		is much faster. During migration from RestFB 1.x to 2.x you have to take care of the API change if you
-		are using this low-level `JsonObject` in your project.
+	<p markdown="1">With RestFB 2.x the internally-used `JsonObject` implementation changed and is based on the
+		[minimal-json](https://github.com/ralfstx/minimal-json) library. In our benchmarks, this implementation
+		is much faster. When migrating from RestFB 1.x to 2.x, you must modify your code to support this API
+		change if you are using the low-level `JsonObject` in your project.
 	</p>
 </div>
 
@@ -36,8 +36,8 @@ JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
 out.println(btaylor.getString("name"));
 {% endhighlight %}
 
-Because in some cases you like to use a `JsonObject` in a connection you have two
-possible ways you can go. First you simply use the `JsonObject` as returned type, but work
+If you'd like to use a `JsonObject` in a Connection, there are two ways you can go.
+The first was is to simply use the `JsonObject` as the returned type and work
 with `fetchConnection` as described in the [Fetching Object List](#fetching-connections) section.
 
 {% highlight java %}
@@ -46,14 +46,14 @@ JsonObject photosConnection = facebookClient.fetchConnection("me/photos", JsonOb
 for (List<JsonObject> objectList: photosConnection) {
    for (JsonObject photo: objectList) {
        String photoUrl = photo.getString("source");
-       System.out.println(photoUrl);
+       out.println(photoUrl);
    }
 }
 {% endhighlight %}
 
 The second way is even more low-level and you work only with the JSON returned by Facebook. You
-should have a good knowledge of the returned JSON to access the fields. In this example you can see how
-this can be realized:
+should have a good knowledge of the returned JSON to access the fields. In the below example you can see how
+to accomplish this:
 
 {% highlight java %}
 JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
@@ -62,8 +62,8 @@ String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).ge
 out.println(firstPhotoUrl);
 {% endhighlight %}
 
-Using the low level `JsonObject` is sometimes okay, but perhaps you like to map the object 
-or special fields to RestFB types. Here you can use our `JsonMapper` and access it manually.
+Using the low-level `JsonObject` is sometimes OK, but perhaps you'd like to map the object 
+or special fields to RestFB types. You can manually invoke the built-in `JsonMapper` to do this.
 
 {% highlight java %}
 List<String> ids = new ArrayList<String>();
