@@ -15,7 +15,7 @@ Now you can step through the `WebhookObject` and fetch the necessary information
 The `value`-field of the `Change` object is very interesting. Here we added a new solution and made use of the `@JsonMappingCompleted` annotation in combination with a `ChangeValueFactory`.
 
 
-Beacuse the difference between the `WebhookObjects` you receive from Facebook lies in the change value, we implemented a factory so you can work with the correct entity and don't need to implement some logic. Because some change values contain a `postId`, some a photo URL and other specific differences. These are provided by a group of classes whose names end with `Value`.
+Because the difference between the `WebhookObjects` you receive from Facebook lies in the change value, we implemented a factory so you can work with the correct entity and don't need to implement some logic. Because some change values contain a `postId`, some a photo URL and other specific differences. These are provided by a group of classes whose names end with `Value`.
 
 <div class="rfb-callout warning">
 	<h4>
