@@ -28,3 +28,10 @@ function updateTabs(type)
         }
     }
 }
+
+window.smartlook||(function(d) {
+     var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+     var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+     c.charset='utf-8';c.src='//rec.smartlook.com/recorder.js';h.appendChild(c);
+})(document);
+smartlook('init', '14bb3076d390a23b1094997d91ed19bfa3a31b85');
