@@ -99,6 +99,10 @@
         file: documentation/messenger-typing.md
         href: messenger-typing
       -
+        title: Setting a persistent menu
+        file: documentation/messenger-menu.md
+        href: messenger-persistentmenu
+      -
         title: Limitations
         file: documentation/messenger-limitations.md
         href: messenger-limitations
