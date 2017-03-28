@@ -7,7 +7,7 @@
 <body>
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright (c) 2010-2016 Mark Allen, Norbert Bartels.<a name="line.2"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2010-2017 Mark Allen, Norbert Bartels.<a name="line.2"></a>
 <span class="sourceLineNo">003</span> *<a name="line.3"></a>
 <span class="sourceLineNo">004</span> * Permission is hereby granted, free of charge, to any person obtaining a copy<a name="line.4"></a>
 <span class="sourceLineNo">005</span> * of this software and associated documentation files (the "Software"), to deal<a name="line.5"></a>
@@ -39,7 +39,7 @@
 <span class="sourceLineNo">031</span> * &lt;p&gt;<a name="line.31"></a>
 <span class="sourceLineNo">032</span> * Provides methods to convert graph api errors and batch errors.<a name="line.32"></a>
 <span class="sourceLineNo">033</span> */<a name="line.33"></a>
-<span class="sourceLineNo">034</span>public interface FacebookExceptionGenerator extends LegacyFacebookExceptionGenerator {<a name="line.34"></a>
+<span class="sourceLineNo">034</span>public interface FacebookExceptionGenerator {<a name="line.34"></a>
 <span class="sourceLineNo">035</span><a name="line.35"></a>
 <span class="sourceLineNo">036</span>  /**<a name="line.36"></a>
 <span class="sourceLineNo">037</span>   * API error response 'error' attribute name.<a name="line.37"></a>
@@ -71,64 +71,66 @@
 <span class="sourceLineNo">063</span>   */<a name="line.63"></a>
 <span class="sourceLineNo">064</span>  String ERROR_CODE_ATTRIBUTE_NAME = "code";<a name="line.64"></a>
 <span class="sourceLineNo">065</span><a name="line.65"></a>
-<span class="sourceLineNo">066</span>  /**<a name="line.66"></a>
-<span class="sourceLineNo">067</span>   * API error response 'error_subcode' attribute name.<a name="line.67"></a>
-<span class="sourceLineNo">068</span>   */<a name="line.68"></a>
-<span class="sourceLineNo">069</span>  String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";<a name="line.69"></a>
-<span class="sourceLineNo">070</span><a name="line.70"></a>
-<span class="sourceLineNo">071</span>  /**<a name="line.71"></a>
-<span class="sourceLineNo">072</span>   * Batch API error response 'error' attribute name.<a name="line.72"></a>
-<span class="sourceLineNo">073</span>   */<a name="line.73"></a>
-<span class="sourceLineNo">074</span>  String BATCH_ERROR_ATTRIBUTE_NAME = "error";<a name="line.74"></a>
-<span class="sourceLineNo">075</span><a name="line.75"></a>
-<span class="sourceLineNo">076</span>  /**<a name="line.76"></a>
-<span class="sourceLineNo">077</span>   * Batch API error response 'error_description' attribute name.<a name="line.77"></a>
-<span class="sourceLineNo">078</span>   */<a name="line.78"></a>
-<span class="sourceLineNo">079</span>  String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";<a name="line.79"></a>
-<span class="sourceLineNo">080</span><a name="line.80"></a>
-<span class="sourceLineNo">081</span>  /**<a name="line.81"></a>
-<span class="sourceLineNo">082</span>   * Throws an exception if Facebook returned an error response. Using the Graph API, it's possible to see both the new<a name="line.82"></a>
-<span class="sourceLineNo">083</span>   * Graph API-style errors as well as Legacy API-style errors, so we have to handle both here. This method extracts<a name="line.83"></a>
-<span class="sourceLineNo">084</span>   * relevant information from the error JSON and throws an exception which encapsulates it for end-user consumption.<a name="line.84"></a>
-<span class="sourceLineNo">085</span>   * &lt;p&gt;<a name="line.85"></a>
-<span class="sourceLineNo">086</span>   * For Graph API errors:<a name="line.86"></a>
+<span class="sourceLineNo">066</span>  String ERROR_IS_TRANSIENT_NAME = "is_transient";<a name="line.66"></a>
+<span class="sourceLineNo">067</span><a name="line.67"></a>
+<span class="sourceLineNo">068</span>  /**<a name="line.68"></a>
+<span class="sourceLineNo">069</span>   * API error response 'error_subcode' attribute name.<a name="line.69"></a>
+<span class="sourceLineNo">070</span>   */<a name="line.70"></a>
+<span class="sourceLineNo">071</span>  String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";<a name="line.71"></a>
+<span class="sourceLineNo">072</span><a name="line.72"></a>
+<span class="sourceLineNo">073</span>  /**<a name="line.73"></a>
+<span class="sourceLineNo">074</span>   * Batch API error response 'error' attribute name.<a name="line.74"></a>
+<span class="sourceLineNo">075</span>   */<a name="line.75"></a>
+<span class="sourceLineNo">076</span>  String BATCH_ERROR_ATTRIBUTE_NAME = "error";<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>  /**<a name="line.78"></a>
+<span class="sourceLineNo">079</span>   * Batch API error response 'error_description' attribute name.<a name="line.79"></a>
+<span class="sourceLineNo">080</span>   */<a name="line.80"></a>
+<span class="sourceLineNo">081</span>  String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";<a name="line.81"></a>
+<span class="sourceLineNo">082</span><a name="line.82"></a>
+<span class="sourceLineNo">083</span>  /**<a name="line.83"></a>
+<span class="sourceLineNo">084</span>   * Throws an exception if Facebook returned an error response. Using the Graph API, it's possible to see both the new<a name="line.84"></a>
+<span class="sourceLineNo">085</span>   * Graph API-style errors as well as Legacy API-style errors, so we have to handle both here. This method extracts<a name="line.85"></a>
+<span class="sourceLineNo">086</span>   * relevant information from the error JSON and throws an exception which encapsulates it for end-user consumption.<a name="line.86"></a>
 <span class="sourceLineNo">087</span>   * &lt;p&gt;<a name="line.87"></a>
-<span class="sourceLineNo">088</span>   * If the {@code error} JSON field is present, we've got a response status error for this API call.<a name="line.88"></a>
+<span class="sourceLineNo">088</span>   * For Graph API errors:<a name="line.88"></a>
 <span class="sourceLineNo">089</span>   * &lt;p&gt;<a name="line.89"></a>
-<span class="sourceLineNo">090</span>   * For Legacy errors (e.g. FQL):<a name="line.90"></a>
+<span class="sourceLineNo">090</span>   * If the {@code error} JSON field is present, we've got a response status error for this API call.<a name="line.90"></a>
 <span class="sourceLineNo">091</span>   * &lt;p&gt;<a name="line.91"></a>
-<span class="sourceLineNo">092</span>   * If the {@code error_code} JSON field is present, we've got a response status error for this API call.<a name="line.92"></a>
-<span class="sourceLineNo">093</span>   *<a name="line.93"></a>
-<span class="sourceLineNo">094</span>   * @param json<a name="line.94"></a>
-<span class="sourceLineNo">095</span>   *          The JSON returned by Facebook in response to an API call.<a name="line.95"></a>
-<span class="sourceLineNo">096</span>   * @param httpStatusCode<a name="line.96"></a>
-<span class="sourceLineNo">097</span>   *          The HTTP status code returned by the server, e.g. 500.<a name="line.97"></a>
-<span class="sourceLineNo">098</span>   * @throws FacebookGraphException<a name="line.98"></a>
-<span class="sourceLineNo">099</span>   *           If the JSON contains a Graph API error response.<a name="line.99"></a>
-<span class="sourceLineNo">100</span>   * @throws FacebookResponseStatusException<a name="line.100"></a>
-<span class="sourceLineNo">101</span>   *           If the JSON contains an Legacy API error response.<a name="line.101"></a>
-<span class="sourceLineNo">102</span>   * @throws FacebookJsonMappingException<a name="line.102"></a>
-<span class="sourceLineNo">103</span>   *           If an error occurs while processing the JSON.<a name="line.103"></a>
-<span class="sourceLineNo">104</span>   */<a name="line.104"></a>
-<span class="sourceLineNo">105</span>  void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode);<a name="line.105"></a>
-<span class="sourceLineNo">106</span><a name="line.106"></a>
-<span class="sourceLineNo">107</span>  /**<a name="line.107"></a>
-<span class="sourceLineNo">108</span>   * If the {@code error} and {@code error_description} JSON fields are present, we've got a response status error for<a name="line.108"></a>
-<span class="sourceLineNo">109</span>   * this batch API call. Extracts relevant information from the JSON and throws an exception which encapsulates it for<a name="line.109"></a>
-<span class="sourceLineNo">110</span>   * end-user consumption.<a name="line.110"></a>
-<span class="sourceLineNo">111</span>   *<a name="line.111"></a>
-<span class="sourceLineNo">112</span>   * @param json<a name="line.112"></a>
-<span class="sourceLineNo">113</span>   *          The JSON returned by Facebook in response to a batch API call.<a name="line.113"></a>
-<span class="sourceLineNo">114</span>   * @param httpStatusCode<a name="line.114"></a>
-<span class="sourceLineNo">115</span>   *          The HTTP status code returned by the server, e.g. 500.<a name="line.115"></a>
-<span class="sourceLineNo">116</span>   * @throws FacebookResponseStatusException<a name="line.116"></a>
-<span class="sourceLineNo">117</span>   *           If the JSON contains an error code.<a name="line.117"></a>
-<span class="sourceLineNo">118</span>   * @throws FacebookJsonMappingException<a name="line.118"></a>
-<span class="sourceLineNo">119</span>   *           If an error occurs while processing the JSON.<a name="line.119"></a>
-<span class="sourceLineNo">120</span>   * @since 1.6.5<a name="line.120"></a>
-<span class="sourceLineNo">121</span>   */<a name="line.121"></a>
-<span class="sourceLineNo">122</span>  void throwBatchFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode);<a name="line.122"></a>
-<span class="sourceLineNo">123</span>}<a name="line.123"></a>
+<span class="sourceLineNo">092</span>   * For Legacy errors (e.g. FQL):<a name="line.92"></a>
+<span class="sourceLineNo">093</span>   * &lt;p&gt;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>   * If the {@code error_code} JSON field is present, we've got a response status error for this API call.<a name="line.94"></a>
+<span class="sourceLineNo">095</span>   *<a name="line.95"></a>
+<span class="sourceLineNo">096</span>   * @param json<a name="line.96"></a>
+<span class="sourceLineNo">097</span>   *          The JSON returned by Facebook in response to an API call.<a name="line.97"></a>
+<span class="sourceLineNo">098</span>   * @param httpStatusCode<a name="line.98"></a>
+<span class="sourceLineNo">099</span>   *          The HTTP status code returned by the server, e.g. 500.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>   * @throws FacebookGraphException<a name="line.100"></a>
+<span class="sourceLineNo">101</span>   *           If the JSON contains a Graph API error response.<a name="line.101"></a>
+<span class="sourceLineNo">102</span>   * @throws FacebookResponseStatusException<a name="line.102"></a>
+<span class="sourceLineNo">103</span>   *           If the JSON contains an Legacy API error response.<a name="line.103"></a>
+<span class="sourceLineNo">104</span>   * @throws FacebookJsonMappingException<a name="line.104"></a>
+<span class="sourceLineNo">105</span>   *           If an error occurs while processing the JSON.<a name="line.105"></a>
+<span class="sourceLineNo">106</span>   */<a name="line.106"></a>
+<span class="sourceLineNo">107</span>  void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode);<a name="line.107"></a>
+<span class="sourceLineNo">108</span><a name="line.108"></a>
+<span class="sourceLineNo">109</span>  /**<a name="line.109"></a>
+<span class="sourceLineNo">110</span>   * If the {@code error} and {@code error_description} JSON fields are present, we've got a response status error for<a name="line.110"></a>
+<span class="sourceLineNo">111</span>   * this batch API call. Extracts relevant information from the JSON and throws an exception which encapsulates it for<a name="line.111"></a>
+<span class="sourceLineNo">112</span>   * end-user consumption.<a name="line.112"></a>
+<span class="sourceLineNo">113</span>   *<a name="line.113"></a>
+<span class="sourceLineNo">114</span>   * @param json<a name="line.114"></a>
+<span class="sourceLineNo">115</span>   *          The JSON returned by Facebook in response to a batch API call.<a name="line.115"></a>
+<span class="sourceLineNo">116</span>   * @param httpStatusCode<a name="line.116"></a>
+<span class="sourceLineNo">117</span>   *          The HTTP status code returned by the server, e.g. 500.<a name="line.117"></a>
+<span class="sourceLineNo">118</span>   * @throws FacebookResponseStatusException<a name="line.118"></a>
+<span class="sourceLineNo">119</span>   *           If the JSON contains an error code.<a name="line.119"></a>
+<span class="sourceLineNo">120</span>   * @throws FacebookJsonMappingException<a name="line.120"></a>
+<span class="sourceLineNo">121</span>   *           If an error occurs while processing the JSON.<a name="line.121"></a>
+<span class="sourceLineNo">122</span>   * @since 1.6.5<a name="line.122"></a>
+<span class="sourceLineNo">123</span>   */<a name="line.123"></a>
+<span class="sourceLineNo">124</span>  void throwBatchFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode);<a name="line.124"></a>
+<span class="sourceLineNo">125</span>}<a name="line.125"></a>
 
 
 
