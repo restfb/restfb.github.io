@@ -750,7 +750,7 @@
 <span class="sourceLineNo">742</span>    }<a name="line.742"></a>
 <span class="sourceLineNo">743</span><a name="line.743"></a>
 <span class="sourceLineNo">744</span>    if (accessToken == null) {<a name="line.744"></a>
-<span class="sourceLineNo">745</span>      new IllegalStateException("access token is required to fetch a device access token");<a name="line.745"></a>
+<span class="sourceLineNo">745</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.745"></a>
 <span class="sourceLineNo">746</span>    }<a name="line.746"></a>
 <span class="sourceLineNo">747</span><a name="line.747"></a>
 <span class="sourceLineNo">748</span>    String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),<a name="line.748"></a>
@@ -790,7 +790,7 @@
 <span class="sourceLineNo">782</span>    }<a name="line.782"></a>
 <span class="sourceLineNo">783</span><a name="line.783"></a>
 <span class="sourceLineNo">784</span>    if (accessToken == null) {<a name="line.784"></a>
-<span class="sourceLineNo">785</span>      new IllegalStateException("access token is required to fetch a device access token");<a name="line.785"></a>
+<span class="sourceLineNo">785</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.785"></a>
 <span class="sourceLineNo">786</span>    }<a name="line.786"></a>
 <span class="sourceLineNo">787</span><a name="line.787"></a>
 <span class="sourceLineNo">788</span>    try {<a name="line.788"></a>
