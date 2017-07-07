@@ -1,6 +1,28 @@
 <!-- Navigation -->
 {% if page.header == "landing" %}
 <nav class="navbar navbar-default navbar-fixed-top">
+	<div data-spy="affix" id="dot-nav">
+	    	<ul>
+                <li class="awesome-tooltip" title="Features">
+                    <a href="#features"></a>
+                </li>
+                <li class="awesome-tooltip" title="Download">
+                    <a href="#download"></a>
+                </li>
+                <li class="awesome-tooltip" title="Contribute">
+                    <a href="#contribute"></a>
+                </li>
+				<li class="awesome-tooltip" title="Team">
+                    <a href="#team"></a>
+                </li>
+                <li class="awesome-tooltip" title="About">
+                    <a href="#about"></a>
+                </li>
+                <li class="awesome-tooltip" title="License">
+                    <a href="#license"></a>
+                </li>
+		    </ul>
+		</div>
 {% else %}
 <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
 {% endif %}
@@ -24,24 +46,6 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li class="hidden">
                             <a href="#page-top"></a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#features">Features</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#download">Download</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#contribute">Contribute</a>
-                        </li>
-						<li>
-                            <a class="page-scroll" href="#team">Team</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#about">About</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#license">License</a>
                         </li>
                     </ul>
                 </div>

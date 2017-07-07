@@ -10,6 +10,7 @@ $siteColorSecondaryDark: #{{ site.color.secondary-dark }};
 @import "bootstrap.min";
 @import "navbar";
 @import "restfb";
+@import "dotNavBar";
 @import "sidebar";
 @import "brand";
 @import "callout";

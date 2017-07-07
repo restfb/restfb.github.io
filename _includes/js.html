@@ -1,16 +1,24 @@
 {% if site.usecdn %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<![endif]-->
+<!--[if !(IE)|(gte IE 9)]><!-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!--<![endif]-->	
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"></script>
 
 {% else %}
 
-<!-- jQuery Version 1.11.0 -->
-<script src="{{ "/js/jquery-1.12.1.min.js" | prepend: site.baseurl }}"></script>
-
-
+<!--[if lt IE 9]>
+    <script src="{{ "/js/jquery-1.12.1.min.js" | prepend: site.baseurl }}"></script>
+<![endif]-->
+<!--[if !(IE)|(gte IE 9)]><!-->
+    <script src="{{ "/js/jquery-3.1.0.min.js" | prepend: site.baseurl }}"></script>
+<!--<![endif]-->
+	
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ "/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
 
@@ -20,7 +28,6 @@
 
 {% endif %}
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
     
 {% if page.header == "landing" %}
@@ -34,6 +41,7 @@
 	
     <!-- Custom Theme JavaScript -->
     <script src="{{ "/js/restfb.min.js" | prepend: site.baseurl }}"></script>
+	<script src="{{ "/js/dotNav.min.js" | prepend: site.baseurl }}"></script>
 {% else %}
     <script src="{{ "/js/restfb-docs.min.js" | prepend: site.baseurl }}"></script>
 {% endif %}
