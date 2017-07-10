@@ -1,0 +1,11 @@
+img.myGray {
+   -webkit-filter: grayscale(100%) opacity(40%);
+   -moz-filter: grayscale(100%) opacity(40%);
+   filter: grayscale(100%) opacity(40%);
+   transition: all 0.5s ease;
+   &:hover {
+	   -webkit-filter: grayscale(0%) opacity(100%);
+	   -moz-filter: grayscale(0%) opacity(100%);
+	   filter: grayscale(0%) opacity(100%);
+   }
+ }
