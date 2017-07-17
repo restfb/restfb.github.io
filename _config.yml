@@ -77,12 +77,15 @@ clients:
    - name: Lithium
      url: http://www.lithium.com/
      pic: img/clients/lithium.min.png
-   - name: Dwinq
-     url: http://dwinq.com/
-     pic: img/clients/dwinq.min.png
+   - name: ITyX Solutions AG
+     url: https://www.ityxsolutions.com/
+     pic: img/clients/ityx.min.png   
    - name: IBM
      url: http://www.ibm.com/
      pic: img/clients/ibm.min.png
+   - name: Dwinq
+     url: http://dwinq.com/
+     pic: img/clients/dwinq.min.png
    - name: Sematell GmbH
      url: http://www.sematell.com/
      pic: img/clients/sematell.min.png	 
