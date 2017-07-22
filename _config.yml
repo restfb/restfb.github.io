@@ -79,10 +79,10 @@ clients:
      pic: img/clients/lithium.min.png
    - name: ITyX Solutions AG
      url: https://www.ityxsolutions.com/
-     pic: img/clients/ityx.min.png   
-   - name: IBM
-     url: http://www.ibm.com/
-     pic: img/clients/ibm.min.png
+     pic: img/clients/ityx.min.png
+   - name: Nitro AI
+     url: http://nitro.ai
+     pic: img/clients/nitro-ai.min.png
    - name: Dwinq
      url: http://dwinq.com/
      pic: img/clients/dwinq.min.png
@@ -101,6 +101,9 @@ clients:
    - name: Tynamo
      url: http://www.tynamo.org/
      pic: img/clients/tynamo.min.png
+   - name: IBM
+     url: http://www.ibm.com/
+     pic: img/clients/ibm.min.png
 
 gems:
   - jekyll-sitemap
