@@ -104,6 +104,9 @@ clients:
    - name: IBM
      url: http://www.ibm.com/
      pic: img/clients/ibm.min.png
+   - name: nukesuite
+     url: https://www.nukesuite.com/
+     pic: img/clients/nukesuite.min.png
 
 gems:
   - jekyll-sitemap
