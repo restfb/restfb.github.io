@@ -88,7 +88,10 @@ clients:
      pic: img/clients/dwinq.min.png
    - name: Sematell GmbH
      url: http://www.sematell.com/
-     pic: img/clients/sematell.min.png	 
+     pic: img/clients/sematell.min.png	
+   - name: Perka, Inc.
+     url: https://perka.com/
+     pic: img/clients/perka.min.png	 
    - name: The Socialstation
      url: http://thesocialstation.com/
      pic: img/clients/thesocialstation.color.jpg
