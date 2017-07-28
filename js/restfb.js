@@ -60,23 +60,8 @@ $(document).ready(function () {
 	    $("#downloadURL").attr("href", zipURL);
 	}
     });
-	
-	$(".owl-carousel").each(function () {
-	        // Remove all divs within, store in $d
-	        var $d = $(this).find("a").remove();
-	        // Sort $d randomnly
-	        $d = shuffle($d);
-	        // Append divs within $d to .shuffledv again
-	        $d.appendTo(this);
-	    });
-	
-	$(".owl-carousel").owlCarousel({
-		loop:true,
-		items:8,
-		merge:true,
-		autoplay:true,
-		autoplayHoverPause:true,
-		margin:10,
-		autoplayTimeout:3000
+	$('#scrollbox').scrollbox({
+		direction: 'h',
+		switchItems: 1
 	});
 });
