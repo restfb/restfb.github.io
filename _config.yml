@@ -97,7 +97,10 @@ clients:
      pic: img/clients/thesocialstation.color.jpg
    - name: Sparkcentral
      url: https://www.sparkcentral.com/
-     pic: img/clients/sparkcentral.min.png 
+     pic: img/clients/sparkcentral.min.png
+   - name: Falcon.io
+     url: https://www.falcon.io/
+     pic: img/clients/falconio.min.png 
    - name: Friend2Friend
      url: http://www.friend2friend.com/
      pic: img/clients/friend2friend.min.png
