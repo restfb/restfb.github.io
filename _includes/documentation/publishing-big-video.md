@@ -14,6 +14,7 @@ The first phase is the Start phase. Instead of uploading the file itself, you te
 {% highlight java %}
 File videoFile = new File(uploadableFile.getFile());
 long filesizeInBytes = videoFile.length();
+FileInputStream in = new FileInputStream(videoFile);
 // We need the file size in bytes to make the start request
 FacebookClient fbc = new DefaultFacebookClient(accessToken, Version.LATEST);
 ResumableUploadStartResponse returnValue = fbc.publish("PAGE_ID/videos",
