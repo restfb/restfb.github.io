@@ -19,6 +19,24 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
+function shuffle(array) {
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
+
 // fetch download information from github api
 $(document).ready(function () {
     var url = "https://api.github.com/repos/restfb/restfb/releases";
@@ -42,6 +60,16 @@ $(document).ready(function () {
 	    $("#downloadURL").attr("href", zipURL);
 	}
     });
+	
+	$(".owl-carousel").each(function () {
+	        // Remove all divs within, store in $d
+	        var $d = $(this).find("a").remove();
+	        // Sort $d randomnly
+	        $d = shuffle($d);
+	        // Append divs within $d to .shuffledv again
+	        $d.appendTo(this);
+	    });
+	
 	$(".owl-carousel").owlCarousel({
 		loop:true,
 		items:8,
