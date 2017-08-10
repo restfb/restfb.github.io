@@ -42,3 +42,20 @@ DefaultFacebookClient client =
 JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
 	BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
 {% endhighlight %}
+
+<div class="rfb-callout info">
+	<h4>Publishing a binary object with a special field name</h4>
+	<div>Normally you don't need to define a special form field name, because RestFB handles everything for you. But sometimes it is necessary to provide a special form field. Sending binary data is realized via multi-part form data. 
+	</div>
+</div>
+
+Sometimes Facebook requires the form field name to have a special value on sending a binary object and so RestFB provides a mechanism to do so. You can simply use the `BinaryAttachment` object. An example for the required field name is [adding a caption file to a video](https://developers.facebook.com/docs/graph-api/reference/video/captions/). So we show this example in the following source code. In that special case the file name is important to, because is needs to contain the locale of caption file. 
+
+{% highlight java %}
+byte[] imageAsBytes = fetchBytesFromImage();
+GraphResponse obj = client.publish("<video-id>/captions", GraphResponse.class,
+BinaryAttachment.with("captions_file", "test.en_US.srt", imageAsBytes), 
+     Parameter.with("default_locale","en_US"));
+{% endhighlight %}
+
+The caption file must contain the locale it represents and have to be in the srt format. In the example above we set a caption for the `en_US` locale and define this as default locale.

@@ -142,8 +142,8 @@
         file: documentation/publishing-message-event.md
         href: publishing-message-event
       -
-        title: Publishing a Binary Photo/Video
-        menu_title: a Binary Photo/Video
+        title: Publishing a binary object
+        menu_title: a binary object
         file: documentation/publishing-photo.md
         href: publishing-photo
       -
