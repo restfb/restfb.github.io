@@ -16,5 +16,6 @@ com.restfb.types.webhook
 com.restfb.types.webhook.base
 com.restfb.types.webhook.messaging
 com.restfb.types.webhook.messaging.airline
+com.restfb.types.webhook.messaging.nlp
 com.restfb.types.webhook.messaging.payment
 com.restfb.util
