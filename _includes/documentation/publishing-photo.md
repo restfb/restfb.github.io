@@ -1,20 +1,20 @@
 See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/" class="label label-primary">Graph API documentation</a>
 
-Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to Facebook. The old and deprecated way is with an `InputStream` and the new way with a `ByteArray`. Although the InputStream method is deprecated you may use it and we don't intend to remove it in the near future.
+Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to Facebook. The old and deprecated way is with an `InputStream` and the new way with a `ByteArray`. Although the InputStream method is deprecated, you may use it and we don't intend to remove it in the near future.
 
-You may use some endpoints to publish a photo and it depends on your usecase which one you have to use. It is important to use the correct access token, because some endpoints have specific permission requirements.
+You may use several endpoints to publish a photo and it depends on your usecase which one you have to use. It is important to use the correct access token, because some endpoints have specific permission requirements.
 
 
 <div class="rfb-callout warning">
 	<h4>Note regarding publishing multiple photos at once</h4>
-	<div>Publishing multiple photos simple does NOT work. Directly from the Facebook Graph
+	<div>Publishing multiple photos simply does NOT work. Directly from the Facebook Graph
 		API documentation:
 		<p>&quot;<em>There is no way to publish more then one photo in the same graph API call.</em>&quot;</p>
-						(see <a href="https://developers.facebook.com/docs/graph-api/reference/user/photos/" target="_blank">here</a> at <em>creating</em> section)
+						(see <a href="https://developers.facebook.com/docs/graph-api/reference/user/photos/" target="_blank">here</a> in the <em>creating</em> section)
 	</div>
 </div>
 
-The first example shows the `InputStream`. In addition to the binary content a message is added in the first case and a description in the second one.
+The first example shows the `InputStream` method. In addition to the binary content, a message is added in the first case and a description in the second one.
 
 {% highlight java %}
 // Publishing an image to a photo album is easy!
@@ -45,11 +45,11 @@ JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObj
 
 <div class="rfb-callout info">
 	<h4>Publishing a binary object with a special field name</h4>
-	<div>Normally you don't need to define a special form field name, because RestFB handles everything for you. But sometimes it is necessary to provide a special form field. Sending binary data is realized via multi-part form data. 
+	<div>Normally you don't need to define a special form field name, because RestFB handles everything for you. But sometimes it is necessary to provide a special form field. Sending binary data is handled via multi-part form data. 
 	</div>
 </div>
 
-Sometimes Facebook requires the form field name to have a special value on sending a binary object and so RestFB provides a mechanism to do so. You can simply use the `BinaryAttachment` object. An example for the required field name is [adding a caption file to a video](https://developers.facebook.com/docs/graph-api/reference/video/captions/). So we show this example in the following source code. In that special case the file name is important to, because is needs to contain the locale of caption file. 
+Sometimes Facebook requires the form field name to have a special value when sending a binary object, so RestFB provides a mechanism to do this. You can simply use the `BinaryAttachment` object. An example for the required field name is [adding a caption file to a video](https://developers.facebook.com/docs/graph-api/reference/video/captions/). This example is shown in the following code snippet. In that special case, the filename is important too, because it needs to contain the locale of caption file. 
 
 {% highlight java %}
 byte[] imageAsBytes = fetchBytesFromImage();
@@ -58,4 +58,4 @@ BinaryAttachment.with("captions_file", "test.en_US.srt", imageAsBytes),
      Parameter.with("default_locale","en_US"));
 {% endhighlight %}
 
-The caption file must contain the locale it represents and have to be in the srt format. In the example above we set a caption for the `en_US` locale and define this as default locale.
+The caption file must contain the locale it represents and must be in srt format. In the example above, we set a caption for the `en_US` locale and define this as the default locale.
