@@ -231,11 +231,6 @@
   file: documentation/supported-graph-object-types.md
   href: supported-graph-object-types
 -
-  title: Supported Marketing Types
-  menu_title: Marketing Types
-  file: documentation/supported-marketing-types.md
-  href: supported-marketing-types
--
   title: JSON Mapping Rules
   file: documentation/json-mapping-rules.md
   href: json-mapping-rules
