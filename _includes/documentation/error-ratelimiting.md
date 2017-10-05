@@ -15,18 +15,20 @@ by other users and the app limit is not triggered. The user has to wait before n
 The page limit is a bit different and more complicated. This limit is reached if a page access token is used to
 send too many requests to Facebook. But the page limit is directly connected to the page and not to the application.
 If any application that manages a page triggers the limit, all applications that use a page access token for this page
-are in trouble. That's the reason why Facebook allows the app owner to increase the limit for the page.
+are in trouble. In the past, Facebook has allowed that the app owner sends a increase request to enlarge the limit for the page. Now they are using some algorithm to detect a suitable limit.
 
 RestFB supports the limits and you can fetch the limit information from the `WebRequestor`. The `WebRequestor` provides
-a `DebugHeaderInfo` with rate limiting and some additional Debug information Facebook provides per call and
+a `DebugHeaderInfo` with rate limiting and some additional debug information Facebook provides per call and
 developers can handle this information and act in accordance with the given limits. 
 In general, the rate limits are not provided until you reach an 80% threshold. As soon as you are above this limit the
 request contains the rate limit and you can reduce your calls.
 
-The DebugHeaderInfo can be fetched after every client call like this:
+The `DebugHeaderInfo` can be fetched *after* every client call like this:
 
 {% highlight java %}
 DebugHeaderInfo headerInfos = client.getWebRequestor().getDebugHeaderInfo();
 System.out.println("App usage: " + headerInfos.getAppUsage());
 System.out.println("Page usage: " + headerInfos.getPageUsage());
 {% endhighlight %}
+
+The example above shows only a short sample and you can get more information. Very important for opening new bug reports on Facebook is the trace id. A complete explanation of the returned header fields can be found [here](https://developers.facebook.com/docs/graph-api/using-graph-api/).
