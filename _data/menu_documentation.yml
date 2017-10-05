@@ -128,10 +128,6 @@
         file: documentation/advanced-usage-total-count.md
         href: advanced-usage-total-count
 - 
-  title: Creating JSON Objects
-  file: documentation/creating-json-objects.md
-  href: creating-json-objects
-- 
   title: Publishing
   file: documentation/publishing.md
   href: publishing
@@ -230,10 +226,20 @@
   menu_title: Graph Object Types
   file: documentation/supported-graph-object-types.md
   href: supported-graph-object-types
--
-  title: JSON Mapping Rules
-  file: documentation/json-mapping-rules.md
-  href: json-mapping-rules
+- 
+  title: Working with JSON
+  file: documentation/json-working-with.md
+  href: json-working-with
+  subsection:
+      -
+        title: Mapping Rules
+        file: documentation/json-mapping-rules.md
+        href: json-mapping-rules
+      - 
+        title: Getting Any Kind of Data as a JSON Object
+        menu_title: Data as a JSON Object
+        file: documentation/creating-json-objects.md
+        href: creating-json-objects
 -
   title: Error Handling
   file: documentation/error-handling.md

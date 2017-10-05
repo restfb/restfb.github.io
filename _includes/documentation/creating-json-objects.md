@@ -1,5 +1,3 @@
-### Getting Any Kind of Data as a JSON Object
-
 Sometimes you can't know field names at compile time
 so the `@Facebook` annotation can't be used.
 Or maybe you'd like full control over the data that gets returned.
