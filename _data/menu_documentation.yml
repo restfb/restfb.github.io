@@ -103,6 +103,10 @@
         file: documentation/messenger-menu.md
         href: messenger-persistentmenu
       -
+        title: Pass/Take Thread Control
+        file: documentation/messenger-threadcontrol.md
+        href: messenger-threadcontrol
+      -
         title: Limitations
         file: documentation/messenger-limitations.md
         href: messenger-limitations
