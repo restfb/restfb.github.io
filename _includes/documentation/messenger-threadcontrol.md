@@ -25,3 +25,13 @@ GraphResponse result =
    Parameter.with("recipient", new IdMessageRecipient("<PSID>")),  // recipient
    Parameter.with("metadata", "String to pass to ...")); // metadata
 {% endhighlight %}
+
+### Fetch secondary receivers
+The primary receiver needs a list of secondary reveivers to pass the control to one of them. This list can easliy be obtained by calling the Graph API. An example call looks like:
+
+{% highlight java %}
+Connection<Application> appConnection = 
+	facebookClient.fetchConnection("/me/secondary_receivers", Application.class, Parameter.with("fields","id,name,link,daily_active_users"));
+{% endhighlight %}
+
+The `fields` parameter is optional and can be dropped. Then only `id` and `name` are provided by Facebook. If you need the applications to be prefilled with more values, you have to add the `fields` parameter like in the example above. 
