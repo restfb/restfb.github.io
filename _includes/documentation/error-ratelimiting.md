@@ -15,7 +15,7 @@ by other users and the app limit is not triggered. The user has to wait before n
 The page limit is a bit different and more complicated. This limit is reached if a page access token is used to
 send too many requests to Facebook. But the page limit is directly connected to the page and not to the application.
 If any application that manages a page triggers the limit, all applications that use a page access token for this page
-are in trouble. In the past, Facebook has allowed that the app owner sends a increase request to enlarge the limit for the page. Now they are using some algorithm to detect a suitable limit.
+are in trouble. In the past, Facebook has permitted the app owner to send an increase request to enlarge the limit for the page. Now they are using an opaque algorithm to detect a suitable limit.
 
 RestFB supports the limits and you can fetch the limit information from the `WebRequestor`. The `WebRequestor` provides
 a `DebugHeaderInfo` with rate limiting and some additional debug information Facebook provides per call and
