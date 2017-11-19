@@ -39,7 +39,7 @@ The first was is to simply use the `JsonObject` as the returned type and work
 with `fetchConnection` as described in the [Fetching Object List](#fetching-connections) section.
 
 {% highlight java %}
-JsonObject photosConnection = facebookClient.fetchConnection("me/photos", JsonObject.class);
+Connection<JsonObject> photosConnection = facebookClient.fetchConnection("me/photos", JsonObject.class);
 
 for (List<JsonObject> objectList: photosConnection) {
    for (JsonObject photo: objectList) {
@@ -54,9 +54,9 @@ should have a good knowledge of the returned JSON to access the fields. In the b
 to accomplish this:
 
 {% highlight java %}
-JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
+JsonObject photosResponse = facebookClient.fetchObject("me/photos", JsonObject.class);
 
-String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
+String firstPhotoUrl = photosResponse.getJsonArray("data").getJsonObject(0).getString("source");
 out.println(firstPhotoUrl);
 {% endhighlight %}
 
