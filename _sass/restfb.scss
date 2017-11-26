@@ -327,3 +327,22 @@ ul.social-buttons {
 #license pre {
 	background-color: white;
 }
+
+.container table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+	
+	th, td {
+	    padding: 6px 13px;
+	    border: 1px solid #dfe2e5;
+	}
+	
+	tr {
+	    background-color: #fff;
+	    border-top: 1px solid #c6cbd1;
+		&:nth-child(2n) {
+    		background-color: #f6f8fa;
+	   }
+	}
+}

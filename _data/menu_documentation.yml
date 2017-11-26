@@ -87,6 +87,10 @@
         file: documentation/messenger-generictemplate.md
         href: messenger-generictemplate
       -
+        title: Use the media template
+        file: documentation/messenger-mediatemplate.md
+        href: messenger-mediatemplate
+      -
         title: Sending a message
         file: documentation/messenger-sendapi.md
         href: messenger-sendapi
