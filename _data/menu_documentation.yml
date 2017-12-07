@@ -1,4 +1,8 @@
 - 
+  title: Migration from 1.x to 2.x
+  href: migration
+  file: documentation/migration.md
+- 
   title: Fetching
   href: fetching
   file: documentation/fetching.md
