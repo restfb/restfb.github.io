@@ -1,19 +1,19 @@
 See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/media" class="label label-primary">Messenger Platform API</a>
 
-With the messenger platform 2.2 the new media template type was introduced. This template allows the developer to send a message with animated content like video or animated gif. Additionally buttons are allowed as optional interaction elements. The animation is shown directly in the message thread.
+With the Messenger Platform 2.2, the new media template type was introduced. This template allows the developer to send a message with animated content like a video or an animated gif. The animation is shown directly in the message thread. Additionally, buttons are available as optional interaction elements.
 
-Here, you see an example of this template type:
+An example of this template type follows:
 
 {% highlight java %}
 MediaAttachment.MediaTemplateElement mediaTemplateElement =
      new MediaTemplateUrlElement("https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID>");
 
-// the MediaAttachment contains a list of MediaTemplateElements
+// the MediaAttachment contains a list of MediaTemplateElement
 MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
 Message recipient = new Message(attachment);	 
 {% endhighlight %}
 
-If a button is added to the `MediaTemplateElement` the example code looks this:
+If a button is added to the `MediaTemplateElement`, the example code looks this:
 
 {% highlight java %}
 WebButton button = new WebButton("Title", "<WEB_URL>");
@@ -23,14 +23,14 @@ MediaAttachment.MediaTemplateElement mediaTemplateElement =
 
 mediaTemplateElement.addButton(button);
 
-// the MediaAttachment contains a list of MediaTemplateElements
+// the MediaAttachment contains a list of MediaTemplateElement
 MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
 Message recipient = new Message(attachment);	 
 {% endhighlight %}
 
-The `MediaTemplateAttachmentElement` is generated with a attachment id and then you have to provide the correct `MediaType` as seen in the example above. 
+The `MediaTemplateAttachmentElement` is generated with an attachment id and a `MediaType` as seen in the example above. 
 
-An alternative way to generate the `MediaTemplateElement` is the `MediaTemplateUrlElement`. A Facebook URL is used to generate the `MediaTemplateElement` and only special urls are allowed. The `MediaType` is not needed here, because RestFB detects the type automatically according to the given URL. Check the allowed URL list here:
+An alternative way to generate the `MediaTemplateElement` is the `MediaTemplateUrlElement`. A Facebook URL is used to generate the `MediaTemplateElement` and only special URLs are allowed. The `MediaType` is not needed here, because RestFB detects the type automatically according to the given URL.  The allowed URL list follows:
 
 | Media Type | Media Source | URL Format |
 | ---------- | ------------ | ---------- |
