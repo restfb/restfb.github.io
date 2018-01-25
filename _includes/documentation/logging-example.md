@@ -39,6 +39,8 @@ try {
 			RestFB tries to use `slf4j`. As soon as this logging library is included in the application, RestFB will use slf4j and you can use all the loggings frameworks, that slf4j can use. 
 			
 			If no slf4j is found, RestFB uses `java.util.logging` as fallback. Then RestFB works exactly like the older version from the 1.x branch.
+			
+			RestFB can be forced to use `java.util.logging`. You only have to set the system property `com.restfb.forceJUL` to `true`. Then slf4j is ignored even though slf4j is on the class path.
 		</p>
     </div>
   </div>

@@ -1,6 +1,7 @@
 ---
 layout: basedocs
 title: Documentation
+datatype: menu_documentation
 ---
 Welcome to the {{site.title.dark}} documentation. 
 

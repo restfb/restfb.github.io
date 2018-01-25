@@ -59,10 +59,10 @@ social:
 
 # additional links
 navigation:
+  - text: Cookbook
+    url: /cookbook/
   - text: Documentation
     url: /documentation/
-#  - text: Cookbook
-#    url: /cookbook/
 
 clients:
    - name: Angry Birds

@@ -6,7 +6,7 @@ layout: docs
 		<h1 class="page-header">{{page.title}}</h1>
 			{{content}}
 		<div class="rfb-section">
-			{% for documentation in site.data.menu_documentation %}
+			{% for documentation in site.data[page.datatype] %}
 				<h1 class="page-header" id="{{ documentation.href }}">{{ documentation.title }}</h1>
 				{% capture documentation-content %}{% include {{documentation.file}} %}{% endcapture %}
 				{{ documentation-content | markdownify }}
@@ -23,7 +23,7 @@ layout: docs
 	<div class="col-md-3" role="complementary">
 		<nav class="restfb-sidebar hidden-print hidden-xs hidden-sm" data-spy="affix">
 			<ul class="nav">
-				{% for documentation in site.data.menu_documentation %}
+				{% for documentation in site.data[page.datatype] %}
 					<li><a href="#{{ documentation.href }}">
 						{% if documentation.menu_title %}
 							{{ documentation.menu_title }}
