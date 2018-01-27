@@ -31,6 +31,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
     
 {% if page.header == "landing" %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.1.0/particles.min.js"></script>
+
     <script src="{{ "/js/cbpAnimatedHeader.min.js" | prepend: site.baseurl }}"></script>
 
 	<!-- owl -->
@@ -39,6 +41,9 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{ "/js/restfb.min.js" | prepend: site.baseurl }}"></script>
 	<script src="{{ "/js/dotNav.min.js" | prepend: site.baseurl }}"></script>
+	
+	<script src="{{ "/js/particlesConfig.min.js" | prepend: site.baseurl }}"></script>
+	
 {% else %}
     <script src="{{ "/js/restfb-docs.min.js" | prepend: site.baseurl }}"></script>
 {% endif %}
