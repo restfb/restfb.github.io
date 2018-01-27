@@ -40,7 +40,7 @@ try {
 			
 			If no slf4j is found, RestFB uses `java.util.logging` as fallback. Then RestFB works exactly like the older version from the 1.x branch.
 			
-			RestFB can be forced to use `java.util.logging`. You only have to set the system property `com.restfb.forceJUL` to `true`. Then slf4j is ignored even though slf4j is on the class path.
+			RestFB can be forced to use `java.util.logging` - simply set the system property `com.restfb.forceJUL` to `true`. Then slf4j is ignored even though slf4j is on the classpath.
 		</p>
     </div>
   </div>
