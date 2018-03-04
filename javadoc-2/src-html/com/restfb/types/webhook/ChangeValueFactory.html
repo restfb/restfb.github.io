@@ -35,131 +35,138 @@
 <span class="sourceLineNo">027</span>import com.restfb.json.Json;<a name="line.27"></a>
 <span class="sourceLineNo">028</span>import com.restfb.json.JsonObject;<a name="line.28"></a>
 <span class="sourceLineNo">029</span>import com.restfb.json.JsonValue;<a name="line.29"></a>
-<span class="sourceLineNo">030</span><a name="line.30"></a>
-<span class="sourceLineNo">031</span>/**<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * Factory to convert the value field of the change into a class with special fields<a name="line.32"></a>
-<span class="sourceLineNo">033</span> */<a name="line.33"></a>
-<span class="sourceLineNo">034</span>public class ChangeValueFactory {<a name="line.34"></a>
-<span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>  private String field;<a name="line.36"></a>
-<span class="sourceLineNo">037</span><a name="line.37"></a>
-<span class="sourceLineNo">038</span>  private JsonValue value;<a name="line.38"></a>
-<span class="sourceLineNo">039</span><a name="line.39"></a>
-<span class="sourceLineNo">040</span>  public ChangeValueFactory setField(String field) {<a name="line.40"></a>
-<span class="sourceLineNo">041</span>    this.field = field;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>    return this;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>  }<a name="line.43"></a>
-<span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>  public ChangeValueFactory setValue(String value) {<a name="line.45"></a>
-<span class="sourceLineNo">046</span>    if (value != null &amp;&amp; (value.startsWith("{") || value.startsWith("["))) {<a name="line.46"></a>
-<span class="sourceLineNo">047</span>      this.value = Json.parse(value);<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    } else {<a name="line.48"></a>
-<span class="sourceLineNo">049</span>      this.value = Json.value(value);<a name="line.49"></a>
-<span class="sourceLineNo">050</span>    }<a name="line.50"></a>
-<span class="sourceLineNo">051</span><a name="line.51"></a>
-<span class="sourceLineNo">052</span>    return this;<a name="line.52"></a>
-<span class="sourceLineNo">053</span>  }<a name="line.53"></a>
+<span class="sourceLineNo">030</span>import com.restfb.types.webhook.instagram.InstagramCommentsValue;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.restfb.types.webhook.instagram.InstagramMentionsValue;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>/**<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * Factory to convert the value field of the change into a class with special fields<a name="line.35"></a>
+<span class="sourceLineNo">036</span> */<a name="line.36"></a>
+<span class="sourceLineNo">037</span>public class ChangeValueFactory {<a name="line.37"></a>
+<span class="sourceLineNo">038</span><a name="line.38"></a>
+<span class="sourceLineNo">039</span>  private String field;<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>  private JsonValue value;<a name="line.41"></a>
+<span class="sourceLineNo">042</span><a name="line.42"></a>
+<span class="sourceLineNo">043</span>  public ChangeValueFactory setField(String field) {<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    this.field = field;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>    return this;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>  }<a name="line.46"></a>
+<span class="sourceLineNo">047</span><a name="line.47"></a>
+<span class="sourceLineNo">048</span>  public ChangeValueFactory setValue(String value) {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    if (value != null &amp;&amp; (value.startsWith("{") || value.startsWith("["))) {<a name="line.49"></a>
+<span class="sourceLineNo">050</span>      this.value = Json.parse(value);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>    } else {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>      this.value = Json.value(value);<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    }<a name="line.53"></a>
 <span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>  public ChangeValue buildWithMapper(JsonMapper mapper) {<a name="line.55"></a>
-<span class="sourceLineNo">056</span><a name="line.56"></a>
-<span class="sourceLineNo">057</span>    if (value.isString()) {<a name="line.57"></a>
-<span class="sourceLineNo">058</span>      return new SimpleStringChangeValue(value.asString());<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    }<a name="line.59"></a>
-<span class="sourceLineNo">060</span><a name="line.60"></a>
-<span class="sourceLineNo">061</span>    if (value.isArray()) {<a name="line.61"></a>
-<span class="sourceLineNo">062</span>      return new ListJsonChangeValue(value.asArray().values());<a name="line.62"></a>
-<span class="sourceLineNo">063</span>    }<a name="line.63"></a>
-<span class="sourceLineNo">064</span><a name="line.64"></a>
-<span class="sourceLineNo">065</span>    if (value.isObject()) {<a name="line.65"></a>
-<span class="sourceLineNo">066</span><a name="line.66"></a>
-<span class="sourceLineNo">067</span>      JsonObject objValue = value.asObject();<a name="line.67"></a>
-<span class="sourceLineNo">068</span>      String classDefinition;<a name="line.68"></a>
-<span class="sourceLineNo">069</span>      if (objValue != null &amp;&amp; field != null) {<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        classDefinition = field.toUpperCase();<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        if (objValue.get("item") != null) {<a name="line.71"></a>
-<span class="sourceLineNo">072</span>          classDefinition += "_" + objValue.get("item").asString().toUpperCase();<a name="line.72"></a>
-<span class="sourceLineNo">073</span>        }<a name="line.73"></a>
-<span class="sourceLineNo">074</span>        if (objValue.get("verb") != null) {<a name="line.74"></a>
-<span class="sourceLineNo">075</span>          classDefinition += "_" + objValue.get("verb").asString().toUpperCase();<a name="line.75"></a>
+<span class="sourceLineNo">055</span>    return this;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>  }<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>  public ChangeValue buildWithMapper(JsonMapper mapper) {<a name="line.58"></a>
+<span class="sourceLineNo">059</span><a name="line.59"></a>
+<span class="sourceLineNo">060</span>    if (value.isString()) {<a name="line.60"></a>
+<span class="sourceLineNo">061</span>      return new SimpleStringChangeValue(value.asString());<a name="line.61"></a>
+<span class="sourceLineNo">062</span>    }<a name="line.62"></a>
+<span class="sourceLineNo">063</span><a name="line.63"></a>
+<span class="sourceLineNo">064</span>    if (value.isArray()) {<a name="line.64"></a>
+<span class="sourceLineNo">065</span>      return new ListJsonChangeValue(value.asArray().values());<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
+<span class="sourceLineNo">067</span><a name="line.67"></a>
+<span class="sourceLineNo">068</span>    if (value.isObject()) {<a name="line.68"></a>
+<span class="sourceLineNo">069</span><a name="line.69"></a>
+<span class="sourceLineNo">070</span>      JsonObject objValue = value.asObject();<a name="line.70"></a>
+<span class="sourceLineNo">071</span>      String classDefinition;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>      if (objValue != null &amp;&amp; field != null) {<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        classDefinition = field.toUpperCase();<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        if (objValue.get("item") != null) {<a name="line.74"></a>
+<span class="sourceLineNo">075</span>          classDefinition += "_" + objValue.get("item").asString().toUpperCase();<a name="line.75"></a>
 <span class="sourceLineNo">076</span>        }<a name="line.76"></a>
-<span class="sourceLineNo">077</span><a name="line.77"></a>
-<span class="sourceLineNo">078</span>        try {<a name="line.78"></a>
-<span class="sourceLineNo">079</span>          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);<a name="line.79"></a>
-<span class="sourceLineNo">080</span>          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        } catch (IllegalArgumentException iae) {<a name="line.81"></a>
-<span class="sourceLineNo">082</span>          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);<a name="line.82"></a>
-<span class="sourceLineNo">083</span>          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + objValue.toString());<a name="line.83"></a>
-<span class="sourceLineNo">084</span>          return new FallBackChangeValue(objValue);<a name="line.84"></a>
-<span class="sourceLineNo">085</span>        }<a name="line.85"></a>
-<span class="sourceLineNo">086</span>      }<a name="line.86"></a>
-<span class="sourceLineNo">087</span>    }<a name="line.87"></a>
-<span class="sourceLineNo">088</span><a name="line.88"></a>
-<span class="sourceLineNo">089</span>    return null;<a name="line.89"></a>
-<span class="sourceLineNo">090</span>  }<a name="line.90"></a>
+<span class="sourceLineNo">077</span>        if (objValue.get("verb") != null) {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>          classDefinition += "_" + objValue.get("verb").asString().toUpperCase();<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        }<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>        try {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        } catch (IllegalArgumentException iae) {<a name="line.84"></a>
+<span class="sourceLineNo">085</span>          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + objValue.toString());<a name="line.86"></a>
+<span class="sourceLineNo">087</span>          return new FallBackChangeValue(objValue);<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        }<a name="line.88"></a>
+<span class="sourceLineNo">089</span>      }<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    }<a name="line.90"></a>
 <span class="sourceLineNo">091</span><a name="line.91"></a>
-<span class="sourceLineNo">092</span>  enum ChangeValueEnumeration {<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    FEED_ALBUM_EDITED(FeedAlbumEditedValue.class), //<a name="line.94"></a>
-<span class="sourceLineNo">095</span>    FEED_COMMENT_ADD(FeedCommentValue.class), //<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    FEED_COMMENT_EDITED(FeedCommentValue.class), //<a name="line.96"></a>
-<span class="sourceLineNo">097</span>    FEED_COMMENT_REMOVE(FeedCommentValue.class), //<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    FEED_COMMENT_HIDE(FeedCommentValue.class), //<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    FEED_EVENT_ADD(FeedEventValue.class), //<a name="line.100"></a>
-<span class="sourceLineNo">101</span>    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //<a name="line.101"></a>
-<span class="sourceLineNo">102</span>    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //<a name="line.102"></a>
-<span class="sourceLineNo">103</span>    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    FEED_PHOTO_UNHIDE(FeedPhotoAddValue.class), //<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    FEED_VIDEO_ADD(FeedVideoValue.class), //<a name="line.106"></a>
-<span class="sourceLineNo">107</span>    FEED_VIDEO_EDITED(FeedVideoValue.class), //<a name="line.107"></a>
-<span class="sourceLineNo">108</span>    FEED_VIDEO_REMOVE(FeedVideoRemoveValue.class), //<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    FEED_STATUS_ADD(FeedStatusValue.class), //<a name="line.109"></a>
-<span class="sourceLineNo">110</span>    FEED_STATUS_EDITED(FeedStatusValue.class), //<a name="line.110"></a>
-<span class="sourceLineNo">111</span>    FEED_STATUS_HIDE(FeedStatusValue.class), //<a name="line.111"></a>
-<span class="sourceLineNo">112</span>    FEED_STATUS_UNHIDE(FeedStatusValue.class), //<a name="line.112"></a>
-<span class="sourceLineNo">113</span>    FEED_POST_ADD(FeedPostValue.class), //<a name="line.113"></a>
-<span class="sourceLineNo">114</span>    FEED_POST_EDITED(FeedPostValue.class), //<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    FEED_POST_EDIT(FeedPostValue.class), //<a name="line.115"></a>
-<span class="sourceLineNo">116</span>    FEED_POST_HIDE(FeedPostValue.class), //<a name="line.116"></a>
-<span class="sourceLineNo">117</span>    FEED_POST_REMOVE(FeedPostValue.class), //<a name="line.117"></a>
-<span class="sourceLineNo">118</span>    FEED_POST_UNHIDE(FeedPostValue.class), //<a name="line.118"></a>
-<span class="sourceLineNo">119</span>    FEED_REACTION_ADD(FeedReactionValue.class), //<a name="line.119"></a>
-<span class="sourceLineNo">120</span>    FEED_REACTION_EDIT(FeedReactionValue.class), //<a name="line.120"></a>
-<span class="sourceLineNo">121</span>    FEED_REACTION_REMOVE(FeedReactionValue.class), //<a name="line.121"></a>
-<span class="sourceLineNo">122</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.122"></a>
-<span class="sourceLineNo">123</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.123"></a>
-<span class="sourceLineNo">124</span>    FEED_SHARE_HIDE(FeedShareValue.class), //<a name="line.124"></a>
-<span class="sourceLineNo">125</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.125"></a>
-<span class="sourceLineNo">126</span>    FEED_SHARE_UNHIDE(FeedShareValue.class), //<a name="line.126"></a>
-<span class="sourceLineNo">127</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.127"></a>
-<span class="sourceLineNo">128</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.128"></a>
-<span class="sourceLineNo">129</span>    MENTION_POST_ADD(MentionPostAddValue.class), //<a name="line.129"></a>
-<span class="sourceLineNo">130</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.130"></a>
-<span class="sourceLineNo">131</span>    RATINGS_RATING_EDIT(RatingsRatingValue.class), //<a name="line.131"></a>
-<span class="sourceLineNo">132</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.132"></a>
-<span class="sourceLineNo">133</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.133"></a>
-<span class="sourceLineNo">134</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.134"></a>
-<span class="sourceLineNo">135</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.135"></a>
-<span class="sourceLineNo">136</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.136"></a>
-<span class="sourceLineNo">137</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.137"></a>
-<span class="sourceLineNo">138</span>    RATINGS_REACTION_ADD(RatingsReactionValue.class), //<a name="line.138"></a>
-<span class="sourceLineNo">139</span>    RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //<a name="line.139"></a>
-<span class="sourceLineNo">140</span>    RATINGS_REACTION_EDIT(RatingsReactionValue.class), //<a name="line.140"></a>
-<span class="sourceLineNo">141</span>    CONVERSATIONS(PageConversation.class), //<a name="line.141"></a>
-<span class="sourceLineNo">142</span>    LEADGEN(PageLeadgen.class);<a name="line.142"></a>
-<span class="sourceLineNo">143</span><a name="line.143"></a>
-<span class="sourceLineNo">144</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.144"></a>
-<span class="sourceLineNo">145</span><a name="line.145"></a>
-<span class="sourceLineNo">146</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.146"></a>
-<span class="sourceLineNo">147</span>      this.valueClass = valueClass;<a name="line.147"></a>
-<span class="sourceLineNo">148</span>    }<a name="line.148"></a>
-<span class="sourceLineNo">149</span><a name="line.149"></a>
-<span class="sourceLineNo">150</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.150"></a>
-<span class="sourceLineNo">151</span>      return valueClass;<a name="line.151"></a>
-<span class="sourceLineNo">152</span>    }<a name="line.152"></a>
-<span class="sourceLineNo">153</span>  }<a name="line.153"></a>
-<span class="sourceLineNo">154</span>}<a name="line.154"></a>
+<span class="sourceLineNo">092</span>    return null;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>  }<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>  enum ChangeValueEnumeration {<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //<a name="line.96"></a>
+<span class="sourceLineNo">097</span>    FEED_ALBUM_EDITED(FeedAlbumEditedValue.class), //<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    FEED_COMMENT_ADD(FeedCommentValue.class), //<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    FEED_COMMENT_EDITED(FeedCommentValue.class), //<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    FEED_COMMENT_REMOVE(FeedCommentValue.class), //<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    FEED_COMMENT_HIDE(FeedCommentValue.class), //<a name="line.101"></a>
+<span class="sourceLineNo">102</span>    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    FEED_EVENT_ADD(FeedEventValue.class), //<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    FEED_PHOTO_UNHIDE(FeedPhotoAddValue.class), //<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    FEED_VIDEO_ADD(FeedVideoValue.class), //<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    FEED_VIDEO_EDITED(FeedVideoValue.class), //<a name="line.110"></a>
+<span class="sourceLineNo">111</span>    FEED_VIDEO_REMOVE(FeedVideoRemoveValue.class), //<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    FEED_STATUS_ADD(FeedStatusValue.class), //<a name="line.112"></a>
+<span class="sourceLineNo">113</span>    FEED_STATUS_EDITED(FeedStatusValue.class), //<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    FEED_STATUS_HIDE(FeedStatusValue.class), //<a name="line.114"></a>
+<span class="sourceLineNo">115</span>    FEED_STATUS_UNHIDE(FeedStatusValue.class), //<a name="line.115"></a>
+<span class="sourceLineNo">116</span>    FEED_POST_ADD(FeedPostValue.class), //<a name="line.116"></a>
+<span class="sourceLineNo">117</span>    FEED_POST_EDITED(FeedPostValue.class), //<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    FEED_POST_EDIT(FeedPostValue.class), //<a name="line.118"></a>
+<span class="sourceLineNo">119</span>    FEED_POST_HIDE(FeedPostValue.class), //<a name="line.119"></a>
+<span class="sourceLineNo">120</span>    FEED_POST_REMOVE(FeedPostValue.class), //<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    FEED_POST_UNHIDE(FeedPostValue.class), //<a name="line.121"></a>
+<span class="sourceLineNo">122</span>    FEED_REACTION_ADD(FeedReactionValue.class), //<a name="line.122"></a>
+<span class="sourceLineNo">123</span>    FEED_REACTION_EDIT(FeedReactionValue.class), //<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    FEED_REACTION_REMOVE(FeedReactionValue.class), //<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    FEED_SHARE_ADD(FeedShareValue.class), //<a name="line.125"></a>
+<span class="sourceLineNo">126</span>    FEED_SHARE_EDITED(FeedShareValue.class), //<a name="line.126"></a>
+<span class="sourceLineNo">127</span>    FEED_SHARE_HIDE(FeedShareValue.class), //<a name="line.127"></a>
+<span class="sourceLineNo">128</span>    FEED_SHARE_REMOVE(FeedShareValue.class), //<a name="line.128"></a>
+<span class="sourceLineNo">129</span>    FEED_SHARE_UNHIDE(FeedShareValue.class), //<a name="line.129"></a>
+<span class="sourceLineNo">130</span>    FEED_LIKE_ADD(FeedLikeValue.class), //<a name="line.130"></a>
+<span class="sourceLineNo">131</span>    FEED_LIKE_REMOVE(FeedLikeValue.class), //<a name="line.131"></a>
+<span class="sourceLineNo">132</span>    MENTION_POST_ADD(MentionPostAddValue.class), //<a name="line.132"></a>
+<span class="sourceLineNo">133</span>    RATINGS_RATING_ADD(RatingsRatingValue.class), //<a name="line.133"></a>
+<span class="sourceLineNo">134</span>    RATINGS_RATING_EDIT(RatingsRatingValue.class), //<a name="line.134"></a>
+<span class="sourceLineNo">135</span>    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //<a name="line.135"></a>
+<span class="sourceLineNo">136</span>    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //<a name="line.136"></a>
+<span class="sourceLineNo">137</span>    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //<a name="line.137"></a>
+<span class="sourceLineNo">138</span>    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //<a name="line.138"></a>
+<span class="sourceLineNo">139</span>    RATINGS_LIKE_ADD(RatingsLikeValue.class), //<a name="line.139"></a>
+<span class="sourceLineNo">140</span>    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //<a name="line.140"></a>
+<span class="sourceLineNo">141</span>    RATINGS_REACTION_ADD(RatingsReactionValue.class), //<a name="line.141"></a>
+<span class="sourceLineNo">142</span>    RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //<a name="line.142"></a>
+<span class="sourceLineNo">143</span>    RATINGS_REACTION_EDIT(RatingsReactionValue.class), //<a name="line.143"></a>
+<span class="sourceLineNo">144</span>    CONVERSATIONS(PageConversation.class), //<a name="line.144"></a>
+<span class="sourceLineNo">145</span>    LEADGEN(PageLeadgen.class), //<a name="line.145"></a>
+<span class="sourceLineNo">146</span>    // Instagram<a name="line.146"></a>
+<span class="sourceLineNo">147</span>    STORY_INSIGHTS(InstagramStoryInsightsValue.class), //<a name="line.147"></a>
+<span class="sourceLineNo">148</span>    MENTIONS(InstagramMentionsValue.class), //<a name="line.148"></a>
+<span class="sourceLineNo">149</span>    COMMENTS(InstagramCommentsValue.class);<a name="line.149"></a>
+<span class="sourceLineNo">150</span><a name="line.150"></a>
+<span class="sourceLineNo">151</span>    private Class&lt;ChangeValue&gt; valueClass;<a name="line.151"></a>
+<span class="sourceLineNo">152</span><a name="line.152"></a>
+<span class="sourceLineNo">153</span>    ChangeValueEnumeration(Class valueClass) {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>      this.valueClass = valueClass;<a name="line.154"></a>
+<span class="sourceLineNo">155</span>    }<a name="line.155"></a>
+<span class="sourceLineNo">156</span><a name="line.156"></a>
+<span class="sourceLineNo">157</span>    public Class&lt;ChangeValue&gt; getValueClass() {<a name="line.157"></a>
+<span class="sourceLineNo">158</span>      return valueClass;<a name="line.158"></a>
+<span class="sourceLineNo">159</span>    }<a name="line.159"></a>
+<span class="sourceLineNo">160</span>  }<a name="line.160"></a>
+<span class="sourceLineNo">161</span>}<a name="line.161"></a>
 
 
 
