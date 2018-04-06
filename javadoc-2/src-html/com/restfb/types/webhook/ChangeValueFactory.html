@@ -90,8 +90,8 @@
 <span class="sourceLineNo">082</span>          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);<a name="line.82"></a>
 <span class="sourceLineNo">083</span>          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());<a name="line.83"></a>
 <span class="sourceLineNo">084</span>        } catch (IllegalArgumentException iae) {<a name="line.84"></a>
-<span class="sourceLineNo">085</span>          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);<a name="line.85"></a>
-<span class="sourceLineNo">086</span>          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + objValue.toString());<a name="line.86"></a>
+<span class="sourceLineNo">085</span>          VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());<a name="line.86"></a>
 <span class="sourceLineNo">087</span>          return new FallBackChangeValue(objValue);<a name="line.87"></a>
 <span class="sourceLineNo">088</span>        }<a name="line.88"></a>
 <span class="sourceLineNo">089</span>      }<a name="line.89"></a>
