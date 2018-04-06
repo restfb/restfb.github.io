@@ -278,7 +278,7 @@ footer {
   }
 
   ul.quicklinks {
-	  @extend span.copyright;
+	  @extend span, .copyright;
 	  margin-bottom: 0;
   }
 }

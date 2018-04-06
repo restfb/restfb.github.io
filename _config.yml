@@ -114,7 +114,7 @@ clients:
      url: https://www.nukesuite.com/
      pic: img/clients/nukesuite.min.png
 
-gems:
+plugins:
   - jekyll-sitemap
 
 sass:
