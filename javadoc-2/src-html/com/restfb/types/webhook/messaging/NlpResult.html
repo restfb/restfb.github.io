@@ -39,7 +39,7 @@
 <span class="sourceLineNo">031</span><a name="line.31"></a>
 <span class="sourceLineNo">032</span>public class NlpResult {<a name="line.32"></a>
 <span class="sourceLineNo">033</span><a name="line.33"></a>
-<span class="sourceLineNo">034</span>  private List&lt;BaseNlpEntity&gt; convertedEntities = new ArrayList&lt;BaseNlpEntity&gt;();<a name="line.34"></a>
+<span class="sourceLineNo">034</span>  private List&lt;BaseNlpEntity&gt; convertedEntities = new ArrayList&lt;&gt;();<a name="line.34"></a>
 <span class="sourceLineNo">035</span><a name="line.35"></a>
 <span class="sourceLineNo">036</span>  @Facebook("entities")<a name="line.36"></a>
 <span class="sourceLineNo">037</span>  private JsonObject rawEntities;<a name="line.37"></a>
@@ -113,7 +113,7 @@
 <span class="sourceLineNo">105</span>   * @return List of entites, only the filtered elements are returned.<a name="line.105"></a>
 <span class="sourceLineNo">106</span>   */<a name="line.106"></a>
 <span class="sourceLineNo">107</span>  public &lt;T extends BaseNlpEntity&gt; List&lt;T&gt; getEntities(Class&lt;T&gt; clazz) {<a name="line.107"></a>
-<span class="sourceLineNo">108</span>    List&lt;BaseNlpEntity&gt; resultList = new ArrayList&lt;BaseNlpEntity&gt;();<a name="line.108"></a>
+<span class="sourceLineNo">108</span>    List&lt;BaseNlpEntity&gt; resultList = new ArrayList&lt;&gt;();<a name="line.108"></a>
 <span class="sourceLineNo">109</span>    for (BaseNlpEntity item : getEntities()) {<a name="line.109"></a>
 <span class="sourceLineNo">110</span>      if (item.getClass().equals(clazz)) {<a name="line.110"></a>
 <span class="sourceLineNo">111</span>        resultList.add(item);<a name="line.111"></a>

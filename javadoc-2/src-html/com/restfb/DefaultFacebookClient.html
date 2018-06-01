@@ -406,7 +406,7 @@
 <span class="sourceLineNo">398</span><a name="line.398"></a>
 <span class="sourceLineNo">399</span>    List&lt;BinaryAttachment&gt; attachments = null;<a name="line.399"></a>
 <span class="sourceLineNo">400</span>    if (binaryAttachment != null) {<a name="line.400"></a>
-<span class="sourceLineNo">401</span>      attachments = new ArrayList&lt;BinaryAttachment&gt;();<a name="line.401"></a>
+<span class="sourceLineNo">401</span>      attachments = new ArrayList&lt;&gt;();<a name="line.401"></a>
 <span class="sourceLineNo">402</span>      attachments.add(binaryAttachment);<a name="line.402"></a>
 <span class="sourceLineNo">403</span>    }<a name="line.403"></a>
 <span class="sourceLineNo">404</span><a name="line.404"></a>
@@ -708,7 +708,7 @@
 <span class="sourceLineNo">700</span><a name="line.700"></a>
 <span class="sourceLineNo">701</span>    String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";<a name="line.701"></a>
 <span class="sourceLineNo">702</span><a name="line.702"></a>
-<span class="sourceLineNo">703</span>    ArrayList&lt;Parameter&gt; parameterList = new ArrayList&lt;Parameter&gt;();<a name="line.703"></a>
+<span class="sourceLineNo">703</span>    List&lt;Parameter&gt; parameterList = new ArrayList&lt;&gt;();<a name="line.703"></a>
 <span class="sourceLineNo">704</span>    parameterList.add(Parameter.with("client_id", appId));<a name="line.704"></a>
 <span class="sourceLineNo">705</span>    parameterList.add(Parameter.with("redirect_uri", redirectUri));<a name="line.705"></a>
 <span class="sourceLineNo">706</span>    parameterList.add(Parameter.with("scope", scope.toString()));<a name="line.706"></a>

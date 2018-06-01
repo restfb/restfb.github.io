@@ -85,8 +85,8 @@
 <span class="sourceLineNo">077</span>   * Creates a new empty JsonObject.<a name="line.77"></a>
 <span class="sourceLineNo">078</span>   */<a name="line.78"></a>
 <span class="sourceLineNo">079</span>  public JsonObject() {<a name="line.79"></a>
-<span class="sourceLineNo">080</span>    names = new ArrayList&lt;String&gt;();<a name="line.80"></a>
-<span class="sourceLineNo">081</span>    values = new ArrayList&lt;JsonValue&gt;();<a name="line.81"></a>
+<span class="sourceLineNo">080</span>    names = new ArrayList&lt;&gt;();<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    values = new ArrayList&lt;&gt;();<a name="line.81"></a>
 <span class="sourceLineNo">082</span>    table = new HashIndexTable();<a name="line.82"></a>
 <span class="sourceLineNo">083</span>  }<a name="line.83"></a>
 <span class="sourceLineNo">084</span><a name="line.84"></a>
@@ -108,8 +108,8 @@
 <span class="sourceLineNo">100</span>      names = Collections.unmodifiableList(object.names);<a name="line.100"></a>
 <span class="sourceLineNo">101</span>      values = Collections.unmodifiableList(object.values);<a name="line.101"></a>
 <span class="sourceLineNo">102</span>    } else {<a name="line.102"></a>
-<span class="sourceLineNo">103</span>      names = new ArrayList&lt;String&gt;(object.names);<a name="line.103"></a>
-<span class="sourceLineNo">104</span>      values = new ArrayList&lt;JsonValue&gt;(object.values);<a name="line.104"></a>
+<span class="sourceLineNo">103</span>      names = new ArrayList&lt;&gt;(object.names);<a name="line.103"></a>
+<span class="sourceLineNo">104</span>      values = new ArrayList&lt;&gt;(object.values);<a name="line.104"></a>
 <span class="sourceLineNo">105</span>    }<a name="line.105"></a>
 <span class="sourceLineNo">106</span>    table = new HashIndexTable();<a name="line.106"></a>
 <span class="sourceLineNo">107</span>    updateHashIndex();<a name="line.107"></a>

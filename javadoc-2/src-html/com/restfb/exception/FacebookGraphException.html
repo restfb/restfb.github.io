@@ -114,8 +114,8 @@
 <span class="sourceLineNo">106</span>  public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,<a name="line.106"></a>
 <span class="sourceLineNo">107</span>      Integer httpStatusCode, String errorUserTitle, String errorUserMessage, Boolean isTransient,<a name="line.107"></a>
 <span class="sourceLineNo">108</span>      JsonObject rawError) {<a name="line.108"></a>
-<span class="sourceLineNo">109</span>    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,<a name="line.109"></a>
-<span class="sourceLineNo">110</span>      errorCode, errorSubcode));<a name="line.110"></a>
+<span class="sourceLineNo">109</span>    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s) '%s - %s'", errorType,<a name="line.109"></a>
+<span class="sourceLineNo">110</span>      errorMessage, errorCode, errorSubcode, errorUserTitle, errorUserMessage));<a name="line.110"></a>
 <span class="sourceLineNo">111</span>    this.errorType = errorType;<a name="line.111"></a>
 <span class="sourceLineNo">112</span>    this.errorMessage = errorMessage;<a name="line.112"></a>
 <span class="sourceLineNo">113</span>    this.errorCode = errorCode;<a name="line.113"></a>

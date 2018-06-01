@@ -114,7 +114,7 @@
 <span class="sourceLineNo">106</span>      return cachedResults;<a name="line.106"></a>
 <span class="sourceLineNo">107</span>    }<a name="line.107"></a>
 <span class="sourceLineNo">108</span><a name="line.108"></a>
-<span class="sourceLineNo">109</span>    List&lt;FieldWithAnnotation&lt;T&gt;&gt; fieldsWithAnnotation = new ArrayList&lt;FieldWithAnnotation&lt;T&gt;&gt;();<a name="line.109"></a>
+<span class="sourceLineNo">109</span>    List&lt;FieldWithAnnotation&lt;T&gt;&gt; fieldsWithAnnotation = new ArrayList&lt;&gt;();<a name="line.109"></a>
 <span class="sourceLineNo">110</span><a name="line.110"></a>
 <span class="sourceLineNo">111</span>    // Walk all superclasses looking for annotated fields until we hit Object<a name="line.111"></a>
 <span class="sourceLineNo">112</span>    while (!Object.class.equals(type) &amp;&amp; type != null) {<a name="line.112"></a>
@@ -157,7 +157,7 @@
 <span class="sourceLineNo">149</span>      return cachedResults;<a name="line.149"></a>
 <span class="sourceLineNo">150</span>    }<a name="line.150"></a>
 <span class="sourceLineNo">151</span><a name="line.151"></a>
-<span class="sourceLineNo">152</span>    List&lt;Method&gt; methodsWithAnnotation = new ArrayList&lt;Method&gt;();<a name="line.152"></a>
+<span class="sourceLineNo">152</span>    List&lt;Method&gt; methodsWithAnnotation = new ArrayList&lt;&gt;();<a name="line.152"></a>
 <span class="sourceLineNo">153</span><a name="line.153"></a>
 <span class="sourceLineNo">154</span>    // Walk all superclasses looking for annotated methods until we hit Object<a name="line.154"></a>
 <span class="sourceLineNo">155</span>    while (!Object.class.equals(type)) {<a name="line.155"></a>
@@ -228,7 +228,7 @@
 <span class="sourceLineNo">220</span>      throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");<a name="line.220"></a>
 <span class="sourceLineNo">221</span>    }<a name="line.221"></a>
 <span class="sourceLineNo">222</span><a name="line.222"></a>
-<span class="sourceLineNo">223</span>    List&lt;Method&gt; methods = new ArrayList&lt;Method&gt;();<a name="line.223"></a>
+<span class="sourceLineNo">223</span>    List&lt;Method&gt; methods = new ArrayList&lt;&gt;();<a name="line.223"></a>
 <span class="sourceLineNo">224</span>    for (Method method : clazz.getMethods()) {<a name="line.224"></a>
 <span class="sourceLineNo">225</span>      String methodName = method.getName();<a name="line.225"></a>
 <span class="sourceLineNo">226</span>      if (!"getClass".equals(methodName) &amp;&amp; !"hashCode".equals(methodName) &amp;&amp; method.getReturnType() != null<a name="line.226"></a>

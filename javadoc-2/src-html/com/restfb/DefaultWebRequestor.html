@@ -288,7 +288,7 @@
 <span class="sourceLineNo">280</span>   */<a name="line.280"></a>
 <span class="sourceLineNo">281</span>  protected void write(InputStream source, OutputStream destination, int bufferSize) throws IOException {<a name="line.281"></a>
 <span class="sourceLineNo">282</span>    if (source == null || destination == null) {<a name="line.282"></a>
-<span class="sourceLineNo">283</span>      throw new NullPointerException("Must provide non-null source and destination streams.");<a name="line.283"></a>
+<span class="sourceLineNo">283</span>      throw new IllegalArgumentException("Must provide non-null source and destination streams.");<a name="line.283"></a>
 <span class="sourceLineNo">284</span>    }<a name="line.284"></a>
 <span class="sourceLineNo">285</span><a name="line.285"></a>
 <span class="sourceLineNo">286</span>    int read;<a name="line.286"></a>
