@@ -69,7 +69,7 @@
 <span class="sourceLineNo">061</span><a name="line.61"></a>
 <span class="sourceLineNo">062</span>  private final Map&lt;String, ETagResponse&gt; etagCache =<a name="line.62"></a>
 <span class="sourceLineNo">063</span>      Collections.synchronizedMap(new SoftHashMap&lt;String, ETagResponse&gt;());<a name="line.63"></a>
-<span class="sourceLineNo">064</span>  private final ThreadLocal&lt;ETagResponse&gt; currentETagRespThreadLocal = new ThreadLocal&lt;ETagResponse&gt;();<a name="line.64"></a>
+<span class="sourceLineNo">064</span>  private final ThreadLocal&lt;ETagResponse&gt; currentETagRespThreadLocal = new ThreadLocal&lt;&gt;();<a name="line.64"></a>
 <span class="sourceLineNo">065</span>  private volatile boolean useCache = true;<a name="line.65"></a>
 <span class="sourceLineNo">066</span><a name="line.66"></a>
 <span class="sourceLineNo">067</span>  @Override<a name="line.67"></a>

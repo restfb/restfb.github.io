@@ -44,12 +44,12 @@
 <span class="sourceLineNo">036</span>  private static final long serialVersionUID = 1L;<a name="line.36"></a>
 <span class="sourceLineNo">037</span>  <a name="line.37"></a>
 <span class="sourceLineNo">038</span>  /** The internal HashMap that will hold the SoftReference. */<a name="line.38"></a>
-<span class="sourceLineNo">039</span>  private final Map&lt;K, SoftReference&lt;V&gt;&gt; hash = new HashMap&lt;K, SoftReference&lt;V&gt;&gt;();<a name="line.39"></a>
+<span class="sourceLineNo">039</span>  private final Map&lt;K, SoftReference&lt;V&gt;&gt; hash = new HashMap&lt;&gt;();<a name="line.39"></a>
 <span class="sourceLineNo">040</span><a name="line.40"></a>
-<span class="sourceLineNo">041</span>  private final Map&lt;SoftReference&lt;V&gt;, K&gt; reverseLookup = new HashMap&lt;SoftReference&lt;V&gt;, K&gt;();<a name="line.41"></a>
+<span class="sourceLineNo">041</span>  private final Map&lt;SoftReference&lt;V&gt;, K&gt; reverseLookup = new HashMap&lt;&gt;();<a name="line.41"></a>
 <span class="sourceLineNo">042</span><a name="line.42"></a>
 <span class="sourceLineNo">043</span>  /** Reference queue for cleared SoftReference objects. */<a name="line.43"></a>
-<span class="sourceLineNo">044</span>  private final ReferenceQueue&lt;V&gt; queue = new ReferenceQueue&lt;V&gt;();<a name="line.44"></a>
+<span class="sourceLineNo">044</span>  private final ReferenceQueue&lt;V&gt; queue = new ReferenceQueue&lt;&gt;();<a name="line.44"></a>
 <span class="sourceLineNo">045</span><a name="line.45"></a>
 <span class="sourceLineNo">046</span>  @Override<a name="line.46"></a>
 <span class="sourceLineNo">047</span>  public V get(Object key) {<a name="line.47"></a>
@@ -81,9 +81,9 @@
 <span class="sourceLineNo">073</span>  @Override<a name="line.73"></a>
 <span class="sourceLineNo">074</span>  public V put(K key, V value) {<a name="line.74"></a>
 <span class="sourceLineNo">075</span>    expungeStaleEntries();<a name="line.75"></a>
-<span class="sourceLineNo">076</span>    SoftReference&lt;V&gt; soft_ref = new SoftReference&lt;V&gt;(value, queue);<a name="line.76"></a>
-<span class="sourceLineNo">077</span>    reverseLookup.put(soft_ref, key);<a name="line.77"></a>
-<span class="sourceLineNo">078</span>    SoftReference&lt;V&gt; result = hash.put(key, soft_ref);<a name="line.78"></a>
+<span class="sourceLineNo">076</span>    SoftReference&lt;V&gt; softRef = new SoftReference&lt;&gt;(value, queue);<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    reverseLookup.put(softRef, key);<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    SoftReference&lt;V&gt; result = hash.put(key, softRef);<a name="line.78"></a>
 <span class="sourceLineNo">079</span>    if (result == null) {<a name="line.79"></a>
 <span class="sourceLineNo">080</span>      return null;<a name="line.80"></a>
 <span class="sourceLineNo">081</span>    }<a name="line.81"></a>
@@ -120,7 +120,7 @@
 <span class="sourceLineNo">112</span>  @Override<a name="line.112"></a>
 <span class="sourceLineNo">113</span>  public Set&lt;Entry&lt;K, V&gt;&gt; entrySet() {<a name="line.113"></a>
 <span class="sourceLineNo">114</span>    expungeStaleEntries();<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    Set&lt;Entry&lt;K, V&gt;&gt; result = new LinkedHashSet&lt;Entry&lt;K, V&gt;&gt;();<a name="line.115"></a>
+<span class="sourceLineNo">115</span>    Set&lt;Entry&lt;K, V&gt;&gt; result = new LinkedHashSet&lt;&gt;();<a name="line.115"></a>
 <span class="sourceLineNo">116</span>    for (final Entry&lt;K, SoftReference&lt;V&gt;&gt; entry : hash.entrySet()) {<a name="line.116"></a>
 <span class="sourceLineNo">117</span>      final V value = entry.getValue().get();<a name="line.117"></a>
 <span class="sourceLineNo">118</span>      if (value != null) {<a name="line.118"></a>
@@ -137,7 +137,7 @@
 <span class="sourceLineNo">129</span><a name="line.129"></a>
 <span class="sourceLineNo">130</span>          @Override<a name="line.130"></a>
 <span class="sourceLineNo">131</span>          public V setValue(V v) {<a name="line.131"></a>
-<span class="sourceLineNo">132</span>            entry.setValue(new SoftReference&lt;V&gt;(v, queue));<a name="line.132"></a>
+<span class="sourceLineNo">132</span>            entry.setValue(new SoftReference&lt;&gt;(v, queue));<a name="line.132"></a>
 <span class="sourceLineNo">133</span>            return value;<a name="line.133"></a>
 <span class="sourceLineNo">134</span>          }<a name="line.134"></a>
 <span class="sourceLineNo">135</span>        });<a name="line.135"></a>
