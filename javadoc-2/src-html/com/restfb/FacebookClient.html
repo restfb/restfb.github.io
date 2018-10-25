@@ -409,518 +409,461 @@
 <span class="sourceLineNo">401</span>  /**<a name="line.401"></a>
 <span class="sourceLineNo">402</span>   * Method to initialize the device access token generation.<a name="line.402"></a>
 <span class="sourceLineNo">403</span>   *<a name="line.403"></a>
-<span class="sourceLineNo">404</span>   * This method is used for the Graph API 2.5 or lower. If you need to use an newer version you should use<a name="line.404"></a>
-<span class="sourceLineNo">405</span>   * {@link #fetchDeviceCode(ScopeBuilder)}<a name="line.405"></a>
-<span class="sourceLineNo">406</span>   * <a name="line.406"></a>
-<span class="sourceLineNo">407</span>   * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and<a name="line.407"></a>
-<span class="sourceLineNo">408</span>   * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.<a name="line.408"></a>
-<span class="sourceLineNo">409</span>   * <a name="line.409"></a>
-<span class="sourceLineNo">410</span>   * Save the {@link DeviceCode#getCode()} to use it later, when polling Facebook with the<a name="line.410"></a>
-<span class="sourceLineNo">411</span>   * {@link #obtainDeviceAccessToken(java.lang.String, java.lang.String)} method.<a name="line.411"></a>
-<span class="sourceLineNo">412</span>   * <a name="line.412"></a>
-<span class="sourceLineNo">413</span>   * @param appId<a name="line.413"></a>
-<span class="sourceLineNo">414</span>   *          The ID of your app, found in your app's dashboard.<a name="line.414"></a>
-<span class="sourceLineNo">415</span>   * @param scope<a name="line.415"></a>
-<span class="sourceLineNo">416</span>   *          List of Permissions to request from the person using your app.<a name="line.416"></a>
-<span class="sourceLineNo">417</span>   * @return Instance of {@code DeviceCode} including the information to obtain the Device access token<a name="line.417"></a>
-<span class="sourceLineNo">418</span>   * @since 1.12.0<a name="line.418"></a>
-<span class="sourceLineNo">419</span>   */<a name="line.419"></a>
-<span class="sourceLineNo">420</span>  DeviceCode fetchDeviceCode(String appId, ScopeBuilder scope);<a name="line.420"></a>
-<span class="sourceLineNo">421</span><a name="line.421"></a>
-<span class="sourceLineNo">422</span>  /**<a name="line.422"></a>
-<span class="sourceLineNo">423</span>   * Method to initialize the device access token generation.<a name="line.423"></a>
-<span class="sourceLineNo">424</span>   *<a name="line.424"></a>
-<span class="sourceLineNo">425</span>   * This method is used for the Graph API 2.6 or higher. If you need to use an older version you should use<a name="line.425"></a>
-<span class="sourceLineNo">426</span>   * {@link #fetchDeviceCode(String, ScopeBuilder)}<a name="line.426"></a>
-<span class="sourceLineNo">427</span>   *<a name="line.427"></a>
-<span class="sourceLineNo">428</span>   * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and<a name="line.428"></a>
-<span class="sourceLineNo">429</span>   * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.<a name="line.429"></a>
-<span class="sourceLineNo">430</span>   *<a name="line.430"></a>
-<span class="sourceLineNo">431</span>   * Save the {@link DeviceCode#getCode()} to use it later, when polling Facebook with the<a name="line.431"></a>
-<span class="sourceLineNo">432</span>   * {@link #obtainDeviceAccessToken(java.lang.String)} method.<a name="line.432"></a>
-<span class="sourceLineNo">433</span>   *<a name="line.433"></a>
-<span class="sourceLineNo">434</span>   * @param scope<a name="line.434"></a>
-<span class="sourceLineNo">435</span>   *          List of Permissions to request from the person using your app.<a name="line.435"></a>
-<span class="sourceLineNo">436</span>   * @return Instance of {@code DeviceCode} including the information to obtain the Device access token<a name="line.436"></a>
-<span class="sourceLineNo">437</span>   */<a name="line.437"></a>
-<span class="sourceLineNo">438</span>  DeviceCode fetchDeviceCode(ScopeBuilder scope);<a name="line.438"></a>
-<span class="sourceLineNo">439</span><a name="line.439"></a>
-<span class="sourceLineNo">440</span>  /**<a name="line.440"></a>
-<span class="sourceLineNo">441</span>   * Method to poll Facebook and fetch the Device Access Token.<a name="line.441"></a>
-<span class="sourceLineNo">442</span>   *<a name="line.442"></a>
-<span class="sourceLineNo">443</span>   * This method is used for the Graph API 2.5 or lower. If you need to use an newer version you should use<a name="line.443"></a>
-<span class="sourceLineNo">444</span>   * {@link #obtainDeviceAccessToken(String)}<a name="line.444"></a>
-<span class="sourceLineNo">445</span>   * <a name="line.445"></a>
-<span class="sourceLineNo">446</span>   * You have to use this method to check if the user confirms the authorization.<a name="line.446"></a>
-<span class="sourceLineNo">447</span>   * <a name="line.447"></a>
-<span class="sourceLineNo">448</span>   * {@link FacebookOAuthException} can be thrown if the authorization is declined or still pending.<a name="line.448"></a>
+<span class="sourceLineNo">404</span>   * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and<a name="line.404"></a>
+<span class="sourceLineNo">405</span>   * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.<a name="line.405"></a>
+<span class="sourceLineNo">406</span>   *<a name="line.406"></a>
+<span class="sourceLineNo">407</span>   * Save the {@link DeviceCode#getCode()} to use it later, when polling Facebook with the<a name="line.407"></a>
+<span class="sourceLineNo">408</span>   * {@link #obtainDeviceAccessToken(java.lang.String)} method.<a name="line.408"></a>
+<span class="sourceLineNo">409</span>   *<a name="line.409"></a>
+<span class="sourceLineNo">410</span>   * @param scope<a name="line.410"></a>
+<span class="sourceLineNo">411</span>   *          List of Permissions to request from the person using your app.<a name="line.411"></a>
+<span class="sourceLineNo">412</span>   * @return Instance of {@code DeviceCode} including the information to obtain the Device access token<a name="line.412"></a>
+<span class="sourceLineNo">413</span>   */<a name="line.413"></a>
+<span class="sourceLineNo">414</span>  DeviceCode fetchDeviceCode(ScopeBuilder scope);<a name="line.414"></a>
+<span class="sourceLineNo">415</span><a name="line.415"></a>
+<span class="sourceLineNo">416</span>  /**<a name="line.416"></a>
+<span class="sourceLineNo">417</span>   * Method to poll Facebook and fetch the Device Access Token.<a name="line.417"></a>
+<span class="sourceLineNo">418</span>   *<a name="line.418"></a>
+<span class="sourceLineNo">419</span>   * You have to use this method to check if the user confirms the authorization.<a name="line.419"></a>
+<span class="sourceLineNo">420</span>   *<a name="line.420"></a>
+<span class="sourceLineNo">421</span>   * {@link FacebookOAuthException} can be thrown if the authorization is declined or still pending.<a name="line.421"></a>
+<span class="sourceLineNo">422</span>   *<a name="line.422"></a>
+<span class="sourceLineNo">423</span>   * @param code<a name="line.423"></a>
+<span class="sourceLineNo">424</span>   *          The device<a name="line.424"></a>
+<span class="sourceLineNo">425</span>   * @return An extended access token for the given {@link AccessToken}.<a name="line.425"></a>
+<span class="sourceLineNo">426</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException<a name="line.426"></a>
+<span class="sourceLineNo">427</span>   *           the {@link DeviceCode#getCode()} is expired, please fetch a new {@link DeviceCode}.<a name="line.427"></a>
+<span class="sourceLineNo">428</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException<a name="line.428"></a>
+<span class="sourceLineNo">429</span>   *           the user has not finished the authorisation process, yet. Please poll again later.<a name="line.429"></a>
+<span class="sourceLineNo">430</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException<a name="line.430"></a>
+<span class="sourceLineNo">431</span>   *           the user declined the authorisation. You have to handle this problem.<a name="line.431"></a>
+<span class="sourceLineNo">432</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException<a name="line.432"></a>
+<span class="sourceLineNo">433</span>   *           you tried too often to fetch the device access token. You have to use a larger interval<a name="line.433"></a>
+<span class="sourceLineNo">434</span>   * @since 1.12.0<a name="line.434"></a>
+<span class="sourceLineNo">435</span>   */<a name="line.435"></a>
+<span class="sourceLineNo">436</span>  AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.436"></a>
+<span class="sourceLineNo">437</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;<a name="line.437"></a>
+<span class="sourceLineNo">438</span><a name="line.438"></a>
+<span class="sourceLineNo">439</span>  /**<a name="line.439"></a>
+<span class="sourceLineNo">440</span>   * &lt;p&gt;<a name="line.440"></a>
+<span class="sourceLineNo">441</span>   * When working with access tokens, you may need to check what information is associated with them, such as its user<a name="line.441"></a>
+<span class="sourceLineNo">442</span>   * or expiry. To get this information you can use the debug tool in the developer site, or you can use this function.<a name="line.442"></a>
+<span class="sourceLineNo">443</span>   * &lt;/p&gt;<a name="line.443"></a>
+<span class="sourceLineNo">444</span>   * <a name="line.444"></a>
+<span class="sourceLineNo">445</span>   * &lt;p&gt;<a name="line.445"></a>
+<span class="sourceLineNo">446</span>   * You must instantiate your FacebookClient using your App Access Token, or a valid User Access Token from a developer<a name="line.446"></a>
+<span class="sourceLineNo">447</span>   * of the app.<a name="line.447"></a>
+<span class="sourceLineNo">448</span>   * &lt;/p&gt;<a name="line.448"></a>
 <span class="sourceLineNo">449</span>   * <a name="line.449"></a>
-<span class="sourceLineNo">450</span>   * @param appId<a name="line.450"></a>
-<span class="sourceLineNo">451</span>   *          The ID of your app, found in your app's dashboard.<a name="line.451"></a>
-<span class="sourceLineNo">452</span>   * @param code<a name="line.452"></a>
-<span class="sourceLineNo">453</span>   *          The device<a name="line.453"></a>
-<span class="sourceLineNo">454</span>   * @return An extended access token for the given {@link AccessToken}.<a name="line.454"></a>
-<span class="sourceLineNo">455</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException<a name="line.455"></a>
-<span class="sourceLineNo">456</span>   *           the {@link DeviceCode#getCode()} is expired, please fetch a new {@link DeviceCode}. Call<a name="line.456"></a>
-<span class="sourceLineNo">457</span>   *           {@link #fetchDeviceCode(java.lang.String, com.restfb.scope.ScopeBuilder) }<a name="line.457"></a>
-<span class="sourceLineNo">458</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException<a name="line.458"></a>
-<span class="sourceLineNo">459</span>   *           the user has not finished the authorisation process, yet. Please poll again later.<a name="line.459"></a>
-<span class="sourceLineNo">460</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException<a name="line.460"></a>
-<span class="sourceLineNo">461</span>   *           the user declined the authorisation. You have to handle this problem.<a name="line.461"></a>
-<span class="sourceLineNo">462</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException<a name="line.462"></a>
-<span class="sourceLineNo">463</span>   *           you tried too often to fetch the device access token. You have to use a larger interval<a name="line.463"></a>
-<span class="sourceLineNo">464</span>   * @since 1.12.0<a name="line.464"></a>
-<span class="sourceLineNo">465</span>   */<a name="line.465"></a>
-<span class="sourceLineNo">466</span>  AccessToken obtainDeviceAccessToken(String appId, String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.466"></a>
-<span class="sourceLineNo">467</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;<a name="line.467"></a>
-<span class="sourceLineNo">468</span><a name="line.468"></a>
-<span class="sourceLineNo">469</span>  /**<a name="line.469"></a>
-<span class="sourceLineNo">470</span>   * Method to poll Facebook and fetch the Device Access Token.<a name="line.470"></a>
-<span class="sourceLineNo">471</span>   *<a name="line.471"></a>
-<span class="sourceLineNo">472</span>   * This method is used for the Graph API 2.6 or higher. If you need to use an older version you should use<a name="line.472"></a>
-<span class="sourceLineNo">473</span>   * {@link #obtainDeviceAccessToken(String, String)}<a name="line.473"></a>
-<span class="sourceLineNo">474</span>   *<a name="line.474"></a>
-<span class="sourceLineNo">475</span>   * You have to use this method to check if the user confirms the authorization.<a name="line.475"></a>
-<span class="sourceLineNo">476</span>   *<a name="line.476"></a>
-<span class="sourceLineNo">477</span>   * {@link FacebookOAuthException} can be thrown if the authorization is declined or still pending.<a name="line.477"></a>
-<span class="sourceLineNo">478</span>   *<a name="line.478"></a>
-<span class="sourceLineNo">479</span>   * @param code<a name="line.479"></a>
-<span class="sourceLineNo">480</span>   *          The device<a name="line.480"></a>
-<span class="sourceLineNo">481</span>   * @return An extended access token for the given {@link AccessToken}.<a name="line.481"></a>
-<span class="sourceLineNo">482</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException<a name="line.482"></a>
-<span class="sourceLineNo">483</span>   *           the {@link DeviceCode#getCode()} is expired, please fetch a new {@link DeviceCode}. Call<a name="line.483"></a>
-<span class="sourceLineNo">484</span>   *           {@link #fetchDeviceCode(java.lang.String, com.restfb.scope.ScopeBuilder) }<a name="line.484"></a>
-<span class="sourceLineNo">485</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException<a name="line.485"></a>
-<span class="sourceLineNo">486</span>   *           the user has not finished the authorisation process, yet. Please poll again later.<a name="line.486"></a>
-<span class="sourceLineNo">487</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException<a name="line.487"></a>
-<span class="sourceLineNo">488</span>   *           the user declined the authorisation. You have to handle this problem.<a name="line.488"></a>
-<span class="sourceLineNo">489</span>   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException<a name="line.489"></a>
-<span class="sourceLineNo">490</span>   *           you tried too often to fetch the device access token. You have to use a larger interval<a name="line.490"></a>
-<span class="sourceLineNo">491</span>   * @since 1.12.0<a name="line.491"></a>
-<span class="sourceLineNo">492</span>   */<a name="line.492"></a>
-<span class="sourceLineNo">493</span>  AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.493"></a>
-<span class="sourceLineNo">494</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;<a name="line.494"></a>
-<span class="sourceLineNo">495</span><a name="line.495"></a>
-<span class="sourceLineNo">496</span>  /**<a name="line.496"></a>
-<span class="sourceLineNo">497</span>   * &lt;p&gt;<a name="line.497"></a>
-<span class="sourceLineNo">498</span>   * When working with access tokens, you may need to check what information is associated with them, such as its user<a name="line.498"></a>
-<span class="sourceLineNo">499</span>   * or expiry. To get this information you can use the debug tool in the developer site, or you can use this function.<a name="line.499"></a>
-<span class="sourceLineNo">500</span>   * &lt;/p&gt;<a name="line.500"></a>
-<span class="sourceLineNo">501</span>   * <a name="line.501"></a>
-<span class="sourceLineNo">502</span>   * &lt;p&gt;<a name="line.502"></a>
-<span class="sourceLineNo">503</span>   * You must instantiate your FacebookClient using your App Access Token, or a valid User Access Token from a developer<a name="line.503"></a>
-<span class="sourceLineNo">504</span>   * of the app.<a name="line.504"></a>
-<span class="sourceLineNo">505</span>   * &lt;/p&gt;<a name="line.505"></a>
-<span class="sourceLineNo">506</span>   * <a name="line.506"></a>
-<span class="sourceLineNo">507</span>   * &lt;p&gt;<a name="line.507"></a>
-<span class="sourceLineNo">508</span>   * Note that if your app is set to Native/Desktop in the Advanced settings of your App Dashboard, the underlying<a name="line.508"></a>
-<span class="sourceLineNo">509</span>   * GraphAPI endpoint will not work with your app token unless you change the "App Secret in Client" setting to NO. If<a name="line.509"></a>
-<span class="sourceLineNo">510</span>   * you do not see this setting, make sure your "App Type" is set to Native/Desktop and then press the save button at<a name="line.510"></a>
-<span class="sourceLineNo">511</span>   * the bottom of the page. This will not affect apps set to Web.<a name="line.511"></a>
-<span class="sourceLineNo">512</span>   * &lt;/p&gt;<a name="line.512"></a>
-<span class="sourceLineNo">513</span>   * <a name="line.513"></a>
-<span class="sourceLineNo">514</span>   * &lt;p&gt;<a name="line.514"></a>
-<span class="sourceLineNo">515</span>   * The response of the API call is a JSON array containing data and a map of fields. For example:<a name="line.515"></a>
-<span class="sourceLineNo">516</span>   * &lt;/p&gt;<a name="line.516"></a>
-<span class="sourceLineNo">517</span>   * <a name="line.517"></a>
-<span class="sourceLineNo">518</span>   * &lt;pre&gt;<a name="line.518"></a>
-<span class="sourceLineNo">519</span>   * {@code<a name="line.519"></a>
-<span class="sourceLineNo">520</span>   * {<a name="line.520"></a>
-<span class="sourceLineNo">521</span>   *     "data": {<a name="line.521"></a>
-<span class="sourceLineNo">522</span>   *         "app_id": 138483919580948, <a name="line.522"></a>
-<span class="sourceLineNo">523</span>   *         "application": "Social Cafe", <a name="line.523"></a>
-<span class="sourceLineNo">524</span>   *         "expires_at": 1352419328, <a name="line.524"></a>
-<span class="sourceLineNo">525</span>   *         "is_valid": true, <a name="line.525"></a>
-<span class="sourceLineNo">526</span>   *         "issued_at": 1347235328, <a name="line.526"></a>
-<span class="sourceLineNo">527</span>   *         "metadata": {<a name="line.527"></a>
-<span class="sourceLineNo">528</span>   *             "sso": "iphone-safari"<a name="line.528"></a>
-<span class="sourceLineNo">529</span>   *         }, <a name="line.529"></a>
-<span class="sourceLineNo">530</span>   *         "scopes": [<a name="line.530"></a>
-<span class="sourceLineNo">531</span>   *             "email", <a name="line.531"></a>
-<span class="sourceLineNo">532</span>   *             "publish_actions"<a name="line.532"></a>
-<span class="sourceLineNo">533</span>   *         ], <a name="line.533"></a>
-<span class="sourceLineNo">534</span>   *         "user_id": 1207059<a name="line.534"></a>
-<span class="sourceLineNo">535</span>   *     }<a name="line.535"></a>
-<span class="sourceLineNo">536</span>   * }<a name="line.536"></a>
-<span class="sourceLineNo">537</span>   * }<a name="line.537"></a>
-<span class="sourceLineNo">538</span>   * &lt;/pre&gt;<a name="line.538"></a>
-<span class="sourceLineNo">539</span>   * <a name="line.539"></a>
-<span class="sourceLineNo">540</span>   * &lt;p&gt;<a name="line.540"></a>
-<span class="sourceLineNo">541</span>   * Note that the {@code issued_at} field is not returned for short-lived access tokens.<a name="line.541"></a>
-<span class="sourceLineNo">542</span>   * &lt;/p&gt;<a name="line.542"></a>
-<span class="sourceLineNo">543</span>   * <a name="line.543"></a>
-<span class="sourceLineNo">544</span>   * &lt;p&gt;<a name="line.544"></a>
-<span class="sourceLineNo">545</span>   * See &lt;a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/"&gt; Debugging an Access<a name="line.545"></a>
-<span class="sourceLineNo">546</span>   * Token&lt;/a&gt;<a name="line.546"></a>
-<span class="sourceLineNo">547</span>   * &lt;/p&gt;<a name="line.547"></a>
-<span class="sourceLineNo">548</span>   * <a name="line.548"></a>
-<span class="sourceLineNo">549</span>   * @param inputToken<a name="line.549"></a>
-<span class="sourceLineNo">550</span>   *          The Access Token to debug.<a name="line.550"></a>
+<span class="sourceLineNo">450</span>   * &lt;p&gt;<a name="line.450"></a>
+<span class="sourceLineNo">451</span>   * Note that if your app is set to Native/Desktop in the Advanced settings of your App Dashboard, the underlying<a name="line.451"></a>
+<span class="sourceLineNo">452</span>   * GraphAPI endpoint will not work with your app token unless you change the "App Secret in Client" setting to NO. If<a name="line.452"></a>
+<span class="sourceLineNo">453</span>   * you do not see this setting, make sure your "App Type" is set to Native/Desktop and then press the save button at<a name="line.453"></a>
+<span class="sourceLineNo">454</span>   * the bottom of the page. This will not affect apps set to Web.<a name="line.454"></a>
+<span class="sourceLineNo">455</span>   * &lt;/p&gt;<a name="line.455"></a>
+<span class="sourceLineNo">456</span>   * <a name="line.456"></a>
+<span class="sourceLineNo">457</span>   * &lt;p&gt;<a name="line.457"></a>
+<span class="sourceLineNo">458</span>   * The response of the API call is a JSON array containing data and a map of fields. For example:<a name="line.458"></a>
+<span class="sourceLineNo">459</span>   * &lt;/p&gt;<a name="line.459"></a>
+<span class="sourceLineNo">460</span>   * <a name="line.460"></a>
+<span class="sourceLineNo">461</span>   * &lt;pre&gt;<a name="line.461"></a>
+<span class="sourceLineNo">462</span>   * {@code<a name="line.462"></a>
+<span class="sourceLineNo">463</span>   * {<a name="line.463"></a>
+<span class="sourceLineNo">464</span>   *     "data": {<a name="line.464"></a>
+<span class="sourceLineNo">465</span>   *         "app_id": 138483919580948, <a name="line.465"></a>
+<span class="sourceLineNo">466</span>   *         "application": "Social Cafe", <a name="line.466"></a>
+<span class="sourceLineNo">467</span>   *         "expires_at": 1352419328, <a name="line.467"></a>
+<span class="sourceLineNo">468</span>   *         "is_valid": true, <a name="line.468"></a>
+<span class="sourceLineNo">469</span>   *         "issued_at": 1347235328, <a name="line.469"></a>
+<span class="sourceLineNo">470</span>   *         "metadata": {<a name="line.470"></a>
+<span class="sourceLineNo">471</span>   *             "sso": "iphone-safari"<a name="line.471"></a>
+<span class="sourceLineNo">472</span>   *         }, <a name="line.472"></a>
+<span class="sourceLineNo">473</span>   *         "scopes": [<a name="line.473"></a>
+<span class="sourceLineNo">474</span>   *             "email", <a name="line.474"></a>
+<span class="sourceLineNo">475</span>   *             "publish_actions"<a name="line.475"></a>
+<span class="sourceLineNo">476</span>   *         ], <a name="line.476"></a>
+<span class="sourceLineNo">477</span>   *         "user_id": 1207059<a name="line.477"></a>
+<span class="sourceLineNo">478</span>   *     }<a name="line.478"></a>
+<span class="sourceLineNo">479</span>   * }<a name="line.479"></a>
+<span class="sourceLineNo">480</span>   * }<a name="line.480"></a>
+<span class="sourceLineNo">481</span>   * &lt;/pre&gt;<a name="line.481"></a>
+<span class="sourceLineNo">482</span>   * <a name="line.482"></a>
+<span class="sourceLineNo">483</span>   * &lt;p&gt;<a name="line.483"></a>
+<span class="sourceLineNo">484</span>   * Note that the {@code issued_at} field is not returned for short-lived access tokens.<a name="line.484"></a>
+<span class="sourceLineNo">485</span>   * &lt;/p&gt;<a name="line.485"></a>
+<span class="sourceLineNo">486</span>   * <a name="line.486"></a>
+<span class="sourceLineNo">487</span>   * &lt;p&gt;<a name="line.487"></a>
+<span class="sourceLineNo">488</span>   * See &lt;a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/"&gt; Debugging an Access<a name="line.488"></a>
+<span class="sourceLineNo">489</span>   * Token&lt;/a&gt;<a name="line.489"></a>
+<span class="sourceLineNo">490</span>   * &lt;/p&gt;<a name="line.490"></a>
+<span class="sourceLineNo">491</span>   * <a name="line.491"></a>
+<span class="sourceLineNo">492</span>   * @param inputToken<a name="line.492"></a>
+<span class="sourceLineNo">493</span>   *          The Access Token to debug.<a name="line.493"></a>
+<span class="sourceLineNo">494</span>   * <a name="line.494"></a>
+<span class="sourceLineNo">495</span>   * @return A JsonObject containing the debug information for the accessToken.<a name="line.495"></a>
+<span class="sourceLineNo">496</span>   * @since 1.6.13<a name="line.496"></a>
+<span class="sourceLineNo">497</span>   */<a name="line.497"></a>
+<span class="sourceLineNo">498</span>  DebugTokenInfo debugToken(String inputToken);<a name="line.498"></a>
+<span class="sourceLineNo">499</span><a name="line.499"></a>
+<span class="sourceLineNo">500</span>  /**<a name="line.500"></a>
+<span class="sourceLineNo">501</span>   * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.<a name="line.501"></a>
+<span class="sourceLineNo">502</span>   * <a name="line.502"></a>
+<span class="sourceLineNo">503</span>   * @return The {@code JsonMapper} used to convert Facebook JSON to Java objects.<a name="line.503"></a>
+<span class="sourceLineNo">504</span>   * @since 1.6.7<a name="line.504"></a>
+<span class="sourceLineNo">505</span>   */<a name="line.505"></a>
+<span class="sourceLineNo">506</span>  JsonMapper getJsonMapper();<a name="line.506"></a>
+<span class="sourceLineNo">507</span><a name="line.507"></a>
+<span class="sourceLineNo">508</span>  /**<a name="line.508"></a>
+<span class="sourceLineNo">509</span>   * Gets the {@code WebRequestor} used to talk to the Facebook API endpoints.<a name="line.509"></a>
+<span class="sourceLineNo">510</span>   * <a name="line.510"></a>
+<span class="sourceLineNo">511</span>   * @return The {@code WebRequestor} used to talk to the Facebook API endpoints.<a name="line.511"></a>
+<span class="sourceLineNo">512</span>   * @since 1.6.7<a name="line.512"></a>
+<span class="sourceLineNo">513</span>   */<a name="line.513"></a>
+<span class="sourceLineNo">514</span>  WebRequestor getWebRequestor();<a name="line.514"></a>
+<span class="sourceLineNo">515</span><a name="line.515"></a>
+<span class="sourceLineNo">516</span>  /**<a name="line.516"></a>
+<span class="sourceLineNo">517</span>   * generates an logout url<a name="line.517"></a>
+<span class="sourceLineNo">518</span>   * <a name="line.518"></a>
+<span class="sourceLineNo">519</span>   * @param next<a name="line.519"></a>
+<span class="sourceLineNo">520</span>   *          may be null, url the webpage should redirect after logout<a name="line.520"></a>
+<span class="sourceLineNo">521</span>   * @return the logout url<a name="line.521"></a>
+<span class="sourceLineNo">522</span>   * @since 1.9.0<a name="line.522"></a>
+<span class="sourceLineNo">523</span>   */<a name="line.523"></a>
+<span class="sourceLineNo">524</span>  String getLogoutUrl(String next);<a name="line.524"></a>
+<span class="sourceLineNo">525</span><a name="line.525"></a>
+<span class="sourceLineNo">526</span>  /**<a name="line.526"></a>
+<span class="sourceLineNo">527</span>   * generates the login dialog url<a name="line.527"></a>
+<span class="sourceLineNo">528</span>   * <a name="line.528"></a>
+<span class="sourceLineNo">529</span>   * @param appId<a name="line.529"></a>
+<span class="sourceLineNo">530</span>   *          The ID of your app, found in your app's dashboard.<a name="line.530"></a>
+<span class="sourceLineNo">531</span>   * @param redirectUri<a name="line.531"></a>
+<span class="sourceLineNo">532</span>   *          The URL that you want to redirect the person logging in back to. This URL will capture the response from<a name="line.532"></a>
+<span class="sourceLineNo">533</span>   *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to<a name="line.533"></a>
+<span class="sourceLineNo">534</span>   *          &lt;code&gt;https://www.facebook.com/connect/login_success.html&lt;/code&gt;.<a name="line.534"></a>
+<span class="sourceLineNo">535</span>   * @param scope<a name="line.535"></a>
+<span class="sourceLineNo">536</span>   *          List of Permissions to request from the person using your app.<a name="line.536"></a>
+<span class="sourceLineNo">537</span>   * @param additionalParameters<a name="line.537"></a>
+<span class="sourceLineNo">538</span>   *          List of additional parameters<a name="line.538"></a>
+<span class="sourceLineNo">539</span>   * @since 1.9.0<a name="line.539"></a>
+<span class="sourceLineNo">540</span>   * @return<a name="line.540"></a>
+<span class="sourceLineNo">541</span>   */<a name="line.541"></a>
+<span class="sourceLineNo">542</span>  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... additionalParameters);<a name="line.542"></a>
+<span class="sourceLineNo">543</span><a name="line.543"></a>
+<span class="sourceLineNo">544</span>  /**<a name="line.544"></a>
+<span class="sourceLineNo">545</span>   * Represents an access token/expiration date pair.<a name="line.545"></a>
+<span class="sourceLineNo">546</span>   * &lt;p&gt;<a name="line.546"></a>
+<span class="sourceLineNo">547</span>   * Facebook returns these types when performing access token-related operations - see<a name="line.547"></a>
+<span class="sourceLineNo">548</span>   * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)},<a name="line.548"></a>
+<span class="sourceLineNo">549</span>   * {@link com.restfb.FacebookClient#obtainAppAccessToken(String, String)}, and<a name="line.549"></a>
+<span class="sourceLineNo">550</span>   * {@link com.restfb.FacebookClient#obtainExtendedAccessToken(String, String, String)} for details.<a name="line.550"></a>
 <span class="sourceLineNo">551</span>   * <a name="line.551"></a>
-<span class="sourceLineNo">552</span>   * @return A JsonObject containing the debug information for the accessToken.<a name="line.552"></a>
-<span class="sourceLineNo">553</span>   * @since 1.6.13<a name="line.553"></a>
-<span class="sourceLineNo">554</span>   */<a name="line.554"></a>
-<span class="sourceLineNo">555</span>  DebugTokenInfo debugToken(String inputToken);<a name="line.555"></a>
-<span class="sourceLineNo">556</span><a name="line.556"></a>
-<span class="sourceLineNo">557</span>  /**<a name="line.557"></a>
-<span class="sourceLineNo">558</span>   * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.<a name="line.558"></a>
-<span class="sourceLineNo">559</span>   * <a name="line.559"></a>
-<span class="sourceLineNo">560</span>   * @return The {@code JsonMapper} used to convert Facebook JSON to Java objects.<a name="line.560"></a>
-<span class="sourceLineNo">561</span>   * @since 1.6.7<a name="line.561"></a>
-<span class="sourceLineNo">562</span>   */<a name="line.562"></a>
-<span class="sourceLineNo">563</span>  JsonMapper getJsonMapper();<a name="line.563"></a>
-<span class="sourceLineNo">564</span><a name="line.564"></a>
-<span class="sourceLineNo">565</span>  /**<a name="line.565"></a>
-<span class="sourceLineNo">566</span>   * Gets the {@code WebRequestor} used to talk to the Facebook API endpoints.<a name="line.566"></a>
-<span class="sourceLineNo">567</span>   * <a name="line.567"></a>
-<span class="sourceLineNo">568</span>   * @return The {@code WebRequestor} used to talk to the Facebook API endpoints.<a name="line.568"></a>
-<span class="sourceLineNo">569</span>   * @since 1.6.7<a name="line.569"></a>
-<span class="sourceLineNo">570</span>   */<a name="line.570"></a>
-<span class="sourceLineNo">571</span>  WebRequestor getWebRequestor();<a name="line.571"></a>
-<span class="sourceLineNo">572</span><a name="line.572"></a>
-<span class="sourceLineNo">573</span>  /**<a name="line.573"></a>
-<span class="sourceLineNo">574</span>   * generates an logout url<a name="line.574"></a>
-<span class="sourceLineNo">575</span>   * <a name="line.575"></a>
-<span class="sourceLineNo">576</span>   * @param next<a name="line.576"></a>
-<span class="sourceLineNo">577</span>   *          may be null, url the webpage should redirect after logout<a name="line.577"></a>
-<span class="sourceLineNo">578</span>   * @return the logout url<a name="line.578"></a>
-<span class="sourceLineNo">579</span>   * @since 1.9.0<a name="line.579"></a>
-<span class="sourceLineNo">580</span>   */<a name="line.580"></a>
-<span class="sourceLineNo">581</span>  String getLogoutUrl(String next);<a name="line.581"></a>
-<span class="sourceLineNo">582</span><a name="line.582"></a>
-<span class="sourceLineNo">583</span>  /**<a name="line.583"></a>
-<span class="sourceLineNo">584</span>   * generates the login dialog url<a name="line.584"></a>
-<span class="sourceLineNo">585</span>   * <a name="line.585"></a>
-<span class="sourceLineNo">586</span>   * @param appId<a name="line.586"></a>
-<span class="sourceLineNo">587</span>   *          The ID of your app, found in your app's dashboard.<a name="line.587"></a>
-<span class="sourceLineNo">588</span>   * @param redirectUri<a name="line.588"></a>
-<span class="sourceLineNo">589</span>   *          The URL that you want to redirect the person logging in back to. This URL will capture the response from<a name="line.589"></a>
-<span class="sourceLineNo">590</span>   *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to<a name="line.590"></a>
-<span class="sourceLineNo">591</span>   *          &lt;code&gt;https://www.facebook.com/connect/login_success.html&lt;/code&gt;.<a name="line.591"></a>
-<span class="sourceLineNo">592</span>   * @param scope<a name="line.592"></a>
-<span class="sourceLineNo">593</span>   *          List of Permissions to request from the person using your app.<a name="line.593"></a>
-<span class="sourceLineNo">594</span>   * @param additionalParameters<a name="line.594"></a>
-<span class="sourceLineNo">595</span>   *          List of additional parameters<a name="line.595"></a>
-<span class="sourceLineNo">596</span>   * @since 1.9.0<a name="line.596"></a>
-<span class="sourceLineNo">597</span>   * @return<a name="line.597"></a>
-<span class="sourceLineNo">598</span>   */<a name="line.598"></a>
-<span class="sourceLineNo">599</span>  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... additionalParameters);<a name="line.599"></a>
-<span class="sourceLineNo">600</span><a name="line.600"></a>
-<span class="sourceLineNo">601</span>  /**<a name="line.601"></a>
-<span class="sourceLineNo">602</span>   * Represents an access token/expiration date pair.<a name="line.602"></a>
-<span class="sourceLineNo">603</span>   * &lt;p&gt;<a name="line.603"></a>
-<span class="sourceLineNo">604</span>   * Facebook returns these types when performing access token-related operations - see<a name="line.604"></a>
-<span class="sourceLineNo">605</span>   * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)},<a name="line.605"></a>
-<span class="sourceLineNo">606</span>   * {@link com.restfb.FacebookClient#obtainAppAccessToken(String, String)}, and<a name="line.606"></a>
-<span class="sourceLineNo">607</span>   * {@link com.restfb.FacebookClient#obtainExtendedAccessToken(String, String, String)} for details.<a name="line.607"></a>
-<span class="sourceLineNo">608</span>   * <a name="line.608"></a>
-<span class="sourceLineNo">609</span>   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;<a name="line.609"></a>
-<span class="sourceLineNo">610</span>   */<a name="line.610"></a>
-<span class="sourceLineNo">611</span>  class AccessToken {<a name="line.611"></a>
-<span class="sourceLineNo">612</span>    @Facebook("access_token")<a name="line.612"></a>
-<span class="sourceLineNo">613</span>    private String accessToken;<a name="line.613"></a>
-<span class="sourceLineNo">614</span><a name="line.614"></a>
-<span class="sourceLineNo">615</span>    @Facebook("expires_in")<a name="line.615"></a>
-<span class="sourceLineNo">616</span>    private Long rawExpires;<a name="line.616"></a>
-<span class="sourceLineNo">617</span><a name="line.617"></a>
-<span class="sourceLineNo">618</span>    private Long expires;<a name="line.618"></a>
-<span class="sourceLineNo">619</span><a name="line.619"></a>
-<span class="sourceLineNo">620</span>    @Facebook("token_type")<a name="line.620"></a>
-<span class="sourceLineNo">621</span>    private String tokenType;<a name="line.621"></a>
-<span class="sourceLineNo">622</span><a name="line.622"></a>
-<span class="sourceLineNo">623</span>    /**<a name="line.623"></a>
-<span class="sourceLineNo">624</span>     * Given a query string of the form {@code access_token=XXX} or {@code access_token=XXX&amp;expires=YYY}, return an<a name="line.624"></a>
-<span class="sourceLineNo">625</span>     * {@code AccessToken} instance.<a name="line.625"></a>
-<span class="sourceLineNo">626</span>     * &lt;p&gt;<a name="line.626"></a>
-<span class="sourceLineNo">627</span>     * The {@code queryString} is required to contain an {@code access_token} parameter with a non-{@code null} value.<a name="line.627"></a>
-<span class="sourceLineNo">628</span>     * The {@code expires} value is optional and should be the number of seconds since the epoch. If the {@code expires}<a name="line.628"></a>
-<span class="sourceLineNo">629</span>     * value cannot be parsed, the returned {@code AccessToken} will have a {@code null} {@code expires} value.<a name="line.629"></a>
-<span class="sourceLineNo">630</span>     * <a name="line.630"></a>
-<span class="sourceLineNo">631</span>     * @param queryString<a name="line.631"></a>
-<span class="sourceLineNo">632</span>     *          The Facebook query string out of which to parse an {@code AccessToken} instance.<a name="line.632"></a>
-<span class="sourceLineNo">633</span>     * @return An {@code AccessToken} instance which corresponds to the given {@code queryString}.<a name="line.633"></a>
-<span class="sourceLineNo">634</span>     * @throws IllegalArgumentException<a name="line.634"></a>
-<span class="sourceLineNo">635</span>     *           If no {@code access_token} parameter is present in the query string.<a name="line.635"></a>
-<span class="sourceLineNo">636</span>     * @since 1.6.10<a name="line.636"></a>
-<span class="sourceLineNo">637</span>     */<a name="line.637"></a>
-<span class="sourceLineNo">638</span>    public static AccessToken fromQueryString(String queryString) {<a name="line.638"></a>
-<span class="sourceLineNo">639</span>      // Query string can be of the form 'access_token=XXX' or<a name="line.639"></a>
-<span class="sourceLineNo">640</span>      // 'access_token=XXX&amp;expires=YYY'<a name="line.640"></a>
-<span class="sourceLineNo">641</span>      Map&lt;String, List&lt;String&gt;&gt; urlParameters = extractParametersFromQueryString(queryString);<a name="line.641"></a>
+<span class="sourceLineNo">552</span>   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;<a name="line.552"></a>
+<span class="sourceLineNo">553</span>   */<a name="line.553"></a>
+<span class="sourceLineNo">554</span>  class AccessToken {<a name="line.554"></a>
+<span class="sourceLineNo">555</span>    @Facebook("access_token")<a name="line.555"></a>
+<span class="sourceLineNo">556</span>    private String accessToken;<a name="line.556"></a>
+<span class="sourceLineNo">557</span><a name="line.557"></a>
+<span class="sourceLineNo">558</span>    @Facebook("expires_in")<a name="line.558"></a>
+<span class="sourceLineNo">559</span>    private Long rawExpires;<a name="line.559"></a>
+<span class="sourceLineNo">560</span><a name="line.560"></a>
+<span class="sourceLineNo">561</span>    private Long expires;<a name="line.561"></a>
+<span class="sourceLineNo">562</span><a name="line.562"></a>
+<span class="sourceLineNo">563</span>    @Facebook("token_type")<a name="line.563"></a>
+<span class="sourceLineNo">564</span>    private String tokenType;<a name="line.564"></a>
+<span class="sourceLineNo">565</span><a name="line.565"></a>
+<span class="sourceLineNo">566</span>    /**<a name="line.566"></a>
+<span class="sourceLineNo">567</span>     * Given a query string of the form {@code access_token=XXX} or {@code access_token=XXX&amp;expires=YYY}, return an<a name="line.567"></a>
+<span class="sourceLineNo">568</span>     * {@code AccessToken} instance.<a name="line.568"></a>
+<span class="sourceLineNo">569</span>     * &lt;p&gt;<a name="line.569"></a>
+<span class="sourceLineNo">570</span>     * The {@code queryString} is required to contain an {@code access_token} parameter with a non-{@code null} value.<a name="line.570"></a>
+<span class="sourceLineNo">571</span>     * The {@code expires} value is optional and should be the number of seconds since the epoch. If the {@code expires}<a name="line.571"></a>
+<span class="sourceLineNo">572</span>     * value cannot be parsed, the returned {@code AccessToken} will have a {@code null} {@code expires} value.<a name="line.572"></a>
+<span class="sourceLineNo">573</span>     * <a name="line.573"></a>
+<span class="sourceLineNo">574</span>     * @param queryString<a name="line.574"></a>
+<span class="sourceLineNo">575</span>     *          The Facebook query string out of which to parse an {@code AccessToken} instance.<a name="line.575"></a>
+<span class="sourceLineNo">576</span>     * @return An {@code AccessToken} instance which corresponds to the given {@code queryString}.<a name="line.576"></a>
+<span class="sourceLineNo">577</span>     * @throws IllegalArgumentException<a name="line.577"></a>
+<span class="sourceLineNo">578</span>     *           If no {@code access_token} parameter is present in the query string.<a name="line.578"></a>
+<span class="sourceLineNo">579</span>     * @since 1.6.10<a name="line.579"></a>
+<span class="sourceLineNo">580</span>     */<a name="line.580"></a>
+<span class="sourceLineNo">581</span>    public static AccessToken fromQueryString(String queryString) {<a name="line.581"></a>
+<span class="sourceLineNo">582</span>      // Query string can be of the form 'access_token=XXX' or<a name="line.582"></a>
+<span class="sourceLineNo">583</span>      // 'access_token=XXX&amp;expires=YYY'<a name="line.583"></a>
+<span class="sourceLineNo">584</span>      Map&lt;String, List&lt;String&gt;&gt; urlParameters = extractParametersFromQueryString(queryString);<a name="line.584"></a>
+<span class="sourceLineNo">585</span><a name="line.585"></a>
+<span class="sourceLineNo">586</span>      String extendedAccessToken = null;<a name="line.586"></a>
+<span class="sourceLineNo">587</span>      String tokenType = null;<a name="line.587"></a>
+<span class="sourceLineNo">588</span><a name="line.588"></a>
+<span class="sourceLineNo">589</span>      if (urlParameters.containsKey("access_token")) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>        extendedAccessToken = urlParameters.get("access_token").get(0);<a name="line.590"></a>
+<span class="sourceLineNo">591</span>      }<a name="line.591"></a>
+<span class="sourceLineNo">592</span><a name="line.592"></a>
+<span class="sourceLineNo">593</span>      if (urlParameters.containsKey("token_type")) {<a name="line.593"></a>
+<span class="sourceLineNo">594</span>        tokenType = urlParameters.get("token_type").get(0);<a name="line.594"></a>
+<span class="sourceLineNo">595</span>      }<a name="line.595"></a>
+<span class="sourceLineNo">596</span><a name="line.596"></a>
+<span class="sourceLineNo">597</span>      if (extendedAccessToken == null) {<a name="line.597"></a>
+<span class="sourceLineNo">598</span>        throw new IllegalArgumentException(format(<a name="line.598"></a>
+<span class="sourceLineNo">599</span>          "Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&amp;expires=YYY'. Instead, the query string was '%s'",<a name="line.599"></a>
+<span class="sourceLineNo">600</span>          queryString));<a name="line.600"></a>
+<span class="sourceLineNo">601</span>      }<a name="line.601"></a>
+<span class="sourceLineNo">602</span><a name="line.602"></a>
+<span class="sourceLineNo">603</span>      Long expires = null;<a name="line.603"></a>
+<span class="sourceLineNo">604</span><a name="line.604"></a>
+<span class="sourceLineNo">605</span>      // If an expires or expires_in value was provided and it's a valid long, great - use it.<a name="line.605"></a>
+<span class="sourceLineNo">606</span>      // Otherwise ignore it.<a name="line.606"></a>
+<span class="sourceLineNo">607</span>      String rawExpires = null;<a name="line.607"></a>
+<span class="sourceLineNo">608</span><a name="line.608"></a>
+<span class="sourceLineNo">609</span>      if (urlParameters.containsKey("expires")) {<a name="line.609"></a>
+<span class="sourceLineNo">610</span>        rawExpires = urlParameters.get("expires").get(0);<a name="line.610"></a>
+<span class="sourceLineNo">611</span>      }<a name="line.611"></a>
+<span class="sourceLineNo">612</span><a name="line.612"></a>
+<span class="sourceLineNo">613</span>      if (urlParameters.containsKey("expires_in")) {<a name="line.613"></a>
+<span class="sourceLineNo">614</span>        rawExpires = urlParameters.get("expires_in").get(0);<a name="line.614"></a>
+<span class="sourceLineNo">615</span>      }<a name="line.615"></a>
+<span class="sourceLineNo">616</span><a name="line.616"></a>
+<span class="sourceLineNo">617</span>      if (rawExpires != null) {<a name="line.617"></a>
+<span class="sourceLineNo">618</span>        try {<a name="line.618"></a>
+<span class="sourceLineNo">619</span>          expires = Long.valueOf(rawExpires);<a name="line.619"></a>
+<span class="sourceLineNo">620</span>        } catch (NumberFormatException e) {}<a name="line.620"></a>
+<span class="sourceLineNo">621</span>        if (expires != null) {<a name="line.621"></a>
+<span class="sourceLineNo">622</span>          expires = new Date().getTime() + 1000L * expires;<a name="line.622"></a>
+<span class="sourceLineNo">623</span>        }<a name="line.623"></a>
+<span class="sourceLineNo">624</span>      }<a name="line.624"></a>
+<span class="sourceLineNo">625</span><a name="line.625"></a>
+<span class="sourceLineNo">626</span>      AccessToken accessToken = new AccessToken();<a name="line.626"></a>
+<span class="sourceLineNo">627</span>      accessToken.accessToken = extendedAccessToken;<a name="line.627"></a>
+<span class="sourceLineNo">628</span>      accessToken.expires = expires;<a name="line.628"></a>
+<span class="sourceLineNo">629</span>      accessToken.tokenType = tokenType;<a name="line.629"></a>
+<span class="sourceLineNo">630</span>      return accessToken;<a name="line.630"></a>
+<span class="sourceLineNo">631</span>    }<a name="line.631"></a>
+<span class="sourceLineNo">632</span><a name="line.632"></a>
+<span class="sourceLineNo">633</span>    @Override<a name="line.633"></a>
+<span class="sourceLineNo">634</span>    public int hashCode() {<a name="line.634"></a>
+<span class="sourceLineNo">635</span>      return ReflectionUtils.hashCode(this);<a name="line.635"></a>
+<span class="sourceLineNo">636</span>    }<a name="line.636"></a>
+<span class="sourceLineNo">637</span><a name="line.637"></a>
+<span class="sourceLineNo">638</span>    @Override<a name="line.638"></a>
+<span class="sourceLineNo">639</span>    public boolean equals(Object that) {<a name="line.639"></a>
+<span class="sourceLineNo">640</span>      return ReflectionUtils.equals(this, that);<a name="line.640"></a>
+<span class="sourceLineNo">641</span>    }<a name="line.641"></a>
 <span class="sourceLineNo">642</span><a name="line.642"></a>
-<span class="sourceLineNo">643</span>      String extendedAccessToken = null;<a name="line.643"></a>
-<span class="sourceLineNo">644</span>      String tokenType = null;<a name="line.644"></a>
-<span class="sourceLineNo">645</span><a name="line.645"></a>
-<span class="sourceLineNo">646</span>      if (urlParameters.containsKey("access_token")) {<a name="line.646"></a>
-<span class="sourceLineNo">647</span>        extendedAccessToken = urlParameters.get("access_token").get(0);<a name="line.647"></a>
-<span class="sourceLineNo">648</span>      }<a name="line.648"></a>
-<span class="sourceLineNo">649</span><a name="line.649"></a>
-<span class="sourceLineNo">650</span>      if (urlParameters.containsKey("token_type")) {<a name="line.650"></a>
-<span class="sourceLineNo">651</span>        tokenType = urlParameters.get("token_type").get(0);<a name="line.651"></a>
-<span class="sourceLineNo">652</span>      }<a name="line.652"></a>
-<span class="sourceLineNo">653</span><a name="line.653"></a>
-<span class="sourceLineNo">654</span>      if (extendedAccessToken == null) {<a name="line.654"></a>
-<span class="sourceLineNo">655</span>        throw new IllegalArgumentException(format(<a name="line.655"></a>
-<span class="sourceLineNo">656</span>          "Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&amp;expires=YYY'. Instead, the query string was '%s'",<a name="line.656"></a>
-<span class="sourceLineNo">657</span>          queryString));<a name="line.657"></a>
-<span class="sourceLineNo">658</span>      }<a name="line.658"></a>
-<span class="sourceLineNo">659</span><a name="line.659"></a>
-<span class="sourceLineNo">660</span>      Long expires = null;<a name="line.660"></a>
-<span class="sourceLineNo">661</span><a name="line.661"></a>
-<span class="sourceLineNo">662</span>      // If an expires or expires_in value was provided and it's a valid long, great - use it.<a name="line.662"></a>
-<span class="sourceLineNo">663</span>      // Otherwise ignore it.<a name="line.663"></a>
-<span class="sourceLineNo">664</span>      String rawExpires = null;<a name="line.664"></a>
+<span class="sourceLineNo">643</span>    @Override<a name="line.643"></a>
+<span class="sourceLineNo">644</span>    public String toString() {<a name="line.644"></a>
+<span class="sourceLineNo">645</span>      return ReflectionUtils.toString(this);<a name="line.645"></a>
+<span class="sourceLineNo">646</span>    }<a name="line.646"></a>
+<span class="sourceLineNo">647</span><a name="line.647"></a>
+<span class="sourceLineNo">648</span>    /**<a name="line.648"></a>
+<span class="sourceLineNo">649</span>     * The access token's value.<a name="line.649"></a>
+<span class="sourceLineNo">650</span>     * <a name="line.650"></a>
+<span class="sourceLineNo">651</span>     * @return The access token's value.<a name="line.651"></a>
+<span class="sourceLineNo">652</span>     */<a name="line.652"></a>
+<span class="sourceLineNo">653</span>    public String getAccessToken() {<a name="line.653"></a>
+<span class="sourceLineNo">654</span>      return accessToken;<a name="line.654"></a>
+<span class="sourceLineNo">655</span>    }<a name="line.655"></a>
+<span class="sourceLineNo">656</span><a name="line.656"></a>
+<span class="sourceLineNo">657</span>    /**<a name="line.657"></a>
+<span class="sourceLineNo">658</span>     * The date on which the access token expires.<a name="line.658"></a>
+<span class="sourceLineNo">659</span>     * <a name="line.659"></a>
+<span class="sourceLineNo">660</span>     * @return The date on which the access token expires.<a name="line.660"></a>
+<span class="sourceLineNo">661</span>     */<a name="line.661"></a>
+<span class="sourceLineNo">662</span>    public Date getExpires() {<a name="line.662"></a>
+<span class="sourceLineNo">663</span>      return expires == null ? null : new Date(expires);<a name="line.663"></a>
+<span class="sourceLineNo">664</span>    }<a name="line.664"></a>
 <span class="sourceLineNo">665</span><a name="line.665"></a>
-<span class="sourceLineNo">666</span>      if (urlParameters.containsKey("expires")) {<a name="line.666"></a>
-<span class="sourceLineNo">667</span>        rawExpires = urlParameters.get("expires").get(0);<a name="line.667"></a>
-<span class="sourceLineNo">668</span>      }<a name="line.668"></a>
-<span class="sourceLineNo">669</span><a name="line.669"></a>
-<span class="sourceLineNo">670</span>      if (urlParameters.containsKey("expires_in")) {<a name="line.670"></a>
-<span class="sourceLineNo">671</span>        rawExpires = urlParameters.get("expires_in").get(0);<a name="line.671"></a>
-<span class="sourceLineNo">672</span>      }<a name="line.672"></a>
-<span class="sourceLineNo">673</span><a name="line.673"></a>
-<span class="sourceLineNo">674</span>      if (rawExpires != null) {<a name="line.674"></a>
-<span class="sourceLineNo">675</span>        try {<a name="line.675"></a>
-<span class="sourceLineNo">676</span>          expires = Long.valueOf(rawExpires);<a name="line.676"></a>
-<span class="sourceLineNo">677</span>        } catch (NumberFormatException e) {}<a name="line.677"></a>
-<span class="sourceLineNo">678</span>        if (expires != null) {<a name="line.678"></a>
-<span class="sourceLineNo">679</span>          expires = new Date().getTime() + 1000L * expires;<a name="line.679"></a>
-<span class="sourceLineNo">680</span>        }<a name="line.680"></a>
-<span class="sourceLineNo">681</span>      }<a name="line.681"></a>
-<span class="sourceLineNo">682</span><a name="line.682"></a>
-<span class="sourceLineNo">683</span>      AccessToken accessToken = new AccessToken();<a name="line.683"></a>
-<span class="sourceLineNo">684</span>      accessToken.accessToken = extendedAccessToken;<a name="line.684"></a>
-<span class="sourceLineNo">685</span>      accessToken.expires = expires;<a name="line.685"></a>
-<span class="sourceLineNo">686</span>      accessToken.tokenType = tokenType;<a name="line.686"></a>
-<span class="sourceLineNo">687</span>      return accessToken;<a name="line.687"></a>
-<span class="sourceLineNo">688</span>    }<a name="line.688"></a>
-<span class="sourceLineNo">689</span><a name="line.689"></a>
-<span class="sourceLineNo">690</span>    @Override<a name="line.690"></a>
-<span class="sourceLineNo">691</span>    public int hashCode() {<a name="line.691"></a>
-<span class="sourceLineNo">692</span>      return ReflectionUtils.hashCode(this);<a name="line.692"></a>
-<span class="sourceLineNo">693</span>    }<a name="line.693"></a>
-<span class="sourceLineNo">694</span><a name="line.694"></a>
-<span class="sourceLineNo">695</span>    @Override<a name="line.695"></a>
-<span class="sourceLineNo">696</span>    public boolean equals(Object that) {<a name="line.696"></a>
-<span class="sourceLineNo">697</span>      return ReflectionUtils.equals(this, that);<a name="line.697"></a>
-<span class="sourceLineNo">698</span>    }<a name="line.698"></a>
+<span class="sourceLineNo">666</span>    /**<a name="line.666"></a>
+<span class="sourceLineNo">667</span>     * The token type of this access token provided by Facebook<a name="line.667"></a>
+<span class="sourceLineNo">668</span>     * <a name="line.668"></a>
+<span class="sourceLineNo">669</span>     * @return the access token type<a name="line.669"></a>
+<span class="sourceLineNo">670</span>     */<a name="line.670"></a>
+<span class="sourceLineNo">671</span>    public String getTokenType() {<a name="line.671"></a>
+<span class="sourceLineNo">672</span>      return tokenType;<a name="line.672"></a>
+<span class="sourceLineNo">673</span>    }<a name="line.673"></a>
+<span class="sourceLineNo">674</span><a name="line.674"></a>
+<span class="sourceLineNo">675</span>    @JsonMapper.JsonMappingCompleted<a name="line.675"></a>
+<span class="sourceLineNo">676</span>    void convertExpires() {<a name="line.676"></a>
+<span class="sourceLineNo">677</span>      if (rawExpires != null) {<a name="line.677"></a>
+<span class="sourceLineNo">678</span>        expires = new Date().getTime() + 1000L * rawExpires;<a name="line.678"></a>
+<span class="sourceLineNo">679</span>      }<a name="line.679"></a>
+<span class="sourceLineNo">680</span>    }<a name="line.680"></a>
+<span class="sourceLineNo">681</span><a name="line.681"></a>
+<span class="sourceLineNo">682</span>  }<a name="line.682"></a>
+<span class="sourceLineNo">683</span><a name="line.683"></a>
+<span class="sourceLineNo">684</span>  /**<a name="line.684"></a>
+<span class="sourceLineNo">685</span>   * &lt;p&gt;<a name="line.685"></a>
+<span class="sourceLineNo">686</span>   * Represents the result of a {@link FacebookClient#debugToken(String)} inquiry.<a name="line.686"></a>
+<span class="sourceLineNo">687</span>   * &lt;/p&gt;<a name="line.687"></a>
+<span class="sourceLineNo">688</span>   * <a name="line.688"></a>
+<span class="sourceLineNo">689</span>   * FIXME does this class belong here?<a name="line.689"></a>
+<span class="sourceLineNo">690</span>   * <a name="line.690"></a>
+<span class="sourceLineNo">691</span>   * &lt;p&gt;<a name="line.691"></a>
+<span class="sourceLineNo">692</span>   * See &lt;a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/"&gt;Debug access tokens&lt;/a&gt;<a name="line.692"></a>
+<span class="sourceLineNo">693</span>   * <a name="line.693"></a>
+<span class="sourceLineNo">694</span>   * @author Broc Seib<a name="line.694"></a>
+<span class="sourceLineNo">695</span>   */<a name="line.695"></a>
+<span class="sourceLineNo">696</span>  class DebugTokenInfo extends AbstractFacebookType {<a name="line.696"></a>
+<span class="sourceLineNo">697</span><a name="line.697"></a>
+<span class="sourceLineNo">698</span>    private static final long serialVersionUID = 1L;<a name="line.698"></a>
 <span class="sourceLineNo">699</span><a name="line.699"></a>
-<span class="sourceLineNo">700</span>    @Override<a name="line.700"></a>
-<span class="sourceLineNo">701</span>    public String toString() {<a name="line.701"></a>
-<span class="sourceLineNo">702</span>      return ReflectionUtils.toString(this);<a name="line.702"></a>
-<span class="sourceLineNo">703</span>    }<a name="line.703"></a>
-<span class="sourceLineNo">704</span><a name="line.704"></a>
-<span class="sourceLineNo">705</span>    /**<a name="line.705"></a>
-<span class="sourceLineNo">706</span>     * The access token's value.<a name="line.706"></a>
-<span class="sourceLineNo">707</span>     * <a name="line.707"></a>
-<span class="sourceLineNo">708</span>     * @return The access token's value.<a name="line.708"></a>
-<span class="sourceLineNo">709</span>     */<a name="line.709"></a>
-<span class="sourceLineNo">710</span>    public String getAccessToken() {<a name="line.710"></a>
-<span class="sourceLineNo">711</span>      return accessToken;<a name="line.711"></a>
-<span class="sourceLineNo">712</span>    }<a name="line.712"></a>
-<span class="sourceLineNo">713</span><a name="line.713"></a>
-<span class="sourceLineNo">714</span>    /**<a name="line.714"></a>
-<span class="sourceLineNo">715</span>     * The date on which the access token expires.<a name="line.715"></a>
-<span class="sourceLineNo">716</span>     * <a name="line.716"></a>
-<span class="sourceLineNo">717</span>     * @return The date on which the access token expires.<a name="line.717"></a>
-<span class="sourceLineNo">718</span>     */<a name="line.718"></a>
-<span class="sourceLineNo">719</span>    public Date getExpires() {<a name="line.719"></a>
-<span class="sourceLineNo">720</span>      return expires == null ? null : new Date(expires);<a name="line.720"></a>
-<span class="sourceLineNo">721</span>    }<a name="line.721"></a>
-<span class="sourceLineNo">722</span><a name="line.722"></a>
-<span class="sourceLineNo">723</span>    /**<a name="line.723"></a>
-<span class="sourceLineNo">724</span>     * The token type of this access token provided by Facebook<a name="line.724"></a>
-<span class="sourceLineNo">725</span>     * <a name="line.725"></a>
-<span class="sourceLineNo">726</span>     * @return the access token type<a name="line.726"></a>
-<span class="sourceLineNo">727</span>     */<a name="line.727"></a>
-<span class="sourceLineNo">728</span>    public String getTokenType() {<a name="line.728"></a>
-<span class="sourceLineNo">729</span>      return tokenType;<a name="line.729"></a>
-<span class="sourceLineNo">730</span>    }<a name="line.730"></a>
+<span class="sourceLineNo">700</span>    @Facebook("app_id")<a name="line.700"></a>
+<span class="sourceLineNo">701</span>    private String appId;<a name="line.701"></a>
+<span class="sourceLineNo">702</span><a name="line.702"></a>
+<span class="sourceLineNo">703</span>    @Facebook<a name="line.703"></a>
+<span class="sourceLineNo">704</span>    private String application;<a name="line.704"></a>
+<span class="sourceLineNo">705</span><a name="line.705"></a>
+<span class="sourceLineNo">706</span>    @Facebook("expires_at")<a name="line.706"></a>
+<span class="sourceLineNo">707</span>    private Long expiresAt;<a name="line.707"></a>
+<span class="sourceLineNo">708</span><a name="line.708"></a>
+<span class="sourceLineNo">709</span>    @Facebook("issued_at")<a name="line.709"></a>
+<span class="sourceLineNo">710</span>    private Long issuedAt;<a name="line.710"></a>
+<span class="sourceLineNo">711</span><a name="line.711"></a>
+<span class="sourceLineNo">712</span>    @Facebook("is_valid")<a name="line.712"></a>
+<span class="sourceLineNo">713</span>    private Boolean isValid;<a name="line.713"></a>
+<span class="sourceLineNo">714</span><a name="line.714"></a>
+<span class="sourceLineNo">715</span>    @Facebook("user_id")<a name="line.715"></a>
+<span class="sourceLineNo">716</span>    private String userId;<a name="line.716"></a>
+<span class="sourceLineNo">717</span><a name="line.717"></a>
+<span class="sourceLineNo">718</span>    @Facebook("profile_id")<a name="line.718"></a>
+<span class="sourceLineNo">719</span>    private String profileId;<a name="line.719"></a>
+<span class="sourceLineNo">720</span><a name="line.720"></a>
+<span class="sourceLineNo">721</span>    @Facebook<a name="line.721"></a>
+<span class="sourceLineNo">722</span>    private JsonObject metadata;<a name="line.722"></a>
+<span class="sourceLineNo">723</span><a name="line.723"></a>
+<span class="sourceLineNo">724</span>    @Facebook<a name="line.724"></a>
+<span class="sourceLineNo">725</span>    private DebugTokenError error;<a name="line.725"></a>
+<span class="sourceLineNo">726</span><a name="line.726"></a>
+<span class="sourceLineNo">727</span>    @Facebook<a name="line.727"></a>
+<span class="sourceLineNo">728</span>    private List&lt;String&gt; scopes = new ArrayList&lt;&gt;();<a name="line.728"></a>
+<span class="sourceLineNo">729</span><a name="line.729"></a>
+<span class="sourceLineNo">730</span>    // FIXME let's read 'metadata' if it exist. It's a nested structure...<a name="line.730"></a>
 <span class="sourceLineNo">731</span><a name="line.731"></a>
-<span class="sourceLineNo">732</span>    @JsonMapper.JsonMappingCompleted<a name="line.732"></a>
-<span class="sourceLineNo">733</span>    void convertExpires() {<a name="line.733"></a>
-<span class="sourceLineNo">734</span>      if (rawExpires != null) {<a name="line.734"></a>
-<span class="sourceLineNo">735</span>        expires = new Date().getTime() + 1000L * rawExpires;<a name="line.735"></a>
-<span class="sourceLineNo">736</span>      }<a name="line.736"></a>
-<span class="sourceLineNo">737</span>    }<a name="line.737"></a>
-<span class="sourceLineNo">738</span><a name="line.738"></a>
-<span class="sourceLineNo">739</span>  }<a name="line.739"></a>
+<span class="sourceLineNo">732</span>    /**<a name="line.732"></a>
+<span class="sourceLineNo">733</span>     * The application id.<a name="line.733"></a>
+<span class="sourceLineNo">734</span>     * <a name="line.734"></a>
+<span class="sourceLineNo">735</span>     * @return The id of the application.<a name="line.735"></a>
+<span class="sourceLineNo">736</span>     */<a name="line.736"></a>
+<span class="sourceLineNo">737</span>    public String getAppId() {<a name="line.737"></a>
+<span class="sourceLineNo">738</span>      return appId;<a name="line.738"></a>
+<span class="sourceLineNo">739</span>    }<a name="line.739"></a>
 <span class="sourceLineNo">740</span><a name="line.740"></a>
-<span class="sourceLineNo">741</span>  /**<a name="line.741"></a>
-<span class="sourceLineNo">742</span>   * &lt;p&gt;<a name="line.742"></a>
-<span class="sourceLineNo">743</span>   * Represents the result of a {@link FacebookClient#debugToken(String)} inquiry.<a name="line.743"></a>
-<span class="sourceLineNo">744</span>   * &lt;/p&gt;<a name="line.744"></a>
-<span class="sourceLineNo">745</span>   * <a name="line.745"></a>
-<span class="sourceLineNo">746</span>   * FIXME does this class belong here?<a name="line.746"></a>
-<span class="sourceLineNo">747</span>   * <a name="line.747"></a>
-<span class="sourceLineNo">748</span>   * &lt;p&gt;<a name="line.748"></a>
-<span class="sourceLineNo">749</span>   * See &lt;a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/"&gt;Debug access tokens&lt;/a&gt;<a name="line.749"></a>
-<span class="sourceLineNo">750</span>   * <a name="line.750"></a>
-<span class="sourceLineNo">751</span>   * @author Broc Seib<a name="line.751"></a>
-<span class="sourceLineNo">752</span>   */<a name="line.752"></a>
-<span class="sourceLineNo">753</span>  class DebugTokenInfo extends AbstractFacebookType {<a name="line.753"></a>
-<span class="sourceLineNo">754</span><a name="line.754"></a>
-<span class="sourceLineNo">755</span>    private static final long serialVersionUID = 1L;<a name="line.755"></a>
-<span class="sourceLineNo">756</span><a name="line.756"></a>
-<span class="sourceLineNo">757</span>    @Facebook("app_id")<a name="line.757"></a>
-<span class="sourceLineNo">758</span>    private String appId;<a name="line.758"></a>
+<span class="sourceLineNo">741</span>    /**<a name="line.741"></a>
+<span class="sourceLineNo">742</span>     * The application name.<a name="line.742"></a>
+<span class="sourceLineNo">743</span>     * <a name="line.743"></a>
+<span class="sourceLineNo">744</span>     * @return The name of the application.<a name="line.744"></a>
+<span class="sourceLineNo">745</span>     */<a name="line.745"></a>
+<span class="sourceLineNo">746</span>    public String getApplication() {<a name="line.746"></a>
+<span class="sourceLineNo">747</span>      return application;<a name="line.747"></a>
+<span class="sourceLineNo">748</span>    }<a name="line.748"></a>
+<span class="sourceLineNo">749</span><a name="line.749"></a>
+<span class="sourceLineNo">750</span>    /**<a name="line.750"></a>
+<span class="sourceLineNo">751</span>     * The date on which the access token expires.<a name="line.751"></a>
+<span class="sourceLineNo">752</span>     * <a name="line.752"></a>
+<span class="sourceLineNo">753</span>     * @return The date on which the access token expires.<a name="line.753"></a>
+<span class="sourceLineNo">754</span>     */<a name="line.754"></a>
+<span class="sourceLineNo">755</span>    public Date getExpiresAt() {<a name="line.755"></a>
+<span class="sourceLineNo">756</span>      // note that the expire timestamp is in *seconds*, not milliseconds<a name="line.756"></a>
+<span class="sourceLineNo">757</span>      return expiresAt == null ? null : new Date(expiresAt * 1000L);<a name="line.757"></a>
+<span class="sourceLineNo">758</span>    }<a name="line.758"></a>
 <span class="sourceLineNo">759</span><a name="line.759"></a>
-<span class="sourceLineNo">760</span>    @Facebook<a name="line.760"></a>
-<span class="sourceLineNo">761</span>    private String application;<a name="line.761"></a>
-<span class="sourceLineNo">762</span><a name="line.762"></a>
-<span class="sourceLineNo">763</span>    @Facebook("expires_at")<a name="line.763"></a>
-<span class="sourceLineNo">764</span>    private Long expiresAt;<a name="line.764"></a>
-<span class="sourceLineNo">765</span><a name="line.765"></a>
-<span class="sourceLineNo">766</span>    @Facebook("issued_at")<a name="line.766"></a>
-<span class="sourceLineNo">767</span>    private Long issuedAt;<a name="line.767"></a>
-<span class="sourceLineNo">768</span><a name="line.768"></a>
-<span class="sourceLineNo">769</span>    @Facebook("is_valid")<a name="line.769"></a>
-<span class="sourceLineNo">770</span>    private Boolean isValid;<a name="line.770"></a>
-<span class="sourceLineNo">771</span><a name="line.771"></a>
-<span class="sourceLineNo">772</span>    @Facebook("user_id")<a name="line.772"></a>
-<span class="sourceLineNo">773</span>    private String userId;<a name="line.773"></a>
-<span class="sourceLineNo">774</span><a name="line.774"></a>
-<span class="sourceLineNo">775</span>    @Facebook("profile_id")<a name="line.775"></a>
-<span class="sourceLineNo">776</span>    private String profileId;<a name="line.776"></a>
-<span class="sourceLineNo">777</span><a name="line.777"></a>
-<span class="sourceLineNo">778</span>    @Facebook<a name="line.778"></a>
-<span class="sourceLineNo">779</span>    private JsonObject metadata;<a name="line.779"></a>
-<span class="sourceLineNo">780</span><a name="line.780"></a>
-<span class="sourceLineNo">781</span>    @Facebook<a name="line.781"></a>
-<span class="sourceLineNo">782</span>    private DebugTokenError error;<a name="line.782"></a>
-<span class="sourceLineNo">783</span><a name="line.783"></a>
-<span class="sourceLineNo">784</span>    @Facebook<a name="line.784"></a>
-<span class="sourceLineNo">785</span>    private List&lt;String&gt; scopes = new ArrayList&lt;&gt;();<a name="line.785"></a>
-<span class="sourceLineNo">786</span><a name="line.786"></a>
-<span class="sourceLineNo">787</span>    // FIXME let's read 'metadata' if it exist. It's a nested structure...<a name="line.787"></a>
-<span class="sourceLineNo">788</span><a name="line.788"></a>
-<span class="sourceLineNo">789</span>    /**<a name="line.789"></a>
-<span class="sourceLineNo">790</span>     * The application id.<a name="line.790"></a>
-<span class="sourceLineNo">791</span>     * <a name="line.791"></a>
-<span class="sourceLineNo">792</span>     * @return The id of the application.<a name="line.792"></a>
-<span class="sourceLineNo">793</span>     */<a name="line.793"></a>
-<span class="sourceLineNo">794</span>    public String getAppId() {<a name="line.794"></a>
-<span class="sourceLineNo">795</span>      return appId;<a name="line.795"></a>
-<span class="sourceLineNo">796</span>    }<a name="line.796"></a>
-<span class="sourceLineNo">797</span><a name="line.797"></a>
-<span class="sourceLineNo">798</span>    /**<a name="line.798"></a>
-<span class="sourceLineNo">799</span>     * The application name.<a name="line.799"></a>
-<span class="sourceLineNo">800</span>     * <a name="line.800"></a>
-<span class="sourceLineNo">801</span>     * @return The name of the application.<a name="line.801"></a>
-<span class="sourceLineNo">802</span>     */<a name="line.802"></a>
-<span class="sourceLineNo">803</span>    public String getApplication() {<a name="line.803"></a>
-<span class="sourceLineNo">804</span>      return application;<a name="line.804"></a>
-<span class="sourceLineNo">805</span>    }<a name="line.805"></a>
-<span class="sourceLineNo">806</span><a name="line.806"></a>
-<span class="sourceLineNo">807</span>    /**<a name="line.807"></a>
-<span class="sourceLineNo">808</span>     * The date on which the access token expires.<a name="line.808"></a>
-<span class="sourceLineNo">809</span>     * <a name="line.809"></a>
-<span class="sourceLineNo">810</span>     * @return The date on which the access token expires.<a name="line.810"></a>
-<span class="sourceLineNo">811</span>     */<a name="line.811"></a>
-<span class="sourceLineNo">812</span>    public Date getExpiresAt() {<a name="line.812"></a>
-<span class="sourceLineNo">813</span>      // note that the expire timestamp is in *seconds*, not milliseconds<a name="line.813"></a>
-<span class="sourceLineNo">814</span>      return expiresAt == null ? null : new Date(expiresAt * 1000L);<a name="line.814"></a>
-<span class="sourceLineNo">815</span>    }<a name="line.815"></a>
+<span class="sourceLineNo">760</span>    /**<a name="line.760"></a>
+<span class="sourceLineNo">761</span>     * The date on which the access token was issued.<a name="line.761"></a>
+<span class="sourceLineNo">762</span>     * <a name="line.762"></a>
+<span class="sourceLineNo">763</span>     * @return The date on which the access token was issued.<a name="line.763"></a>
+<span class="sourceLineNo">764</span>     */<a name="line.764"></a>
+<span class="sourceLineNo">765</span>    public Date getIssuedAt() {<a name="line.765"></a>
+<span class="sourceLineNo">766</span>      // note that the issue timestamp is in *seconds*, not milliseconds<a name="line.766"></a>
+<span class="sourceLineNo">767</span>      return issuedAt == null ? null : new Date(issuedAt * 1000L);<a name="line.767"></a>
+<span class="sourceLineNo">768</span>    }<a name="line.768"></a>
+<span class="sourceLineNo">769</span><a name="line.769"></a>
+<span class="sourceLineNo">770</span>    /**<a name="line.770"></a>
+<span class="sourceLineNo">771</span>     * Whether or not the token is valid.<a name="line.771"></a>
+<span class="sourceLineNo">772</span>     * <a name="line.772"></a>
+<span class="sourceLineNo">773</span>     * @return Whether or not the token is valid.<a name="line.773"></a>
+<span class="sourceLineNo">774</span>     */<a name="line.774"></a>
+<span class="sourceLineNo">775</span>    public Boolean isValid() {<a name="line.775"></a>
+<span class="sourceLineNo">776</span>      return isValid;<a name="line.776"></a>
+<span class="sourceLineNo">777</span>    }<a name="line.777"></a>
+<span class="sourceLineNo">778</span><a name="line.778"></a>
+<span class="sourceLineNo">779</span>    /**<a name="line.779"></a>
+<span class="sourceLineNo">780</span>     * The user id.<a name="line.780"></a>
+<span class="sourceLineNo">781</span>     * <a name="line.781"></a>
+<span class="sourceLineNo">782</span>     * @return The user id.<a name="line.782"></a>
+<span class="sourceLineNo">783</span>     */<a name="line.783"></a>
+<span class="sourceLineNo">784</span>    public String getUserId() {<a name="line.784"></a>
+<span class="sourceLineNo">785</span>      return userId;<a name="line.785"></a>
+<span class="sourceLineNo">786</span>    }<a name="line.786"></a>
+<span class="sourceLineNo">787</span><a name="line.787"></a>
+<span class="sourceLineNo">788</span>    /**<a name="line.788"></a>
+<span class="sourceLineNo">789</span>     * List of scopes the access token 'contains'<a name="line.789"></a>
+<span class="sourceLineNo">790</span>     * <a name="line.790"></a>
+<span class="sourceLineNo">791</span>     * @return list of scopes<a name="line.791"></a>
+<span class="sourceLineNo">792</span>     */<a name="line.792"></a>
+<span class="sourceLineNo">793</span>    public List&lt;String&gt; getScopes() {<a name="line.793"></a>
+<span class="sourceLineNo">794</span>      return unmodifiableList(scopes);<a name="line.794"></a>
+<span class="sourceLineNo">795</span>    }<a name="line.795"></a>
+<span class="sourceLineNo">796</span><a name="line.796"></a>
+<span class="sourceLineNo">797</span>    /**<a name="line.797"></a>
+<span class="sourceLineNo">798</span>     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'<a name="line.798"></a>
+<span class="sourceLineNo">799</span>     * <a name="line.799"></a>
+<span class="sourceLineNo">800</span>     * @return General metadata associated with the access token<a name="line.800"></a>
+<span class="sourceLineNo">801</span>     */<a name="line.801"></a>
+<span class="sourceLineNo">802</span>    public JsonObject getMetaData() {<a name="line.802"></a>
+<span class="sourceLineNo">803</span>      return metadata;<a name="line.803"></a>
+<span class="sourceLineNo">804</span>    }<a name="line.804"></a>
+<span class="sourceLineNo">805</span>    <a name="line.805"></a>
+<span class="sourceLineNo">806</span>     /**<a name="line.806"></a>
+<span class="sourceLineNo">807</span>     * All Error data associated with access token debug.<a name="line.807"></a>
+<span class="sourceLineNo">808</span>     * <a name="line.808"></a>
+<span class="sourceLineNo">809</span>     * @return debug token error<a name="line.809"></a>
+<span class="sourceLineNo">810</span>     */<a name="line.810"></a>
+<span class="sourceLineNo">811</span>    public DebugTokenError getDebugTokenError() {<a name="line.811"></a>
+<span class="sourceLineNo">812</span>      return error;<a name="line.812"></a>
+<span class="sourceLineNo">813</span>    }<a name="line.813"></a>
+<span class="sourceLineNo">814</span><a name="line.814"></a>
+<span class="sourceLineNo">815</span>  }<a name="line.815"></a>
 <span class="sourceLineNo">816</span><a name="line.816"></a>
-<span class="sourceLineNo">817</span>    /**<a name="line.817"></a>
-<span class="sourceLineNo">818</span>     * The date on which the access token was issued.<a name="line.818"></a>
-<span class="sourceLineNo">819</span>     * <a name="line.819"></a>
-<span class="sourceLineNo">820</span>     * @return The date on which the access token was issued.<a name="line.820"></a>
-<span class="sourceLineNo">821</span>     */<a name="line.821"></a>
-<span class="sourceLineNo">822</span>    public Date getIssuedAt() {<a name="line.822"></a>
-<span class="sourceLineNo">823</span>      // note that the issue timestamp is in *seconds*, not milliseconds<a name="line.823"></a>
-<span class="sourceLineNo">824</span>      return issuedAt == null ? null : new Date(issuedAt * 1000L);<a name="line.824"></a>
-<span class="sourceLineNo">825</span>    }<a name="line.825"></a>
+<span class="sourceLineNo">817</span>  class DebugTokenError extends AbstractFacebookType {<a name="line.817"></a>
+<span class="sourceLineNo">818</span><a name="line.818"></a>
+<span class="sourceLineNo">819</span>    private static final long serialVersionUID = 1L;<a name="line.819"></a>
+<span class="sourceLineNo">820</span><a name="line.820"></a>
+<span class="sourceLineNo">821</span>    @Facebook<a name="line.821"></a>
+<span class="sourceLineNo">822</span>    private Integer code;<a name="line.822"></a>
+<span class="sourceLineNo">823</span><a name="line.823"></a>
+<span class="sourceLineNo">824</span>    @Facebook<a name="line.824"></a>
+<span class="sourceLineNo">825</span>    private String message;<a name="line.825"></a>
 <span class="sourceLineNo">826</span><a name="line.826"></a>
-<span class="sourceLineNo">827</span>    /**<a name="line.827"></a>
-<span class="sourceLineNo">828</span>     * Whether or not the token is valid.<a name="line.828"></a>
-<span class="sourceLineNo">829</span>     * <a name="line.829"></a>
-<span class="sourceLineNo">830</span>     * @return Whether or not the token is valid.<a name="line.830"></a>
-<span class="sourceLineNo">831</span>     */<a name="line.831"></a>
-<span class="sourceLineNo">832</span>    public Boolean isValid() {<a name="line.832"></a>
-<span class="sourceLineNo">833</span>      return isValid;<a name="line.833"></a>
-<span class="sourceLineNo">834</span>    }<a name="line.834"></a>
-<span class="sourceLineNo">835</span><a name="line.835"></a>
-<span class="sourceLineNo">836</span>    /**<a name="line.836"></a>
-<span class="sourceLineNo">837</span>     * The user id.<a name="line.837"></a>
-<span class="sourceLineNo">838</span>     * <a name="line.838"></a>
-<span class="sourceLineNo">839</span>     * @return The user id.<a name="line.839"></a>
-<span class="sourceLineNo">840</span>     */<a name="line.840"></a>
-<span class="sourceLineNo">841</span>    public String getUserId() {<a name="line.841"></a>
-<span class="sourceLineNo">842</span>      return userId;<a name="line.842"></a>
-<span class="sourceLineNo">843</span>    }<a name="line.843"></a>
-<span class="sourceLineNo">844</span><a name="line.844"></a>
-<span class="sourceLineNo">845</span>    /**<a name="line.845"></a>
-<span class="sourceLineNo">846</span>     * List of scopes the access token 'contains'<a name="line.846"></a>
-<span class="sourceLineNo">847</span>     * <a name="line.847"></a>
-<span class="sourceLineNo">848</span>     * @return list of scopes<a name="line.848"></a>
-<span class="sourceLineNo">849</span>     */<a name="line.849"></a>
-<span class="sourceLineNo">850</span>    public List&lt;String&gt; getScopes() {<a name="line.850"></a>
-<span class="sourceLineNo">851</span>      return unmodifiableList(scopes);<a name="line.851"></a>
-<span class="sourceLineNo">852</span>    }<a name="line.852"></a>
-<span class="sourceLineNo">853</span><a name="line.853"></a>
-<span class="sourceLineNo">854</span>    /**<a name="line.854"></a>
-<span class="sourceLineNo">855</span>     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'<a name="line.855"></a>
-<span class="sourceLineNo">856</span>     * <a name="line.856"></a>
-<span class="sourceLineNo">857</span>     * @return General metadata associated with the access token<a name="line.857"></a>
-<span class="sourceLineNo">858</span>     */<a name="line.858"></a>
-<span class="sourceLineNo">859</span>    public JsonObject getMetaData() {<a name="line.859"></a>
-<span class="sourceLineNo">860</span>      return metadata;<a name="line.860"></a>
-<span class="sourceLineNo">861</span>    }<a name="line.861"></a>
-<span class="sourceLineNo">862</span>    <a name="line.862"></a>
-<span class="sourceLineNo">863</span>     /**<a name="line.863"></a>
-<span class="sourceLineNo">864</span>     * All Error data associated with access token debug.<a name="line.864"></a>
-<span class="sourceLineNo">865</span>     * <a name="line.865"></a>
-<span class="sourceLineNo">866</span>     * @return debug token error<a name="line.866"></a>
-<span class="sourceLineNo">867</span>     */<a name="line.867"></a>
-<span class="sourceLineNo">868</span>    public DebugTokenError getDebugTokenError() {<a name="line.868"></a>
-<span class="sourceLineNo">869</span>      return error;<a name="line.869"></a>
-<span class="sourceLineNo">870</span>    }<a name="line.870"></a>
-<span class="sourceLineNo">871</span><a name="line.871"></a>
-<span class="sourceLineNo">872</span>  }<a name="line.872"></a>
-<span class="sourceLineNo">873</span><a name="line.873"></a>
-<span class="sourceLineNo">874</span>  class DebugTokenError extends AbstractFacebookType {<a name="line.874"></a>
-<span class="sourceLineNo">875</span><a name="line.875"></a>
-<span class="sourceLineNo">876</span>    private static final long serialVersionUID = 1L;<a name="line.876"></a>
-<span class="sourceLineNo">877</span><a name="line.877"></a>
-<span class="sourceLineNo">878</span>    @Facebook<a name="line.878"></a>
-<span class="sourceLineNo">879</span>    private Integer code;<a name="line.879"></a>
-<span class="sourceLineNo">880</span><a name="line.880"></a>
-<span class="sourceLineNo">881</span>    @Facebook<a name="line.881"></a>
-<span class="sourceLineNo">882</span>    private String message;<a name="line.882"></a>
-<span class="sourceLineNo">883</span><a name="line.883"></a>
-<span class="sourceLineNo">884</span>    @Facebook<a name="line.884"></a>
-<span class="sourceLineNo">885</span>    private Integer subcode;<a name="line.885"></a>
-<span class="sourceLineNo">886</span><a name="line.886"></a>
-<span class="sourceLineNo">887</span>    /**<a name="line.887"></a>
-<span class="sourceLineNo">888</span>     * The error code for the error.<a name="line.888"></a>
-<span class="sourceLineNo">889</span>     * <a name="line.889"></a>
-<span class="sourceLineNo">890</span>     * @return The error code for the error.<a name="line.890"></a>
-<span class="sourceLineNo">891</span>     */<a name="line.891"></a>
-<span class="sourceLineNo">892</span>    public Integer getCode() {<a name="line.892"></a>
-<span class="sourceLineNo">893</span>      return code;<a name="line.893"></a>
-<span class="sourceLineNo">894</span>    }<a name="line.894"></a>
-<span class="sourceLineNo">895</span><a name="line.895"></a>
-<span class="sourceLineNo">896</span>    /**<a name="line.896"></a>
-<span class="sourceLineNo">897</span>     * The error message for the error.<a name="line.897"></a>
-<span class="sourceLineNo">898</span>     * <a name="line.898"></a>
-<span class="sourceLineNo">899</span>     * @return The error message for the error.<a name="line.899"></a>
-<span class="sourceLineNo">900</span>     */<a name="line.900"></a>
-<span class="sourceLineNo">901</span>    public String getMessage() {<a name="line.901"></a>
-<span class="sourceLineNo">902</span>      return message;<a name="line.902"></a>
-<span class="sourceLineNo">903</span>    }<a name="line.903"></a>
-<span class="sourceLineNo">904</span><a name="line.904"></a>
-<span class="sourceLineNo">905</span>    /**<a name="line.905"></a>
-<span class="sourceLineNo">906</span>     * The error subcode for the error.<a name="line.906"></a>
-<span class="sourceLineNo">907</span>     * <a name="line.907"></a>
-<span class="sourceLineNo">908</span>     * @return The error subcode for the error.<a name="line.908"></a>
-<span class="sourceLineNo">909</span>     */<a name="line.909"></a>
-<span class="sourceLineNo">910</span>    public Integer getSubcode() {<a name="line.910"></a>
-<span class="sourceLineNo">911</span>      return subcode;<a name="line.911"></a>
-<span class="sourceLineNo">912</span>    }<a name="line.912"></a>
-<span class="sourceLineNo">913</span><a name="line.913"></a>
-<span class="sourceLineNo">914</span>  }<a name="line.914"></a>
-<span class="sourceLineNo">915</span>}<a name="line.915"></a>
+<span class="sourceLineNo">827</span>    @Facebook<a name="line.827"></a>
+<span class="sourceLineNo">828</span>    private Integer subcode;<a name="line.828"></a>
+<span class="sourceLineNo">829</span><a name="line.829"></a>
+<span class="sourceLineNo">830</span>    /**<a name="line.830"></a>
+<span class="sourceLineNo">831</span>     * The error code for the error.<a name="line.831"></a>
+<span class="sourceLineNo">832</span>     * <a name="line.832"></a>
+<span class="sourceLineNo">833</span>     * @return The error code for the error.<a name="line.833"></a>
+<span class="sourceLineNo">834</span>     */<a name="line.834"></a>
+<span class="sourceLineNo">835</span>    public Integer getCode() {<a name="line.835"></a>
+<span class="sourceLineNo">836</span>      return code;<a name="line.836"></a>
+<span class="sourceLineNo">837</span>    }<a name="line.837"></a>
+<span class="sourceLineNo">838</span><a name="line.838"></a>
+<span class="sourceLineNo">839</span>    /**<a name="line.839"></a>
+<span class="sourceLineNo">840</span>     * The error message for the error.<a name="line.840"></a>
+<span class="sourceLineNo">841</span>     * <a name="line.841"></a>
+<span class="sourceLineNo">842</span>     * @return The error message for the error.<a name="line.842"></a>
+<span class="sourceLineNo">843</span>     */<a name="line.843"></a>
+<span class="sourceLineNo">844</span>    public String getMessage() {<a name="line.844"></a>
+<span class="sourceLineNo">845</span>      return message;<a name="line.845"></a>
+<span class="sourceLineNo">846</span>    }<a name="line.846"></a>
+<span class="sourceLineNo">847</span><a name="line.847"></a>
+<span class="sourceLineNo">848</span>    /**<a name="line.848"></a>
+<span class="sourceLineNo">849</span>     * The error subcode for the error.<a name="line.849"></a>
+<span class="sourceLineNo">850</span>     * <a name="line.850"></a>
+<span class="sourceLineNo">851</span>     * @return The error subcode for the error.<a name="line.851"></a>
+<span class="sourceLineNo">852</span>     */<a name="line.852"></a>
+<span class="sourceLineNo">853</span>    public Integer getSubcode() {<a name="line.853"></a>
+<span class="sourceLineNo">854</span>      return subcode;<a name="line.854"></a>
+<span class="sourceLineNo">855</span>    }<a name="line.855"></a>
+<span class="sourceLineNo">856</span><a name="line.856"></a>
+<span class="sourceLineNo">857</span>  }<a name="line.857"></a>
+<span class="sourceLineNo">858</span>}<a name="line.858"></a>
 
 
 

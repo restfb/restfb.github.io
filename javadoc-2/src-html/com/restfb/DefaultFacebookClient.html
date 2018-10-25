@@ -537,544 +537,498 @@
 <span class="sourceLineNo">529</span>  }<a name="line.529"></a>
 <span class="sourceLineNo">530</span><a name="line.530"></a>
 <span class="sourceLineNo">531</span>  @Override<a name="line.531"></a>
-<span class="sourceLineNo">532</span>  public DeviceCode fetchDeviceCode(String appId, ScopeBuilder scope) {<a name="line.532"></a>
-<span class="sourceLineNo">533</span>    verifyParameterPresence("appId", appId);<a name="line.533"></a>
-<span class="sourceLineNo">534</span>    verifyParameterPresence("scope", scope);<a name="line.534"></a>
-<span class="sourceLineNo">535</span><a name="line.535"></a>
-<span class="sourceLineNo">536</span>    if (apiVersion.isNewDeviceTokenMethod()) {<a name="line.536"></a>
-<span class="sourceLineNo">537</span>      throw new IllegalStateException(<a name="line.537"></a>
-<span class="sourceLineNo">538</span>        "fetchDeviceCode(String, ScopeBuilder) is only allowed to be called with Graph API &lt;= 2.5");<a name="line.538"></a>
-<span class="sourceLineNo">539</span>    }<a name="line.539"></a>
-<span class="sourceLineNo">540</span><a name="line.540"></a>
-<span class="sourceLineNo">541</span>    String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_code"),<a name="line.541"></a>
-<span class="sourceLineNo">542</span>      Parameter.with("client_id", appId), Parameter.with("scope", scope.toString()));<a name="line.542"></a>
-<span class="sourceLineNo">543</span>    return jsonMapper.toJavaObject(response, DeviceCode.class);<a name="line.543"></a>
-<span class="sourceLineNo">544</span>  }<a name="line.544"></a>
-<span class="sourceLineNo">545</span><a name="line.545"></a>
-<span class="sourceLineNo">546</span>  @Override<a name="line.546"></a>
-<span class="sourceLineNo">547</span>  public DeviceCode fetchDeviceCode(ScopeBuilder scope) {<a name="line.547"></a>
-<span class="sourceLineNo">548</span>    verifyParameterPresence("scope", scope);<a name="line.548"></a>
-<span class="sourceLineNo">549</span><a name="line.549"></a>
-<span class="sourceLineNo">550</span>    if (!apiVersion.isNewDeviceTokenMethod()) {<a name="line.550"></a>
-<span class="sourceLineNo">551</span>      throw new IllegalStateException(<a name="line.551"></a>
-<span class="sourceLineNo">552</span>        "fetchDeviceCode(ScopeBuilder) is only allowed to be called with Graph API &gt;= 2.6");<a name="line.552"></a>
-<span class="sourceLineNo">553</span>    }<a name="line.553"></a>
-<span class="sourceLineNo">554</span><a name="line.554"></a>
-<span class="sourceLineNo">555</span>    if (accessToken == null) {<a name="line.555"></a>
-<span class="sourceLineNo">556</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.556"></a>
-<span class="sourceLineNo">557</span>    }<a name="line.557"></a>
-<span class="sourceLineNo">558</span><a name="line.558"></a>
-<span class="sourceLineNo">559</span>    String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),<a name="line.559"></a>
-<span class="sourceLineNo">560</span>      Parameter.with("scope", scope.toString()));<a name="line.560"></a>
-<span class="sourceLineNo">561</span>    return jsonMapper.toJavaObject(response, DeviceCode.class);<a name="line.561"></a>
-<span class="sourceLineNo">562</span>  }<a name="line.562"></a>
-<span class="sourceLineNo">563</span><a name="line.563"></a>
-<span class="sourceLineNo">564</span>  @Override<a name="line.564"></a>
-<span class="sourceLineNo">565</span>  public AccessToken obtainDeviceAccessToken(String appId, String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.565"></a>
-<span class="sourceLineNo">566</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {<a name="line.566"></a>
-<span class="sourceLineNo">567</span>    verifyParameterPresence("appId", appId);<a name="line.567"></a>
-<span class="sourceLineNo">568</span>    verifyParameterPresence("code", code);<a name="line.568"></a>
-<span class="sourceLineNo">569</span><a name="line.569"></a>
-<span class="sourceLineNo">570</span>    if (apiVersion.isNewDeviceTokenMethod()) {<a name="line.570"></a>
-<span class="sourceLineNo">571</span>      throw new IllegalStateException(<a name="line.571"></a>
-<span class="sourceLineNo">572</span>        "obtainDeviceAccessToken(String, String) is only allowed to be called with Graph API &lt;= 2.5");<a name="line.572"></a>
-<span class="sourceLineNo">573</span>    }<a name="line.573"></a>
-<span class="sourceLineNo">574</span><a name="line.574"></a>
-<span class="sourceLineNo">575</span>    try {<a name="line.575"></a>
-<span class="sourceLineNo">576</span>      String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_token"),<a name="line.576"></a>
-<span class="sourceLineNo">577</span>        Parameter.with("client_id", appId), Parameter.with("code", code));<a name="line.577"></a>
-<span class="sourceLineNo">578</span>      return getAccessTokenFromResponse(response);<a name="line.578"></a>
-<span class="sourceLineNo">579</span>    } catch (FacebookOAuthException foae) {<a name="line.579"></a>
-<span class="sourceLineNo">580</span>      DeviceTokenExceptionFactory.createFrom(foae);<a name="line.580"></a>
-<span class="sourceLineNo">581</span>      return null;<a name="line.581"></a>
+<span class="sourceLineNo">532</span>  public DeviceCode fetchDeviceCode(ScopeBuilder scope) {<a name="line.532"></a>
+<span class="sourceLineNo">533</span>    verifyParameterPresence("scope", scope);<a name="line.533"></a>
+<span class="sourceLineNo">534</span><a name="line.534"></a>
+<span class="sourceLineNo">535</span>    if (accessToken == null) {<a name="line.535"></a>
+<span class="sourceLineNo">536</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.536"></a>
+<span class="sourceLineNo">537</span>    }<a name="line.537"></a>
+<span class="sourceLineNo">538</span><a name="line.538"></a>
+<span class="sourceLineNo">539</span>    String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),<a name="line.539"></a>
+<span class="sourceLineNo">540</span>      Parameter.with("scope", scope.toString()));<a name="line.540"></a>
+<span class="sourceLineNo">541</span>    return jsonMapper.toJavaObject(response, DeviceCode.class);<a name="line.541"></a>
+<span class="sourceLineNo">542</span>  }<a name="line.542"></a>
+<span class="sourceLineNo">543</span><a name="line.543"></a>
+<span class="sourceLineNo">544</span>  @Override<a name="line.544"></a>
+<span class="sourceLineNo">545</span>  public AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.545"></a>
+<span class="sourceLineNo">546</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {<a name="line.546"></a>
+<span class="sourceLineNo">547</span>    verifyParameterPresence("code", code);<a name="line.547"></a>
+<span class="sourceLineNo">548</span><a name="line.548"></a>
+<span class="sourceLineNo">549</span>    if (accessToken == null) {<a name="line.549"></a>
+<span class="sourceLineNo">550</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.550"></a>
+<span class="sourceLineNo">551</span>    }<a name="line.551"></a>
+<span class="sourceLineNo">552</span><a name="line.552"></a>
+<span class="sourceLineNo">553</span>    try {<a name="line.553"></a>
+<span class="sourceLineNo">554</span>      String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),<a name="line.554"></a>
+<span class="sourceLineNo">555</span>        Parameter.with("code", code));<a name="line.555"></a>
+<span class="sourceLineNo">556</span>      return getAccessTokenFromResponse(response);<a name="line.556"></a>
+<span class="sourceLineNo">557</span>    } catch (FacebookOAuthException foae) {<a name="line.557"></a>
+<span class="sourceLineNo">558</span>      DeviceTokenExceptionFactory.createFrom(foae);<a name="line.558"></a>
+<span class="sourceLineNo">559</span>      return null;<a name="line.559"></a>
+<span class="sourceLineNo">560</span>    }<a name="line.560"></a>
+<span class="sourceLineNo">561</span>  }<a name="line.561"></a>
+<span class="sourceLineNo">562</span><a name="line.562"></a>
+<span class="sourceLineNo">563</span>  /**<a name="line.563"></a>
+<span class="sourceLineNo">564</span>   * @see com.restfb.FacebookClient#obtainUserAccessToken(java.lang.String, java.lang.String, java.lang.String,<a name="line.564"></a>
+<span class="sourceLineNo">565</span>   *      java.lang.String)<a name="line.565"></a>
+<span class="sourceLineNo">566</span>   */<a name="line.566"></a>
+<span class="sourceLineNo">567</span>  @Override<a name="line.567"></a>
+<span class="sourceLineNo">568</span>  public AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri,<a name="line.568"></a>
+<span class="sourceLineNo">569</span>      String verificationCode) {<a name="line.569"></a>
+<span class="sourceLineNo">570</span>    verifyParameterPresence("appId", appId);<a name="line.570"></a>
+<span class="sourceLineNo">571</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.571"></a>
+<span class="sourceLineNo">572</span>    verifyParameterPresence("verificationCode", verificationCode);<a name="line.572"></a>
+<span class="sourceLineNo">573</span><a name="line.573"></a>
+<span class="sourceLineNo">574</span>    String response = makeRequest("oauth/access_token", Parameter.with("client_id", appId),<a name="line.574"></a>
+<span class="sourceLineNo">575</span>      Parameter.with("client_secret", appSecret), Parameter.with("code", verificationCode),<a name="line.575"></a>
+<span class="sourceLineNo">576</span>      Parameter.with("redirect_uri", redirectUri));<a name="line.576"></a>
+<span class="sourceLineNo">577</span><a name="line.577"></a>
+<span class="sourceLineNo">578</span>    try {<a name="line.578"></a>
+<span class="sourceLineNo">579</span>      return getAccessTokenFromResponse(response);<a name="line.579"></a>
+<span class="sourceLineNo">580</span>    } catch (Exception t) {<a name="line.580"></a>
+<span class="sourceLineNo">581</span>      throw new FacebookResponseContentException("Unable to extract access token from response.", t);<a name="line.581"></a>
 <span class="sourceLineNo">582</span>    }<a name="line.582"></a>
 <span class="sourceLineNo">583</span>  }<a name="line.583"></a>
 <span class="sourceLineNo">584</span><a name="line.584"></a>
-<span class="sourceLineNo">585</span>  @Override<a name="line.585"></a>
-<span class="sourceLineNo">586</span>  public AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,<a name="line.586"></a>
-<span class="sourceLineNo">587</span>      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {<a name="line.587"></a>
-<span class="sourceLineNo">588</span>    verifyParameterPresence("code", code);<a name="line.588"></a>
-<span class="sourceLineNo">589</span><a name="line.589"></a>
-<span class="sourceLineNo">590</span>    if (!apiVersion.isNewDeviceTokenMethod()) {<a name="line.590"></a>
+<span class="sourceLineNo">585</span>  /**<a name="line.585"></a>
+<span class="sourceLineNo">586</span>   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String)<a name="line.586"></a>
+<span class="sourceLineNo">587</span>   */<a name="line.587"></a>
+<span class="sourceLineNo">588</span>  @Override<a name="line.588"></a>
+<span class="sourceLineNo">589</span>  public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>    if (accessToken == null) {<a name="line.590"></a>
 <span class="sourceLineNo">591</span>      throw new IllegalStateException(<a name="line.591"></a>
-<span class="sourceLineNo">592</span>        "obtainDeviceAccessToken(String) is only allowed to be called with Graph API &gt;= 2.6");<a name="line.592"></a>
-<span class="sourceLineNo">593</span>    }<a name="line.593"></a>
-<span class="sourceLineNo">594</span><a name="line.594"></a>
-<span class="sourceLineNo">595</span>    if (accessToken == null) {<a name="line.595"></a>
-<span class="sourceLineNo">596</span>      throw new IllegalStateException("access token is required to fetch a device access token");<a name="line.596"></a>
-<span class="sourceLineNo">597</span>    }<a name="line.597"></a>
+<span class="sourceLineNo">592</span>        format("You cannot call this method because you did not construct this instance of %s with an access token.",<a name="line.592"></a>
+<span class="sourceLineNo">593</span>          getClass().getSimpleName()));<a name="line.593"></a>
+<span class="sourceLineNo">594</span>    }<a name="line.594"></a>
+<span class="sourceLineNo">595</span><a name="line.595"></a>
+<span class="sourceLineNo">596</span>    return obtainExtendedAccessToken(appId, appSecret, accessToken);<a name="line.596"></a>
+<span class="sourceLineNo">597</span>  }<a name="line.597"></a>
 <span class="sourceLineNo">598</span><a name="line.598"></a>
-<span class="sourceLineNo">599</span>    try {<a name="line.599"></a>
-<span class="sourceLineNo">600</span>      String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),<a name="line.600"></a>
-<span class="sourceLineNo">601</span>        Parameter.with("code", code));<a name="line.601"></a>
-<span class="sourceLineNo">602</span>      return getAccessTokenFromResponse(response);<a name="line.602"></a>
-<span class="sourceLineNo">603</span>    } catch (FacebookOAuthException foae) {<a name="line.603"></a>
-<span class="sourceLineNo">604</span>      DeviceTokenExceptionFactory.createFrom(foae);<a name="line.604"></a>
-<span class="sourceLineNo">605</span>      return null;<a name="line.605"></a>
-<span class="sourceLineNo">606</span>    }<a name="line.606"></a>
-<span class="sourceLineNo">607</span>  }<a name="line.607"></a>
-<span class="sourceLineNo">608</span><a name="line.608"></a>
-<span class="sourceLineNo">609</span>  /**<a name="line.609"></a>
-<span class="sourceLineNo">610</span>   * @see com.restfb.FacebookClient#obtainUserAccessToken(java.lang.String, java.lang.String, java.lang.String,<a name="line.610"></a>
-<span class="sourceLineNo">611</span>   *      java.lang.String)<a name="line.611"></a>
-<span class="sourceLineNo">612</span>   */<a name="line.612"></a>
-<span class="sourceLineNo">613</span>  @Override<a name="line.613"></a>
-<span class="sourceLineNo">614</span>  public AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri,<a name="line.614"></a>
-<span class="sourceLineNo">615</span>      String verificationCode) {<a name="line.615"></a>
-<span class="sourceLineNo">616</span>    verifyParameterPresence("appId", appId);<a name="line.616"></a>
-<span class="sourceLineNo">617</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.617"></a>
-<span class="sourceLineNo">618</span>    verifyParameterPresence("verificationCode", verificationCode);<a name="line.618"></a>
-<span class="sourceLineNo">619</span><a name="line.619"></a>
-<span class="sourceLineNo">620</span>    String response = makeRequest("oauth/access_token", Parameter.with("client_id", appId),<a name="line.620"></a>
-<span class="sourceLineNo">621</span>      Parameter.with("client_secret", appSecret), Parameter.with("code", verificationCode),<a name="line.621"></a>
-<span class="sourceLineNo">622</span>      Parameter.with("redirect_uri", redirectUri));<a name="line.622"></a>
-<span class="sourceLineNo">623</span><a name="line.623"></a>
-<span class="sourceLineNo">624</span>    try {<a name="line.624"></a>
-<span class="sourceLineNo">625</span>      return getAccessTokenFromResponse(response);<a name="line.625"></a>
-<span class="sourceLineNo">626</span>    } catch (Exception t) {<a name="line.626"></a>
-<span class="sourceLineNo">627</span>      throw new FacebookResponseContentException("Unable to extract access token from response.", t);<a name="line.627"></a>
-<span class="sourceLineNo">628</span>    }<a name="line.628"></a>
-<span class="sourceLineNo">629</span>  }<a name="line.629"></a>
-<span class="sourceLineNo">630</span><a name="line.630"></a>
-<span class="sourceLineNo">631</span>  /**<a name="line.631"></a>
-<span class="sourceLineNo">632</span>   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String)<a name="line.632"></a>
-<span class="sourceLineNo">633</span>   */<a name="line.633"></a>
-<span class="sourceLineNo">634</span>  @Override<a name="line.634"></a>
-<span class="sourceLineNo">635</span>  public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {<a name="line.635"></a>
-<span class="sourceLineNo">636</span>    if (accessToken == null) {<a name="line.636"></a>
-<span class="sourceLineNo">637</span>      throw new IllegalStateException(<a name="line.637"></a>
-<span class="sourceLineNo">638</span>        format("You cannot call this method because you did not construct this instance of %s with an access token.",<a name="line.638"></a>
-<span class="sourceLineNo">639</span>          getClass().getSimpleName()));<a name="line.639"></a>
+<span class="sourceLineNo">599</span>  /**<a name="line.599"></a>
+<span class="sourceLineNo">600</span>   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String, java.lang.String)<a name="line.600"></a>
+<span class="sourceLineNo">601</span>   */<a name="line.601"></a>
+<span class="sourceLineNo">602</span>  @Override<a name="line.602"></a>
+<span class="sourceLineNo">603</span>  public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {<a name="line.603"></a>
+<span class="sourceLineNo">604</span>    verifyParameterPresence("appId", appId);<a name="line.604"></a>
+<span class="sourceLineNo">605</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.605"></a>
+<span class="sourceLineNo">606</span>    verifyParameterPresence("accessToken", accessToken);<a name="line.606"></a>
+<span class="sourceLineNo">607</span><a name="line.607"></a>
+<span class="sourceLineNo">608</span>    String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with("client_id", appId),<a name="line.608"></a>
+<span class="sourceLineNo">609</span>      Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),<a name="line.609"></a>
+<span class="sourceLineNo">610</span>      Parameter.with("fb_exchange_token", accessToken));<a name="line.610"></a>
+<span class="sourceLineNo">611</span><a name="line.611"></a>
+<span class="sourceLineNo">612</span>    try {<a name="line.612"></a>
+<span class="sourceLineNo">613</span>      return getAccessTokenFromResponse(response);<a name="line.613"></a>
+<span class="sourceLineNo">614</span>    } catch (Exception t) {<a name="line.614"></a>
+<span class="sourceLineNo">615</span>      throw new FacebookResponseContentException("Unable to extract access token from response.", t);<a name="line.615"></a>
+<span class="sourceLineNo">616</span>    }<a name="line.616"></a>
+<span class="sourceLineNo">617</span>  }<a name="line.617"></a>
+<span class="sourceLineNo">618</span><a name="line.618"></a>
+<span class="sourceLineNo">619</span>  private AccessToken getAccessTokenFromResponse(String response) {<a name="line.619"></a>
+<span class="sourceLineNo">620</span>    try {<a name="line.620"></a>
+<span class="sourceLineNo">621</span>      return getJsonMapper().toJavaObject(response, AccessToken.class);<a name="line.621"></a>
+<span class="sourceLineNo">622</span>    } catch (FacebookJsonMappingException fjme) {<a name="line.622"></a>
+<span class="sourceLineNo">623</span>      CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);<a name="line.623"></a>
+<span class="sourceLineNo">624</span>      return AccessToken.fromQueryString(response);<a name="line.624"></a>
+<span class="sourceLineNo">625</span>    }<a name="line.625"></a>
+<span class="sourceLineNo">626</span>  }<a name="line.626"></a>
+<span class="sourceLineNo">627</span><a name="line.627"></a>
+<span class="sourceLineNo">628</span>  @Override<a name="line.628"></a>
+<span class="sourceLineNo">629</span>  @SuppressWarnings("unchecked")<a name="line.629"></a>
+<span class="sourceLineNo">630</span>  public &lt;T&gt; T parseSignedRequest(String signedRequest, String appSecret, Class&lt;T&gt; objectType) {<a name="line.630"></a>
+<span class="sourceLineNo">631</span>    verifyParameterPresence("signedRequest", signedRequest);<a name="line.631"></a>
+<span class="sourceLineNo">632</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.632"></a>
+<span class="sourceLineNo">633</span>    verifyParameterPresence("objectType", objectType);<a name="line.633"></a>
+<span class="sourceLineNo">634</span><a name="line.634"></a>
+<span class="sourceLineNo">635</span>    String[] signedRequestTokens = signedRequest.split("[.]");<a name="line.635"></a>
+<span class="sourceLineNo">636</span><a name="line.636"></a>
+<span class="sourceLineNo">637</span>    if (signedRequestTokens.length != 2) {<a name="line.637"></a>
+<span class="sourceLineNo">638</span>      throw new FacebookSignedRequestParsingException(format(<a name="line.638"></a>
+<span class="sourceLineNo">639</span>        "Signed request '%s' is expected to be signature and payload strings separated by a '.'", signedRequest));<a name="line.639"></a>
 <span class="sourceLineNo">640</span>    }<a name="line.640"></a>
 <span class="sourceLineNo">641</span><a name="line.641"></a>
-<span class="sourceLineNo">642</span>    return obtainExtendedAccessToken(appId, appSecret, accessToken);<a name="line.642"></a>
-<span class="sourceLineNo">643</span>  }<a name="line.643"></a>
-<span class="sourceLineNo">644</span><a name="line.644"></a>
-<span class="sourceLineNo">645</span>  /**<a name="line.645"></a>
-<span class="sourceLineNo">646</span>   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String, java.lang.String)<a name="line.646"></a>
-<span class="sourceLineNo">647</span>   */<a name="line.647"></a>
-<span class="sourceLineNo">648</span>  @Override<a name="line.648"></a>
-<span class="sourceLineNo">649</span>  public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {<a name="line.649"></a>
-<span class="sourceLineNo">650</span>    verifyParameterPresence("appId", appId);<a name="line.650"></a>
-<span class="sourceLineNo">651</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.651"></a>
-<span class="sourceLineNo">652</span>    verifyParameterPresence("accessToken", accessToken);<a name="line.652"></a>
-<span class="sourceLineNo">653</span><a name="line.653"></a>
-<span class="sourceLineNo">654</span>    String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with("client_id", appId),<a name="line.654"></a>
-<span class="sourceLineNo">655</span>      Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),<a name="line.655"></a>
-<span class="sourceLineNo">656</span>      Parameter.with("fb_exchange_token", accessToken));<a name="line.656"></a>
-<span class="sourceLineNo">657</span><a name="line.657"></a>
-<span class="sourceLineNo">658</span>    try {<a name="line.658"></a>
-<span class="sourceLineNo">659</span>      return getAccessTokenFromResponse(response);<a name="line.659"></a>
-<span class="sourceLineNo">660</span>    } catch (Exception t) {<a name="line.660"></a>
-<span class="sourceLineNo">661</span>      throw new FacebookResponseContentException("Unable to extract access token from response.", t);<a name="line.661"></a>
+<span class="sourceLineNo">642</span>    String encodedSignature = signedRequestTokens[0];<a name="line.642"></a>
+<span class="sourceLineNo">643</span>    String urlDecodedSignature = urlDecodeSignedRequestToken(encodedSignature);<a name="line.643"></a>
+<span class="sourceLineNo">644</span>    byte[] signature = decodeBase64(urlDecodedSignature);<a name="line.644"></a>
+<span class="sourceLineNo">645</span><a name="line.645"></a>
+<span class="sourceLineNo">646</span>    String encodedPayload = signedRequestTokens[1];<a name="line.646"></a>
+<span class="sourceLineNo">647</span>    String urlDecodedPayload = urlDecodeSignedRequestToken(encodedPayload);<a name="line.647"></a>
+<span class="sourceLineNo">648</span>    String payload = StringUtils.toString(decodeBase64(urlDecodedPayload));<a name="line.648"></a>
+<span class="sourceLineNo">649</span><a name="line.649"></a>
+<span class="sourceLineNo">650</span>    // Convert payload to a JsonObject so we can pull algorithm data out of it<a name="line.650"></a>
+<span class="sourceLineNo">651</span>    JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);<a name="line.651"></a>
+<span class="sourceLineNo">652</span><a name="line.652"></a>
+<span class="sourceLineNo">653</span>    if (payloadObject.get("algorithm") == null) {<a name="line.653"></a>
+<span class="sourceLineNo">654</span>      throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");<a name="line.654"></a>
+<span class="sourceLineNo">655</span>    }<a name="line.655"></a>
+<span class="sourceLineNo">656</span><a name="line.656"></a>
+<span class="sourceLineNo">657</span>    String algorithm = payloadObject.getString("algorithm", null);<a name="line.657"></a>
+<span class="sourceLineNo">658</span><a name="line.658"></a>
+<span class="sourceLineNo">659</span>    if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature)) {<a name="line.659"></a>
+<span class="sourceLineNo">660</span>      throw new FacebookSignedRequestVerificationException(<a name="line.660"></a>
+<span class="sourceLineNo">661</span>        "Signed request verification failed. Are you sure the request was made for the app identified by the app secret you provided?");<a name="line.661"></a>
 <span class="sourceLineNo">662</span>    }<a name="line.662"></a>
-<span class="sourceLineNo">663</span>  }<a name="line.663"></a>
-<span class="sourceLineNo">664</span><a name="line.664"></a>
-<span class="sourceLineNo">665</span>  private AccessToken getAccessTokenFromResponse(String response) {<a name="line.665"></a>
-<span class="sourceLineNo">666</span>    try {<a name="line.666"></a>
-<span class="sourceLineNo">667</span>      return getJsonMapper().toJavaObject(response, AccessToken.class);<a name="line.667"></a>
-<span class="sourceLineNo">668</span>    } catch (FacebookJsonMappingException fjme) {<a name="line.668"></a>
-<span class="sourceLineNo">669</span>      CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);<a name="line.669"></a>
-<span class="sourceLineNo">670</span>      return AccessToken.fromQueryString(response);<a name="line.670"></a>
-<span class="sourceLineNo">671</span>    }<a name="line.671"></a>
-<span class="sourceLineNo">672</span>  }<a name="line.672"></a>
-<span class="sourceLineNo">673</span><a name="line.673"></a>
-<span class="sourceLineNo">674</span>  @Override<a name="line.674"></a>
-<span class="sourceLineNo">675</span>  @SuppressWarnings("unchecked")<a name="line.675"></a>
-<span class="sourceLineNo">676</span>  public &lt;T&gt; T parseSignedRequest(String signedRequest, String appSecret, Class&lt;T&gt; objectType) {<a name="line.676"></a>
-<span class="sourceLineNo">677</span>    verifyParameterPresence("signedRequest", signedRequest);<a name="line.677"></a>
-<span class="sourceLineNo">678</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.678"></a>
-<span class="sourceLineNo">679</span>    verifyParameterPresence("objectType", objectType);<a name="line.679"></a>
+<span class="sourceLineNo">663</span><a name="line.663"></a>
+<span class="sourceLineNo">664</span>    // Marshal to the user's preferred type.<a name="line.664"></a>
+<span class="sourceLineNo">665</span>    // If the user asked for a JsonObject, send back the one we already parsed.<a name="line.665"></a>
+<span class="sourceLineNo">666</span>    return objectType.equals(JsonObject.class) ? (T) payloadObject : getJsonMapper().toJavaObject(payload, objectType);<a name="line.666"></a>
+<span class="sourceLineNo">667</span>  }<a name="line.667"></a>
+<span class="sourceLineNo">668</span><a name="line.668"></a>
+<span class="sourceLineNo">669</span>  /**<a name="line.669"></a>
+<span class="sourceLineNo">670</span>   * Decodes a component of a signed request received from Facebook using FB's special URL-encoding strategy.<a name="line.670"></a>
+<span class="sourceLineNo">671</span>   * <a name="line.671"></a>
+<span class="sourceLineNo">672</span>   * @param signedRequestToken<a name="line.672"></a>
+<span class="sourceLineNo">673</span>   *          Token to decode.<a name="line.673"></a>
+<span class="sourceLineNo">674</span>   * @return The decoded token.<a name="line.674"></a>
+<span class="sourceLineNo">675</span>   */<a name="line.675"></a>
+<span class="sourceLineNo">676</span>  protected String urlDecodeSignedRequestToken(String signedRequestToken) {<a name="line.676"></a>
+<span class="sourceLineNo">677</span>    verifyParameterPresence("signedRequestToken", signedRequestToken);<a name="line.677"></a>
+<span class="sourceLineNo">678</span>    return signedRequestToken.replace("-", "+").replace("_", "/").trim();<a name="line.678"></a>
+<span class="sourceLineNo">679</span>  }<a name="line.679"></a>
 <span class="sourceLineNo">680</span><a name="line.680"></a>
-<span class="sourceLineNo">681</span>    String[] signedRequestTokens = signedRequest.split("[.]");<a name="line.681"></a>
-<span class="sourceLineNo">682</span><a name="line.682"></a>
-<span class="sourceLineNo">683</span>    if (signedRequestTokens.length != 2) {<a name="line.683"></a>
-<span class="sourceLineNo">684</span>      throw new FacebookSignedRequestParsingException(format(<a name="line.684"></a>
-<span class="sourceLineNo">685</span>        "Signed request '%s' is expected to be signature and payload strings separated by a '.'", signedRequest));<a name="line.685"></a>
-<span class="sourceLineNo">686</span>    }<a name="line.686"></a>
-<span class="sourceLineNo">687</span><a name="line.687"></a>
-<span class="sourceLineNo">688</span>    String encodedSignature = signedRequestTokens[0];<a name="line.688"></a>
-<span class="sourceLineNo">689</span>    String urlDecodedSignature = urlDecodeSignedRequestToken(encodedSignature);<a name="line.689"></a>
-<span class="sourceLineNo">690</span>    byte[] signature = decodeBase64(urlDecodedSignature);<a name="line.690"></a>
-<span class="sourceLineNo">691</span><a name="line.691"></a>
-<span class="sourceLineNo">692</span>    String encodedPayload = signedRequestTokens[1];<a name="line.692"></a>
-<span class="sourceLineNo">693</span>    String urlDecodedPayload = urlDecodeSignedRequestToken(encodedPayload);<a name="line.693"></a>
-<span class="sourceLineNo">694</span>    String payload = StringUtils.toString(decodeBase64(urlDecodedPayload));<a name="line.694"></a>
-<span class="sourceLineNo">695</span><a name="line.695"></a>
-<span class="sourceLineNo">696</span>    // Convert payload to a JsonObject so we can pull algorithm data out of it<a name="line.696"></a>
-<span class="sourceLineNo">697</span>    JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);<a name="line.697"></a>
+<span class="sourceLineNo">681</span>  @Override<a name="line.681"></a>
+<span class="sourceLineNo">682</span>  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {<a name="line.682"></a>
+<span class="sourceLineNo">683</span>    verifyParameterPresence("appId", appId);<a name="line.683"></a>
+<span class="sourceLineNo">684</span>    verifyParameterPresence("redirectUri", redirectUri);<a name="line.684"></a>
+<span class="sourceLineNo">685</span>    verifyParameterPresence("scope", scope);<a name="line.685"></a>
+<span class="sourceLineNo">686</span><a name="line.686"></a>
+<span class="sourceLineNo">687</span>    String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";<a name="line.687"></a>
+<span class="sourceLineNo">688</span><a name="line.688"></a>
+<span class="sourceLineNo">689</span>    List&lt;Parameter&gt; parameterList = new ArrayList&lt;&gt;();<a name="line.689"></a>
+<span class="sourceLineNo">690</span>    parameterList.add(Parameter.with("client_id", appId));<a name="line.690"></a>
+<span class="sourceLineNo">691</span>    parameterList.add(Parameter.with("redirect_uri", redirectUri));<a name="line.691"></a>
+<span class="sourceLineNo">692</span>    parameterList.add(Parameter.with("scope", scope.toString()));<a name="line.692"></a>
+<span class="sourceLineNo">693</span><a name="line.693"></a>
+<span class="sourceLineNo">694</span>    // add optional parameters<a name="line.694"></a>
+<span class="sourceLineNo">695</span>    for (Parameter p : parameters) {<a name="line.695"></a>
+<span class="sourceLineNo">696</span>      parameterList.add(p);<a name="line.696"></a>
+<span class="sourceLineNo">697</span>    }<a name="line.697"></a>
 <span class="sourceLineNo">698</span><a name="line.698"></a>
-<span class="sourceLineNo">699</span>    if (payloadObject.get("algorithm") == null) {<a name="line.699"></a>
-<span class="sourceLineNo">700</span>      throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");<a name="line.700"></a>
-<span class="sourceLineNo">701</span>    }<a name="line.701"></a>
-<span class="sourceLineNo">702</span><a name="line.702"></a>
-<span class="sourceLineNo">703</span>    String algorithm = payloadObject.getString("algorithm", null);<a name="line.703"></a>
-<span class="sourceLineNo">704</span><a name="line.704"></a>
-<span class="sourceLineNo">705</span>    if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature)) {<a name="line.705"></a>
-<span class="sourceLineNo">706</span>      throw new FacebookSignedRequestVerificationException(<a name="line.706"></a>
-<span class="sourceLineNo">707</span>        "Signed request verification failed. Are you sure the request was made for the app identified by the app secret you provided?");<a name="line.707"></a>
-<span class="sourceLineNo">708</span>    }<a name="line.708"></a>
-<span class="sourceLineNo">709</span><a name="line.709"></a>
-<span class="sourceLineNo">710</span>    // Marshal to the user's preferred type.<a name="line.710"></a>
-<span class="sourceLineNo">711</span>    // If the user asked for a JsonObject, send back the one we already parsed.<a name="line.711"></a>
-<span class="sourceLineNo">712</span>    return objectType.equals(JsonObject.class) ? (T) payloadObject : getJsonMapper().toJavaObject(payload, objectType);<a name="line.712"></a>
-<span class="sourceLineNo">713</span>  }<a name="line.713"></a>
-<span class="sourceLineNo">714</span><a name="line.714"></a>
-<span class="sourceLineNo">715</span>  /**<a name="line.715"></a>
-<span class="sourceLineNo">716</span>   * Decodes a component of a signed request received from Facebook using FB's special URL-encoding strategy.<a name="line.716"></a>
-<span class="sourceLineNo">717</span>   * <a name="line.717"></a>
-<span class="sourceLineNo">718</span>   * @param signedRequestToken<a name="line.718"></a>
-<span class="sourceLineNo">719</span>   *          Token to decode.<a name="line.719"></a>
-<span class="sourceLineNo">720</span>   * @return The decoded token.<a name="line.720"></a>
-<span class="sourceLineNo">721</span>   */<a name="line.721"></a>
-<span class="sourceLineNo">722</span>  protected String urlDecodeSignedRequestToken(String signedRequestToken) {<a name="line.722"></a>
-<span class="sourceLineNo">723</span>    verifyParameterPresence("signedRequestToken", signedRequestToken);<a name="line.723"></a>
-<span class="sourceLineNo">724</span>    return signedRequestToken.replace("-", "+").replace("_", "/").trim();<a name="line.724"></a>
-<span class="sourceLineNo">725</span>  }<a name="line.725"></a>
+<span class="sourceLineNo">699</span>    return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[parameterList.size()]));<a name="line.699"></a>
+<span class="sourceLineNo">700</span>  }<a name="line.700"></a>
+<span class="sourceLineNo">701</span><a name="line.701"></a>
+<span class="sourceLineNo">702</span>  /**<a name="line.702"></a>
+<span class="sourceLineNo">703</span>   * Verifies that the signed request is really from Facebook.<a name="line.703"></a>
+<span class="sourceLineNo">704</span>   * <a name="line.704"></a>
+<span class="sourceLineNo">705</span>   * @param appSecret<a name="line.705"></a>
+<span class="sourceLineNo">706</span>   *          The secret for the app that can verify this signed request.<a name="line.706"></a>
+<span class="sourceLineNo">707</span>   * @param algorithm<a name="line.707"></a>
+<span class="sourceLineNo">708</span>   *          Signature algorithm specified by FB in the decoded payload.<a name="line.708"></a>
+<span class="sourceLineNo">709</span>   * @param encodedPayload<a name="line.709"></a>
+<span class="sourceLineNo">710</span>   *          The encoded payload used to generate a signature for comparison against the provided {@code signature}.<a name="line.710"></a>
+<span class="sourceLineNo">711</span>   * @param signature<a name="line.711"></a>
+<span class="sourceLineNo">712</span>   *          The decoded signature extracted from the signed request. Compared against a signature generated from<a name="line.712"></a>
+<span class="sourceLineNo">713</span>   *          {@code encodedPayload}.<a name="line.713"></a>
+<span class="sourceLineNo">714</span>   * @return {@code true} if the signed request is verified, {@code false} if not.<a name="line.714"></a>
+<span class="sourceLineNo">715</span>   */<a name="line.715"></a>
+<span class="sourceLineNo">716</span>  protected boolean verifySignedRequest(String appSecret, String algorithm, String encodedPayload, byte[] signature) {<a name="line.716"></a>
+<span class="sourceLineNo">717</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.717"></a>
+<span class="sourceLineNo">718</span>    verifyParameterPresence("algorithm", algorithm);<a name="line.718"></a>
+<span class="sourceLineNo">719</span>    verifyParameterPresence("encodedPayload", encodedPayload);<a name="line.719"></a>
+<span class="sourceLineNo">720</span>    verifyParameterPresence("signature", signature);<a name="line.720"></a>
+<span class="sourceLineNo">721</span><a name="line.721"></a>
+<span class="sourceLineNo">722</span>    // Normalize algorithm name...FB calls it differently than Java does<a name="line.722"></a>
+<span class="sourceLineNo">723</span>    if ("HMAC-SHA256".equalsIgnoreCase(algorithm)) {<a name="line.723"></a>
+<span class="sourceLineNo">724</span>      algorithm = "HMACSHA256";<a name="line.724"></a>
+<span class="sourceLineNo">725</span>    }<a name="line.725"></a>
 <span class="sourceLineNo">726</span><a name="line.726"></a>
-<span class="sourceLineNo">727</span>  @Override<a name="line.727"></a>
-<span class="sourceLineNo">728</span>  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {<a name="line.728"></a>
-<span class="sourceLineNo">729</span>    verifyParameterPresence("appId", appId);<a name="line.729"></a>
-<span class="sourceLineNo">730</span>    verifyParameterPresence("redirectUri", redirectUri);<a name="line.730"></a>
-<span class="sourceLineNo">731</span>    verifyParameterPresence("scope", scope);<a name="line.731"></a>
-<span class="sourceLineNo">732</span><a name="line.732"></a>
-<span class="sourceLineNo">733</span>    String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";<a name="line.733"></a>
-<span class="sourceLineNo">734</span><a name="line.734"></a>
-<span class="sourceLineNo">735</span>    List&lt;Parameter&gt; parameterList = new ArrayList&lt;&gt;();<a name="line.735"></a>
-<span class="sourceLineNo">736</span>    parameterList.add(Parameter.with("client_id", appId));<a name="line.736"></a>
-<span class="sourceLineNo">737</span>    parameterList.add(Parameter.with("redirect_uri", redirectUri));<a name="line.737"></a>
-<span class="sourceLineNo">738</span>    parameterList.add(Parameter.with("scope", scope.toString()));<a name="line.738"></a>
-<span class="sourceLineNo">739</span><a name="line.739"></a>
-<span class="sourceLineNo">740</span>    // add optional parameters<a name="line.740"></a>
-<span class="sourceLineNo">741</span>    for (Parameter p : parameters) {<a name="line.741"></a>
-<span class="sourceLineNo">742</span>      parameterList.add(p);<a name="line.742"></a>
-<span class="sourceLineNo">743</span>    }<a name="line.743"></a>
+<span class="sourceLineNo">727</span>    try {<a name="line.727"></a>
+<span class="sourceLineNo">728</span>      Mac mac = Mac.getInstance(algorithm);<a name="line.728"></a>
+<span class="sourceLineNo">729</span>      mac.init(new SecretKeySpec(toBytes(appSecret), algorithm));<a name="line.729"></a>
+<span class="sourceLineNo">730</span>      byte[] payloadSignature = mac.doFinal(toBytes(encodedPayload));<a name="line.730"></a>
+<span class="sourceLineNo">731</span>      return Arrays.equals(signature, payloadSignature);<a name="line.731"></a>
+<span class="sourceLineNo">732</span>    } catch (Exception e) {<a name="line.732"></a>
+<span class="sourceLineNo">733</span>      throw new FacebookSignedRequestVerificationException("Unable to perform signed request verification", e);<a name="line.733"></a>
+<span class="sourceLineNo">734</span>    }<a name="line.734"></a>
+<span class="sourceLineNo">735</span>  }<a name="line.735"></a>
+<span class="sourceLineNo">736</span><a name="line.736"></a>
+<span class="sourceLineNo">737</span>  /**<a name="line.737"></a>
+<span class="sourceLineNo">738</span>   * @see com.restfb.FacebookClient#debugToken(java.lang.String)<a name="line.738"></a>
+<span class="sourceLineNo">739</span>   */<a name="line.739"></a>
+<span class="sourceLineNo">740</span>  @Override<a name="line.740"></a>
+<span class="sourceLineNo">741</span>  public DebugTokenInfo debugToken(String inputToken) {<a name="line.741"></a>
+<span class="sourceLineNo">742</span>    verifyParameterPresence("inputToken", inputToken);<a name="line.742"></a>
+<span class="sourceLineNo">743</span>    String response = makeRequest("/debug_token", Parameter.with("input_token", inputToken));<a name="line.743"></a>
 <span class="sourceLineNo">744</span><a name="line.744"></a>
-<span class="sourceLineNo">745</span>    return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[parameterList.size()]));<a name="line.745"></a>
-<span class="sourceLineNo">746</span>  }<a name="line.746"></a>
-<span class="sourceLineNo">747</span><a name="line.747"></a>
-<span class="sourceLineNo">748</span>  /**<a name="line.748"></a>
-<span class="sourceLineNo">749</span>   * Verifies that the signed request is really from Facebook.<a name="line.749"></a>
-<span class="sourceLineNo">750</span>   * <a name="line.750"></a>
-<span class="sourceLineNo">751</span>   * @param appSecret<a name="line.751"></a>
-<span class="sourceLineNo">752</span>   *          The secret for the app that can verify this signed request.<a name="line.752"></a>
-<span class="sourceLineNo">753</span>   * @param algorithm<a name="line.753"></a>
-<span class="sourceLineNo">754</span>   *          Signature algorithm specified by FB in the decoded payload.<a name="line.754"></a>
-<span class="sourceLineNo">755</span>   * @param encodedPayload<a name="line.755"></a>
-<span class="sourceLineNo">756</span>   *          The encoded payload used to generate a signature for comparison against the provided {@code signature}.<a name="line.756"></a>
-<span class="sourceLineNo">757</span>   * @param signature<a name="line.757"></a>
-<span class="sourceLineNo">758</span>   *          The decoded signature extracted from the signed request. Compared against a signature generated from<a name="line.758"></a>
-<span class="sourceLineNo">759</span>   *          {@code encodedPayload}.<a name="line.759"></a>
-<span class="sourceLineNo">760</span>   * @return {@code true} if the signed request is verified, {@code false} if not.<a name="line.760"></a>
-<span class="sourceLineNo">761</span>   */<a name="line.761"></a>
-<span class="sourceLineNo">762</span>  protected boolean verifySignedRequest(String appSecret, String algorithm, String encodedPayload, byte[] signature) {<a name="line.762"></a>
-<span class="sourceLineNo">763</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.763"></a>
-<span class="sourceLineNo">764</span>    verifyParameterPresence("algorithm", algorithm);<a name="line.764"></a>
-<span class="sourceLineNo">765</span>    verifyParameterPresence("encodedPayload", encodedPayload);<a name="line.765"></a>
-<span class="sourceLineNo">766</span>    verifyParameterPresence("signature", signature);<a name="line.766"></a>
-<span class="sourceLineNo">767</span><a name="line.767"></a>
-<span class="sourceLineNo">768</span>    // Normalize algorithm name...FB calls it differently than Java does<a name="line.768"></a>
-<span class="sourceLineNo">769</span>    if ("HMAC-SHA256".equalsIgnoreCase(algorithm)) {<a name="line.769"></a>
-<span class="sourceLineNo">770</span>      algorithm = "HMACSHA256";<a name="line.770"></a>
-<span class="sourceLineNo">771</span>    }<a name="line.771"></a>
-<span class="sourceLineNo">772</span><a name="line.772"></a>
-<span class="sourceLineNo">773</span>    try {<a name="line.773"></a>
-<span class="sourceLineNo">774</span>      Mac mac = Mac.getInstance(algorithm);<a name="line.774"></a>
-<span class="sourceLineNo">775</span>      mac.init(new SecretKeySpec(toBytes(appSecret), algorithm));<a name="line.775"></a>
-<span class="sourceLineNo">776</span>      byte[] payloadSignature = mac.doFinal(toBytes(encodedPayload));<a name="line.776"></a>
-<span class="sourceLineNo">777</span>      return Arrays.equals(signature, payloadSignature);<a name="line.777"></a>
-<span class="sourceLineNo">778</span>    } catch (Exception e) {<a name="line.778"></a>
-<span class="sourceLineNo">779</span>      throw new FacebookSignedRequestVerificationException("Unable to perform signed request verification", e);<a name="line.779"></a>
-<span class="sourceLineNo">780</span>    }<a name="line.780"></a>
-<span class="sourceLineNo">781</span>  }<a name="line.781"></a>
-<span class="sourceLineNo">782</span><a name="line.782"></a>
-<span class="sourceLineNo">783</span>  /**<a name="line.783"></a>
-<span class="sourceLineNo">784</span>   * @see com.restfb.FacebookClient#debugToken(java.lang.String)<a name="line.784"></a>
-<span class="sourceLineNo">785</span>   */<a name="line.785"></a>
-<span class="sourceLineNo">786</span>  @Override<a name="line.786"></a>
-<span class="sourceLineNo">787</span>  public DebugTokenInfo debugToken(String inputToken) {<a name="line.787"></a>
-<span class="sourceLineNo">788</span>    verifyParameterPresence("inputToken", inputToken);<a name="line.788"></a>
-<span class="sourceLineNo">789</span>    String response = makeRequest("/debug_token", Parameter.with("input_token", inputToken));<a name="line.789"></a>
-<span class="sourceLineNo">790</span><a name="line.790"></a>
-<span class="sourceLineNo">791</span>    try {<a name="line.791"></a>
-<span class="sourceLineNo">792</span>      JsonObject json = Json.parse(response).asObject();<a name="line.792"></a>
-<span class="sourceLineNo">793</span>      JsonObject data = json.get("data").asObject();<a name="line.793"></a>
-<span class="sourceLineNo">794</span>      return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);<a name="line.794"></a>
-<span class="sourceLineNo">795</span>    } catch (Exception t) {<a name="line.795"></a>
-<span class="sourceLineNo">796</span>      throw new FacebookResponseContentException("Unable to parse JSON from response.", t);<a name="line.796"></a>
-<span class="sourceLineNo">797</span>    }<a name="line.797"></a>
-<span class="sourceLineNo">798</span>  }<a name="line.798"></a>
-<span class="sourceLineNo">799</span><a name="line.799"></a>
-<span class="sourceLineNo">800</span>  /**<a name="line.800"></a>
-<span class="sourceLineNo">801</span>   * @see com.restfb.FacebookClient#getJsonMapper()<a name="line.801"></a>
-<span class="sourceLineNo">802</span>   */<a name="line.802"></a>
-<span class="sourceLineNo">803</span>  @Override<a name="line.803"></a>
-<span class="sourceLineNo">804</span>  public JsonMapper getJsonMapper() {<a name="line.804"></a>
-<span class="sourceLineNo">805</span>    return jsonMapper;<a name="line.805"></a>
-<span class="sourceLineNo">806</span>  }<a name="line.806"></a>
-<span class="sourceLineNo">807</span><a name="line.807"></a>
-<span class="sourceLineNo">808</span>  /**<a name="line.808"></a>
-<span class="sourceLineNo">809</span>   * @see com.restfb.FacebookClient#getWebRequestor()<a name="line.809"></a>
-<span class="sourceLineNo">810</span>   */<a name="line.810"></a>
-<span class="sourceLineNo">811</span>  @Override<a name="line.811"></a>
-<span class="sourceLineNo">812</span>  public WebRequestor getWebRequestor() {<a name="line.812"></a>
-<span class="sourceLineNo">813</span>    return webRequestor;<a name="line.813"></a>
-<span class="sourceLineNo">814</span>  }<a name="line.814"></a>
-<span class="sourceLineNo">815</span><a name="line.815"></a>
-<span class="sourceLineNo">816</span>  /**<a name="line.816"></a>
-<span class="sourceLineNo">817</span>   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the<a name="line.817"></a>
-<span class="sourceLineNo">818</span>   * endpoint.<a name="line.818"></a>
-<span class="sourceLineNo">819</span>   * <a name="line.819"></a>
-<span class="sourceLineNo">820</span>   * @param endpoint<a name="line.820"></a>
-<span class="sourceLineNo">821</span>   *          Facebook Graph API endpoint.<a name="line.821"></a>
-<span class="sourceLineNo">822</span>   * @param parameters<a name="line.822"></a>
-<span class="sourceLineNo">823</span>   *          Arbitrary number of parameters to send along to Facebook as part of the API call.<a name="line.823"></a>
-<span class="sourceLineNo">824</span>   * @return The JSON returned by Facebook for the API call.<a name="line.824"></a>
-<span class="sourceLineNo">825</span>   * @throws FacebookException<a name="line.825"></a>
-<span class="sourceLineNo">826</span>   *           If an error occurs while making the Facebook API POST or processing the response.<a name="line.826"></a>
-<span class="sourceLineNo">827</span>   */<a name="line.827"></a>
-<span class="sourceLineNo">828</span>  protected String makeRequest(String endpoint, Parameter... parameters) {<a name="line.828"></a>
-<span class="sourceLineNo">829</span>    return makeRequest(endpoint, false, false, null, parameters);<a name="line.829"></a>
-<span class="sourceLineNo">830</span>  }<a name="line.830"></a>
-<span class="sourceLineNo">831</span><a name="line.831"></a>
-<span class="sourceLineNo">832</span>  /**<a name="line.832"></a>
-<span class="sourceLineNo">833</span>   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the<a name="line.833"></a>
-<span class="sourceLineNo">834</span>   * endpoint.<a name="line.834"></a>
-<span class="sourceLineNo">835</span>   * <a name="line.835"></a>
-<span class="sourceLineNo">836</span>   * @param endpoint<a name="line.836"></a>
-<span class="sourceLineNo">837</span>   *          Facebook Graph API endpoint.<a name="line.837"></a>
-<span class="sourceLineNo">838</span>   * @param executeAsPost<a name="line.838"></a>
-<span class="sourceLineNo">839</span>   *          {@code true} to execute the web request as a {@code POST}, {@code false} to execute as a {@code GET}.<a name="line.839"></a>
-<span class="sourceLineNo">840</span>   * @param executeAsDelete<a name="line.840"></a>
-<span class="sourceLineNo">841</span>   *          {@code true} to add a special 'treat this request as a {@code DELETE}' parameter.<a name="line.841"></a>
-<span class="sourceLineNo">842</span>   * @param binaryAttachments<a name="line.842"></a>
-<span class="sourceLineNo">843</span>   *          A list of binary files to include in a {@code POST} request. Pass {@code null} if no attachment should be<a name="line.843"></a>
-<span class="sourceLineNo">844</span>   *          sent.<a name="line.844"></a>
-<span class="sourceLineNo">845</span>   * @param parameters<a name="line.845"></a>
-<span class="sourceLineNo">846</span>   *          Arbitrary number of parameters to send along to Facebook as part of the API call.<a name="line.846"></a>
-<span class="sourceLineNo">847</span>   * @return The JSON returned by Facebook for the API call.<a name="line.847"></a>
-<span class="sourceLineNo">848</span>   * @throws FacebookException<a name="line.848"></a>
-<span class="sourceLineNo">849</span>   *           If an error occurs while making the Facebook API POST or processing the response.<a name="line.849"></a>
-<span class="sourceLineNo">850</span>   */<a name="line.850"></a>
-<span class="sourceLineNo">851</span>  protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,<a name="line.851"></a>
-<span class="sourceLineNo">852</span>      final List&lt;BinaryAttachment&gt; binaryAttachments, Parameter... parameters) {<a name="line.852"></a>
-<span class="sourceLineNo">853</span>    verifyParameterLegality(parameters);<a name="line.853"></a>
-<span class="sourceLineNo">854</span><a name="line.854"></a>
-<span class="sourceLineNo">855</span>    if (executeAsDelete &amp;&amp; isHttpDeleteFallback()) {<a name="line.855"></a>
-<span class="sourceLineNo">856</span>      parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);<a name="line.856"></a>
-<span class="sourceLineNo">857</span>    }<a name="line.857"></a>
-<span class="sourceLineNo">858</span><a name="line.858"></a>
-<span class="sourceLineNo">859</span>    if (!endpoint.startsWith("/")) {<a name="line.859"></a>
-<span class="sourceLineNo">860</span>      endpoint = "/" + endpoint;<a name="line.860"></a>
-<span class="sourceLineNo">861</span>    }<a name="line.861"></a>
+<span class="sourceLineNo">745</span>    try {<a name="line.745"></a>
+<span class="sourceLineNo">746</span>      JsonObject json = Json.parse(response).asObject();<a name="line.746"></a>
+<span class="sourceLineNo">747</span>      JsonObject data = json.get("data").asObject();<a name="line.747"></a>
+<span class="sourceLineNo">748</span>      return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);<a name="line.748"></a>
+<span class="sourceLineNo">749</span>    } catch (Exception t) {<a name="line.749"></a>
+<span class="sourceLineNo">750</span>      throw new FacebookResponseContentException("Unable to parse JSON from response.", t);<a name="line.750"></a>
+<span class="sourceLineNo">751</span>    }<a name="line.751"></a>
+<span class="sourceLineNo">752</span>  }<a name="line.752"></a>
+<span class="sourceLineNo">753</span><a name="line.753"></a>
+<span class="sourceLineNo">754</span>  /**<a name="line.754"></a>
+<span class="sourceLineNo">755</span>   * @see com.restfb.FacebookClient#getJsonMapper()<a name="line.755"></a>
+<span class="sourceLineNo">756</span>   */<a name="line.756"></a>
+<span class="sourceLineNo">757</span>  @Override<a name="line.757"></a>
+<span class="sourceLineNo">758</span>  public JsonMapper getJsonMapper() {<a name="line.758"></a>
+<span class="sourceLineNo">759</span>    return jsonMapper;<a name="line.759"></a>
+<span class="sourceLineNo">760</span>  }<a name="line.760"></a>
+<span class="sourceLineNo">761</span><a name="line.761"></a>
+<span class="sourceLineNo">762</span>  /**<a name="line.762"></a>
+<span class="sourceLineNo">763</span>   * @see com.restfb.FacebookClient#getWebRequestor()<a name="line.763"></a>
+<span class="sourceLineNo">764</span>   */<a name="line.764"></a>
+<span class="sourceLineNo">765</span>  @Override<a name="line.765"></a>
+<span class="sourceLineNo">766</span>  public WebRequestor getWebRequestor() {<a name="line.766"></a>
+<span class="sourceLineNo">767</span>    return webRequestor;<a name="line.767"></a>
+<span class="sourceLineNo">768</span>  }<a name="line.768"></a>
+<span class="sourceLineNo">769</span><a name="line.769"></a>
+<span class="sourceLineNo">770</span>  /**<a name="line.770"></a>
+<span class="sourceLineNo">771</span>   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the<a name="line.771"></a>
+<span class="sourceLineNo">772</span>   * endpoint.<a name="line.772"></a>
+<span class="sourceLineNo">773</span>   * <a name="line.773"></a>
+<span class="sourceLineNo">774</span>   * @param endpoint<a name="line.774"></a>
+<span class="sourceLineNo">775</span>   *          Facebook Graph API endpoint.<a name="line.775"></a>
+<span class="sourceLineNo">776</span>   * @param parameters<a name="line.776"></a>
+<span class="sourceLineNo">777</span>   *          Arbitrary number of parameters to send along to Facebook as part of the API call.<a name="line.777"></a>
+<span class="sourceLineNo">778</span>   * @return The JSON returned by Facebook for the API call.<a name="line.778"></a>
+<span class="sourceLineNo">779</span>   * @throws FacebookException<a name="line.779"></a>
+<span class="sourceLineNo">780</span>   *           If an error occurs while making the Facebook API POST or processing the response.<a name="line.780"></a>
+<span class="sourceLineNo">781</span>   */<a name="line.781"></a>
+<span class="sourceLineNo">782</span>  protected String makeRequest(String endpoint, Parameter... parameters) {<a name="line.782"></a>
+<span class="sourceLineNo">783</span>    return makeRequest(endpoint, false, false, null, parameters);<a name="line.783"></a>
+<span class="sourceLineNo">784</span>  }<a name="line.784"></a>
+<span class="sourceLineNo">785</span><a name="line.785"></a>
+<span class="sourceLineNo">786</span>  /**<a name="line.786"></a>
+<span class="sourceLineNo">787</span>   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the<a name="line.787"></a>
+<span class="sourceLineNo">788</span>   * endpoint.<a name="line.788"></a>
+<span class="sourceLineNo">789</span>   * <a name="line.789"></a>
+<span class="sourceLineNo">790</span>   * @param endpoint<a name="line.790"></a>
+<span class="sourceLineNo">791</span>   *          Facebook Graph API endpoint.<a name="line.791"></a>
+<span class="sourceLineNo">792</span>   * @param executeAsPost<a name="line.792"></a>
+<span class="sourceLineNo">793</span>   *          {@code true} to execute the web request as a {@code POST}, {@code false} to execute as a {@code GET}.<a name="line.793"></a>
+<span class="sourceLineNo">794</span>   * @param executeAsDelete<a name="line.794"></a>
+<span class="sourceLineNo">795</span>   *          {@code true} to add a special 'treat this request as a {@code DELETE}' parameter.<a name="line.795"></a>
+<span class="sourceLineNo">796</span>   * @param binaryAttachments<a name="line.796"></a>
+<span class="sourceLineNo">797</span>   *          A list of binary files to include in a {@code POST} request. Pass {@code null} if no attachment should be<a name="line.797"></a>
+<span class="sourceLineNo">798</span>   *          sent.<a name="line.798"></a>
+<span class="sourceLineNo">799</span>   * @param parameters<a name="line.799"></a>
+<span class="sourceLineNo">800</span>   *          Arbitrary number of parameters to send along to Facebook as part of the API call.<a name="line.800"></a>
+<span class="sourceLineNo">801</span>   * @return The JSON returned by Facebook for the API call.<a name="line.801"></a>
+<span class="sourceLineNo">802</span>   * @throws FacebookException<a name="line.802"></a>
+<span class="sourceLineNo">803</span>   *           If an error occurs while making the Facebook API POST or processing the response.<a name="line.803"></a>
+<span class="sourceLineNo">804</span>   */<a name="line.804"></a>
+<span class="sourceLineNo">805</span>  protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,<a name="line.805"></a>
+<span class="sourceLineNo">806</span>      final List&lt;BinaryAttachment&gt; binaryAttachments, Parameter... parameters) {<a name="line.806"></a>
+<span class="sourceLineNo">807</span>    verifyParameterLegality(parameters);<a name="line.807"></a>
+<span class="sourceLineNo">808</span><a name="line.808"></a>
+<span class="sourceLineNo">809</span>    if (executeAsDelete &amp;&amp; isHttpDeleteFallback()) {<a name="line.809"></a>
+<span class="sourceLineNo">810</span>      parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);<a name="line.810"></a>
+<span class="sourceLineNo">811</span>    }<a name="line.811"></a>
+<span class="sourceLineNo">812</span><a name="line.812"></a>
+<span class="sourceLineNo">813</span>    if (!endpoint.startsWith("/")) {<a name="line.813"></a>
+<span class="sourceLineNo">814</span>      endpoint = "/" + endpoint;<a name="line.814"></a>
+<span class="sourceLineNo">815</span>    }<a name="line.815"></a>
+<span class="sourceLineNo">816</span><a name="line.816"></a>
+<span class="sourceLineNo">817</span>    final String fullEndpoint =<a name="line.817"></a>
+<span class="sourceLineNo">818</span>        createEndpointForApiCall(endpoint, binaryAttachments != null &amp;&amp; !binaryAttachments.isEmpty());<a name="line.818"></a>
+<span class="sourceLineNo">819</span>    final String parameterString = toParameterString(parameters);<a name="line.819"></a>
+<span class="sourceLineNo">820</span><a name="line.820"></a>
+<span class="sourceLineNo">821</span>    return makeRequestAndProcessResponse(new Requestor() {<a name="line.821"></a>
+<span class="sourceLineNo">822</span>      /**<a name="line.822"></a>
+<span class="sourceLineNo">823</span>       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()<a name="line.823"></a>
+<span class="sourceLineNo">824</span>       */<a name="line.824"></a>
+<span class="sourceLineNo">825</span>      @Override<a name="line.825"></a>
+<span class="sourceLineNo">826</span>      public Response makeRequest() throws IOException {<a name="line.826"></a>
+<span class="sourceLineNo">827</span>        if (executeAsDelete &amp;&amp; !isHttpDeleteFallback()) {<a name="line.827"></a>
+<span class="sourceLineNo">828</span>          return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);<a name="line.828"></a>
+<span class="sourceLineNo">829</span>        }<a name="line.829"></a>
+<span class="sourceLineNo">830</span><a name="line.830"></a>
+<span class="sourceLineNo">831</span>        if (executeAsPost) {<a name="line.831"></a>
+<span class="sourceLineNo">832</span>          BinaryAttachment[] attachmentArray = null;<a name="line.832"></a>
+<span class="sourceLineNo">833</span>          if (binaryAttachments != null) {<a name="line.833"></a>
+<span class="sourceLineNo">834</span>            attachmentArray = binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()]);<a name="line.834"></a>
+<span class="sourceLineNo">835</span>          }<a name="line.835"></a>
+<span class="sourceLineNo">836</span>          return webRequestor.executePost(fullEndpoint, parameterString, attachmentArray);<a name="line.836"></a>
+<span class="sourceLineNo">837</span>        }<a name="line.837"></a>
+<span class="sourceLineNo">838</span><a name="line.838"></a>
+<span class="sourceLineNo">839</span>        return webRequestor.executeGet(fullEndpoint + "?" + parameterString);<a name="line.839"></a>
+<span class="sourceLineNo">840</span>      }<a name="line.840"></a>
+<span class="sourceLineNo">841</span>    });<a name="line.841"></a>
+<span class="sourceLineNo">842</span>  }<a name="line.842"></a>
+<span class="sourceLineNo">843</span><a name="line.843"></a>
+<span class="sourceLineNo">844</span>  /**<a name="line.844"></a>
+<span class="sourceLineNo">845</span>   * @see com.restfb.FacebookClient#obtainAppSecretProof(java.lang.String, java.lang.String)<a name="line.845"></a>
+<span class="sourceLineNo">846</span>   */<a name="line.846"></a>
+<span class="sourceLineNo">847</span>  @Override<a name="line.847"></a>
+<span class="sourceLineNo">848</span>  public String obtainAppSecretProof(String accessToken, String appSecret) {<a name="line.848"></a>
+<span class="sourceLineNo">849</span>    verifyParameterPresence("accessToken", accessToken);<a name="line.849"></a>
+<span class="sourceLineNo">850</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.850"></a>
+<span class="sourceLineNo">851</span>    return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);<a name="line.851"></a>
+<span class="sourceLineNo">852</span>  }<a name="line.852"></a>
+<span class="sourceLineNo">853</span><a name="line.853"></a>
+<span class="sourceLineNo">854</span>  /**<a name="line.854"></a>
+<span class="sourceLineNo">855</span>   * returns if the fallback post method (&lt;code&gt;true&lt;/code&gt;) is used or the http delete (&lt;code&gt;false&lt;/code&gt;)<a name="line.855"></a>
+<span class="sourceLineNo">856</span>   * <a name="line.856"></a>
+<span class="sourceLineNo">857</span>   * @return<a name="line.857"></a>
+<span class="sourceLineNo">858</span>   */<a name="line.858"></a>
+<span class="sourceLineNo">859</span>  public boolean isHttpDeleteFallback() {<a name="line.859"></a>
+<span class="sourceLineNo">860</span>    return httpDeleteFallback;<a name="line.860"></a>
+<span class="sourceLineNo">861</span>  }<a name="line.861"></a>
 <span class="sourceLineNo">862</span><a name="line.862"></a>
-<span class="sourceLineNo">863</span>    final String fullEndpoint =<a name="line.863"></a>
-<span class="sourceLineNo">864</span>        createEndpointForApiCall(endpoint, binaryAttachments != null &amp;&amp; !binaryAttachments.isEmpty());<a name="line.864"></a>
-<span class="sourceLineNo">865</span>    final String parameterString = toParameterString(parameters);<a name="line.865"></a>
-<span class="sourceLineNo">866</span><a name="line.866"></a>
-<span class="sourceLineNo">867</span>    return makeRequestAndProcessResponse(new Requestor() {<a name="line.867"></a>
-<span class="sourceLineNo">868</span>      /**<a name="line.868"></a>
-<span class="sourceLineNo">869</span>       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()<a name="line.869"></a>
-<span class="sourceLineNo">870</span>       */<a name="line.870"></a>
-<span class="sourceLineNo">871</span>      @Override<a name="line.871"></a>
-<span class="sourceLineNo">872</span>      public Response makeRequest() throws IOException {<a name="line.872"></a>
-<span class="sourceLineNo">873</span>        if (executeAsDelete &amp;&amp; !isHttpDeleteFallback()) {<a name="line.873"></a>
-<span class="sourceLineNo">874</span>          return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);<a name="line.874"></a>
-<span class="sourceLineNo">875</span>        }<a name="line.875"></a>
-<span class="sourceLineNo">876</span><a name="line.876"></a>
-<span class="sourceLineNo">877</span>        if (executeAsPost) {<a name="line.877"></a>
-<span class="sourceLineNo">878</span>          BinaryAttachment[] attachmentArray = null;<a name="line.878"></a>
-<span class="sourceLineNo">879</span>          if (binaryAttachments != null) {<a name="line.879"></a>
-<span class="sourceLineNo">880</span>            attachmentArray = binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()]);<a name="line.880"></a>
-<span class="sourceLineNo">881</span>          }<a name="line.881"></a>
-<span class="sourceLineNo">882</span>          return webRequestor.executePost(fullEndpoint, parameterString, attachmentArray);<a name="line.882"></a>
-<span class="sourceLineNo">883</span>        }<a name="line.883"></a>
-<span class="sourceLineNo">884</span><a name="line.884"></a>
-<span class="sourceLineNo">885</span>        return webRequestor.executeGet(fullEndpoint + "?" + parameterString);<a name="line.885"></a>
-<span class="sourceLineNo">886</span>      }<a name="line.886"></a>
-<span class="sourceLineNo">887</span>    });<a name="line.887"></a>
-<span class="sourceLineNo">888</span>  }<a name="line.888"></a>
-<span class="sourceLineNo">889</span><a name="line.889"></a>
-<span class="sourceLineNo">890</span>  /**<a name="line.890"></a>
-<span class="sourceLineNo">891</span>   * @see com.restfb.FacebookClient#obtainAppSecretProof(java.lang.String, java.lang.String)<a name="line.891"></a>
-<span class="sourceLineNo">892</span>   */<a name="line.892"></a>
-<span class="sourceLineNo">893</span>  @Override<a name="line.893"></a>
-<span class="sourceLineNo">894</span>  public String obtainAppSecretProof(String accessToken, String appSecret) {<a name="line.894"></a>
-<span class="sourceLineNo">895</span>    verifyParameterPresence("accessToken", accessToken);<a name="line.895"></a>
-<span class="sourceLineNo">896</span>    verifyParameterPresence("appSecret", appSecret);<a name="line.896"></a>
-<span class="sourceLineNo">897</span>    return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);<a name="line.897"></a>
-<span class="sourceLineNo">898</span>  }<a name="line.898"></a>
+<span class="sourceLineNo">863</span>  /**<a name="line.863"></a>
+<span class="sourceLineNo">864</span>   * Set to &lt;code&gt;true&lt;/code&gt; if the facebook http delete fallback should be used. Facebook allows to use the http POST<a name="line.864"></a>
+<span class="sourceLineNo">865</span>   * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that<a name="line.865"></a>
+<span class="sourceLineNo">866</span>   * do not support the whole http method set, to delete objects from facebook<a name="line.866"></a>
+<span class="sourceLineNo">867</span>   * <a name="line.867"></a>
+<span class="sourceLineNo">868</span>   * @param httpDeleteFallback<a name="line.868"></a>
+<span class="sourceLineNo">869</span>   *          &lt;code&gt;true&lt;/code&gt; if the the http Delete Fallback is used<a name="line.869"></a>
+<span class="sourceLineNo">870</span>   */<a name="line.870"></a>
+<span class="sourceLineNo">871</span>  public void setHttpDeleteFallback(boolean httpDeleteFallback) {<a name="line.871"></a>
+<span class="sourceLineNo">872</span>    this.httpDeleteFallback = httpDeleteFallback;<a name="line.872"></a>
+<span class="sourceLineNo">873</span>  }<a name="line.873"></a>
+<span class="sourceLineNo">874</span><a name="line.874"></a>
+<span class="sourceLineNo">875</span>  protected interface Requestor {<a name="line.875"></a>
+<span class="sourceLineNo">876</span>    Response makeRequest() throws IOException;<a name="line.876"></a>
+<span class="sourceLineNo">877</span>  }<a name="line.877"></a>
+<span class="sourceLineNo">878</span><a name="line.878"></a>
+<span class="sourceLineNo">879</span>  protected String makeRequestAndProcessResponse(Requestor requestor) {<a name="line.879"></a>
+<span class="sourceLineNo">880</span>    Response response;<a name="line.880"></a>
+<span class="sourceLineNo">881</span><a name="line.881"></a>
+<span class="sourceLineNo">882</span>    // Perform a GET or POST to the API endpoint<a name="line.882"></a>
+<span class="sourceLineNo">883</span>    try {<a name="line.883"></a>
+<span class="sourceLineNo">884</span>      response = requestor.makeRequest();<a name="line.884"></a>
+<span class="sourceLineNo">885</span>    } catch (Exception t) {<a name="line.885"></a>
+<span class="sourceLineNo">886</span>      throw new FacebookNetworkException(t);<a name="line.886"></a>
+<span class="sourceLineNo">887</span>    }<a name="line.887"></a>
+<span class="sourceLineNo">888</span><a name="line.888"></a>
+<span class="sourceLineNo">889</span>    // If we get any HTTP response code other than a 200 OK or 400 Bad Request<a name="line.889"></a>
+<span class="sourceLineNo">890</span>    // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal<a name="line.890"></a>
+<span class="sourceLineNo">891</span>    // Server Error or 302 Not Modified<a name="line.891"></a>
+<span class="sourceLineNo">892</span>    // throw an exception.<a name="line.892"></a>
+<span class="sourceLineNo">893</span>    if (HTTP_OK != response.getStatusCode() &amp;&amp; HTTP_BAD_REQUEST != response.getStatusCode()<a name="line.893"></a>
+<span class="sourceLineNo">894</span>        &amp;&amp; HTTP_UNAUTHORIZED != response.getStatusCode() &amp;&amp; HTTP_NOT_FOUND != response.getStatusCode()<a name="line.894"></a>
+<span class="sourceLineNo">895</span>        &amp;&amp; HTTP_INTERNAL_ERROR != response.getStatusCode() &amp;&amp; HTTP_FORBIDDEN != response.getStatusCode()<a name="line.895"></a>
+<span class="sourceLineNo">896</span>        &amp;&amp; HTTP_NOT_MODIFIED != response.getStatusCode()) {<a name="line.896"></a>
+<span class="sourceLineNo">897</span>      throw new FacebookNetworkException(response.getStatusCode());<a name="line.897"></a>
+<span class="sourceLineNo">898</span>    }<a name="line.898"></a>
 <span class="sourceLineNo">899</span><a name="line.899"></a>
-<span class="sourceLineNo">900</span>  /**<a name="line.900"></a>
-<span class="sourceLineNo">901</span>   * returns if the fallback post method (&lt;code&gt;true&lt;/code&gt;) is used or the http delete (&lt;code&gt;false&lt;/code&gt;)<a name="line.901"></a>
-<span class="sourceLineNo">902</span>   * <a name="line.902"></a>
-<span class="sourceLineNo">903</span>   * @return<a name="line.903"></a>
-<span class="sourceLineNo">904</span>   */<a name="line.904"></a>
-<span class="sourceLineNo">905</span>  public boolean isHttpDeleteFallback() {<a name="line.905"></a>
-<span class="sourceLineNo">906</span>    return httpDeleteFallback;<a name="line.906"></a>
-<span class="sourceLineNo">907</span>  }<a name="line.907"></a>
-<span class="sourceLineNo">908</span><a name="line.908"></a>
-<span class="sourceLineNo">909</span>  /**<a name="line.909"></a>
-<span class="sourceLineNo">910</span>   * Set to &lt;code&gt;true&lt;/code&gt; if the facebook http delete fallback should be used. Facebook allows to use the http POST<a name="line.910"></a>
-<span class="sourceLineNo">911</span>   * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that<a name="line.911"></a>
-<span class="sourceLineNo">912</span>   * do not support the whole http method set, to delete objects from facebook<a name="line.912"></a>
-<span class="sourceLineNo">913</span>   * <a name="line.913"></a>
-<span class="sourceLineNo">914</span>   * @param httpDeleteFallback<a name="line.914"></a>
-<span class="sourceLineNo">915</span>   *          &lt;code&gt;true&lt;/code&gt; if the the http Delete Fallback is used<a name="line.915"></a>
-<span class="sourceLineNo">916</span>   */<a name="line.916"></a>
-<span class="sourceLineNo">917</span>  public void setHttpDeleteFallback(boolean httpDeleteFallback) {<a name="line.917"></a>
-<span class="sourceLineNo">918</span>    this.httpDeleteFallback = httpDeleteFallback;<a name="line.918"></a>
-<span class="sourceLineNo">919</span>  }<a name="line.919"></a>
-<span class="sourceLineNo">920</span><a name="line.920"></a>
-<span class="sourceLineNo">921</span>  protected interface Requestor {<a name="line.921"></a>
-<span class="sourceLineNo">922</span>    Response makeRequest() throws IOException;<a name="line.922"></a>
-<span class="sourceLineNo">923</span>  }<a name="line.923"></a>
-<span class="sourceLineNo">924</span><a name="line.924"></a>
-<span class="sourceLineNo">925</span>  protected String makeRequestAndProcessResponse(Requestor requestor) {<a name="line.925"></a>
-<span class="sourceLineNo">926</span>    Response response;<a name="line.926"></a>
-<span class="sourceLineNo">927</span><a name="line.927"></a>
-<span class="sourceLineNo">928</span>    // Perform a GET or POST to the API endpoint<a name="line.928"></a>
-<span class="sourceLineNo">929</span>    try {<a name="line.929"></a>
-<span class="sourceLineNo">930</span>      response = requestor.makeRequest();<a name="line.930"></a>
-<span class="sourceLineNo">931</span>    } catch (Exception t) {<a name="line.931"></a>
-<span class="sourceLineNo">932</span>      throw new FacebookNetworkException(t);<a name="line.932"></a>
-<span class="sourceLineNo">933</span>    }<a name="line.933"></a>
-<span class="sourceLineNo">934</span><a name="line.934"></a>
-<span class="sourceLineNo">935</span>    // If we get any HTTP response code other than a 200 OK or 400 Bad Request<a name="line.935"></a>
-<span class="sourceLineNo">936</span>    // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal<a name="line.936"></a>
-<span class="sourceLineNo">937</span>    // Server Error or 302 Not Modified<a name="line.937"></a>
-<span class="sourceLineNo">938</span>    // throw an exception.<a name="line.938"></a>
-<span class="sourceLineNo">939</span>    if (HTTP_OK != response.getStatusCode() &amp;&amp; HTTP_BAD_REQUEST != response.getStatusCode()<a name="line.939"></a>
-<span class="sourceLineNo">940</span>        &amp;&amp; HTTP_UNAUTHORIZED != response.getStatusCode() &amp;&amp; HTTP_NOT_FOUND != response.getStatusCode()<a name="line.940"></a>
-<span class="sourceLineNo">941</span>        &amp;&amp; HTTP_INTERNAL_ERROR != response.getStatusCode() &amp;&amp; HTTP_FORBIDDEN != response.getStatusCode()<a name="line.941"></a>
-<span class="sourceLineNo">942</span>        &amp;&amp; HTTP_NOT_MODIFIED != response.getStatusCode()) {<a name="line.942"></a>
-<span class="sourceLineNo">943</span>      throw new FacebookNetworkException(response.getStatusCode());<a name="line.943"></a>
-<span class="sourceLineNo">944</span>    }<a name="line.944"></a>
-<span class="sourceLineNo">945</span><a name="line.945"></a>
-<span class="sourceLineNo">946</span>    String json = response.getBody();<a name="line.946"></a>
+<span class="sourceLineNo">900</span>    String json = response.getBody();<a name="line.900"></a>
+<span class="sourceLineNo">901</span><a name="line.901"></a>
+<span class="sourceLineNo">902</span>    // If the response contained an error code, throw an exception.<a name="line.902"></a>
+<span class="sourceLineNo">903</span>    getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());<a name="line.903"></a>
+<span class="sourceLineNo">904</span><a name="line.904"></a>
+<span class="sourceLineNo">905</span>    // If there was no response error information and this was a 500 or 401<a name="line.905"></a>
+<span class="sourceLineNo">906</span>    // error, something weird happened on Facebook's end. Bail.<a name="line.906"></a>
+<span class="sourceLineNo">907</span>    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {<a name="line.907"></a>
+<span class="sourceLineNo">908</span>      throw new FacebookNetworkException(response.getStatusCode());<a name="line.908"></a>
+<span class="sourceLineNo">909</span>    }<a name="line.909"></a>
+<span class="sourceLineNo">910</span><a name="line.910"></a>
+<span class="sourceLineNo">911</span>    return json;<a name="line.911"></a>
+<span class="sourceLineNo">912</span>  }<a name="line.912"></a>
+<span class="sourceLineNo">913</span><a name="line.913"></a>
+<span class="sourceLineNo">914</span>  /**<a name="line.914"></a>
+<span class="sourceLineNo">915</span>   * Generate the parameter string to be included in the Facebook API request.<a name="line.915"></a>
+<span class="sourceLineNo">916</span>   * <a name="line.916"></a>
+<span class="sourceLineNo">917</span>   * @param parameters<a name="line.917"></a>
+<span class="sourceLineNo">918</span>   *          Arbitrary number of extra parameters to include in the request.<a name="line.918"></a>
+<span class="sourceLineNo">919</span>   * @return The parameter string to include in the Facebook API request.<a name="line.919"></a>
+<span class="sourceLineNo">920</span>   * @throws FacebookJsonMappingException<a name="line.920"></a>
+<span class="sourceLineNo">921</span>   *           If an error occurs when building the parameter string.<a name="line.921"></a>
+<span class="sourceLineNo">922</span>   */<a name="line.922"></a>
+<span class="sourceLineNo">923</span>  protected String toParameterString(Parameter... parameters) {<a name="line.923"></a>
+<span class="sourceLineNo">924</span>    return toParameterString(true, parameters);<a name="line.924"></a>
+<span class="sourceLineNo">925</span>  }<a name="line.925"></a>
+<span class="sourceLineNo">926</span><a name="line.926"></a>
+<span class="sourceLineNo">927</span>  /**<a name="line.927"></a>
+<span class="sourceLineNo">928</span>   * Generate the parameter string to be included in the Facebook API request.<a name="line.928"></a>
+<span class="sourceLineNo">929</span>   * <a name="line.929"></a>
+<span class="sourceLineNo">930</span>   * @param withJsonParameter<a name="line.930"></a>
+<span class="sourceLineNo">931</span>   *          add additional parameter format with type json<a name="line.931"></a>
+<span class="sourceLineNo">932</span>   * @param parameters<a name="line.932"></a>
+<span class="sourceLineNo">933</span>   *          Arbitrary number of extra parameters to include in the request.<a name="line.933"></a>
+<span class="sourceLineNo">934</span>   * @return The parameter string to include in the Facebook API request.<a name="line.934"></a>
+<span class="sourceLineNo">935</span>   * @throws FacebookJsonMappingException<a name="line.935"></a>
+<span class="sourceLineNo">936</span>   *           If an error occurs when building the parameter string.<a name="line.936"></a>
+<span class="sourceLineNo">937</span>   */<a name="line.937"></a>
+<span class="sourceLineNo">938</span>  protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {<a name="line.938"></a>
+<span class="sourceLineNo">939</span>    if (!isBlank(accessToken)) {<a name="line.939"></a>
+<span class="sourceLineNo">940</span>      parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);<a name="line.940"></a>
+<span class="sourceLineNo">941</span>    }<a name="line.941"></a>
+<span class="sourceLineNo">942</span><a name="line.942"></a>
+<span class="sourceLineNo">943</span>    if (!isBlank(accessToken) &amp;&amp; !isBlank(appSecret)) {<a name="line.943"></a>
+<span class="sourceLineNo">944</span>      parameters = parametersWithAdditionalParameter(<a name="line.944"></a>
+<span class="sourceLineNo">945</span>        Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);<a name="line.945"></a>
+<span class="sourceLineNo">946</span>    }<a name="line.946"></a>
 <span class="sourceLineNo">947</span><a name="line.947"></a>
-<span class="sourceLineNo">948</span>    // If the response contained an error code, throw an exception.<a name="line.948"></a>
-<span class="sourceLineNo">949</span>    getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());<a name="line.949"></a>
-<span class="sourceLineNo">950</span><a name="line.950"></a>
-<span class="sourceLineNo">951</span>    // If there was no response error information and this was a 500 or 401<a name="line.951"></a>
-<span class="sourceLineNo">952</span>    // error, something weird happened on Facebook's end. Bail.<a name="line.952"></a>
-<span class="sourceLineNo">953</span>    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {<a name="line.953"></a>
-<span class="sourceLineNo">954</span>      throw new FacebookNetworkException(response.getStatusCode());<a name="line.954"></a>
-<span class="sourceLineNo">955</span>    }<a name="line.955"></a>
-<span class="sourceLineNo">956</span><a name="line.956"></a>
-<span class="sourceLineNo">957</span>    return json;<a name="line.957"></a>
-<span class="sourceLineNo">958</span>  }<a name="line.958"></a>
-<span class="sourceLineNo">959</span><a name="line.959"></a>
-<span class="sourceLineNo">960</span>  /**<a name="line.960"></a>
-<span class="sourceLineNo">961</span>   * Generate the parameter string to be included in the Facebook API request.<a name="line.961"></a>
-<span class="sourceLineNo">962</span>   * <a name="line.962"></a>
-<span class="sourceLineNo">963</span>   * @param parameters<a name="line.963"></a>
-<span class="sourceLineNo">964</span>   *          Arbitrary number of extra parameters to include in the request.<a name="line.964"></a>
-<span class="sourceLineNo">965</span>   * @return The parameter string to include in the Facebook API request.<a name="line.965"></a>
-<span class="sourceLineNo">966</span>   * @throws FacebookJsonMappingException<a name="line.966"></a>
-<span class="sourceLineNo">967</span>   *           If an error occurs when building the parameter string.<a name="line.967"></a>
-<span class="sourceLineNo">968</span>   */<a name="line.968"></a>
-<span class="sourceLineNo">969</span>  protected String toParameterString(Parameter... parameters) {<a name="line.969"></a>
-<span class="sourceLineNo">970</span>    return toParameterString(true, parameters);<a name="line.970"></a>
-<span class="sourceLineNo">971</span>  }<a name="line.971"></a>
-<span class="sourceLineNo">972</span><a name="line.972"></a>
-<span class="sourceLineNo">973</span>  /**<a name="line.973"></a>
-<span class="sourceLineNo">974</span>   * Generate the parameter string to be included in the Facebook API request.<a name="line.974"></a>
-<span class="sourceLineNo">975</span>   * <a name="line.975"></a>
-<span class="sourceLineNo">976</span>   * @param withJsonParameter<a name="line.976"></a>
-<span class="sourceLineNo">977</span>   *          add additional parameter format with type json<a name="line.977"></a>
-<span class="sourceLineNo">978</span>   * @param parameters<a name="line.978"></a>
-<span class="sourceLineNo">979</span>   *          Arbitrary number of extra parameters to include in the request.<a name="line.979"></a>
-<span class="sourceLineNo">980</span>   * @return The parameter string to include in the Facebook API request.<a name="line.980"></a>
-<span class="sourceLineNo">981</span>   * @throws FacebookJsonMappingException<a name="line.981"></a>
-<span class="sourceLineNo">982</span>   *           If an error occurs when building the parameter string.<a name="line.982"></a>
-<span class="sourceLineNo">983</span>   */<a name="line.983"></a>
-<span class="sourceLineNo">984</span>  protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {<a name="line.984"></a>
-<span class="sourceLineNo">985</span>    if (!isBlank(accessToken)) {<a name="line.985"></a>
-<span class="sourceLineNo">986</span>      parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);<a name="line.986"></a>
-<span class="sourceLineNo">987</span>    }<a name="line.987"></a>
+<span class="sourceLineNo">948</span>    if (withJsonParameter) {<a name="line.948"></a>
+<span class="sourceLineNo">949</span>      parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);<a name="line.949"></a>
+<span class="sourceLineNo">950</span>    }<a name="line.950"></a>
+<span class="sourceLineNo">951</span><a name="line.951"></a>
+<span class="sourceLineNo">952</span>    StringBuilder parameterStringBuilder = new StringBuilder();<a name="line.952"></a>
+<span class="sourceLineNo">953</span>    boolean first = true;<a name="line.953"></a>
+<span class="sourceLineNo">954</span><a name="line.954"></a>
+<span class="sourceLineNo">955</span>    for (Parameter parameter : parameters) {<a name="line.955"></a>
+<span class="sourceLineNo">956</span>      if (first) {<a name="line.956"></a>
+<span class="sourceLineNo">957</span>        first = false;<a name="line.957"></a>
+<span class="sourceLineNo">958</span>      } else {<a name="line.958"></a>
+<span class="sourceLineNo">959</span>        parameterStringBuilder.append("&amp;");<a name="line.959"></a>
+<span class="sourceLineNo">960</span>      }<a name="line.960"></a>
+<span class="sourceLineNo">961</span><a name="line.961"></a>
+<span class="sourceLineNo">962</span>      parameterStringBuilder.append(urlEncode(parameter.name));<a name="line.962"></a>
+<span class="sourceLineNo">963</span>      parameterStringBuilder.append("=");<a name="line.963"></a>
+<span class="sourceLineNo">964</span>      parameterStringBuilder.append(urlEncodedValueForParameterName(parameter.name, parameter.value));<a name="line.964"></a>
+<span class="sourceLineNo">965</span>    }<a name="line.965"></a>
+<span class="sourceLineNo">966</span><a name="line.966"></a>
+<span class="sourceLineNo">967</span>    return parameterStringBuilder.toString();<a name="line.967"></a>
+<span class="sourceLineNo">968</span>  }<a name="line.968"></a>
+<span class="sourceLineNo">969</span><a name="line.969"></a>
+<span class="sourceLineNo">970</span>  /**<a name="line.970"></a>
+<span class="sourceLineNo">971</span>   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)<a name="line.971"></a>
+<span class="sourceLineNo">972</span>   */<a name="line.972"></a>
+<span class="sourceLineNo">973</span>  @Override<a name="line.973"></a>
+<span class="sourceLineNo">974</span>  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {<a name="line.974"></a>
+<span class="sourceLineNo">975</span>    while (apiCall.startsWith("/"))<a name="line.975"></a>
+<span class="sourceLineNo">976</span>      apiCall = apiCall.substring(1);<a name="line.976"></a>
+<span class="sourceLineNo">977</span><a name="line.977"></a>
+<span class="sourceLineNo">978</span>    String baseUrl = getFacebookGraphEndpointUrl();<a name="line.978"></a>
+<span class="sourceLineNo">979</span><a name="line.979"></a>
+<span class="sourceLineNo">980</span>    if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {<a name="line.980"></a>
+<span class="sourceLineNo">981</span>      baseUrl = getFacebookGraphVideoEndpointUrl();<a name="line.981"></a>
+<span class="sourceLineNo">982</span>    } else if (apiCall.endsWith("logout.php")) {<a name="line.982"></a>
+<span class="sourceLineNo">983</span>      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();<a name="line.983"></a>
+<span class="sourceLineNo">984</span>    }<a name="line.984"></a>
+<span class="sourceLineNo">985</span><a name="line.985"></a>
+<span class="sourceLineNo">986</span>    return format("%s/%s", baseUrl, apiCall);<a name="line.986"></a>
+<span class="sourceLineNo">987</span>  }<a name="line.987"></a>
 <span class="sourceLineNo">988</span><a name="line.988"></a>
-<span class="sourceLineNo">989</span>    if (!isBlank(accessToken) &amp;&amp; !isBlank(appSecret)) {<a name="line.989"></a>
-<span class="sourceLineNo">990</span>      parameters = parametersWithAdditionalParameter(<a name="line.990"></a>
-<span class="sourceLineNo">991</span>        Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);<a name="line.991"></a>
-<span class="sourceLineNo">992</span>    }<a name="line.992"></a>
-<span class="sourceLineNo">993</span><a name="line.993"></a>
-<span class="sourceLineNo">994</span>    if (withJsonParameter) {<a name="line.994"></a>
-<span class="sourceLineNo">995</span>      parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);<a name="line.995"></a>
-<span class="sourceLineNo">996</span>    }<a name="line.996"></a>
-<span class="sourceLineNo">997</span><a name="line.997"></a>
-<span class="sourceLineNo">998</span>    StringBuilder parameterStringBuilder = new StringBuilder();<a name="line.998"></a>
-<span class="sourceLineNo">999</span>    boolean first = true;<a name="line.999"></a>
-<span class="sourceLineNo">1000</span><a name="line.1000"></a>
-<span class="sourceLineNo">1001</span>    for (Parameter parameter : parameters) {<a name="line.1001"></a>
-<span class="sourceLineNo">1002</span>      if (first) {<a name="line.1002"></a>
-<span class="sourceLineNo">1003</span>        first = false;<a name="line.1003"></a>
-<span class="sourceLineNo">1004</span>      } else {<a name="line.1004"></a>
-<span class="sourceLineNo">1005</span>        parameterStringBuilder.append("&amp;");<a name="line.1005"></a>
-<span class="sourceLineNo">1006</span>      }<a name="line.1006"></a>
-<span class="sourceLineNo">1007</span><a name="line.1007"></a>
-<span class="sourceLineNo">1008</span>      parameterStringBuilder.append(urlEncode(parameter.name));<a name="line.1008"></a>
-<span class="sourceLineNo">1009</span>      parameterStringBuilder.append("=");<a name="line.1009"></a>
-<span class="sourceLineNo">1010</span>      parameterStringBuilder.append(urlEncodedValueForParameterName(parameter.name, parameter.value));<a name="line.1010"></a>
-<span class="sourceLineNo">1011</span>    }<a name="line.1011"></a>
-<span class="sourceLineNo">1012</span><a name="line.1012"></a>
-<span class="sourceLineNo">1013</span>    return parameterStringBuilder.toString();<a name="line.1013"></a>
+<span class="sourceLineNo">989</span>  /**<a name="line.989"></a>
+<span class="sourceLineNo">990</span>   * Returns the base endpoint URL for the Graph API.<a name="line.990"></a>
+<span class="sourceLineNo">991</span>   * <a name="line.991"></a>
+<span class="sourceLineNo">992</span>   * @return The base endpoint URL for the Graph API.<a name="line.992"></a>
+<span class="sourceLineNo">993</span>   */<a name="line.993"></a>
+<span class="sourceLineNo">994</span>  protected String getFacebookGraphEndpointUrl() {<a name="line.994"></a>
+<span class="sourceLineNo">995</span>    if (apiVersion.isUrlElementRequired()) {<a name="line.995"></a>
+<span class="sourceLineNo">996</span>      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();<a name="line.996"></a>
+<span class="sourceLineNo">997</span>    } else {<a name="line.997"></a>
+<span class="sourceLineNo">998</span>      return getFacebookEndpointUrls().getGraphEndpoint();<a name="line.998"></a>
+<span class="sourceLineNo">999</span>    }<a name="line.999"></a>
+<span class="sourceLineNo">1000</span>  }<a name="line.1000"></a>
+<span class="sourceLineNo">1001</span><a name="line.1001"></a>
+<span class="sourceLineNo">1002</span>  /**<a name="line.1002"></a>
+<span class="sourceLineNo">1003</span>   * Returns the base endpoint URL for the Graph API's video upload functionality.<a name="line.1003"></a>
+<span class="sourceLineNo">1004</span>   * <a name="line.1004"></a>
+<span class="sourceLineNo">1005</span>   * @return The base endpoint URL for the Graph API's video upload functionality.<a name="line.1005"></a>
+<span class="sourceLineNo">1006</span>   * @since 1.6.5<a name="line.1006"></a>
+<span class="sourceLineNo">1007</span>   */<a name="line.1007"></a>
+<span class="sourceLineNo">1008</span>  protected String getFacebookGraphVideoEndpointUrl() {<a name="line.1008"></a>
+<span class="sourceLineNo">1009</span>    if (apiVersion.isUrlElementRequired()) {<a name="line.1009"></a>
+<span class="sourceLineNo">1010</span>      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();<a name="line.1010"></a>
+<span class="sourceLineNo">1011</span>    } else {<a name="line.1011"></a>
+<span class="sourceLineNo">1012</span>      return getFacebookEndpointUrls().getGraphVideoEndpoint();<a name="line.1012"></a>
+<span class="sourceLineNo">1013</span>    }<a name="line.1013"></a>
 <span class="sourceLineNo">1014</span>  }<a name="line.1014"></a>
 <span class="sourceLineNo">1015</span><a name="line.1015"></a>
-<span class="sourceLineNo">1016</span>  /**<a name="line.1016"></a>
-<span class="sourceLineNo">1017</span>   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)<a name="line.1017"></a>
-<span class="sourceLineNo">1018</span>   */<a name="line.1018"></a>
-<span class="sourceLineNo">1019</span>  @Override<a name="line.1019"></a>
-<span class="sourceLineNo">1020</span>  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {<a name="line.1020"></a>
-<span class="sourceLineNo">1021</span>    while (apiCall.startsWith("/"))<a name="line.1021"></a>
-<span class="sourceLineNo">1022</span>      apiCall = apiCall.substring(1);<a name="line.1022"></a>
-<span class="sourceLineNo">1023</span><a name="line.1023"></a>
-<span class="sourceLineNo">1024</span>    String baseUrl = getFacebookGraphEndpointUrl();<a name="line.1024"></a>
-<span class="sourceLineNo">1025</span><a name="line.1025"></a>
-<span class="sourceLineNo">1026</span>    if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {<a name="line.1026"></a>
-<span class="sourceLineNo">1027</span>      baseUrl = getFacebookGraphVideoEndpointUrl();<a name="line.1027"></a>
-<span class="sourceLineNo">1028</span>    } else if (apiCall.endsWith("logout.php")) {<a name="line.1028"></a>
-<span class="sourceLineNo">1029</span>      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();<a name="line.1029"></a>
-<span class="sourceLineNo">1030</span>    }<a name="line.1030"></a>
-<span class="sourceLineNo">1031</span><a name="line.1031"></a>
-<span class="sourceLineNo">1032</span>    return format("%s/%s", baseUrl, apiCall);<a name="line.1032"></a>
-<span class="sourceLineNo">1033</span>  }<a name="line.1033"></a>
-<span class="sourceLineNo">1034</span><a name="line.1034"></a>
-<span class="sourceLineNo">1035</span>  /**<a name="line.1035"></a>
-<span class="sourceLineNo">1036</span>   * Returns the base endpoint URL for the Graph API.<a name="line.1036"></a>
-<span class="sourceLineNo">1037</span>   * <a name="line.1037"></a>
-<span class="sourceLineNo">1038</span>   * @return The base endpoint URL for the Graph API.<a name="line.1038"></a>
-<span class="sourceLineNo">1039</span>   */<a name="line.1039"></a>
-<span class="sourceLineNo">1040</span>  protected String getFacebookGraphEndpointUrl() {<a name="line.1040"></a>
-<span class="sourceLineNo">1041</span>    if (apiVersion.isUrlElementRequired()) {<a name="line.1041"></a>
-<span class="sourceLineNo">1042</span>      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();<a name="line.1042"></a>
-<span class="sourceLineNo">1043</span>    } else {<a name="line.1043"></a>
-<span class="sourceLineNo">1044</span>      return getFacebookEndpointUrls().getGraphEndpoint();<a name="line.1044"></a>
-<span class="sourceLineNo">1045</span>    }<a name="line.1045"></a>
-<span class="sourceLineNo">1046</span>  }<a name="line.1046"></a>
-<span class="sourceLineNo">1047</span><a name="line.1047"></a>
-<span class="sourceLineNo">1048</span>  /**<a name="line.1048"></a>
-<span class="sourceLineNo">1049</span>   * Returns the base endpoint URL for the Graph API's video upload functionality.<a name="line.1049"></a>
-<span class="sourceLineNo">1050</span>   * <a name="line.1050"></a>
-<span class="sourceLineNo">1051</span>   * @return The base endpoint URL for the Graph API's video upload functionality.<a name="line.1051"></a>
-<span class="sourceLineNo">1052</span>   * @since 1.6.5<a name="line.1052"></a>
-<span class="sourceLineNo">1053</span>   */<a name="line.1053"></a>
-<span class="sourceLineNo">1054</span>  protected String getFacebookGraphVideoEndpointUrl() {<a name="line.1054"></a>
-<span class="sourceLineNo">1055</span>    if (apiVersion.isUrlElementRequired()) {<a name="line.1055"></a>
-<span class="sourceLineNo">1056</span>      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();<a name="line.1056"></a>
-<span class="sourceLineNo">1057</span>    } else {<a name="line.1057"></a>
-<span class="sourceLineNo">1058</span>      return getFacebookEndpointUrls().getGraphVideoEndpoint();<a name="line.1058"></a>
-<span class="sourceLineNo">1059</span>    }<a name="line.1059"></a>
-<span class="sourceLineNo">1060</span>  }<a name="line.1060"></a>
-<span class="sourceLineNo">1061</span><a name="line.1061"></a>
-<span class="sourceLineNo">1062</span>  public FacebookEndpoints getFacebookEndpointUrls() {<a name="line.1062"></a>
-<span class="sourceLineNo">1063</span>    return facebookEndpointUrls;<a name="line.1063"></a>
-<span class="sourceLineNo">1064</span>  }<a name="line.1064"></a>
-<span class="sourceLineNo">1065</span><a name="line.1065"></a>
-<span class="sourceLineNo">1066</span>  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {<a name="line.1066"></a>
-<span class="sourceLineNo">1067</span>    this.facebookEndpointUrls = facebookEndpointUrls;<a name="line.1067"></a>
-<span class="sourceLineNo">1068</span>  }<a name="line.1068"></a>
-<span class="sourceLineNo">1069</span>}<a name="line.1069"></a>
+<span class="sourceLineNo">1016</span>  public FacebookEndpoints getFacebookEndpointUrls() {<a name="line.1016"></a>
+<span class="sourceLineNo">1017</span>    return facebookEndpointUrls;<a name="line.1017"></a>
+<span class="sourceLineNo">1018</span>  }<a name="line.1018"></a>
+<span class="sourceLineNo">1019</span><a name="line.1019"></a>
+<span class="sourceLineNo">1020</span>  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {<a name="line.1020"></a>
+<span class="sourceLineNo">1021</span>    this.facebookEndpointUrls = facebookEndpointUrls;<a name="line.1021"></a>
+<span class="sourceLineNo">1022</span>  }<a name="line.1022"></a>
+<span class="sourceLineNo">1023</span>}<a name="line.1023"></a>
 
 
 
