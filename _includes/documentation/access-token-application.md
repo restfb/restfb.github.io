@@ -11,7 +11,7 @@ RestFB provides a mechanism for obtaining app access tokens. You simply have to 
 // on behalf of an application instead of a user.
 
 AccessToken accessToken =
-  new DefaultFacebookClient().obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
+  new DefaultFacebookClient(Version.LATEST).obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
 
 out.println("My application access token: " + accessToken);
 {% endhighlight %}

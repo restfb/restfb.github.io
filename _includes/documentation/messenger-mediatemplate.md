@@ -34,8 +34,8 @@ An alternative way to generate the `MediaTemplateElement` is the `MediaTemplateU
 
 | Media Type | Media Source | URL Format |
 | ---------- | ------------ | ---------- |
-| Video | Facebook Page | https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID> |
-| Video | Facebook Account | https://www.facebook.com/<USERNAME>/videos/<NUMERIC_ID>/ |
-| Image | Facebook Page | https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID> |
-| Image | Facebook Account | https://www.facebook.com/photo.php?fbid=<NUMERIC_ID> |
+| Video | Facebook Page | https://business.facebook.com/&lt;PAGE_NAME&gt;/videos/&lt;NUMERIC_ID&gt; |
+| Video | Facebook Account | https://www.facebook.com/&lt;USERNAME&gt;/videos/&lt;NUMERIC_ID&gt; |
+| Image | Facebook Page | https://business.facebook.com/&lt;PAGE_NAME&gt;/photos/&lt;NUMERIC_ID&gt; |
+| Image | Facebook Account | https://www.facebook.com/photo.php?fbid=&lt;NUMERIC_ID&gt; |
 

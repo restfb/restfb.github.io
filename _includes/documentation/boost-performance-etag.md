@@ -18,7 +18,7 @@ With this `Requestor` you can cut down on a lot of network traffic and it is ver
 // create the special WebRequestor with ETag support
 ETagWebRequestor webRequestor = new ETagWebRequestor();
 FacebookClient client = 
-  new DefaultFacebookClient(accessToken, webRequestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+  new DefaultFacebookClient(accessToken, webRequestor, new DefaultJsonMapper(), Version.LATEST);
 {% endhighlight %}
 
 

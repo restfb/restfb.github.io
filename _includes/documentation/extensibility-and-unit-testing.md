@@ -19,7 +19,7 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN,
       return new Response(HttpURLConnection.HTTP_OK,
         "{'id':'123456','name':'Test Person'}");
     }
-  }, new DefaultJsonMapper());
+  }, new DefaultJsonMapper(), Version.LATEST);
 
 // Make an API request using the mocked WebRequestor
 

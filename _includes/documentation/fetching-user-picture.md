@@ -5,7 +5,7 @@ If you call the `<userid>/picture` endpoint you don't receive a JSON response ob
 redirects directly to the user picture and you get the image's binary data.
 
 {% highlight shell %}
-GET https://graph.facebook.com/v2.5/me/picture
+GET https://graph.facebook.com/v3.0/me/picture
 {% endhighlight %}
 
 The GET request above returns these header fields. 

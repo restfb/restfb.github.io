@@ -4,13 +4,13 @@ RestFB supports the developer building the scope and so you should use the <a ta
 
 {% highlight java %}
 ScopeBuilder scopeBuilder = new ScopeBuilder();
-scopeBuilder.addPermission(UserDataPermissions.USER_STATUS);
-scopeBuilder.addPermission(UserDataPermissions.USER_ABOUT_ME);
+scopeBuilder.addPermission(FacebookPermissions.EMAIL);
+scopeBuilder.addPermission(FacebookPermissions.USER_ABOUT_ME);
 {% endhighlight %}
 
 With the ScopeBuilder you can now easily build the login dialog url, like this:
 
 {% highlight java %}
-FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_6);
+FacebookClient client = new DefaultFacebookClient(Version.LATEST);
 String loginDialogUrlString = client.getLoginDialogUrl(appId, redirectUrl, scopeBuilder);
 {% endhighlight %}

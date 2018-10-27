@@ -30,7 +30,7 @@ facebookClient.fetchObject("XXX", User.class);
 
 // You may also generate the appsecret_proof value directly (not normally needed).
 
-String proof = new DefaultFacebookClient().obtainAppSecretProof(
+String proof = new DefaultFacebookClient(Version.LATEST).obtainAppSecretProof(
   MY_ACCESS_TOKEN, MY_APP_SECRET);
 out.println("Here's my proof: " + proof);
 {% endhighlight %}

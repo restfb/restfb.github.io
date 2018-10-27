@@ -38,7 +38,7 @@ This second example shows how to use a `BinaryAttachment` with a byte array. The
 {% highlight java %}
 byte[] imageAsBytes = fetchBytesFromImage();
 DefaultFacebookClient client =
-	new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_4);
+	new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
 JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
 	BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
 {% endhighlight %}
