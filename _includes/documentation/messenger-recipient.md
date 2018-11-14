@@ -11,5 +11,5 @@ IdMessageRecipient recipient = new IdMessageRecipient("<userID>");
 The second identifier type is the phone number of the user you try to contact. Facebook only sends a message to a phone number if there is a certain level of confidence the the phone number can be reached.
 
 {% highlight java %}
-PhoneMessageRecipient recipient = new PhoneMessageRecipient("<userID>");
+PhoneMessageRecipient recipient = new PhoneMessageRecipient("<userPhone>");
 {% endhighlight %}
