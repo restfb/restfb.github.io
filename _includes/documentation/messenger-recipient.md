@@ -8,7 +8,21 @@ If you received a message and took the `id` from that message you can create a n
 IdMessageRecipient recipient = new IdMessageRecipient("<userID>");
 {% endhighlight %}
 
-The second identifier type is the phone number of the user you try to contact. Facebook only sends a message to a phone number if there is a certain level of confidence the the phone number can be reached.
+The second identifier type is the phone number of the user you try to contact. Facebook only sends a message to a phone number if there is a certain level of confidence the the phone number can be reached. Additionally, sending messages to a phone number recipient requires the customer matching feature to be enabled for the app.
+
+<div class="rfb-callout info" role="alert">
+	<h4>
+		Customer Matching requirements and availability
+	</h4>
+	<p>
+		Only bots that belong to a Facebook page with a U.S. based admin can use the <a href="https://developers.facebook.com/docs/messenger-platform/identity/customer-matching/" target="_blank">customer matching</a> feature. Phone numbers may belong to users in other countries, too.
+	</p>
+	<p>
+		You can only send messages as long as the user has not previously opted-out. As soon as she get the message, a message request is shown and the user can read the message. Afterwards she can decide whether to accept or decline further messages. If the message request is accepted the bot is allowed to send further messages.
+	</p>
+</div>
+
+With this small piece of code you can create a phone recipient:
 
 {% highlight java %}
 PhoneMessageRecipient recipient = new PhoneMessageRecipient("<userPhone>");
