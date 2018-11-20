@@ -1,44 +1,63 @@
-A special use case for the new messages is the welcome message. You can set a special message on a page that is sent as soon as a new user starts a conversation with your page.
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen" class="label label-primary">Messenger Platform API</a>
 
-This welcome message contains three parameters: `setting_type`, `thread_state` and `call_to_actions`. 
+The welcome screen ist the first thing a user sees from a Facebook chat bot. On this screen the user can learn what the bot offers and therefore some basic information are presented. The name, profile picture and the cover photo from the Facebook page are shown along with the responsiveness of the bot. 
 
-Facebook expects that `setting_type` and `thread_state` are used as they are defined in the documentation and you should not modify them. Only `call_to_actions` is a parameter that you have to change to modify the welcome message. It's a list of messages and these messages may be created as explained in the chapters above. 
+To make it more easy for the user to start a conversation with the bot, the developer can use 2 approaches. The "Get Started" button and the Greeting Text.
 
-Now we dive into coding. We configure a welcome message and send it to Facebook.
+### The `Get Started` button
 
-First we have to create some `Parameter` objects.
+First we start with the "Get Started" button. The button text cannot be changed, but you can define the postback payload. As soon as a user clicks on the button, the payload is sent to the webhook and so the chat bot receives the request.
 
-{% highlight java %}
-Parameter settingType = Parameter.with("setting_type", "call_to_actions");
-Parameter threadState = Parameter.with("thread_state", "new_thread");
-{% endhighlight %}
-
-Now a message object is created and added to our convenience object `CallToAction` to make the process a bit easier.
-In our example we only create a simple text message, but it's possible to create more complicated objects.
+To generate the encapsulated payload, we start with a `CallToAction` object. It is initialized with the payload `String`. This object is published to the Facebook Graph API. Please check the following example:
 
 {% highlight java %}
-Message simpleTextMessage = new Message("Welcome and chat with the Testbot");
-CallToAction welcome = new CallToAction(simpleTextMessage);
+CallToAction getStartedPayload = new CallToAction("GET_STARTED_PAYLOAD");
 
-List<CallToAction> actionList = new ArrayList<CallToAction>();
-actionList.add(welcome);
-{% endhighlight %}
-
-After creating all the objects we can wire everything together and send it to Facebook.
-
-{% highlight java %}
 // we assume there's already a FacebookClient
-JsonObject response = client.publish("<pageid>/thread_settings", 
+JsonObject response = client.publish("me/messenger_profile", 
      JsonObject.class, // the returned result as JsonObject
-     settingType, // the setting type
-     threadState, // the thread state
-     Parameter.with("call_to_actions", actionList)); // our simple text message
+	 Parameter.with("get_started", getStartedPayload));
 {% endhighlight %}
 
-If the request was successful you can check the result JSON and it looks like:
+### The greeting text
 
-{% highlight javascript %}
-{
-    "result": "Successfully added new_thread's CTAs"
-}
+The first opportunity to tell a person why the should chat with your bot is the greeting text. You can include a short description of the bot in your geeting text. It can also be used to show a person what the style of your bot is.
+
+To add a text you only need a `Greeting` object. This object has several constructors and the simplest way to create the object is a plain `String`. This result in a `default` greeting text. If you like to add a locale specific message, you can add a locale as `String` or a `Locale` object in the constructor. In the following example you see the construction of a `default` text and a text with a `en_US` locale. We use the Java `Locale` object int the constructor.
+
+Afterwards, you simply publish the `Greeting` objects as a list in a `Parameter` object to the `messenger_profile` endpoint. 
+
+{% highlight java %}
+Greeting defaultLocaleGreetingText = new Greeting("Hello world");
+Greeting usLocaleGreetingText= new Greeting(Locale.US, "Timeless apparel for the masses.");
+
+// we assume there's already a FacebookClient
+JsonObject response = client.publish("me/messenger_profile", 
+     JsonObject.class, // the returned result as JsonObject
+	 Parameter.with("greeting", Arrays.asList(defaultLocaleGreetingText, usLocaleGreetingText)));
 {% endhighlight %}
+
+### Personalize your greeting text
+
+Facebook support a way to personalize the greeting text. You need to add a placeholder in the text template. There are placeholder for first, last and the full name.
+
+{% raw %}
+<ul class="list-group">
+	<li class="list-group-item">{{user_first_name}} - user first name</li>
+	<li class="list-group-item">{{user_last_name}} - user last name</li>
+	<li class="list-group-item">{{user_full_name}} - user full name</li>
+</ul>
+{% endraw %}
+
+An example greeting text template looks like this:
+
+{% highlight java %}
+{% raw %}
+Greeting defaultLocaleGreetingTemplate = new Greeting("Hello {{user_first_name}}");
+{% endraw %}
+// we assume there's already a FacebookClient
+JsonObject response = client.publish("me/messenger_profile", 
+     JsonObject.class, // the returned result as JsonObject
+	 Parameter.with("greeting", Arrays.asList(defaultLocaleGreetingText)));
+{% endhighlight %}
+
