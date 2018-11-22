@@ -2,3 +2,7 @@
   title: Post with detailed reactions
   href: post_detailed_reactions
   file: cookbook/post_detailed_reactions.md
+-
+  title: Set complete welcome screen at once 
+  href: messenger_welcome_screen_once
+  file: cookbook/messenger_welcome_all.md
