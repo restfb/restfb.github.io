@@ -1,5 +1,20 @@
 See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen" class="label label-primary">Messenger Platform API</a>
 
+<div class="alert alert-warning">
+	<h4>Remove the deprecated <code>call_to_actions</code> from <code>thread_settings</code> endpoint</h4>
+	<div>
+	 The old <code>thread_settings</code> endpoint is deprecated and you should remove the configuration you made earlier. In following sections, you learn the current way to add the greeting text and so on. Use this snippet to clean your bots's welcome screen:
+<div markdown="1">
+{% highlight java %}
+fbClient.deleteObject("/me/thread_settings", 
+     Parameter.with("setting_type","call_to_actions"), 
+     Parameter.with("thread_state","new_thread"));
+{% endhighlight %}
+</div>
+	</div>
+</div>
+
+
 The welcome screen ist the first thing a user sees from a Facebook chat bot. On this screen the user can learn what the bot offers and therefore some basic information are presented. The name, profile picture and the cover photo from the Facebook page are shown along with the responsiveness of the bot. 
 
 To make it more easy for the user to start a conversation with the bot, the developer can use 2 approaches. The "Get Started" button and the Greeting Text.
@@ -60,4 +75,3 @@ JsonObject response = client.publish("me/messenger_profile",
      JsonObject.class, // the returned result as JsonObject
 	 Parameter.with("greeting", Arrays.asList(defaultLocaleGreetingText)));
 {% endhighlight %}
-
