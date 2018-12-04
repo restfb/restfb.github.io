@@ -29,7 +29,7 @@ menu.addCallToAction(nested);
 menu.addCallToAction(webUrl);
 {% endhighlight %}
 
-With these new objects it is possible to build great persistent menus and the locale feature allows for more advanced user interaction. After creating the menu, you can set it with a simple call to the Graph API:
+With these new objects it is possible to build great persistent menus, and the locale feature allows for more advanced user interaction. After creating the menu, you can set it with a simple call to the Graph API:
 
 {% highlight java %}
 JsonObject response = client.publish("me/messenger_profile",

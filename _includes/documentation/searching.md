@@ -10,11 +10,11 @@ back data that can be marshaled to the normal RestFB types.
 
 <div class="rfb-callout warning">
 	<h4>Public search changed on 4 April, 2018</h4>
-	<div>With the breaking change on April 2018, Facebook only allows to search for `place`, `placetopic` and `ad_*`. All other types are not longer supported. Be careful - some old tutorials are not updated yet!</div>
+	<div>With the breaking change on April 2018, Facebook only allows you to search for `place`, `placetopic`, and `ad_*`. All other types are not longer supported. Be careful - some old tutorials are not updated yet!</div>
 </div>
 
-The supported public search types are `place`, `placetopic` and `ad_*`. Some types like 
-place need additional parameters so you should have a look at the <a href="https://developers.facebook.com/docs/graph-api/using-graph-api/#search" target="_blank">Facebook Graph API Search documentation.</a>
+The supported public search types are `place`, `placetopic`, and `ad_*`. Some types like 
+`place` need additional parameters, so you should have a look at the <a href="https://developers.facebook.com/docs/graph-api/using-graph-api/#search" target="_blank">Facebook Graph API Search documentation.</a>
 
 {% highlight java %}
 // Searching is just a special case of fetching Connections -
