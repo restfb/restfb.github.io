@@ -698,194 +698,197 @@
 <span class="sourceLineNo">690</span>    final Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();<a name="line.690"></a>
 <span class="sourceLineNo">691</span>    return new Iterator&lt;JsonObject.Member&gt;() {<a name="line.691"></a>
 <span class="sourceLineNo">692</span><a name="line.692"></a>
-<span class="sourceLineNo">693</span>      public boolean hasNext() {<a name="line.693"></a>
-<span class="sourceLineNo">694</span>        return namesIterator.hasNext();<a name="line.694"></a>
-<span class="sourceLineNo">695</span>      }<a name="line.695"></a>
-<span class="sourceLineNo">696</span><a name="line.696"></a>
-<span class="sourceLineNo">697</span>      public Member next() {<a name="line.697"></a>
-<span class="sourceLineNo">698</span>        String name = namesIterator.next();<a name="line.698"></a>
-<span class="sourceLineNo">699</span>        JsonValue value = valuesIterator.next();<a name="line.699"></a>
-<span class="sourceLineNo">700</span>        return new Member(name, value);<a name="line.700"></a>
-<span class="sourceLineNo">701</span>      }<a name="line.701"></a>
-<span class="sourceLineNo">702</span><a name="line.702"></a>
-<span class="sourceLineNo">703</span>      public void remove() {<a name="line.703"></a>
-<span class="sourceLineNo">704</span>        throw new UnsupportedOperationException();<a name="line.704"></a>
-<span class="sourceLineNo">705</span>      }<a name="line.705"></a>
-<span class="sourceLineNo">706</span><a name="line.706"></a>
-<span class="sourceLineNo">707</span>    };<a name="line.707"></a>
-<span class="sourceLineNo">708</span>  }<a name="line.708"></a>
+<span class="sourceLineNo">693</span>      @Override<a name="line.693"></a>
+<span class="sourceLineNo">694</span>      public boolean hasNext() {<a name="line.694"></a>
+<span class="sourceLineNo">695</span>        return namesIterator.hasNext();<a name="line.695"></a>
+<span class="sourceLineNo">696</span>      }<a name="line.696"></a>
+<span class="sourceLineNo">697</span><a name="line.697"></a>
+<span class="sourceLineNo">698</span>      @Override<a name="line.698"></a>
+<span class="sourceLineNo">699</span>      public Member next() {<a name="line.699"></a>
+<span class="sourceLineNo">700</span>        String name = namesIterator.next();<a name="line.700"></a>
+<span class="sourceLineNo">701</span>        JsonValue value = valuesIterator.next();<a name="line.701"></a>
+<span class="sourceLineNo">702</span>        return new Member(name, value);<a name="line.702"></a>
+<span class="sourceLineNo">703</span>      }<a name="line.703"></a>
+<span class="sourceLineNo">704</span><a name="line.704"></a>
+<span class="sourceLineNo">705</span>      @Override<a name="line.705"></a>
+<span class="sourceLineNo">706</span>      public void remove() {<a name="line.706"></a>
+<span class="sourceLineNo">707</span>        throw new UnsupportedOperationException();<a name="line.707"></a>
+<span class="sourceLineNo">708</span>      }<a name="line.708"></a>
 <span class="sourceLineNo">709</span><a name="line.709"></a>
-<span class="sourceLineNo">710</span>  @Override<a name="line.710"></a>
-<span class="sourceLineNo">711</span>  void write(JsonWriter writer) throws IOException {<a name="line.711"></a>
-<span class="sourceLineNo">712</span>    writer.writeObjectOpen();<a name="line.712"></a>
-<span class="sourceLineNo">713</span>    Iterator&lt;String&gt; namesIterator = names.iterator();<a name="line.713"></a>
-<span class="sourceLineNo">714</span>    Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();<a name="line.714"></a>
-<span class="sourceLineNo">715</span>    boolean first = true;<a name="line.715"></a>
-<span class="sourceLineNo">716</span>    while (namesIterator.hasNext()) {<a name="line.716"></a>
-<span class="sourceLineNo">717</span>      if (!first) {<a name="line.717"></a>
-<span class="sourceLineNo">718</span>        writer.writeObjectSeparator();<a name="line.718"></a>
-<span class="sourceLineNo">719</span>      }<a name="line.719"></a>
-<span class="sourceLineNo">720</span>      writer.writeMemberName(namesIterator.next());<a name="line.720"></a>
-<span class="sourceLineNo">721</span>      writer.writeMemberSeparator();<a name="line.721"></a>
-<span class="sourceLineNo">722</span>      valuesIterator.next().write(writer);<a name="line.722"></a>
-<span class="sourceLineNo">723</span>      first = false;<a name="line.723"></a>
-<span class="sourceLineNo">724</span>    }<a name="line.724"></a>
-<span class="sourceLineNo">725</span>    writer.writeObjectClose();<a name="line.725"></a>
-<span class="sourceLineNo">726</span>  }<a name="line.726"></a>
-<span class="sourceLineNo">727</span><a name="line.727"></a>
-<span class="sourceLineNo">728</span>  @Override<a name="line.728"></a>
-<span class="sourceLineNo">729</span>  public boolean isObject() {<a name="line.729"></a>
-<span class="sourceLineNo">730</span>    return true;<a name="line.730"></a>
-<span class="sourceLineNo">731</span>  }<a name="line.731"></a>
-<span class="sourceLineNo">732</span><a name="line.732"></a>
-<span class="sourceLineNo">733</span>  @Override<a name="line.733"></a>
-<span class="sourceLineNo">734</span>  public JsonObject asObject() {<a name="line.734"></a>
-<span class="sourceLineNo">735</span>    return this;<a name="line.735"></a>
-<span class="sourceLineNo">736</span>  }<a name="line.736"></a>
-<span class="sourceLineNo">737</span><a name="line.737"></a>
-<span class="sourceLineNo">738</span>  @Override<a name="line.738"></a>
-<span class="sourceLineNo">739</span>  public int hashCode() {<a name="line.739"></a>
-<span class="sourceLineNo">740</span>    int result = 1;<a name="line.740"></a>
-<span class="sourceLineNo">741</span>    result = 31 * result + names.hashCode();<a name="line.741"></a>
-<span class="sourceLineNo">742</span>    result = 31 * result + values.hashCode();<a name="line.742"></a>
-<span class="sourceLineNo">743</span>    return result;<a name="line.743"></a>
-<span class="sourceLineNo">744</span>  }<a name="line.744"></a>
-<span class="sourceLineNo">745</span><a name="line.745"></a>
-<span class="sourceLineNo">746</span>  @Override<a name="line.746"></a>
-<span class="sourceLineNo">747</span>  public boolean equals(Object obj) {<a name="line.747"></a>
-<span class="sourceLineNo">748</span>    if (this == obj) {<a name="line.748"></a>
-<span class="sourceLineNo">749</span>      return true;<a name="line.749"></a>
-<span class="sourceLineNo">750</span>    }<a name="line.750"></a>
-<span class="sourceLineNo">751</span>    if (obj == null) {<a name="line.751"></a>
-<span class="sourceLineNo">752</span>      return false;<a name="line.752"></a>
+<span class="sourceLineNo">710</span>    };<a name="line.710"></a>
+<span class="sourceLineNo">711</span>  }<a name="line.711"></a>
+<span class="sourceLineNo">712</span><a name="line.712"></a>
+<span class="sourceLineNo">713</span>  @Override<a name="line.713"></a>
+<span class="sourceLineNo">714</span>  void write(JsonWriter writer) throws IOException {<a name="line.714"></a>
+<span class="sourceLineNo">715</span>    writer.writeObjectOpen();<a name="line.715"></a>
+<span class="sourceLineNo">716</span>    Iterator&lt;String&gt; namesIterator = names.iterator();<a name="line.716"></a>
+<span class="sourceLineNo">717</span>    Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();<a name="line.717"></a>
+<span class="sourceLineNo">718</span>    boolean first = true;<a name="line.718"></a>
+<span class="sourceLineNo">719</span>    while (namesIterator.hasNext()) {<a name="line.719"></a>
+<span class="sourceLineNo">720</span>      if (!first) {<a name="line.720"></a>
+<span class="sourceLineNo">721</span>        writer.writeObjectSeparator();<a name="line.721"></a>
+<span class="sourceLineNo">722</span>      }<a name="line.722"></a>
+<span class="sourceLineNo">723</span>      writer.writeMemberName(namesIterator.next());<a name="line.723"></a>
+<span class="sourceLineNo">724</span>      writer.writeMemberSeparator();<a name="line.724"></a>
+<span class="sourceLineNo">725</span>      valuesIterator.next().write(writer);<a name="line.725"></a>
+<span class="sourceLineNo">726</span>      first = false;<a name="line.726"></a>
+<span class="sourceLineNo">727</span>    }<a name="line.727"></a>
+<span class="sourceLineNo">728</span>    writer.writeObjectClose();<a name="line.728"></a>
+<span class="sourceLineNo">729</span>  }<a name="line.729"></a>
+<span class="sourceLineNo">730</span><a name="line.730"></a>
+<span class="sourceLineNo">731</span>  @Override<a name="line.731"></a>
+<span class="sourceLineNo">732</span>  public boolean isObject() {<a name="line.732"></a>
+<span class="sourceLineNo">733</span>    return true;<a name="line.733"></a>
+<span class="sourceLineNo">734</span>  }<a name="line.734"></a>
+<span class="sourceLineNo">735</span><a name="line.735"></a>
+<span class="sourceLineNo">736</span>  @Override<a name="line.736"></a>
+<span class="sourceLineNo">737</span>  public JsonObject asObject() {<a name="line.737"></a>
+<span class="sourceLineNo">738</span>    return this;<a name="line.738"></a>
+<span class="sourceLineNo">739</span>  }<a name="line.739"></a>
+<span class="sourceLineNo">740</span><a name="line.740"></a>
+<span class="sourceLineNo">741</span>  @Override<a name="line.741"></a>
+<span class="sourceLineNo">742</span>  public int hashCode() {<a name="line.742"></a>
+<span class="sourceLineNo">743</span>    int result = 1;<a name="line.743"></a>
+<span class="sourceLineNo">744</span>    result = 31 * result + names.hashCode();<a name="line.744"></a>
+<span class="sourceLineNo">745</span>    result = 31 * result + values.hashCode();<a name="line.745"></a>
+<span class="sourceLineNo">746</span>    return result;<a name="line.746"></a>
+<span class="sourceLineNo">747</span>  }<a name="line.747"></a>
+<span class="sourceLineNo">748</span><a name="line.748"></a>
+<span class="sourceLineNo">749</span>  @Override<a name="line.749"></a>
+<span class="sourceLineNo">750</span>  public boolean equals(Object obj) {<a name="line.750"></a>
+<span class="sourceLineNo">751</span>    if (this == obj) {<a name="line.751"></a>
+<span class="sourceLineNo">752</span>      return true;<a name="line.752"></a>
 <span class="sourceLineNo">753</span>    }<a name="line.753"></a>
-<span class="sourceLineNo">754</span>    if (getClass() != obj.getClass()) {<a name="line.754"></a>
+<span class="sourceLineNo">754</span>    if (obj == null) {<a name="line.754"></a>
 <span class="sourceLineNo">755</span>      return false;<a name="line.755"></a>
 <span class="sourceLineNo">756</span>    }<a name="line.756"></a>
-<span class="sourceLineNo">757</span>    JsonObject other = (JsonObject) obj;<a name="line.757"></a>
-<span class="sourceLineNo">758</span>    return names.equals(other.names) &amp;&amp; values.equals(other.values);<a name="line.758"></a>
-<span class="sourceLineNo">759</span>  }<a name="line.759"></a>
-<span class="sourceLineNo">760</span><a name="line.760"></a>
-<span class="sourceLineNo">761</span>  int indexOf(String name) {<a name="line.761"></a>
-<span class="sourceLineNo">762</span>    int index = table.get(name);<a name="line.762"></a>
-<span class="sourceLineNo">763</span>    if (index != -1 &amp;&amp; name.equals(names.get(index))) {<a name="line.763"></a>
-<span class="sourceLineNo">764</span>      return index;<a name="line.764"></a>
-<span class="sourceLineNo">765</span>    }<a name="line.765"></a>
-<span class="sourceLineNo">766</span>    return names.lastIndexOf(name);<a name="line.766"></a>
-<span class="sourceLineNo">767</span>  }<a name="line.767"></a>
-<span class="sourceLineNo">768</span><a name="line.768"></a>
-<span class="sourceLineNo">769</span>  private synchronized void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {<a name="line.769"></a>
-<span class="sourceLineNo">770</span>    inputStream.defaultReadObject();<a name="line.770"></a>
-<span class="sourceLineNo">771</span>    table = new HashIndexTable();<a name="line.771"></a>
-<span class="sourceLineNo">772</span>    updateHashIndex();<a name="line.772"></a>
-<span class="sourceLineNo">773</span>  }<a name="line.773"></a>
-<span class="sourceLineNo">774</span><a name="line.774"></a>
-<span class="sourceLineNo">775</span>  private void updateHashIndex() {<a name="line.775"></a>
-<span class="sourceLineNo">776</span>    int size = names.size();<a name="line.776"></a>
-<span class="sourceLineNo">777</span>    for (int i = 0; i &lt; size; i++) {<a name="line.777"></a>
-<span class="sourceLineNo">778</span>      table.add(names.get(i), i);<a name="line.778"></a>
-<span class="sourceLineNo">779</span>    }<a name="line.779"></a>
-<span class="sourceLineNo">780</span>  }<a name="line.780"></a>
-<span class="sourceLineNo">781</span><a name="line.781"></a>
-<span class="sourceLineNo">782</span>  /**<a name="line.782"></a>
-<span class="sourceLineNo">783</span>   * Represents a member of a JSON object, a pair of a name and a value.<a name="line.783"></a>
-<span class="sourceLineNo">784</span>   */<a name="line.784"></a>
-<span class="sourceLineNo">785</span>  public static class Member {<a name="line.785"></a>
-<span class="sourceLineNo">786</span><a name="line.786"></a>
-<span class="sourceLineNo">787</span>    private final String name;<a name="line.787"></a>
-<span class="sourceLineNo">788</span>    private final JsonValue value;<a name="line.788"></a>
+<span class="sourceLineNo">757</span>    if (getClass() != obj.getClass()) {<a name="line.757"></a>
+<span class="sourceLineNo">758</span>      return false;<a name="line.758"></a>
+<span class="sourceLineNo">759</span>    }<a name="line.759"></a>
+<span class="sourceLineNo">760</span>    JsonObject other = (JsonObject) obj;<a name="line.760"></a>
+<span class="sourceLineNo">761</span>    return names.equals(other.names) &amp;&amp; values.equals(other.values);<a name="line.761"></a>
+<span class="sourceLineNo">762</span>  }<a name="line.762"></a>
+<span class="sourceLineNo">763</span><a name="line.763"></a>
+<span class="sourceLineNo">764</span>  int indexOf(String name) {<a name="line.764"></a>
+<span class="sourceLineNo">765</span>    int index = table.get(name);<a name="line.765"></a>
+<span class="sourceLineNo">766</span>    if (index != -1 &amp;&amp; name.equals(names.get(index))) {<a name="line.766"></a>
+<span class="sourceLineNo">767</span>      return index;<a name="line.767"></a>
+<span class="sourceLineNo">768</span>    }<a name="line.768"></a>
+<span class="sourceLineNo">769</span>    return names.lastIndexOf(name);<a name="line.769"></a>
+<span class="sourceLineNo">770</span>  }<a name="line.770"></a>
+<span class="sourceLineNo">771</span><a name="line.771"></a>
+<span class="sourceLineNo">772</span>  private synchronized void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {<a name="line.772"></a>
+<span class="sourceLineNo">773</span>    inputStream.defaultReadObject();<a name="line.773"></a>
+<span class="sourceLineNo">774</span>    table = new HashIndexTable();<a name="line.774"></a>
+<span class="sourceLineNo">775</span>    updateHashIndex();<a name="line.775"></a>
+<span class="sourceLineNo">776</span>  }<a name="line.776"></a>
+<span class="sourceLineNo">777</span><a name="line.777"></a>
+<span class="sourceLineNo">778</span>  private void updateHashIndex() {<a name="line.778"></a>
+<span class="sourceLineNo">779</span>    int size = names.size();<a name="line.779"></a>
+<span class="sourceLineNo">780</span>    for (int i = 0; i &lt; size; i++) {<a name="line.780"></a>
+<span class="sourceLineNo">781</span>      table.add(names.get(i), i);<a name="line.781"></a>
+<span class="sourceLineNo">782</span>    }<a name="line.782"></a>
+<span class="sourceLineNo">783</span>  }<a name="line.783"></a>
+<span class="sourceLineNo">784</span><a name="line.784"></a>
+<span class="sourceLineNo">785</span>  /**<a name="line.785"></a>
+<span class="sourceLineNo">786</span>   * Represents a member of a JSON object, a pair of a name and a value.<a name="line.786"></a>
+<span class="sourceLineNo">787</span>   */<a name="line.787"></a>
+<span class="sourceLineNo">788</span>  public static class Member {<a name="line.788"></a>
 <span class="sourceLineNo">789</span><a name="line.789"></a>
-<span class="sourceLineNo">790</span>    Member(String name, JsonValue value) {<a name="line.790"></a>
-<span class="sourceLineNo">791</span>      this.name = name;<a name="line.791"></a>
-<span class="sourceLineNo">792</span>      this.value = value;<a name="line.792"></a>
-<span class="sourceLineNo">793</span>    }<a name="line.793"></a>
-<span class="sourceLineNo">794</span><a name="line.794"></a>
-<span class="sourceLineNo">795</span>    /**<a name="line.795"></a>
-<span class="sourceLineNo">796</span>     * Returns the name of this member.<a name="line.796"></a>
-<span class="sourceLineNo">797</span>     *<a name="line.797"></a>
-<span class="sourceLineNo">798</span>     * @return the name of this member, never &lt;code&gt;null&lt;/code&gt;<a name="line.798"></a>
-<span class="sourceLineNo">799</span>     */<a name="line.799"></a>
-<span class="sourceLineNo">800</span>    public String getName() {<a name="line.800"></a>
-<span class="sourceLineNo">801</span>      return name;<a name="line.801"></a>
-<span class="sourceLineNo">802</span>    }<a name="line.802"></a>
-<span class="sourceLineNo">803</span><a name="line.803"></a>
-<span class="sourceLineNo">804</span>    /**<a name="line.804"></a>
-<span class="sourceLineNo">805</span>     * Returns the value of this member.<a name="line.805"></a>
-<span class="sourceLineNo">806</span>     *<a name="line.806"></a>
-<span class="sourceLineNo">807</span>     * @return the value of this member, never &lt;code&gt;null&lt;/code&gt;<a name="line.807"></a>
-<span class="sourceLineNo">808</span>     */<a name="line.808"></a>
-<span class="sourceLineNo">809</span>    public JsonValue getValue() {<a name="line.809"></a>
-<span class="sourceLineNo">810</span>      return value;<a name="line.810"></a>
-<span class="sourceLineNo">811</span>    }<a name="line.811"></a>
-<span class="sourceLineNo">812</span><a name="line.812"></a>
-<span class="sourceLineNo">813</span>    @Override<a name="line.813"></a>
-<span class="sourceLineNo">814</span>    public int hashCode() {<a name="line.814"></a>
-<span class="sourceLineNo">815</span>      int result = 1;<a name="line.815"></a>
-<span class="sourceLineNo">816</span>      result = 31 * result + name.hashCode();<a name="line.816"></a>
-<span class="sourceLineNo">817</span>      result = 31 * result + value.hashCode();<a name="line.817"></a>
-<span class="sourceLineNo">818</span>      return result;<a name="line.818"></a>
-<span class="sourceLineNo">819</span>    }<a name="line.819"></a>
-<span class="sourceLineNo">820</span><a name="line.820"></a>
-<span class="sourceLineNo">821</span>    @Override<a name="line.821"></a>
-<span class="sourceLineNo">822</span>    public boolean equals(Object obj) {<a name="line.822"></a>
-<span class="sourceLineNo">823</span>      if (this == obj) {<a name="line.823"></a>
-<span class="sourceLineNo">824</span>        return true;<a name="line.824"></a>
-<span class="sourceLineNo">825</span>      }<a name="line.825"></a>
-<span class="sourceLineNo">826</span>      if (obj == null) {<a name="line.826"></a>
-<span class="sourceLineNo">827</span>        return false;<a name="line.827"></a>
+<span class="sourceLineNo">790</span>    private final String name;<a name="line.790"></a>
+<span class="sourceLineNo">791</span>    private final JsonValue value;<a name="line.791"></a>
+<span class="sourceLineNo">792</span><a name="line.792"></a>
+<span class="sourceLineNo">793</span>    Member(String name, JsonValue value) {<a name="line.793"></a>
+<span class="sourceLineNo">794</span>      this.name = name;<a name="line.794"></a>
+<span class="sourceLineNo">795</span>      this.value = value;<a name="line.795"></a>
+<span class="sourceLineNo">796</span>    }<a name="line.796"></a>
+<span class="sourceLineNo">797</span><a name="line.797"></a>
+<span class="sourceLineNo">798</span>    /**<a name="line.798"></a>
+<span class="sourceLineNo">799</span>     * Returns the name of this member.<a name="line.799"></a>
+<span class="sourceLineNo">800</span>     *<a name="line.800"></a>
+<span class="sourceLineNo">801</span>     * @return the name of this member, never &lt;code&gt;null&lt;/code&gt;<a name="line.801"></a>
+<span class="sourceLineNo">802</span>     */<a name="line.802"></a>
+<span class="sourceLineNo">803</span>    public String getName() {<a name="line.803"></a>
+<span class="sourceLineNo">804</span>      return name;<a name="line.804"></a>
+<span class="sourceLineNo">805</span>    }<a name="line.805"></a>
+<span class="sourceLineNo">806</span><a name="line.806"></a>
+<span class="sourceLineNo">807</span>    /**<a name="line.807"></a>
+<span class="sourceLineNo">808</span>     * Returns the value of this member.<a name="line.808"></a>
+<span class="sourceLineNo">809</span>     *<a name="line.809"></a>
+<span class="sourceLineNo">810</span>     * @return the value of this member, never &lt;code&gt;null&lt;/code&gt;<a name="line.810"></a>
+<span class="sourceLineNo">811</span>     */<a name="line.811"></a>
+<span class="sourceLineNo">812</span>    public JsonValue getValue() {<a name="line.812"></a>
+<span class="sourceLineNo">813</span>      return value;<a name="line.813"></a>
+<span class="sourceLineNo">814</span>    }<a name="line.814"></a>
+<span class="sourceLineNo">815</span><a name="line.815"></a>
+<span class="sourceLineNo">816</span>    @Override<a name="line.816"></a>
+<span class="sourceLineNo">817</span>    public int hashCode() {<a name="line.817"></a>
+<span class="sourceLineNo">818</span>      int result = 1;<a name="line.818"></a>
+<span class="sourceLineNo">819</span>      result = 31 * result + name.hashCode();<a name="line.819"></a>
+<span class="sourceLineNo">820</span>      result = 31 * result + value.hashCode();<a name="line.820"></a>
+<span class="sourceLineNo">821</span>      return result;<a name="line.821"></a>
+<span class="sourceLineNo">822</span>    }<a name="line.822"></a>
+<span class="sourceLineNo">823</span><a name="line.823"></a>
+<span class="sourceLineNo">824</span>    @Override<a name="line.824"></a>
+<span class="sourceLineNo">825</span>    public boolean equals(Object obj) {<a name="line.825"></a>
+<span class="sourceLineNo">826</span>      if (this == obj) {<a name="line.826"></a>
+<span class="sourceLineNo">827</span>        return true;<a name="line.827"></a>
 <span class="sourceLineNo">828</span>      }<a name="line.828"></a>
-<span class="sourceLineNo">829</span>      if (getClass() != obj.getClass()) {<a name="line.829"></a>
+<span class="sourceLineNo">829</span>      if (obj == null) {<a name="line.829"></a>
 <span class="sourceLineNo">830</span>        return false;<a name="line.830"></a>
 <span class="sourceLineNo">831</span>      }<a name="line.831"></a>
-<span class="sourceLineNo">832</span>      Member other = (Member) obj;<a name="line.832"></a>
-<span class="sourceLineNo">833</span>      return name.equals(other.name) &amp;&amp; value.equals(other.value);<a name="line.833"></a>
-<span class="sourceLineNo">834</span>    }<a name="line.834"></a>
-<span class="sourceLineNo">835</span><a name="line.835"></a>
-<span class="sourceLineNo">836</span>  }<a name="line.836"></a>
-<span class="sourceLineNo">837</span><a name="line.837"></a>
-<span class="sourceLineNo">838</span>  static class HashIndexTable {<a name="line.838"></a>
-<span class="sourceLineNo">839</span><a name="line.839"></a>
-<span class="sourceLineNo">840</span>    private final byte[] hashTable = new byte[32]; // must be a power of two<a name="line.840"></a>
-<span class="sourceLineNo">841</span><a name="line.841"></a>
-<span class="sourceLineNo">842</span>    public HashIndexTable() {}<a name="line.842"></a>
-<span class="sourceLineNo">843</span><a name="line.843"></a>
-<span class="sourceLineNo">844</span>    public HashIndexTable(HashIndexTable original) {<a name="line.844"></a>
-<span class="sourceLineNo">845</span>      System.arraycopy(original.hashTable, 0, hashTable, 0, hashTable.length);<a name="line.845"></a>
-<span class="sourceLineNo">846</span>    }<a name="line.846"></a>
-<span class="sourceLineNo">847</span><a name="line.847"></a>
-<span class="sourceLineNo">848</span>    void add(String name, int index) {<a name="line.848"></a>
-<span class="sourceLineNo">849</span>      int slot = hashSlotFor(name);<a name="line.849"></a>
-<span class="sourceLineNo">850</span>      if (index &lt; 0xff) {<a name="line.850"></a>
-<span class="sourceLineNo">851</span>        // increment by 1, 0 stands for empty<a name="line.851"></a>
-<span class="sourceLineNo">852</span>        hashTable[slot] = (byte) (index + 1);<a name="line.852"></a>
-<span class="sourceLineNo">853</span>      } else {<a name="line.853"></a>
-<span class="sourceLineNo">854</span>        hashTable[slot] = 0;<a name="line.854"></a>
-<span class="sourceLineNo">855</span>      }<a name="line.855"></a>
-<span class="sourceLineNo">856</span>    }<a name="line.856"></a>
-<span class="sourceLineNo">857</span><a name="line.857"></a>
-<span class="sourceLineNo">858</span>    void remove(int index) {<a name="line.858"></a>
-<span class="sourceLineNo">859</span>      for (int i = 0; i &lt; hashTable.length; i++) {<a name="line.859"></a>
-<span class="sourceLineNo">860</span>        if (hashTable[i] == index + 1) {<a name="line.860"></a>
-<span class="sourceLineNo">861</span>          hashTable[i] = 0;<a name="line.861"></a>
-<span class="sourceLineNo">862</span>        } else if (hashTable[i] &gt; index + 1) {<a name="line.862"></a>
-<span class="sourceLineNo">863</span>          hashTable[i]--;<a name="line.863"></a>
-<span class="sourceLineNo">864</span>        }<a name="line.864"></a>
-<span class="sourceLineNo">865</span>      }<a name="line.865"></a>
-<span class="sourceLineNo">866</span>    }<a name="line.866"></a>
-<span class="sourceLineNo">867</span><a name="line.867"></a>
-<span class="sourceLineNo">868</span>    int get(Object name) {<a name="line.868"></a>
-<span class="sourceLineNo">869</span>      int slot = hashSlotFor(name);<a name="line.869"></a>
-<span class="sourceLineNo">870</span>      // subtract 1, 0 stands for empty<a name="line.870"></a>
-<span class="sourceLineNo">871</span>      return (hashTable[slot] &amp; 0xff) - 1;<a name="line.871"></a>
-<span class="sourceLineNo">872</span>    }<a name="line.872"></a>
-<span class="sourceLineNo">873</span><a name="line.873"></a>
-<span class="sourceLineNo">874</span>    private int hashSlotFor(Object element) {<a name="line.874"></a>
-<span class="sourceLineNo">875</span>      return element.hashCode() &amp; hashTable.length - 1;<a name="line.875"></a>
-<span class="sourceLineNo">876</span>    }<a name="line.876"></a>
-<span class="sourceLineNo">877</span><a name="line.877"></a>
-<span class="sourceLineNo">878</span>  }<a name="line.878"></a>
-<span class="sourceLineNo">879</span><a name="line.879"></a>
-<span class="sourceLineNo">880</span>}<a name="line.880"></a>
+<span class="sourceLineNo">832</span>      if (getClass() != obj.getClass()) {<a name="line.832"></a>
+<span class="sourceLineNo">833</span>        return false;<a name="line.833"></a>
+<span class="sourceLineNo">834</span>      }<a name="line.834"></a>
+<span class="sourceLineNo">835</span>      Member other = (Member) obj;<a name="line.835"></a>
+<span class="sourceLineNo">836</span>      return name.equals(other.name) &amp;&amp; value.equals(other.value);<a name="line.836"></a>
+<span class="sourceLineNo">837</span>    }<a name="line.837"></a>
+<span class="sourceLineNo">838</span><a name="line.838"></a>
+<span class="sourceLineNo">839</span>  }<a name="line.839"></a>
+<span class="sourceLineNo">840</span><a name="line.840"></a>
+<span class="sourceLineNo">841</span>  static class HashIndexTable {<a name="line.841"></a>
+<span class="sourceLineNo">842</span><a name="line.842"></a>
+<span class="sourceLineNo">843</span>    private final byte[] hashTable = new byte[32]; // must be a power of two<a name="line.843"></a>
+<span class="sourceLineNo">844</span><a name="line.844"></a>
+<span class="sourceLineNo">845</span>    public HashIndexTable() {}<a name="line.845"></a>
+<span class="sourceLineNo">846</span><a name="line.846"></a>
+<span class="sourceLineNo">847</span>    public HashIndexTable(HashIndexTable original) {<a name="line.847"></a>
+<span class="sourceLineNo">848</span>      System.arraycopy(original.hashTable, 0, hashTable, 0, hashTable.length);<a name="line.848"></a>
+<span class="sourceLineNo">849</span>    }<a name="line.849"></a>
+<span class="sourceLineNo">850</span><a name="line.850"></a>
+<span class="sourceLineNo">851</span>    void add(String name, int index) {<a name="line.851"></a>
+<span class="sourceLineNo">852</span>      int slot = hashSlotFor(name);<a name="line.852"></a>
+<span class="sourceLineNo">853</span>      if (index &lt; 0xff) {<a name="line.853"></a>
+<span class="sourceLineNo">854</span>        // increment by 1, 0 stands for empty<a name="line.854"></a>
+<span class="sourceLineNo">855</span>        hashTable[slot] = (byte) (index + 1);<a name="line.855"></a>
+<span class="sourceLineNo">856</span>      } else {<a name="line.856"></a>
+<span class="sourceLineNo">857</span>        hashTable[slot] = 0;<a name="line.857"></a>
+<span class="sourceLineNo">858</span>      }<a name="line.858"></a>
+<span class="sourceLineNo">859</span>    }<a name="line.859"></a>
+<span class="sourceLineNo">860</span><a name="line.860"></a>
+<span class="sourceLineNo">861</span>    void remove(int index) {<a name="line.861"></a>
+<span class="sourceLineNo">862</span>      for (int i = 0; i &lt; hashTable.length; i++) {<a name="line.862"></a>
+<span class="sourceLineNo">863</span>        if (hashTable[i] == index + 1) {<a name="line.863"></a>
+<span class="sourceLineNo">864</span>          hashTable[i] = 0;<a name="line.864"></a>
+<span class="sourceLineNo">865</span>        } else if (hashTable[i] &gt; index + 1) {<a name="line.865"></a>
+<span class="sourceLineNo">866</span>          hashTable[i]--;<a name="line.866"></a>
+<span class="sourceLineNo">867</span>        }<a name="line.867"></a>
+<span class="sourceLineNo">868</span>      }<a name="line.868"></a>
+<span class="sourceLineNo">869</span>    }<a name="line.869"></a>
+<span class="sourceLineNo">870</span><a name="line.870"></a>
+<span class="sourceLineNo">871</span>    int get(Object name) {<a name="line.871"></a>
+<span class="sourceLineNo">872</span>      int slot = hashSlotFor(name);<a name="line.872"></a>
+<span class="sourceLineNo">873</span>      // subtract 1, 0 stands for empty<a name="line.873"></a>
+<span class="sourceLineNo">874</span>      return (hashTable[slot] &amp; 0xff) - 1;<a name="line.874"></a>
+<span class="sourceLineNo">875</span>    }<a name="line.875"></a>
+<span class="sourceLineNo">876</span><a name="line.876"></a>
+<span class="sourceLineNo">877</span>    private int hashSlotFor(Object element) {<a name="line.877"></a>
+<span class="sourceLineNo">878</span>      return element.hashCode() &amp; hashTable.length - 1;<a name="line.878"></a>
+<span class="sourceLineNo">879</span>    }<a name="line.879"></a>
+<span class="sourceLineNo">880</span><a name="line.880"></a>
+<span class="sourceLineNo">881</span>  }<a name="line.881"></a>
+<span class="sourceLineNo">882</span><a name="line.882"></a>
+<span class="sourceLineNo">883</span>}<a name="line.883"></a>
 
 
 
