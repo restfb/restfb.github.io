@@ -7,7 +7,7 @@
 <body>
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright (c) 2013, 2015 EclipseSource.<a name="line.2"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2013, 2016 EclipseSource.<a name="line.2"></a>
 <span class="sourceLineNo">003</span> *<a name="line.3"></a>
 <span class="sourceLineNo">004</span> * Permission is hereby granted, free of charge, to any person obtaining a copy<a name="line.4"></a>
 <span class="sourceLineNo">005</span> * of this software and associated documentation files (the "Software"), to deal<a name="line.5"></a>
@@ -35,47 +35,58 @@
 <span class="sourceLineNo">027</span>@SuppressWarnings("serial") // use default serial UID<a name="line.27"></a>
 <span class="sourceLineNo">028</span>public class ParseException extends RuntimeException {<a name="line.28"></a>
 <span class="sourceLineNo">029</span><a name="line.29"></a>
-<span class="sourceLineNo">030</span>  private final int offset;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>  private final int line;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>  private final int column;<a name="line.32"></a>
-<span class="sourceLineNo">033</span><a name="line.33"></a>
-<span class="sourceLineNo">034</span>  ParseException(String message, int offset, int line, int column) {<a name="line.34"></a>
-<span class="sourceLineNo">035</span>    super(message + " at " + line + ":" + column);<a name="line.35"></a>
-<span class="sourceLineNo">036</span>    this.offset = offset;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>    this.line = line;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>    this.column = column;<a name="line.38"></a>
-<span class="sourceLineNo">039</span>  }<a name="line.39"></a>
-<span class="sourceLineNo">040</span><a name="line.40"></a>
-<span class="sourceLineNo">041</span>  /**<a name="line.41"></a>
-<span class="sourceLineNo">042</span>   * Returns the absolute index of the character at which the error occurred. The index of the first character of a<a name="line.42"></a>
-<span class="sourceLineNo">043</span>   * document is 0.<a name="line.43"></a>
-<span class="sourceLineNo">044</span>   *<a name="line.44"></a>
-<span class="sourceLineNo">045</span>   * @return the character offset at which the error occurred, will be &amp;gt;= 0<a name="line.45"></a>
-<span class="sourceLineNo">046</span>   */<a name="line.46"></a>
-<span class="sourceLineNo">047</span>  public int getOffset() {<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    return offset;<a name="line.48"></a>
-<span class="sourceLineNo">049</span>  }<a name="line.49"></a>
-<span class="sourceLineNo">050</span><a name="line.50"></a>
-<span class="sourceLineNo">051</span>  /**<a name="line.51"></a>
-<span class="sourceLineNo">052</span>   * Returns the number of the line in which the error occurred. The first line counts as 1.<a name="line.52"></a>
-<span class="sourceLineNo">053</span>   *<a name="line.53"></a>
-<span class="sourceLineNo">054</span>   * @return the line in which the error occurred, will be &amp;gt;= 1<a name="line.54"></a>
-<span class="sourceLineNo">055</span>   */<a name="line.55"></a>
-<span class="sourceLineNo">056</span>  public int getLine() {<a name="line.56"></a>
-<span class="sourceLineNo">057</span>    return line;<a name="line.57"></a>
-<span class="sourceLineNo">058</span>  }<a name="line.58"></a>
-<span class="sourceLineNo">059</span><a name="line.59"></a>
-<span class="sourceLineNo">060</span>  /**<a name="line.60"></a>
-<span class="sourceLineNo">061</span>   * Returns the index of the character at which the error occurred, relative to the line. The index of the first<a name="line.61"></a>
-<span class="sourceLineNo">062</span>   * character of a line is 0.<a name="line.62"></a>
-<span class="sourceLineNo">063</span>   *<a name="line.63"></a>
-<span class="sourceLineNo">064</span>   * @return the column in which the error occurred, will be &amp;gt;= 0<a name="line.64"></a>
-<span class="sourceLineNo">065</span>   */<a name="line.65"></a>
-<span class="sourceLineNo">066</span>  public int getColumn() {<a name="line.66"></a>
-<span class="sourceLineNo">067</span>    return column;<a name="line.67"></a>
-<span class="sourceLineNo">068</span>  }<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>}<a name="line.70"></a>
+<span class="sourceLineNo">030</span>  private final Location location;<a name="line.30"></a>
+<span class="sourceLineNo">031</span><a name="line.31"></a>
+<span class="sourceLineNo">032</span>  ParseException(String message, Location location) {<a name="line.32"></a>
+<span class="sourceLineNo">033</span>    super(message + " at " + location);<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    this.location = location;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>  }<a name="line.35"></a>
+<span class="sourceLineNo">036</span><a name="line.36"></a>
+<span class="sourceLineNo">037</span>  /**<a name="line.37"></a>
+<span class="sourceLineNo">038</span>   * Returns the location at which the error occurred.<a name="line.38"></a>
+<span class="sourceLineNo">039</span>   *<a name="line.39"></a>
+<span class="sourceLineNo">040</span>   * @return the error location<a name="line.40"></a>
+<span class="sourceLineNo">041</span>   */<a name="line.41"></a>
+<span class="sourceLineNo">042</span>  public Location getLocation() {<a name="line.42"></a>
+<span class="sourceLineNo">043</span>    return location;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>  }<a name="line.44"></a>
+<span class="sourceLineNo">045</span><a name="line.45"></a>
+<span class="sourceLineNo">046</span>  /**<a name="line.46"></a>
+<span class="sourceLineNo">047</span>   * Returns the absolute character index at which the error occurred. The offset of the first<a name="line.47"></a>
+<span class="sourceLineNo">048</span>   * character of a document is 0.<a name="line.48"></a>
+<span class="sourceLineNo">049</span>   *<a name="line.49"></a>
+<span class="sourceLineNo">050</span>   * @return the character offset at which the error occurred, will be &amp;gt;= 0<a name="line.50"></a>
+<span class="sourceLineNo">051</span>   * @deprecated Use {@link #getLocation()} instead<a name="line.51"></a>
+<span class="sourceLineNo">052</span>   */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>  @Deprecated<a name="line.53"></a>
+<span class="sourceLineNo">054</span>  public int getOffset() {<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    return location.offset;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>  }<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>  /**<a name="line.58"></a>
+<span class="sourceLineNo">059</span>   * Returns the line number in which the error occurred. The number of the first line is 1.<a name="line.59"></a>
+<span class="sourceLineNo">060</span>   *<a name="line.60"></a>
+<span class="sourceLineNo">061</span>   * @return the line in which the error occurred, will be &amp;gt;= 1<a name="line.61"></a>
+<span class="sourceLineNo">062</span>   * @deprecated Use {@link #getLocation()} instead<a name="line.62"></a>
+<span class="sourceLineNo">063</span>   */<a name="line.63"></a>
+<span class="sourceLineNo">064</span>  @Deprecated<a name="line.64"></a>
+<span class="sourceLineNo">065</span>  public int getLine() {<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    return location.line;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>  }<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>  /**<a name="line.69"></a>
+<span class="sourceLineNo">070</span>   * Returns the column number at which the error occurred, i.e. the number of the character in its<a name="line.70"></a>
+<span class="sourceLineNo">071</span>   * line. The number of the first character of a line is 1.<a name="line.71"></a>
+<span class="sourceLineNo">072</span>   *<a name="line.72"></a>
+<span class="sourceLineNo">073</span>   * @return the column in which the error occurred, will be &amp;gt;= 1<a name="line.73"></a>
+<span class="sourceLineNo">074</span>   * @deprecated Use {@link #getLocation()} instead<a name="line.74"></a>
+<span class="sourceLineNo">075</span>   */<a name="line.75"></a>
+<span class="sourceLineNo">076</span>  @Deprecated<a name="line.76"></a>
+<span class="sourceLineNo">077</span>  public int getColumn() {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    return location.column;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>  }<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>}<a name="line.81"></a>
 
 
 
