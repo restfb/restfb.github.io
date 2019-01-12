@@ -28,20 +28,22 @@ people:
   position: Founder
   social:
     - title: github
-      url: https://github.com/revetkn
+      url: http://bit.ly/2Hjo9QS
     - title: linkedin
-      url: http://www.linkedin.com/pub/mark-allen/1/b75/721/
+      url: http://bit.ly/2VNlXV0
 
 - name: Norbert Bartels
   pic: 2
   position: Maintainer and Lead Developer
   social:
     - title: github
-      url: https://github.com/nbartels
+      url: http://bit.ly/2AKeAVt
     - title: stack-overflow
-      url: http://stackoverflow.com/users/1379528/norbert
+      url: http://bit.ly/2QHetzd
     - title: xing
-      url: https://www.xing.com/profile/Norbert_Bartels2
+      url: http://bit.ly/2D7nnm5
+    - title: amazon
+      url: https://amzn.to/2AL5FDl
 
 - name: many Contributors
   pic: 3
