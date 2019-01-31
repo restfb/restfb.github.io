@@ -99,6 +99,10 @@
         file: documentation/messenger-sendapi.md
         href: messenger-sendapi
       -
+        title: Using the Personas API
+        file: documentation/messenger-personas.md
+        href: messenger-personas
+      -
         title: The welcome screen
         file: documentation/messenger-welcome.md
         href: messenger-welcome
