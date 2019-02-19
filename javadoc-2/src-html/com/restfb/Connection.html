@@ -165,7 +165,7 @@
 <span class="sourceLineNo">156</span><a id="line.156">    // Pull out data</a>
 <span class="sourceLineNo">157</span><a id="line.157">    JsonArray jsonData = jsonObject.get("data").asArray();</a>
 <span class="sourceLineNo">158</span><a id="line.158">    List&lt;T&gt; dataItem = new ArrayList&lt;&gt;(jsonData.size());</a>
-<span class="sourceLineNo">159</span><a id="line.159">    for (JsonValue jsonValue: jsonData) {</a>
+<span class="sourceLineNo">159</span><a id="line.159">    for (JsonValue jsonValue : jsonData) {</a>
 <span class="sourceLineNo">160</span><a id="line.160">      dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonValue</a>
 <span class="sourceLineNo">161</span><a id="line.161">          : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType));</a>
 <span class="sourceLineNo">162</span><a id="line.162">    }</a>
@@ -277,7 +277,7 @@
 <span class="sourceLineNo">268</span><a id="line.268">   * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.</a>
 <span class="sourceLineNo">269</span><a id="line.269">   */</a>
 <span class="sourceLineNo">270</span><a id="line.270">  public boolean hasPrevious() {</a>
-<span class="sourceLineNo">271</span><a id="line.271">    return !isBlank(getPreviousPageUrl());</a>
+<span class="sourceLineNo">271</span><a id="line.271">    return !isBlank(getPreviousPageUrl()) &amp;&amp; !isSameCursor();</a>
 <span class="sourceLineNo">272</span><a id="line.272">  }</a>
 <span class="sourceLineNo">273</span><a id="line.273"></a>
 <span class="sourceLineNo">274</span><a id="line.274">  /**</a>
@@ -286,7 +286,7 @@
 <span class="sourceLineNo">277</span><a id="line.277">   * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.</a>
 <span class="sourceLineNo">278</span><a id="line.278">   */</a>
 <span class="sourceLineNo">279</span><a id="line.279">  public boolean hasNext() {</a>
-<span class="sourceLineNo">280</span><a id="line.280">    return !isBlank(getNextPageUrl()) &amp;&amp; !getData().isEmpty();</a>
+<span class="sourceLineNo">280</span><a id="line.280">    return !isBlank(getNextPageUrl()) &amp;&amp; !getData().isEmpty() &amp;&amp; !isSameCursor();</a>
 <span class="sourceLineNo">281</span><a id="line.281">  }</a>
 <span class="sourceLineNo">282</span><a id="line.282"></a>
 <span class="sourceLineNo">283</span><a id="line.283">  /**</a>
@@ -314,7 +314,15 @@
 <span class="sourceLineNo">305</span><a id="line.305">      return pageUrl;</a>
 <span class="sourceLineNo">306</span><a id="line.306">    }</a>
 <span class="sourceLineNo">307</span><a id="line.307">  }</a>
-<span class="sourceLineNo">308</span><a id="line.308">}</a>
+<span class="sourceLineNo">308</span><a id="line.308"></a>
+<span class="sourceLineNo">309</span><a id="line.309">  /**</a>
+<span class="sourceLineNo">310</span><a id="line.310">   * checks the cursors (if present) for equality</a>
+<span class="sourceLineNo">311</span><a id="line.311">   * @return {@code true} if both cursor value are equal, {@code false} otherwise</a>
+<span class="sourceLineNo">312</span><a id="line.312">   */</a>
+<span class="sourceLineNo">313</span><a id="line.313">  private boolean isSameCursor() {</a>
+<span class="sourceLineNo">314</span><a id="line.314">    return getBeforeCursor() != null &amp;&amp; getAfterCursor() != null &amp;&amp; getBeforeCursor().equals(getAfterCursor());</a>
+<span class="sourceLineNo">315</span><a id="line.315">  }</a>
+<span class="sourceLineNo">316</span><a id="line.316">}</a>
 
 
 
