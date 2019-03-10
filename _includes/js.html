@@ -53,3 +53,16 @@
 	} catch (err) {
 	}
 </script>
+<script id="zammad_form_script" src="https://help.restfb.com/assets/form/form.js"></script>
+
+<script>
+$(function() {
+  $('#feedback-form').ZammadForm({
+    messageTitle: 'Contact Form',
+    messageSubmit: 'Submit',
+    messageThankYou: 'Thank you for your inquiry (#%s)! We\'ll contact you as soon as possible.',
+	showTitle: true,
+    modal: true
+  });
+});
+</script>
