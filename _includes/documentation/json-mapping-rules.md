@@ -12,6 +12,7 @@ RestFB is able to recursively map JSON fields annotated with `@Facebook` to the 
 * `BigDecimal`
 * Your own JavaBean-compliant classes<br />Don't forget to provide a public default constructor!
 * `List`s of any of the above types
+* `Map` as key-value store with `String` keys
 
 For example:
 
@@ -42,7 +43,6 @@ public class MyClass {
 {% endhighlight %}
 
 Java to JSON mapping is supported by default via <code><a target="_blank" href="/javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>. You may recursively convert primitive wrapper types as specified above, `List`s, `Map`s with `String` keys, and your own Javabean types by applying the `@Facebook` annotation to any fields you'd like to include in the conversion.
-
 
 The default behavior of `DefaultJsonMapper` is to throw a <code><a target="_blank" href="/javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> if it cannot map JSON to Java correctly. However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
 
