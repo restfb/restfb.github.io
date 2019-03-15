@@ -196,6 +196,11 @@
         menu_title: with Binary Attachments
         file: documentation/batch-api-photo.md
         href: batch-api-photo
+      -
+        title: Dependencies between operations in one request
+        menu_title: with dependencies
+        file: documentation/batch-api-dependencies.md
+        href: batch-api-dependencies
 - 
   title: Access Token Operations
   file: documentation/access-token-operations.md
