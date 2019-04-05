@@ -1,4 +1,4 @@
-Using <code><a target="_blank" href="/javadoc/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
+Using <code><a target="_blank" href="/javadoc-2/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
 RestFB is able to recursively map JSON fields annotated with `@Facebook` to the following Java types out of the box:
 
 * The convenience classes provided by RestFB in `com.restfb.types`
@@ -42,9 +42,9 @@ public class MyClass {
 }
 {% endhighlight %}
 
-Java to JSON mapping is supported by default via <code><a target="_blank" href="/javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>. You may recursively convert primitive wrapper types as specified above, `List`s, `Map`s with `String` keys, and your own Javabean types by applying the `@Facebook` annotation to any fields you'd like to include in the conversion.
+Java to JSON mapping is supported by default via <code><a target="_blank" href="/javadoc-2/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>. You may recursively convert primitive wrapper types as specified above, `List`s, `Map`s with `String` keys, and your own Javabean types by applying the `@Facebook` annotation to any fields you'd like to include in the conversion.
 
-The default behavior of `DefaultJsonMapper` is to throw a <code><a target="_blank" href="/javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> if it cannot map JSON to Java correctly. However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
+The default behavior of `DefaultJsonMapper` is to throw a <code><a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> if it cannot map JSON to Java correctly. However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
 
 {% highlight java %}
 FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
@@ -71,4 +71,4 @@ FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
 			</div>
 </div>
 
-As-is, `DefaultJsonMapper` should meet the needs of the vast majority of users. If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a target="_blank" href="/javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
+As-is, `DefaultJsonMapper` should meet the needs of the vast majority of users. If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a target="_blank" href="/javadoc-2/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.

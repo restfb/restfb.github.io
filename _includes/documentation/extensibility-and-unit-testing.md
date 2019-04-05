@@ -1,4 +1,4 @@
-In addition to <a target="_blank" href="/javadoc/com/restfb/DefaultFacebookClient.html">`FacebookClient`</a>, RestFB provides default implementations for <a target="_blank" href="/javadoc/com/restfb/DefaultWebRequestor.html">`WebRequestor`</a> and <a target="_blank" href="/javadoc/com/restfb/DefaultJsonMapper.html">`JsonMapper`</a>, two components that `DefaultFacebookClient` depends on to do its work.
+In addition to <a target="_blank" href="/javadoc-2/com/restfb/DefaultFacebookClient.html">`FacebookClient`</a>, RestFB provides default implementations for <a target="_blank" href="/javadoc-2/com/restfb/DefaultWebRequestor.html">`WebRequestor`</a> and <a target="_blank" href="/javadoc-2/com/restfb/DefaultJsonMapper.html">`JsonMapper`</a>, two components that `DefaultFacebookClient` depends on to do its work.
 
 These dependencies are designed to allow for straightforward subclassing (if you only want to replace a little bit of functionality) and simple custom implementations (if you require full control).
 

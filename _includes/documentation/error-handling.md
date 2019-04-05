@@ -1,10 +1,10 @@
-All <a target="_blank" href="/javadoc/com/restfb/FacebookClient.html">`FacebookClient`</a> methods may throw <a target="_blank" href="/javadoc/com/restfb/exception/FacebookException.html">`FacebookException`</a>, which is an unchecked exception as of RestFB 1.6.
+All <a target="_blank" href="/javadoc-2/com/restfb/FacebookClient.html">`FacebookClient`</a> methods may throw <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookException.html">`FacebookException`</a>, which is an unchecked exception as of RestFB 1.6.
 
 These are the `FacebookException` subclasses that you may catch:
 
 <ul id="exceptions-list" markdown="1">
 			<li>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookJsonMappingException.html" markdown="1">`FacebookJsonMappingException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookJsonMappingException.html" markdown="1">`FacebookJsonMappingException`</a>
 			    <br/>
 			    <p markdown="1">
 				Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
@@ -21,7 +21,7 @@ These are the `FacebookException` subclasses that you may catch:
 			    </p>
 			</li>
 			<li>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookNetworkException.html" markdown="1">`FacebookNetworkException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookNetworkException.html" markdown="1">`FacebookNetworkException`</a>
 			    <br/>
 				<p>
 				Thrown when a failure occurs at the network level.  This can happen if your machine
@@ -31,7 +31,7 @@ These are the `FacebookException` subclasses that you may catch:
 			</p>
 			</li>
 			<li>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookGraphException.html" markdown="1">`FacebookGraphException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookGraphException.html" markdown="1">`FacebookGraphException`</a>
 			    <br/>
 			    <p markdown="1">
 				Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
@@ -54,7 +54,7 @@ These are the `FacebookException` subclasses that you may catch:
 			</p>
 			</li>
 			<li>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookOAuthException.html" markdown="1">`FacebookOAuthException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookOAuthException.html" markdown="1">`FacebookOAuthException`</a>
 			    <br/>
 			    <p markdown="1">
 				Thrown when the Graph API returns an OAuth-related error (type `OAuthException` or `OAuthAccessTokenException`),
@@ -70,7 +70,7 @@ These are the `FacebookException` subclasses that you may catch:
 {% endhighlight %}
 			</li>
 			<li>
-			  <a target="_blank" href="/javadoc/com/restfb/exception/FacebookQueryParseException.html" markdown="1">`FacebookQueryParseException`</a>
+			  <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookQueryParseException.html" markdown="1">`FacebookQueryParseException`</a>
 			    <br/>
 <p markdown="1">
 				Thrown when the Graph API returns an FQL query parsing error (type `QueryParseException`),
@@ -86,7 +86,7 @@ These are the `FacebookException` subclasses that you may catch:
 {% endhighlight %}
 			</li>
 			<li>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookResponseStatusException.html" markdown="1">`FacebookResponseStatusException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookResponseStatusException.html" markdown="1">`FacebookResponseStatusException`</a>
 			    <br/>
 				<p markdown="1">
 				This is thrown by RestFB when an FQL call fails. `FacebookGraphException` and its subclasses are not applicable in that case because
@@ -99,7 +99,7 @@ These are the `FacebookException` subclasses that you may catch:
 			</li>
 			<li>
 				<p>
-			    <a target="_blank" href="/javadoc/com/restfb/exception/FacebookResponseContentException.html" markdown="1">`FacebookResponseContentException`</a>
+			    <a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookResponseContentException.html" markdown="1">`FacebookResponseContentException`</a>
 			</p>
 			    <p markdown="1">
 				This is thrown by RestFB when Facebook responds with unexpected data. For example, when extending an access token,
