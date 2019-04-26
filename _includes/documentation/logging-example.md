@@ -2,8 +2,8 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist" id="logging-example-tabs">
-    <li role="presentation" class="active"><a class="tab" href="#logging-v1" aria-controls="home" role="tab" data-toggle="tab">RestFB 1.x</a></li>
-    <li role="presentation"><a class="tab" href="#logging-v2" aria-controls="profile" role="tab" data-toggle="tab">RestFB 2.x</a></li>
+    <li role="presentation" class="nav-item"><a class="tab nav-link active" href="#logging-v1" aria-controls="home" role="tab" data-toggle="tab">RestFB 1.x</a></li>
+    <li role="presentation" class="nav-item"><a class="tab nav-link" href="#logging-v2" aria-controls="profile" role="tab" data-toggle="tab">RestFB 2.x</a></li>
   </ul>
 
   <!-- Tab panes -->

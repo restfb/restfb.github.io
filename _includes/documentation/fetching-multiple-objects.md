@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api#reading" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api#reading" class="badge badge-primary">Graph API documentation</a>
 
 If you want to fetch several objects at once and these objects are very similar, you can use the "multiple ids" request. A simple way to fetch two user objects is a call like:
 

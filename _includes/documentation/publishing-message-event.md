@@ -1,4 +1,4 @@
-See <a target="_blank" href="http://developers.facebook.com/docs/api#editing" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="http://developers.facebook.com/docs/api#editing" class="badge badge-primary">Graph API documentation</a>
 
 In addition from fetching information from Facebook, it is important to be able to write new comments, posts or other kinds of data to Facebook. A popular item is a simple text. Comments, posts, private messages support this type and a developer should have the possibility to easily publish text on Facebook.
 

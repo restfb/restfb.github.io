@@ -6,13 +6,8 @@
           // Scrollspy
           var $window = $(window)
           var $body = $(document.body)
-          var navHeight = $('.navbar').outerHeight(true) + 10
+          var navHeight = $('.navbar.fixed-top').outerHeight(true) + 5;
   
-          $body.scrollspy({
-              target: '.restfb-sidebar',
-              offset: navHeight
-          })
- 
           /* smooth scrolling sections */
           $('a[href*=\'#\']:not([href=\'#\'])').not('.tab').click(function () {
               if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -20,7 +15,7 @@
                   target = target.length ? target : $('[name=\'' + this.hash.slice(1) + '\']');
                   if (target.length) {
                        $('html,body').stop().animate({
-                       scrollTop: target.offset().top - 100
+                       scrollTop: target.offset().top - navHeight
                        }, 1500, 'easeInOutExpo');
                       return false;
                   }
@@ -37,4 +32,4 @@
           })
 	  })
   }
-  (jQuery) 
+  (jQuery)

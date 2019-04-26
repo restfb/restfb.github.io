@@ -1,0 +1,15 @@
+-
+  type: platinum
+  link: https://www.xmog.com/
+  name: Transmogrify, LLC
+  logo: xmog-logo.svg
+  since: 2010
+  mainText: Our first day supporter and sponsor.
+  target: sponsor1
+  content:
+     -
+       text: Transmogrify is a Philadelphia-area software shop specializing in product design and web/mobile software development.
+     -
+       text: Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web framework and iOS/Android technologies.
+     -
+       text: Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com" title="Contact Transmogrify">product@xmog.com</a> if you need a hand with anything software-related. We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.		

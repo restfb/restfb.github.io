@@ -1,0 +1,18 @@
+---
+# Front matter comment to ensure Jekyll properly reads file. 
+---
+
+$siteColorPrimary: #{{ site.color.primary }};
+$siteColorSecondary: #{{ site.color.secondary }};
+$siteColorSecondaryDark: #{{ site.color.secondary-dark }};
+
+@import "fonts";
+@import "bootstrap.min";
+@import "brand";
+@import "callout";
+@import "sidebar";
+@import "highlight";
+@import "docs";
+@import "scroll-to-top";
+@import "shared";
+@import "zammad";

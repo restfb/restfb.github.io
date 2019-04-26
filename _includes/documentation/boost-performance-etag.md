@@ -1,4 +1,4 @@
-See <a href="https://developers.facebook.com/docs/marketing-api/etags" target="_blank" class="label label-primary">Graph API documentation</a>
+See <a href="https://developers.facebook.com/docs/marketing-api/etags" target="_blank" class="badge badge-primary">Graph API documentation</a>
 
 You can improve your connection's performance by using the <a target="_blank" href="/javadoc-2/com/restfb/ETagWebRequestor.html">`ETagWebRequestor`</a>. This WebRequestor is a special implementation wich adds ETag support to the restfb's requests. For further information about `ETag` you should have a look at the <a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank">wikipedia</a> page.
 

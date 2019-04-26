@@ -1,0 +1,96 @@
+body {
+	font-family: 'Open Sans',sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    color: #525f7f;
+    background-color: #fff;
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: .5rem;
+}
+
+.h1,h1 {
+    font-size: 2.5rem
+}
+
+.h2,h2 {
+    font-size: 2rem
+}
+
+.h3,h3 {
+    font-size: 1.75rem
+}
+
+.h4,h4 {
+    font-size: 1.5rem
+}
+
+.h5,h5 {
+    font-size: 1.25rem
+}
+
+.h6,h6 {
+    font-size: 1rem
+}
+
+p, div {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+}
+
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+.page-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d7d6d6;
+	padding-top: 15px;
+}
+
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+
+.badge {
+    font-size: 66%;
+    font-weight: 600;
+    line-height: 1;
+    display: inline-block;
+    padding: .35rem .375rem;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+    border-radius: .25rem;
+}
+
+.badge-primary {
+    color: #2643e9;
+    background-color: rgba(203,210,246,.5);
+}

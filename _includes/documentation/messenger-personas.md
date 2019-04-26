@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/send-messages/personas/" class="label label-primary">Personas API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/send-messages/personas/" class="badge badge-primary">Personas API documentation</a>
 
 The Persona API allows Facebook pages to use virtual persons while sending message with the Send API. With these persons it is possible to show users different contact persons. The contact person has a name an a profile picture. Communication is more personal and users will know who they are talking to, not an abstract company.
 

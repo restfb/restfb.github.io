@@ -1,4 +1,4 @@
-see <a target="_blank" href="https://developers.facebook.com/docs/apps/migrations/completed-changes#july_2013" class="label label-primary">July 2013 Breaking Changes</a>
+see <a target="_blank" href="https://developers.facebook.com/docs/apps/migrations/completed-changes#july_2013" class="badge badge-primary">July 2013 Breaking Changes</a>
 
 To fetch the likes, shares and comments count you must use the correct parameters, because Facebook does not sends you this information with a normal call. In the example at the bottom all fields (shares, comments and likes) are fetched and you see how easy it is to fetch these information with RestFB.
 

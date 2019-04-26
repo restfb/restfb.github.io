@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/for-devices" class="badge badge-primary">Graph API documentation</a>
 
 <div class="rfb-callout warning" role="alert">
 	<h4>Important change with Graph API 2.6</h4>
@@ -42,23 +42,23 @@ out.println("My device access token: " + accessToken);
 
 ### The checked device token exception
 
-The polling method should return the AccessToken, but may throw a <a href="/javadoc/com/restfb/exception/devicetoken/FacebookDeviceTokenException.html" target="_blank">FacebookDeviceAccessToken</a> exception.
+The polling method should return the AccessToken, but may throw a <a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenException.html" target="_blank">FacebookDeviceAccessToken</a> exception.
 
 <div class="list-group">
-			<a href="/javadoc/com/restfb/exception/devicetoken/FacebookDeviceTokenPendingException.html" class="list-group-item" target="_blank">
+			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenPendingException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenPendingException</h4>
 			    <p class="list-group-item-text">You showed the <code>user_code</code> to the user and he/she had not finished the authorisation. This is a rather normal case because you should poll Facebook in short intervals and the user cannot switch devices (for example) that quickly.<br>
 			    </p>
 			</a>
-			<a href="/javadoc/com/restfb/exception/devicetoken/FacebookDeviceTokenDeclinedException.html" class="list-group-item" target="_blank">
+			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenDeclinedException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenDeclinedException - (only up to Graph API 2.5)</h4>
 			    <p class="list-group-item-text">The user declined the authorisation and your application is not allowed to access Facebook on behalf of that user.</p>
 			</a>
-			<a href="/javadoc/com/restfb/exception/devicetoken/FacebookDeviceTokenCodeExpiredException.html" class="list-group-item" target="_blank">
+			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenCodeExpiredException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenCodeExpiredException</h4>
 			    <p class="list-group-item-text">Everything workd fine, but the authorisation proccess took to long. Perhaps you showed the <code>user_token</code> to the user and he/she did not start the authorisation. Anyway, it is not possible to finish the process and you have to start again from the beginning.</p>
 			</a>
-			<a href="/javadoc/com/restfb/exception/devicetoken/FacebookDeviceTokenSlowdownException.html" class="list-group-item" target="_blank">
+			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenSlowdownException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenSlowdownException</h4>
 			    <p class="list-group-item-text">You started the polling and the polling interval is too small, so you were polling too fast. Make the interval larger and spend more time waiting between 2 polling requests. The <code>DeviceCode</code> object contains the interval facebook expects. You should respect this.</p>
 			</a>

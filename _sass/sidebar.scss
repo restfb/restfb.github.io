@@ -1,96 +1,72 @@
 .restfb-sidebar .nav {
-  > {
-    li > a {
-      display: block;
-      padding: 4px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #767676;
-
-      &:hover, &:focus {
-        padding-left: 19px;
-        color: $siteColorPrimary;
-        text-decoration: none;
-        background-color: transparent;
-        border-left: 1px solid $siteColorPrimary;
-      }
-    }
-
-    .active {
-      > a, &:hover > a, &:focus > a {
-        padding-left: 18px;
-        font-weight: bold;
-        color: $siteColorPrimary;
-        background-color: transparent;
-        border-left: 2px solid $siteColorPrimary;
-      }
-    }
-  }
-
-  .nav {
-    display: none;
-
-    /* Hide by default, but at >768px, show it */
-    padding-bottom: 10px;
-
-    > {
-      li > a {
-        padding-top: 1px;
-        padding-bottom: 1px;
-        padding-left: 30px;
-        font-size: 12px;
-        font-weight: normal;
-
-        &:hover, &:focus {
-          padding-left: 29px;
-        }
-      }
-
-      .active {
-        > a, &:hover > a, &:focus > a {
-          padding-left: 28px;
-          font-weight: 500;
-        }
-      }
-    }
-  }
-}
-
-/* Back to top (hidden on mobile) */
-.back-to-top {
-  display: none;
-  padding: 4px 10px;
-  margin-top: 10px;
-  margin-left: 10px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #999;
-  
-  &:hover {
-	  color: $siteColorPrimary;
-	  text-decoration: none;
-  }
+	
+	line-height: 1.2;
+	
+	.doc-sub-menu {
+		display: none;
+	}
+	
+	.nav-link {
+		display: block;
+		padding: 4px 20px;
+		font-size: 13px;
+		font-weight: 500;
+		color: #767676;
+				
+		&:hover {
+			padding-left: 19px;
+			color: $siteColorPrimary;
+            text-decoration: none;
+            background-color: transparent;
+            border-left: 1px solid $siteColorPrimary;
+		}
+		
+		&.active {
+	        padding-left: 18px;
+	        font-weight: bold;
+	        color: $siteColorPrimary;
+	        background-color: transparent;
+	        border-left: 2px solid $siteColorPrimary;
+			
+			+ .doc-sub-menu {
+				display: block;
+			}
+		}
+	}
+	
+	> .doc-sub-menu .nav-link {
+		padding-top: 1px;
+		padding-bottom: 3px;
+		padding-left: 30px;
+		font-size: 12px;
+		font-weight: normal; 
+		
+		&:hover {
+			padding-left: 29px;
+		}
+		
+		&.active {
+			padding-left: 28px;
+		}
+		
+	}
 }
 
 @media (min-width: 768px) {
   .restfb-sidebar {
     padding-left: 20px;
   }
-  
-  .back-to-top {
-    display: block;
-  }
 }
 
 /* Show and affix the side nav when space allows it */
 @media (min-width: 992px) {
   .restfb-sidebar {
-	  .nav > .active > ul {
-    	  display: block;
-	}
-	&.affix {
-		position:fixed;
-		top: 100px;
+	  .nav {
+		  display: block;
+		  
+		  > .active > ul {
+		      	  display: block;	
+	  }
 	}
   }
 }

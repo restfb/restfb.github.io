@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform" class="label label-primary">Messenger Platform documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform" class="badge badge-primary">Messenger Platform documentation</a>
 
 With Graph API 2.6, Facebook introduced the [Messenger API](https://developers.facebook.com/docs/messenger-platform). The new API allows developers to implement chat bots. With these bots it is possible to provide a great new user experience and the user
 may contact his/her favorite Facebook pages directly with the messenger.

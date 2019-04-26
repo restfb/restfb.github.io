@@ -6,8 +6,8 @@ names and the therefore the logging is clustered into categories.
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist" id="logging-configuration-tabs">
-    <li role="presentation" class="active"><a class="tab" href="#logging-conf-v1" aria-controls="home" role="tab" data-toggle="tab">RestFB 1.x</a></li>
-    <li role="presentation"><a class="tab" href="#logging-conf-v2" aria-controls="profile" role="tab" data-toggle="tab">RestFB 2.x</a></li>
+    <li role="presentation" class="nav-item"><a class="tab nav-link active" href="#logging-conf-v1" aria-controls="home" role="tab" data-toggle="tab">RestFB 1.x</a></li>
+    <li role="presentation" class="nav-item"><a class="tab nav-link" href="#logging-conf-v2" aria-controls="profile" role="tab" data-toggle="tab">RestFB 2.x</a></li>
   </ul>
   
   

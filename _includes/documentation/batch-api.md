@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/" class="label label-primary">Batch API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/" class="badge badge-primary">Batch API documentation</a>
 
 Batch requests allow to send many requests to the Graph API in one HTTP call. If the requests are independent, Facebook will execute them in parallel. Then you can save time and speed up requests. Are the requests dependent, this means that in one requests data from another part of the batch request is used, then Facebook executes these calls sequentially. 
 

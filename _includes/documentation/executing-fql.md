@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/" class="label label-primary">FQL documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/technical-guides/fql/" class="badge badge-primary">FQL documentation</a>
 
 <div class="rfb-callout danger">
 	<h4>FQL is deprecated and removed with Graph API 2.1</h4>

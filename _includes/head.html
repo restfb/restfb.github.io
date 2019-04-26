@@ -17,18 +17,14 @@
 	<meta property="og:image" content="{{ "/img/restfb-logo-facebook.png" | prepend: site.baseurl | prepend: site.url }}"> 
 	<!-- opengraph end -->
 
+    {% if page.header == "landing" %}
     <link rel="stylesheet" href="{{ "/styles.css" | prepend: site.baseurl }}">
+    {% else %}
+	<link rel="stylesheet" href="{{ "/styles-docs.css" | prepend: site.baseurl }}">
+	{% endif %}
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="{{ "/css/font-awesome/css/font-awesome.min.css" | prepend: site.baseurl }}">
-	
-	{% if page.header == "landing" %}
-	
-	<!-- owl carousel styles -->
-    <link rel="stylesheet" href="{{ "/css/owl/owl.carousel.min.css" | prepend: site.baseurl }}">
-	<link rel="stylesheet" href="{{ "/css/owl/owl.theme.default.min.css" | prepend: site.baseurl }}">
-	
-	{% endif %}
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

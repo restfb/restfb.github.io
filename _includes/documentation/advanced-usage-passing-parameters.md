@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.4#fieldexpansion" class="badge badge-primary">Graph API documentation</a>
 	
 Some requests need additional parameters. With Graph API 2.4 for example it is mandatory to provide the `fields` parameter to get a <a href="https://developers.facebook.com/blog/post/2015/07/08/graph-api-v2.4/" target="_blank">more extensive response</a>. RestFB provides the `Parameter` class to serve this purpose.
 

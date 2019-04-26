@@ -1,0 +1,12 @@
+.zammad-form {
+	
+	.btn {
+		background-color: $siteColorPrimary;
+		color: white;
+		
+		&:hover {
+		    background-color: #7eb1dc;
+			color: #000;
+		}
+	}
+}

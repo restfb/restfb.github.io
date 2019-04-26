@@ -1,4 +1,4 @@
 ---
-layout: default
+layout: landing
 header: landing
 ---

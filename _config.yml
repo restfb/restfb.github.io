@@ -8,6 +8,10 @@ title:
   dark: <span class="restfb-brand dark">rest</span><span class="restfb-brand highlight">fb</span>
 description: "RestFB is a simple and flexible Facebook Graph API client written in Java. It contains support for the Facebook Messenger Platform and the Facebook Marketing API."
 
+link:
+  maven: https://mvnrepository.com/artifact/com.restfb/restfb
+  github-example: https://github.com/restfb/restfb-examples
+
 # code and explanantion
 collections:
   documentation:
@@ -45,18 +49,22 @@ people:
     - title: amazon
       url: https://amzn.to/2AL5FDl
 
-- name: many Contributors
+- name: many contributors
   pic: 3
 
 # site Social network links and types (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
-  - title: facebook
+  - title: Facebook
+    icon: facebook
     url: https://www.facebook.com/Restfb-909653922461664
-  - title: stack-overflow
+  - title: StackOverflow
+    icon: stack-overflow
     url: http://stackoverflow.com/questions/tagged/restfb
-  - title: github
+  - title: GitHub
+    icon: github
     url: http://github.com/restfb/restfb
-  - title: envelope
+  - title: Google Groups
+    icon: users
     url: http://groups.google.com/group/restfb
 
 # additional links

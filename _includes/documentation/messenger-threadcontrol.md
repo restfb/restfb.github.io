@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/reference/handover-protocol" class="label label-primary">Handover protocol documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/reference/handover-protocol" class="badge badge-primary">Handover protocol documentation</a>
 
 As of Graph API 2.6, Facebook supports the Handover Protocol API. This API is used to allow several applications to
 work on the Messenger Platform of one page. The primary message receiver can be changed via the API. 

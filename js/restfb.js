@@ -3,43 +3,49 @@ $(function() {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
+            scrollTop: $($anchor.attr('href')).offset().top - 56
         }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
 });
 
-// Highlight the top nav as scrolling occurs
-$('body').scrollspy({
-	target: '#navbarscroll'
-})
-
-// Closes the Responsive Menu on Menu Item Click
-$('.navbar-collapse ul li a').click(function() {
-    $('.navbar-toggle:visible').click();
-});
-
-function shuffle(array) {
-  var m = array.length, t, i;
-
-  // While there remain elements to shuffle…
-  while (m) {
-
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
-
-    // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-
-  return array;
-}
+// shuffle dom elements, thanks to (https://css-tricks.com/snippets/jquery/shuffle-dom-elements/)
+(function($){
+ 
+    $.fn.shuffle = function() {
+ 
+        var allElems = this.get(),
+            getRandom = function(max) {
+                return Math.floor(Math.random() * max);
+            },
+            shuffled = $.map(allElems, function(){
+                var random = getRandom(allElems.length),
+                    randEl = $(allElems[random]).clone(true)[0];
+                allElems.splice(random, 1);
+                return randEl;
+           });
+ 
+        this.each(function(i){
+            $(this).replaceWith($(shuffled[i]));
+        });
+ 
+        return $(shuffled);
+ 
+    };
+ 
+})(jQuery);
 
 // fetch download information from github api
 $(document).ready(function () {
-    var url = "https://api.github.com/repos/restfb/restfb/releases";
+	
+	$('#scrollbox li').shuffle();
+	
+	$('#scrollbox').scrollbox({
+		direction: 'h',
+		switchItems: 1
+	});
+	
+	var url = "https://api.github.com/repos/restfb/restfb/releases";
     $.getJSON(url + "?callback=?", null, function (releases) {
 
 	if (releases.data.length > 0) {
@@ -60,8 +66,5 @@ $(document).ready(function () {
 	    $("#downloadURL").attr("href", zipURL);
 	}
     });
-	$('#scrollbox').scrollbox({
-		direction: 'h',
-		switchItems: 1
-	});
+	
 });

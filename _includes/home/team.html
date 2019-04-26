@@ -1,25 +1,27 @@
 <!-- Team Section -->
-    <section id="team" class="bg-light-gray">
+    <section id="team" class="landing bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">The {{site.title.default}} Team</h2>
-                    <!-- <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> -->
+                    <h2 class="section-heading">The {{site.title.dark}} Team</h2>
                 </div>
             </div>
             <div class="row">
                 {% for member in site.people %}
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt="{{ member.name }} picture" title="{{ member.name }}">
+                        <img src="img/team/{{ member.pic }}.jpg" class="img-fluid rounded-circle" alt="{{ member.name }} picture" title="{{ member.name }}">
                         <h4>{{ member.name }}</h4>
                         <p class="text-muted">{{ member.position }}</p>
-                        <ul class="list-inline social-buttons">
+                        <ul class="list-inline">
                             {% for network in member.social %}
-                            <li>
-                                <a href="{{ network.url }}" title="{{ member.name }} {{ network.title }}">
-                                    <i class="fa fa-{{ network.title }}"></i>
-                                </a>
+                            <li class="list-inline-item">
+				                <a href="{{ network.url }}" title="{{ member.name }} {{ network.title }}">
+								  <span class="fa-stack fa-restfb-x">
+				                    <i class="fa fa-stack-2x text-primary-restfb"></i>
+				                    <i class="fa rounded-circle fa-{{ network.title }} fa-stack-1x fa-inverse"></i>
+				                  </span>
+							    </a>
                             </li>
                             {% endfor %}
 
@@ -29,7 +31,7 @@
                 {% endfor %}
             </div>
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
+                <div class="col-lg-8 offset-lg-2 text-center">
                     <p class="large text-muted">{{site.title.dark}} source code is placed on Github and the library itself evolves with the help of many great people. A lot of Github users contribute to {{site.title.dark}}. We get many hints and questions, and of course many pull and feature requests. And we'd like to say thank you to everyone who has helped along the way!</p>
                 </div>
             </div>

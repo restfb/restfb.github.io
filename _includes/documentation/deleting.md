@@ -1,4 +1,4 @@
-See <a target="_blank" href="http://developers.facebook.com/docs/api#deleting" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="http://developers.facebook.com/docs/api#deleting" class="badge badge-primary">Graph API documentation</a>
 
 To delete an object on Facebook, RestFB provides a `deleteObject`-method. You have to provide
 the ID of the object and RestFB does the magic. As a return value you receive a boolean - `true`

@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api#introspection" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/using-graph-api#introspection" class="badge badge-primary">Graph API documentation</a>
 
 The Facebook Graph API provides a great feature which permits deep insight into node data. This feature is called introspection and it works similarly to the well-known reflection techniques that are part of many programming languages.
 

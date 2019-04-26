@@ -9,24 +9,24 @@
 	    margin-bottom: 15px;
 		font-size: 18px;
 		text-transform: none;
-		font-weight: 200;
+		font-weight: bold;
 	}
 	&.info {
-	    border-left-color: #1b809e;
+	    border-left-color: #337AB7;
 		h4 {
-			color: #1b809e;
+			color: #337AB7;
 		}
 	}
 	&.warning {
-    	border-left-color: #aa6708;
+    	border-left-color: #DF9F1F;
 		h4 {
-	    	color: #aa6708;
+	    	color: #DF9F1F;
 		}
 	}
 	&.danger {
-    	border-left-color: #ce4844;
+    	border-left-color: #B95B3A;
 		h4 {
-	    	color: #ce4844;
+	    	color: #B95B3A;
 		}
 	}
 }

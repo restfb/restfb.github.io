@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/messenger-codes" class="label label-primary">Messenger Code API</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/messenger-codes" class="badge badge-primary">Messenger Code API</a>
 
 To advertise your Facebook page and let your users talk to you with messenger, you can use Messenger Codes.
 

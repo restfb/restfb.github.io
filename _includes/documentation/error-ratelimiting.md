@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/advanced/rate-limiting" class="label label-primary">Facebook documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/advanced/rate-limiting" class="badge badge-primary">Facebook documentation</a>
 
 To prevent abuse of the Graph API, Facebook uses a rate limiting mechanism. 
 The number of calls you are allowed to make depends on the kind of request. There 

@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen" class="label label-primary">Messenger Platform API</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen" class="badge badge-primary">Messenger Platform API</a>
 
 <div class="alert alert-warning">
 	<h4>Remove the deprecated <code>call_to_actions</code> from <code>thread_settings</code> endpoint</h4>

@@ -1,0 +1,15 @@
+    <section class="clients" id="customers">
+        <div class="container">
+            <div class="row" id="scrollbox" style="height: 200px;overflow:hidden;display:block">
+					<ul style="width: 5000px;">
+				{% for client in site.clients %}
+                    <li style="display: inline-block;margin:0 40px;">
+						<a href="{{ client.url }}" target="_blank" title="{{ client.name }}">
+					    	<img src="{{ client.pic }}" class="myGray" alt="{{ client.name }} logo" title="{{ client.name }}" style="width:140px;height:140px">
+                        </a>
+					</li>
+				{% endfor %}
+			
+				</ul>
+         </div>
+	</section>

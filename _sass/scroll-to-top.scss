@@ -1,0 +1,22 @@
+#topcontrol {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    background: #4d5057;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    z-index: 30;
+    width: 36px;
+    height: 36px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+	font-size: 20px;
+}

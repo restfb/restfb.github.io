@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens" class="label label-primary">Graph API documentation</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens" class="badge badge-primary">Graph API documentation</a>
 
 App access tokens are used to make server to server calls on behalf of your application. With these special access tokens, you can modify your application settings as well as perform some other calls - for example, publishing Open Graph actions or debugging access tokens.
 

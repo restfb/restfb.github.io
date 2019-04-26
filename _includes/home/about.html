@@ -1,40 +1,53 @@
-<section id="about">
+<section id="sponsors" class="landing">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">About</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>
-                    RestFB was created by <a href="mailto:mark@restfb.com" title="Contact Mark Allen">Mark Allen</a>, is maintained by <a
-                        href="mailto:norbert@restfb.com" title="Contact Norbert Bartels">Norbert Bartels</a>, and sponsored by <a                               target="_blank" href="http://xmog.com" title="RestFB sponsor Transmogrify">Transmogrify, LLC</a>.
-                </p>
-
-                <p>
-                    Transmogrify is a Philadelphia-area software shop specializing in product design and web/mobile
-                    software development.
-                    Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web
-                    framework and iOS/Android technologies.
-                    Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com" 
-					title="Contact Transmogrify">product@xmog.com</a>
-                    if you need a hand with
-                    anything software-related. We can handle every part of the software lifecycle, from initial
-                    requirements and design to ongoing maintenance and support.
-                </p>
-            </div>
-        </div>
-        <!-- <div class="row">
+        <div class="row justify-content-md-center">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Sponsors</h2>
             </div>
+			<div class="col-lg-8">
+				<p class="text-center text-muted">
+					The development of {{site.title.dark}} is sponsored by these great companies and individuals. If you also like to sponsor us, please send us a short note <a href="mailto:team@restfb.com">here</a>.
+				</p>
+			</div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <p>
-				</p>
-            </div>
-        </div> -->
-    </div>
+				<div class="card-deck">
+					{% for sponsor in site.data.sponsors %}
+					<div class="card col-md-6 col-xl-3 shadow-lg bg-{{ sponsor.type }} sponsor">
+						<a href="{{ sponsor.link }}" target="_blank">
+							<img class="card-img-top" src="img/sponsor/{{ sponsor.logo }}" alt="{{ sponsor.name }} logo" style="height: 200px; width: 100%; display: block;" />
+						</a>
+						<div class="card-body">
+						    <a href="{{ sponsor.link }}" target="_blank">
+								<h5 class="card-title">{{ sponsor.name }}</h5>
+						    </a>
+							<p class="card-text">{{ sponsor.mainText }}</p>
+						    {% if sponsor.content.size > 0 %}
+							<p class="text-center">
+								<button class="btn btn-primary-restfb" type="button" data-toggle="collapse" data-target="#{{ sponsor.target }}" aria-expanded="false" aria-controls="{{ sponsor.target }}">Show more information</button>
+							</p>
+							{% endif %}
+							<p class="card-text sponsor-description text-center">{{ sponsor.type }} sponsor</p>
+							<p class="card-text sponsor-footer text-center">Since {{ sponsor.since }}</p>
+						</div>
+					</div>
+					{% if sponsor.content.size > 0 %}
+					  <div class="col-xl-8 collapse" id="{{ sponsor.target }}">
+						  <div class="card bg-{{ sponsor.type }} shadow-lg">
+							  <div class="card-body">
+								  <h5 class="card-title">{{ sponsor.name }}</h5>
+								  {% for infoText in sponsor.content %}
+								  <p class="card-text">{{ infoText.text }}</p>
+								  {% endfor %}
+							  </div>
+						  </div>
+					  </div>
+					{% endif %}
+					
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

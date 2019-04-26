@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark {% if page.header != "landing" %} fixed-top{% endif %}">
+	<div class="container">
+  <a class="navbar-brand" href="/">{{site.title.light}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+		{% for link in site.navigation %}
+			<li class="nav-item {% if page.url == link.url %} active {% endif %}">
+                <a href="{{ link.url }}" title="{{ link.text }}" class="nav-link">{{ link.text }}</a>
+            </li>
+		{% endfor %}
+      <li class="nav-item">
+		<a id="feedback-form" title="Contact us" target="_blank" class="nav-link">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a href="/javadoc-2" title="RestFB version 2.x JavaDoc" target="_blank" class="nav-link">JavaDoc</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>

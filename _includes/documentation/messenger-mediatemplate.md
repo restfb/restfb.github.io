@@ -1,4 +1,4 @@
-See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/media" class="label label-primary">Messenger Platform API</a>
+See <a target="_blank" href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/media" class="badge badge-primary">Messenger Platform API</a>
 
 With the Messenger Platform 2.2, the new media template type was introduced. This template allows the developer to send a message with animated content like a video or an animated gif. The animation is shown directly in the message thread. Additionally, buttons are available as optional interaction elements.
 
