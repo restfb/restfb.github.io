@@ -168,6 +168,11 @@
         file: documentation/publishing-photo-with-tag.md
         href: publishing-photo-with-tag
       -
+        title: Publishing a video and a thumbnail
+        menu_title: a Video with Thumb
+        file: documentation/publishing-video-with-thumb.md
+        href: publishing-video-with-thumb
+      -
         title: Publishing a Checkin
         menu_title: a Checkin
         file: documentation/publishing-checkin.md
