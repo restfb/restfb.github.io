@@ -122,808 +122,768 @@
 <span class="sourceLineNo">113</span><a id="line.113">  }</a>
 <span class="sourceLineNo">114</span><a id="line.114"></a>
 <span class="sourceLineNo">115</span><a id="line.115">  /**</a>
-<span class="sourceLineNo">116</span><a id="line.116">   * Reads a JSON object from the given reader.</a>
-<span class="sourceLineNo">117</span><a id="line.117">   * &lt;p&gt;</a>
-<span class="sourceLineNo">118</span><a id="line.118">   * Characters are read in chunks and buffered internally, therefore wrapping an existing reader in an additional</a>
-<span class="sourceLineNo">119</span><a id="line.119">   * &lt;code&gt;BufferedReader&lt;/code&gt; does &lt;strong&gt;not&lt;/strong&gt; improve reading performance.</a>
-<span class="sourceLineNo">120</span><a id="line.120">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">121</span><a id="line.121">   *</a>
-<span class="sourceLineNo">122</span><a id="line.122">   * @param reader</a>
-<span class="sourceLineNo">123</span><a id="line.123">   *          the reader to read the JSON object from</a>
-<span class="sourceLineNo">124</span><a id="line.124">   * @return the JSON object that has been read</a>
-<span class="sourceLineNo">125</span><a id="line.125">   * @throws IOException</a>
-<span class="sourceLineNo">126</span><a id="line.126">   *           if an I/O error occurs in the reader</a>
-<span class="sourceLineNo">127</span><a id="line.127">   * @throws ParseException</a>
-<span class="sourceLineNo">128</span><a id="line.128">   *           if the input is not valid JSON</a>
-<span class="sourceLineNo">129</span><a id="line.129">   * @throws UnsupportedOperationException</a>
-<span class="sourceLineNo">130</span><a id="line.130">   *           if the input does not contain a JSON object</a>
-<span class="sourceLineNo">131</span><a id="line.131">   * @deprecated Use {@link Json#parse(Reader)}{@link JsonValue#asObject() .asObject()} instead</a>
-<span class="sourceLineNo">132</span><a id="line.132">   */</a>
-<span class="sourceLineNo">133</span><a id="line.133">  @Deprecated</a>
-<span class="sourceLineNo">134</span><a id="line.134">  public static JsonObject readFrom(Reader reader) throws IOException {</a>
-<span class="sourceLineNo">135</span><a id="line.135">    return JsonValue.readFrom(reader).asObject();</a>
-<span class="sourceLineNo">136</span><a id="line.136">  }</a>
-<span class="sourceLineNo">137</span><a id="line.137"></a>
-<span class="sourceLineNo">138</span><a id="line.138">  /**</a>
-<span class="sourceLineNo">139</span><a id="line.139">   * Reads a JSON object from the given string.</a>
-<span class="sourceLineNo">140</span><a id="line.140">   *</a>
-<span class="sourceLineNo">141</span><a id="line.141">   * @param string</a>
-<span class="sourceLineNo">142</span><a id="line.142">   *          the string that contains the JSON object</a>
-<span class="sourceLineNo">143</span><a id="line.143">   * @return the JSON object that has been read</a>
-<span class="sourceLineNo">144</span><a id="line.144">   * @throws ParseException</a>
-<span class="sourceLineNo">145</span><a id="line.145">   *           if the input is not valid JSON</a>
-<span class="sourceLineNo">146</span><a id="line.146">   * @throws UnsupportedOperationException</a>
-<span class="sourceLineNo">147</span><a id="line.147">   *           if the input does not contain a JSON object</a>
-<span class="sourceLineNo">148</span><a id="line.148">   * @deprecated Use {@link Json#parse(String)}{@link JsonValue#asObject() .asObject()} instead</a>
-<span class="sourceLineNo">149</span><a id="line.149">   */</a>
-<span class="sourceLineNo">150</span><a id="line.150">  @Deprecated</a>
-<span class="sourceLineNo">151</span><a id="line.151">  public static JsonObject readFrom(String string) {</a>
-<span class="sourceLineNo">152</span><a id="line.152">    return JsonValue.readFrom(string).asObject();</a>
-<span class="sourceLineNo">153</span><a id="line.153">  }</a>
-<span class="sourceLineNo">154</span><a id="line.154"></a>
-<span class="sourceLineNo">155</span><a id="line.155">  /**</a>
-<span class="sourceLineNo">156</span><a id="line.156">   * Returns an unmodifiable JsonObject for the specified one. This method allows to provide read-only access to a</a>
-<span class="sourceLineNo">157</span><a id="line.157">   * JsonObject.</a>
-<span class="sourceLineNo">158</span><a id="line.158">   * &lt;p&gt;</a>
-<span class="sourceLineNo">159</span><a id="line.159">   * The returned JsonObject is backed by the given object and reflect changes that happen to it. Attempts to modify the</a>
-<span class="sourceLineNo">160</span><a id="line.160">   * returned JsonObject result in an &lt;code&gt;UnsupportedOperationException&lt;/code&gt;.</a>
-<span class="sourceLineNo">161</span><a id="line.161">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">162</span><a id="line.162">   *</a>
-<span class="sourceLineNo">163</span><a id="line.163">   * @param object</a>
-<span class="sourceLineNo">164</span><a id="line.164">   *          the JsonObject for which an unmodifiable JsonObject is to be returned</a>
-<span class="sourceLineNo">165</span><a id="line.165">   * @return an unmodifiable view of the specified JsonObject</a>
-<span class="sourceLineNo">166</span><a id="line.166">   */</a>
-<span class="sourceLineNo">167</span><a id="line.167">  public static JsonObject unmodifiableObject(JsonObject object) {</a>
-<span class="sourceLineNo">168</span><a id="line.168">    return new JsonObject(object, true);</a>
-<span class="sourceLineNo">169</span><a id="line.169">  }</a>
-<span class="sourceLineNo">170</span><a id="line.170"></a>
-<span class="sourceLineNo">171</span><a id="line.171">  /**</a>
-<span class="sourceLineNo">172</span><a id="line.172">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">173</span><a id="line.173">   * specified &lt;code&gt;int&lt;/code&gt; value.</a>
-<span class="sourceLineNo">174</span><a id="line.174">   * &lt;p&gt;</a>
-<span class="sourceLineNo">175</span><a id="line.175">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">176</span><a id="line.176">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">177</span><a id="line.177">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">178</span><a id="line.178">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">179</span><a id="line.179">   * constructing new objects.</a>
-<span class="sourceLineNo">180</span><a id="line.180">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">181</span><a id="line.181">   *</a>
-<span class="sourceLineNo">182</span><a id="line.182">   * @param name</a>
-<span class="sourceLineNo">183</span><a id="line.183">   *          the name of the member to add</a>
-<span class="sourceLineNo">184</span><a id="line.184">   * @param value</a>
-<span class="sourceLineNo">185</span><a id="line.185">   *          the value of the member to add</a>
-<span class="sourceLineNo">186</span><a id="line.186">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">187</span><a id="line.187">   */</a>
-<span class="sourceLineNo">188</span><a id="line.188">  public JsonObject add(String name, int value) {</a>
-<span class="sourceLineNo">189</span><a id="line.189">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">190</span><a id="line.190">    return this;</a>
-<span class="sourceLineNo">191</span><a id="line.191">  }</a>
-<span class="sourceLineNo">192</span><a id="line.192"></a>
-<span class="sourceLineNo">193</span><a id="line.193">  /**</a>
-<span class="sourceLineNo">194</span><a id="line.194">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">195</span><a id="line.195">   * specified &lt;code&gt;long&lt;/code&gt; value.</a>
-<span class="sourceLineNo">196</span><a id="line.196">   * &lt;p&gt;</a>
-<span class="sourceLineNo">197</span><a id="line.197">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">198</span><a id="line.198">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">199</span><a id="line.199">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">200</span><a id="line.200">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">201</span><a id="line.201">   * constructing new objects.</a>
-<span class="sourceLineNo">202</span><a id="line.202">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">203</span><a id="line.203">   *</a>
-<span class="sourceLineNo">204</span><a id="line.204">   * @param name</a>
-<span class="sourceLineNo">205</span><a id="line.205">   *          the name of the member to add</a>
-<span class="sourceLineNo">206</span><a id="line.206">   * @param value</a>
-<span class="sourceLineNo">207</span><a id="line.207">   *          the value of the member to add</a>
-<span class="sourceLineNo">208</span><a id="line.208">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">209</span><a id="line.209">   */</a>
-<span class="sourceLineNo">210</span><a id="line.210">  public JsonObject add(String name, long value) {</a>
-<span class="sourceLineNo">211</span><a id="line.211">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">212</span><a id="line.212">    return this;</a>
-<span class="sourceLineNo">213</span><a id="line.213">  }</a>
-<span class="sourceLineNo">214</span><a id="line.214"></a>
-<span class="sourceLineNo">215</span><a id="line.215">  /**</a>
-<span class="sourceLineNo">216</span><a id="line.216">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">217</span><a id="line.217">   * specified &lt;code&gt;float&lt;/code&gt; value.</a>
-<span class="sourceLineNo">218</span><a id="line.218">   * &lt;p&gt;</a>
-<span class="sourceLineNo">219</span><a id="line.219">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">220</span><a id="line.220">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">221</span><a id="line.221">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">222</span><a id="line.222">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">223</span><a id="line.223">   * constructing new objects.</a>
-<span class="sourceLineNo">224</span><a id="line.224">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">225</span><a id="line.225">   *</a>
-<span class="sourceLineNo">226</span><a id="line.226">   * @param name</a>
-<span class="sourceLineNo">227</span><a id="line.227">   *          the name of the member to add</a>
-<span class="sourceLineNo">228</span><a id="line.228">   * @param value</a>
-<span class="sourceLineNo">229</span><a id="line.229">   *          the value of the member to add</a>
-<span class="sourceLineNo">230</span><a id="line.230">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">231</span><a id="line.231">   */</a>
-<span class="sourceLineNo">232</span><a id="line.232">  public JsonObject add(String name, float value) {</a>
-<span class="sourceLineNo">233</span><a id="line.233">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">234</span><a id="line.234">    return this;</a>
-<span class="sourceLineNo">235</span><a id="line.235">  }</a>
-<span class="sourceLineNo">236</span><a id="line.236"></a>
-<span class="sourceLineNo">237</span><a id="line.237">  /**</a>
-<span class="sourceLineNo">238</span><a id="line.238">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">239</span><a id="line.239">   * specified &lt;code&gt;double&lt;/code&gt; value.</a>
-<span class="sourceLineNo">240</span><a id="line.240">   * &lt;p&gt;</a>
-<span class="sourceLineNo">241</span><a id="line.241">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">242</span><a id="line.242">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">243</span><a id="line.243">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">244</span><a id="line.244">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">245</span><a id="line.245">   * constructing new objects.</a>
-<span class="sourceLineNo">246</span><a id="line.246">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">247</span><a id="line.247">   *</a>
-<span class="sourceLineNo">248</span><a id="line.248">   * @param name</a>
-<span class="sourceLineNo">249</span><a id="line.249">   *          the name of the member to add</a>
-<span class="sourceLineNo">250</span><a id="line.250">   * @param value</a>
-<span class="sourceLineNo">251</span><a id="line.251">   *          the value of the member to add</a>
-<span class="sourceLineNo">252</span><a id="line.252">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">253</span><a id="line.253">   */</a>
-<span class="sourceLineNo">254</span><a id="line.254">  public JsonObject add(String name, double value) {</a>
-<span class="sourceLineNo">255</span><a id="line.255">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">256</span><a id="line.256">    return this;</a>
-<span class="sourceLineNo">257</span><a id="line.257">  }</a>
-<span class="sourceLineNo">258</span><a id="line.258"></a>
-<span class="sourceLineNo">259</span><a id="line.259">  /**</a>
-<span class="sourceLineNo">260</span><a id="line.260">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">261</span><a id="line.261">   * specified &lt;code&gt;boolean&lt;/code&gt; value.</a>
-<span class="sourceLineNo">262</span><a id="line.262">   * &lt;p&gt;</a>
-<span class="sourceLineNo">263</span><a id="line.263">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">264</span><a id="line.264">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">265</span><a id="line.265">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">266</span><a id="line.266">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">267</span><a id="line.267">   * constructing new objects.</a>
-<span class="sourceLineNo">268</span><a id="line.268">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">269</span><a id="line.269">   *</a>
-<span class="sourceLineNo">270</span><a id="line.270">   * @param name</a>
-<span class="sourceLineNo">271</span><a id="line.271">   *          the name of the member to add</a>
-<span class="sourceLineNo">272</span><a id="line.272">   * @param value</a>
-<span class="sourceLineNo">273</span><a id="line.273">   *          the value of the member to add</a>
-<span class="sourceLineNo">274</span><a id="line.274">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">275</span><a id="line.275">   */</a>
-<span class="sourceLineNo">276</span><a id="line.276">  public JsonObject add(String name, boolean value) {</a>
-<span class="sourceLineNo">277</span><a id="line.277">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">278</span><a id="line.278">    return this;</a>
-<span class="sourceLineNo">279</span><a id="line.279">  }</a>
-<span class="sourceLineNo">280</span><a id="line.280"></a>
-<span class="sourceLineNo">281</span><a id="line.281">  /**</a>
-<span class="sourceLineNo">282</span><a id="line.282">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
-<span class="sourceLineNo">283</span><a id="line.283">   * specified string.</a>
-<span class="sourceLineNo">284</span><a id="line.284">   * &lt;p&gt;</a>
-<span class="sourceLineNo">285</span><a id="line.285">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">286</span><a id="line.286">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">287</span><a id="line.287">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">288</span><a id="line.288">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">289</span><a id="line.289">   * constructing new objects.</a>
-<span class="sourceLineNo">290</span><a id="line.290">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">291</span><a id="line.291">   *</a>
-<span class="sourceLineNo">292</span><a id="line.292">   * @param name</a>
-<span class="sourceLineNo">293</span><a id="line.293">   *          the name of the member to add</a>
-<span class="sourceLineNo">294</span><a id="line.294">   * @param value</a>
-<span class="sourceLineNo">295</span><a id="line.295">   *          the value of the member to add</a>
-<span class="sourceLineNo">296</span><a id="line.296">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">297</span><a id="line.297">   */</a>
-<span class="sourceLineNo">298</span><a id="line.298">  public JsonObject add(String name, String value) {</a>
-<span class="sourceLineNo">299</span><a id="line.299">    add(name, Json.value(value));</a>
-<span class="sourceLineNo">300</span><a id="line.300">    return this;</a>
-<span class="sourceLineNo">301</span><a id="line.301">  }</a>
-<span class="sourceLineNo">302</span><a id="line.302"></a>
-<span class="sourceLineNo">303</span><a id="line.303">  /**</a>
-<span class="sourceLineNo">304</span><a id="line.304">   * Appends a new member to the end of this object, with the specified name and the specified JSON value.</a>
-<span class="sourceLineNo">305</span><a id="line.305">   * &lt;p&gt;</a>
-<span class="sourceLineNo">306</span><a id="line.306">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
-<span class="sourceLineNo">307</span><a id="line.307">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
-<span class="sourceLineNo">308</span><a id="line.308">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
-<span class="sourceLineNo">309</span><a id="line.309">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
-<span class="sourceLineNo">310</span><a id="line.310">   * constructing new objects.</a>
-<span class="sourceLineNo">311</span><a id="line.311">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">312</span><a id="line.312">   *</a>
-<span class="sourceLineNo">313</span><a id="line.313">   * @param name</a>
-<span class="sourceLineNo">314</span><a id="line.314">   *          the name of the member to add</a>
-<span class="sourceLineNo">315</span><a id="line.315">   * @param value</a>
-<span class="sourceLineNo">316</span><a id="line.316">   *          the value of the member to add, must not be &lt;code&gt;null&lt;/code&gt;</a>
-<span class="sourceLineNo">317</span><a id="line.317">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">318</span><a id="line.318">   */</a>
-<span class="sourceLineNo">319</span><a id="line.319">  public JsonObject add(String name, JsonValue value) {</a>
-<span class="sourceLineNo">320</span><a id="line.320">    if (name == null) {</a>
-<span class="sourceLineNo">321</span><a id="line.321">      throw new NullPointerException(NAME_IS_NULL);</a>
-<span class="sourceLineNo">322</span><a id="line.322">    }</a>
-<span class="sourceLineNo">323</span><a id="line.323">    if (value == null) {</a>
-<span class="sourceLineNo">324</span><a id="line.324">      throw new NullPointerException(VALUE_IS_NULL);</a>
-<span class="sourceLineNo">325</span><a id="line.325">    }</a>
-<span class="sourceLineNo">326</span><a id="line.326">    table.add(name, names.size());</a>
-<span class="sourceLineNo">327</span><a id="line.327">    names.add(name);</a>
-<span class="sourceLineNo">328</span><a id="line.328">    values.add(value);</a>
-<span class="sourceLineNo">329</span><a id="line.329">    return this;</a>
-<span class="sourceLineNo">330</span><a id="line.330">  }</a>
-<span class="sourceLineNo">331</span><a id="line.331"></a>
-<span class="sourceLineNo">332</span><a id="line.332">  /**</a>
-<span class="sourceLineNo">333</span><a id="line.333">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;int&lt;/code&gt;</a>
-<span class="sourceLineNo">334</span><a id="line.334">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
-<span class="sourceLineNo">335</span><a id="line.335">   * this object contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">336</span><a id="line.336">   * &lt;p&gt;</a>
-<span class="sourceLineNo">337</span><a id="line.337">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">338</span><a id="line.338">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">339</span><a id="line.339">   * existing members).</a>
-<span class="sourceLineNo">340</span><a id="line.340">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">341</span><a id="line.341">   *</a>
-<span class="sourceLineNo">342</span><a id="line.342">   * @param name</a>
-<span class="sourceLineNo">343</span><a id="line.343">   *          the name of the member to replace</a>
-<span class="sourceLineNo">344</span><a id="line.344">   * @param value</a>
-<span class="sourceLineNo">345</span><a id="line.345">   *          the value to set to the member</a>
-<span class="sourceLineNo">346</span><a id="line.346">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">347</span><a id="line.347">   */</a>
-<span class="sourceLineNo">348</span><a id="line.348">  public JsonObject set(String name, int value) {</a>
-<span class="sourceLineNo">349</span><a id="line.349">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">350</span><a id="line.350">    return this;</a>
-<span class="sourceLineNo">351</span><a id="line.351">  }</a>
-<span class="sourceLineNo">352</span><a id="line.352"></a>
-<span class="sourceLineNo">353</span><a id="line.353">  /**</a>
-<span class="sourceLineNo">354</span><a id="line.354">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;long&lt;/code&gt;</a>
-<span class="sourceLineNo">355</span><a id="line.355">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
-<span class="sourceLineNo">356</span><a id="line.356">   * this object contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">357</span><a id="line.357">   * &lt;p&gt;</a>
-<span class="sourceLineNo">358</span><a id="line.358">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">359</span><a id="line.359">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">360</span><a id="line.360">   * existing members).</a>
-<span class="sourceLineNo">361</span><a id="line.361">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">362</span><a id="line.362">   *</a>
-<span class="sourceLineNo">363</span><a id="line.363">   * @param name</a>
-<span class="sourceLineNo">364</span><a id="line.364">   *          the name of the member to replace</a>
-<span class="sourceLineNo">365</span><a id="line.365">   * @param value</a>
-<span class="sourceLineNo">366</span><a id="line.366">   *          the value to set to the member</a>
-<span class="sourceLineNo">367</span><a id="line.367">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">368</span><a id="line.368">   */</a>
-<span class="sourceLineNo">369</span><a id="line.369">  public JsonObject set(String name, long value) {</a>
-<span class="sourceLineNo">370</span><a id="line.370">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">371</span><a id="line.371">    return this;</a>
-<span class="sourceLineNo">372</span><a id="line.372">  }</a>
-<span class="sourceLineNo">373</span><a id="line.373"></a>
-<span class="sourceLineNo">374</span><a id="line.374">  /**</a>
-<span class="sourceLineNo">375</span><a id="line.375">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;float&lt;/code&gt;</a>
-<span class="sourceLineNo">376</span><a id="line.376">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
-<span class="sourceLineNo">377</span><a id="line.377">   * this object contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">378</span><a id="line.378">   * &lt;p&gt;</a>
-<span class="sourceLineNo">379</span><a id="line.379">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">380</span><a id="line.380">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">381</span><a id="line.381">   * existing members).</a>
-<span class="sourceLineNo">382</span><a id="line.382">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">383</span><a id="line.383">   *</a>
-<span class="sourceLineNo">384</span><a id="line.384">   * @param name</a>
-<span class="sourceLineNo">385</span><a id="line.385">   *          the name of the member to add</a>
-<span class="sourceLineNo">386</span><a id="line.386">   * @param value</a>
-<span class="sourceLineNo">387</span><a id="line.387">   *          the value of the member to add</a>
-<span class="sourceLineNo">388</span><a id="line.388">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">389</span><a id="line.389">   */</a>
-<span class="sourceLineNo">390</span><a id="line.390">  public JsonObject set(String name, float value) {</a>
-<span class="sourceLineNo">391</span><a id="line.391">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">392</span><a id="line.392">    return this;</a>
-<span class="sourceLineNo">393</span><a id="line.393">  }</a>
-<span class="sourceLineNo">394</span><a id="line.394"></a>
-<span class="sourceLineNo">395</span><a id="line.395">  /**</a>
-<span class="sourceLineNo">396</span><a id="line.396">   * Sets the value of the member with the specified name to the JSON representation of the specified</a>
-<span class="sourceLineNo">397</span><a id="line.397">   * &lt;code&gt;double&lt;/code&gt; value. If this object does not contain a member with this name, a new member is added at the</a>
-<span class="sourceLineNo">398</span><a id="line.398">   * end of the object. If this object contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">399</span><a id="line.399">   * &lt;p&gt;</a>
-<span class="sourceLineNo">400</span><a id="line.400">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">401</span><a id="line.401">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">402</span><a id="line.402">   * existing members).</a>
-<span class="sourceLineNo">403</span><a id="line.403">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">404</span><a id="line.404">   *</a>
-<span class="sourceLineNo">405</span><a id="line.405">   * @param name</a>
-<span class="sourceLineNo">406</span><a id="line.406">   *          the name of the member to add</a>
-<span class="sourceLineNo">407</span><a id="line.407">   * @param value</a>
-<span class="sourceLineNo">408</span><a id="line.408">   *          the value of the member to add</a>
-<span class="sourceLineNo">409</span><a id="line.409">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">410</span><a id="line.410">   */</a>
-<span class="sourceLineNo">411</span><a id="line.411">  public JsonObject set(String name, double value) {</a>
-<span class="sourceLineNo">412</span><a id="line.412">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">413</span><a id="line.413">    return this;</a>
-<span class="sourceLineNo">414</span><a id="line.414">  }</a>
-<span class="sourceLineNo">415</span><a id="line.415"></a>
-<span class="sourceLineNo">416</span><a id="line.416">  /**</a>
-<span class="sourceLineNo">417</span><a id="line.417">   * Sets the value of the member with the specified name to the JSON representation of the specified</a>
-<span class="sourceLineNo">418</span><a id="line.418">   * &lt;code&gt;boolean&lt;/code&gt; value. If this object does not contain a member with this name, a new member is added at the</a>
-<span class="sourceLineNo">419</span><a id="line.419">   * end of the object. If this object contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">420</span><a id="line.420">   * &lt;p&gt;</a>
-<span class="sourceLineNo">421</span><a id="line.421">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">422</span><a id="line.422">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">423</span><a id="line.423">   * existing members).</a>
-<span class="sourceLineNo">424</span><a id="line.424">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">425</span><a id="line.425">   *</a>
-<span class="sourceLineNo">426</span><a id="line.426">   * @param name</a>
-<span class="sourceLineNo">427</span><a id="line.427">   *          the name of the member to add</a>
-<span class="sourceLineNo">428</span><a id="line.428">   * @param value</a>
-<span class="sourceLineNo">429</span><a id="line.429">   *          the value of the member to add</a>
-<span class="sourceLineNo">430</span><a id="line.430">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">431</span><a id="line.431">   */</a>
-<span class="sourceLineNo">432</span><a id="line.432">  public JsonObject set(String name, boolean value) {</a>
-<span class="sourceLineNo">433</span><a id="line.433">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">434</span><a id="line.434">    return this;</a>
-<span class="sourceLineNo">435</span><a id="line.435">  }</a>
-<span class="sourceLineNo">436</span><a id="line.436"></a>
-<span class="sourceLineNo">437</span><a id="line.437">  /**</a>
-<span class="sourceLineNo">438</span><a id="line.438">   * Sets the value of the member with the specified name to the JSON representation of the specified string. If this</a>
-<span class="sourceLineNo">439</span><a id="line.439">   * object does not contain a member with this name, a new member is added at the end of the object. If this object</a>
-<span class="sourceLineNo">440</span><a id="line.440">   * contains multiple members with this name, only the last one is changed.</a>
-<span class="sourceLineNo">441</span><a id="line.441">   * &lt;p&gt;</a>
-<span class="sourceLineNo">442</span><a id="line.442">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">443</span><a id="line.443">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">444</span><a id="line.444">   * existing members).</a>
-<span class="sourceLineNo">445</span><a id="line.445">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">446</span><a id="line.446">   *</a>
-<span class="sourceLineNo">447</span><a id="line.447">   * @param name</a>
-<span class="sourceLineNo">448</span><a id="line.448">   *          the name of the member to add</a>
-<span class="sourceLineNo">449</span><a id="line.449">   * @param value</a>
-<span class="sourceLineNo">450</span><a id="line.450">   *          the value of the member to add</a>
-<span class="sourceLineNo">451</span><a id="line.451">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">452</span><a id="line.452">   */</a>
-<span class="sourceLineNo">453</span><a id="line.453">  public JsonObject set(String name, String value) {</a>
-<span class="sourceLineNo">454</span><a id="line.454">    set(name, Json.value(value));</a>
-<span class="sourceLineNo">455</span><a id="line.455">    return this;</a>
-<span class="sourceLineNo">456</span><a id="line.456">  }</a>
-<span class="sourceLineNo">457</span><a id="line.457"></a>
-<span class="sourceLineNo">458</span><a id="line.458">  /**</a>
-<span class="sourceLineNo">459</span><a id="line.459">   * Sets the value of the member with the specified name to the specified JSON value. If this object does not contain a</a>
-<span class="sourceLineNo">460</span><a id="line.460">   * member with this name, a new member is added at the end of the object. If this object contains multiple members</a>
-<span class="sourceLineNo">461</span><a id="line.461">   * with this name, only the last one is changed.</a>
-<span class="sourceLineNo">462</span><a id="line.462">   * &lt;p&gt;</a>
-<span class="sourceLineNo">463</span><a id="line.463">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
-<span class="sourceLineNo">464</span><a id="line.464">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
-<span class="sourceLineNo">465</span><a id="line.465">   * existing members).</a>
-<span class="sourceLineNo">466</span><a id="line.466">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">467</span><a id="line.467">   *</a>
-<span class="sourceLineNo">468</span><a id="line.468">   * @param name</a>
-<span class="sourceLineNo">469</span><a id="line.469">   *          the name of the member to add</a>
-<span class="sourceLineNo">470</span><a id="line.470">   * @param value</a>
-<span class="sourceLineNo">471</span><a id="line.471">   *          the value of the member to add, must not be &lt;code&gt;null&lt;/code&gt;</a>
-<span class="sourceLineNo">472</span><a id="line.472">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">473</span><a id="line.473">   */</a>
-<span class="sourceLineNo">474</span><a id="line.474">  public JsonObject set(String name, JsonValue value) {</a>
-<span class="sourceLineNo">475</span><a id="line.475">    if (name == null) {</a>
-<span class="sourceLineNo">476</span><a id="line.476">      throw new NullPointerException(NAME_IS_NULL);</a>
-<span class="sourceLineNo">477</span><a id="line.477">    }</a>
-<span class="sourceLineNo">478</span><a id="line.478">    if (value == null) {</a>
-<span class="sourceLineNo">479</span><a id="line.479">      throw new NullPointerException(VALUE_IS_NULL);</a>
-<span class="sourceLineNo">480</span><a id="line.480">    }</a>
-<span class="sourceLineNo">481</span><a id="line.481">    int index = indexOf(name);</a>
-<span class="sourceLineNo">482</span><a id="line.482">    if (index != -1) {</a>
-<span class="sourceLineNo">483</span><a id="line.483">      values.set(index, value);</a>
-<span class="sourceLineNo">484</span><a id="line.484">    } else {</a>
-<span class="sourceLineNo">485</span><a id="line.485">      table.add(name, names.size());</a>
-<span class="sourceLineNo">486</span><a id="line.486">      names.add(name);</a>
-<span class="sourceLineNo">487</span><a id="line.487">      values.add(value);</a>
-<span class="sourceLineNo">488</span><a id="line.488">    }</a>
-<span class="sourceLineNo">489</span><a id="line.489">    return this;</a>
-<span class="sourceLineNo">490</span><a id="line.490">  }</a>
-<span class="sourceLineNo">491</span><a id="line.491"></a>
-<span class="sourceLineNo">492</span><a id="line.492">  /**</a>
-<span class="sourceLineNo">493</span><a id="line.493">   * Removes a member with the specified name from this object. If this object contains multiple members with the given</a>
-<span class="sourceLineNo">494</span><a id="line.494">   * name, only the last one is removed. If this object does not contain a member with the specified name, the object is</a>
-<span class="sourceLineNo">495</span><a id="line.495">   * not modified.</a>
-<span class="sourceLineNo">496</span><a id="line.496">   *</a>
-<span class="sourceLineNo">497</span><a id="line.497">   * @param name</a>
-<span class="sourceLineNo">498</span><a id="line.498">   *          the name of the member to remove</a>
-<span class="sourceLineNo">499</span><a id="line.499">   * @return the object itself, to enable method chaining</a>
-<span class="sourceLineNo">500</span><a id="line.500">   */</a>
-<span class="sourceLineNo">501</span><a id="line.501">  public JsonObject remove(String name) {</a>
-<span class="sourceLineNo">502</span><a id="line.502">    if (name == null) {</a>
-<span class="sourceLineNo">503</span><a id="line.503">      throw new NullPointerException(NAME_IS_NULL);</a>
-<span class="sourceLineNo">504</span><a id="line.504">    }</a>
-<span class="sourceLineNo">505</span><a id="line.505">    int index = indexOf(name);</a>
-<span class="sourceLineNo">506</span><a id="line.506">    if (index != -1) {</a>
-<span class="sourceLineNo">507</span><a id="line.507">      table.remove(index);</a>
-<span class="sourceLineNo">508</span><a id="line.508">      names.remove(index);</a>
-<span class="sourceLineNo">509</span><a id="line.509">      values.remove(index);</a>
-<span class="sourceLineNo">510</span><a id="line.510">    }</a>
-<span class="sourceLineNo">511</span><a id="line.511">    return this;</a>
-<span class="sourceLineNo">512</span><a id="line.512">  }</a>
-<span class="sourceLineNo">513</span><a id="line.513"></a>
-<span class="sourceLineNo">514</span><a id="line.514">  /**</a>
-<span class="sourceLineNo">515</span><a id="line.515">   * Checks if a specified member is present as a child of this object. This will not test if</a>
-<span class="sourceLineNo">516</span><a id="line.516">   * this object contains the literal &lt;code&gt;null&lt;/code&gt;, {@link JsonValue#isNull()} should be used</a>
-<span class="sourceLineNo">517</span><a id="line.517">   * for this purpose.</a>
-<span class="sourceLineNo">518</span><a id="line.518">   *</a>
-<span class="sourceLineNo">519</span><a id="line.519">   * @param name</a>
-<span class="sourceLineNo">520</span><a id="line.520">   *          the name of the member to check for</a>
-<span class="sourceLineNo">521</span><a id="line.521">   * @return whether or not the member is present</a>
-<span class="sourceLineNo">522</span><a id="line.522">   */</a>
-<span class="sourceLineNo">523</span><a id="line.523">  public boolean contains(String name) {</a>
-<span class="sourceLineNo">524</span><a id="line.524">    return names.contains(name);</a>
-<span class="sourceLineNo">525</span><a id="line.525">  }</a>
-<span class="sourceLineNo">526</span><a id="line.526"></a>
-<span class="sourceLineNo">527</span><a id="line.527">  /**</a>
-<span class="sourceLineNo">528</span><a id="line.528">   * Copies all members of the specified object into this object. When the specified object contains</a>
-<span class="sourceLineNo">529</span><a id="line.529">   * members with names that also exist in this object, the existing values in this object will be</a>
-<span class="sourceLineNo">530</span><a id="line.530">   * replaced by the corresponding values in the specified object.</a>
-<span class="sourceLineNo">531</span><a id="line.531">   *</a>
-<span class="sourceLineNo">532</span><a id="line.532">   * @param object</a>
-<span class="sourceLineNo">533</span><a id="line.533">   *          the object to merge</a>
-<span class="sourceLineNo">534</span><a id="line.534">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">116</span><a id="line.116">   * Returns an unmodifiable JsonObject for the specified one. This method allows to provide read-only access to a</a>
+<span class="sourceLineNo">117</span><a id="line.117">   * JsonObject.</a>
+<span class="sourceLineNo">118</span><a id="line.118">   * &lt;p&gt;</a>
+<span class="sourceLineNo">119</span><a id="line.119">   * The returned JsonObject is backed by the given object and reflect changes that happen to it. Attempts to modify the</a>
+<span class="sourceLineNo">120</span><a id="line.120">   * returned JsonObject result in an &lt;code&gt;UnsupportedOperationException&lt;/code&gt;.</a>
+<span class="sourceLineNo">121</span><a id="line.121">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">122</span><a id="line.122">   *</a>
+<span class="sourceLineNo">123</span><a id="line.123">   * @param object</a>
+<span class="sourceLineNo">124</span><a id="line.124">   *          the JsonObject for which an unmodifiable JsonObject is to be returned</a>
+<span class="sourceLineNo">125</span><a id="line.125">   * @return an unmodifiable view of the specified JsonObject</a>
+<span class="sourceLineNo">126</span><a id="line.126">   */</a>
+<span class="sourceLineNo">127</span><a id="line.127">  public static JsonObject unmodifiableObject(JsonObject object) {</a>
+<span class="sourceLineNo">128</span><a id="line.128">    return new JsonObject(object, true);</a>
+<span class="sourceLineNo">129</span><a id="line.129">  }</a>
+<span class="sourceLineNo">130</span><a id="line.130"></a>
+<span class="sourceLineNo">131</span><a id="line.131">  /**</a>
+<span class="sourceLineNo">132</span><a id="line.132">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">133</span><a id="line.133">   * specified &lt;code&gt;int&lt;/code&gt; value.</a>
+<span class="sourceLineNo">134</span><a id="line.134">   * &lt;p&gt;</a>
+<span class="sourceLineNo">135</span><a id="line.135">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">136</span><a id="line.136">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">137</span><a id="line.137">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">138</span><a id="line.138">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">139</span><a id="line.139">   * constructing new objects.</a>
+<span class="sourceLineNo">140</span><a id="line.140">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">141</span><a id="line.141">   *</a>
+<span class="sourceLineNo">142</span><a id="line.142">   * @param name</a>
+<span class="sourceLineNo">143</span><a id="line.143">   *          the name of the member to add</a>
+<span class="sourceLineNo">144</span><a id="line.144">   * @param value</a>
+<span class="sourceLineNo">145</span><a id="line.145">   *          the value of the member to add</a>
+<span class="sourceLineNo">146</span><a id="line.146">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">147</span><a id="line.147">   */</a>
+<span class="sourceLineNo">148</span><a id="line.148">  public JsonObject add(String name, int value) {</a>
+<span class="sourceLineNo">149</span><a id="line.149">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">150</span><a id="line.150">    return this;</a>
+<span class="sourceLineNo">151</span><a id="line.151">  }</a>
+<span class="sourceLineNo">152</span><a id="line.152"></a>
+<span class="sourceLineNo">153</span><a id="line.153">  /**</a>
+<span class="sourceLineNo">154</span><a id="line.154">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">155</span><a id="line.155">   * specified &lt;code&gt;long&lt;/code&gt; value.</a>
+<span class="sourceLineNo">156</span><a id="line.156">   * &lt;p&gt;</a>
+<span class="sourceLineNo">157</span><a id="line.157">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">158</span><a id="line.158">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">159</span><a id="line.159">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">160</span><a id="line.160">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">161</span><a id="line.161">   * constructing new objects.</a>
+<span class="sourceLineNo">162</span><a id="line.162">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">163</span><a id="line.163">   *</a>
+<span class="sourceLineNo">164</span><a id="line.164">   * @param name</a>
+<span class="sourceLineNo">165</span><a id="line.165">   *          the name of the member to add</a>
+<span class="sourceLineNo">166</span><a id="line.166">   * @param value</a>
+<span class="sourceLineNo">167</span><a id="line.167">   *          the value of the member to add</a>
+<span class="sourceLineNo">168</span><a id="line.168">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">169</span><a id="line.169">   */</a>
+<span class="sourceLineNo">170</span><a id="line.170">  public JsonObject add(String name, long value) {</a>
+<span class="sourceLineNo">171</span><a id="line.171">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">172</span><a id="line.172">    return this;</a>
+<span class="sourceLineNo">173</span><a id="line.173">  }</a>
+<span class="sourceLineNo">174</span><a id="line.174"></a>
+<span class="sourceLineNo">175</span><a id="line.175">  /**</a>
+<span class="sourceLineNo">176</span><a id="line.176">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">177</span><a id="line.177">   * specified &lt;code&gt;float&lt;/code&gt; value.</a>
+<span class="sourceLineNo">178</span><a id="line.178">   * &lt;p&gt;</a>
+<span class="sourceLineNo">179</span><a id="line.179">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">180</span><a id="line.180">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">181</span><a id="line.181">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">182</span><a id="line.182">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">183</span><a id="line.183">   * constructing new objects.</a>
+<span class="sourceLineNo">184</span><a id="line.184">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">185</span><a id="line.185">   *</a>
+<span class="sourceLineNo">186</span><a id="line.186">   * @param name</a>
+<span class="sourceLineNo">187</span><a id="line.187">   *          the name of the member to add</a>
+<span class="sourceLineNo">188</span><a id="line.188">   * @param value</a>
+<span class="sourceLineNo">189</span><a id="line.189">   *          the value of the member to add</a>
+<span class="sourceLineNo">190</span><a id="line.190">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">191</span><a id="line.191">   */</a>
+<span class="sourceLineNo">192</span><a id="line.192">  public JsonObject add(String name, float value) {</a>
+<span class="sourceLineNo">193</span><a id="line.193">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">194</span><a id="line.194">    return this;</a>
+<span class="sourceLineNo">195</span><a id="line.195">  }</a>
+<span class="sourceLineNo">196</span><a id="line.196"></a>
+<span class="sourceLineNo">197</span><a id="line.197">  /**</a>
+<span class="sourceLineNo">198</span><a id="line.198">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">199</span><a id="line.199">   * specified &lt;code&gt;double&lt;/code&gt; value.</a>
+<span class="sourceLineNo">200</span><a id="line.200">   * &lt;p&gt;</a>
+<span class="sourceLineNo">201</span><a id="line.201">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">202</span><a id="line.202">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">203</span><a id="line.203">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">204</span><a id="line.204">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">205</span><a id="line.205">   * constructing new objects.</a>
+<span class="sourceLineNo">206</span><a id="line.206">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">207</span><a id="line.207">   *</a>
+<span class="sourceLineNo">208</span><a id="line.208">   * @param name</a>
+<span class="sourceLineNo">209</span><a id="line.209">   *          the name of the member to add</a>
+<span class="sourceLineNo">210</span><a id="line.210">   * @param value</a>
+<span class="sourceLineNo">211</span><a id="line.211">   *          the value of the member to add</a>
+<span class="sourceLineNo">212</span><a id="line.212">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">213</span><a id="line.213">   */</a>
+<span class="sourceLineNo">214</span><a id="line.214">  public JsonObject add(String name, double value) {</a>
+<span class="sourceLineNo">215</span><a id="line.215">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">216</span><a id="line.216">    return this;</a>
+<span class="sourceLineNo">217</span><a id="line.217">  }</a>
+<span class="sourceLineNo">218</span><a id="line.218"></a>
+<span class="sourceLineNo">219</span><a id="line.219">  /**</a>
+<span class="sourceLineNo">220</span><a id="line.220">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">221</span><a id="line.221">   * specified &lt;code&gt;boolean&lt;/code&gt; value.</a>
+<span class="sourceLineNo">222</span><a id="line.222">   * &lt;p&gt;</a>
+<span class="sourceLineNo">223</span><a id="line.223">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">224</span><a id="line.224">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">225</span><a id="line.225">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">226</span><a id="line.226">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">227</span><a id="line.227">   * constructing new objects.</a>
+<span class="sourceLineNo">228</span><a id="line.228">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">229</span><a id="line.229">   *</a>
+<span class="sourceLineNo">230</span><a id="line.230">   * @param name</a>
+<span class="sourceLineNo">231</span><a id="line.231">   *          the name of the member to add</a>
+<span class="sourceLineNo">232</span><a id="line.232">   * @param value</a>
+<span class="sourceLineNo">233</span><a id="line.233">   *          the value of the member to add</a>
+<span class="sourceLineNo">234</span><a id="line.234">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">235</span><a id="line.235">   */</a>
+<span class="sourceLineNo">236</span><a id="line.236">  public JsonObject add(String name, boolean value) {</a>
+<span class="sourceLineNo">237</span><a id="line.237">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">238</span><a id="line.238">    return this;</a>
+<span class="sourceLineNo">239</span><a id="line.239">  }</a>
+<span class="sourceLineNo">240</span><a id="line.240"></a>
+<span class="sourceLineNo">241</span><a id="line.241">  /**</a>
+<span class="sourceLineNo">242</span><a id="line.242">   * Appends a new member to the end of this object, with the specified name and the JSON representation of the</a>
+<span class="sourceLineNo">243</span><a id="line.243">   * specified string.</a>
+<span class="sourceLineNo">244</span><a id="line.244">   * &lt;p&gt;</a>
+<span class="sourceLineNo">245</span><a id="line.245">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">246</span><a id="line.246">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">247</span><a id="line.247">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">248</span><a id="line.248">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">249</span><a id="line.249">   * constructing new objects.</a>
+<span class="sourceLineNo">250</span><a id="line.250">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">251</span><a id="line.251">   *</a>
+<span class="sourceLineNo">252</span><a id="line.252">   * @param name</a>
+<span class="sourceLineNo">253</span><a id="line.253">   *          the name of the member to add</a>
+<span class="sourceLineNo">254</span><a id="line.254">   * @param value</a>
+<span class="sourceLineNo">255</span><a id="line.255">   *          the value of the member to add</a>
+<span class="sourceLineNo">256</span><a id="line.256">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">257</span><a id="line.257">   */</a>
+<span class="sourceLineNo">258</span><a id="line.258">  public JsonObject add(String name, String value) {</a>
+<span class="sourceLineNo">259</span><a id="line.259">    add(name, Json.value(value));</a>
+<span class="sourceLineNo">260</span><a id="line.260">    return this;</a>
+<span class="sourceLineNo">261</span><a id="line.261">  }</a>
+<span class="sourceLineNo">262</span><a id="line.262"></a>
+<span class="sourceLineNo">263</span><a id="line.263">  /**</a>
+<span class="sourceLineNo">264</span><a id="line.264">   * Appends a new member to the end of this object, with the specified name and the specified JSON value.</a>
+<span class="sourceLineNo">265</span><a id="line.265">   * &lt;p&gt;</a>
+<span class="sourceLineNo">266</span><a id="line.266">   * This method &lt;strong&gt;does not prevent duplicate names&lt;/strong&gt;. Calling this method with a name that already exists</a>
+<span class="sourceLineNo">267</span><a id="line.267">   * in the object will append another member with the same name. In order to replace existing members, use the method</a>
+<span class="sourceLineNo">268</span><a id="line.268">   * &lt;code&gt;set(name, value)&lt;/code&gt; instead. However, &lt;strong&gt; &lt;em&gt;add&lt;/em&gt; is much faster than &lt;em&gt;set&lt;/em&gt;&lt;/strong&gt;</a>
+<span class="sourceLineNo">269</span><a id="line.269">   * (because it does not need to search for existing members). Therefore &lt;em&gt;add&lt;/em&gt; should be preferred when</a>
+<span class="sourceLineNo">270</span><a id="line.270">   * constructing new objects.</a>
+<span class="sourceLineNo">271</span><a id="line.271">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">272</span><a id="line.272">   *</a>
+<span class="sourceLineNo">273</span><a id="line.273">   * @param name</a>
+<span class="sourceLineNo">274</span><a id="line.274">   *          the name of the member to add</a>
+<span class="sourceLineNo">275</span><a id="line.275">   * @param value</a>
+<span class="sourceLineNo">276</span><a id="line.276">   *          the value of the member to add, must not be &lt;code&gt;null&lt;/code&gt;</a>
+<span class="sourceLineNo">277</span><a id="line.277">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">278</span><a id="line.278">   */</a>
+<span class="sourceLineNo">279</span><a id="line.279">  public JsonObject add(String name, JsonValue value) {</a>
+<span class="sourceLineNo">280</span><a id="line.280">    if (name == null) {</a>
+<span class="sourceLineNo">281</span><a id="line.281">      throw new NullPointerException(NAME_IS_NULL);</a>
+<span class="sourceLineNo">282</span><a id="line.282">    }</a>
+<span class="sourceLineNo">283</span><a id="line.283">    if (value == null) {</a>
+<span class="sourceLineNo">284</span><a id="line.284">      throw new NullPointerException(VALUE_IS_NULL);</a>
+<span class="sourceLineNo">285</span><a id="line.285">    }</a>
+<span class="sourceLineNo">286</span><a id="line.286">    table.add(name, names.size());</a>
+<span class="sourceLineNo">287</span><a id="line.287">    names.add(name);</a>
+<span class="sourceLineNo">288</span><a id="line.288">    values.add(value);</a>
+<span class="sourceLineNo">289</span><a id="line.289">    return this;</a>
+<span class="sourceLineNo">290</span><a id="line.290">  }</a>
+<span class="sourceLineNo">291</span><a id="line.291"></a>
+<span class="sourceLineNo">292</span><a id="line.292">  /**</a>
+<span class="sourceLineNo">293</span><a id="line.293">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;int&lt;/code&gt;</a>
+<span class="sourceLineNo">294</span><a id="line.294">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
+<span class="sourceLineNo">295</span><a id="line.295">   * this object contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">296</span><a id="line.296">   * &lt;p&gt;</a>
+<span class="sourceLineNo">297</span><a id="line.297">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">298</span><a id="line.298">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">299</span><a id="line.299">   * existing members).</a>
+<span class="sourceLineNo">300</span><a id="line.300">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">301</span><a id="line.301">   *</a>
+<span class="sourceLineNo">302</span><a id="line.302">   * @param name</a>
+<span class="sourceLineNo">303</span><a id="line.303">   *          the name of the member to replace</a>
+<span class="sourceLineNo">304</span><a id="line.304">   * @param value</a>
+<span class="sourceLineNo">305</span><a id="line.305">   *          the value to set to the member</a>
+<span class="sourceLineNo">306</span><a id="line.306">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">307</span><a id="line.307">   */</a>
+<span class="sourceLineNo">308</span><a id="line.308">  public JsonObject set(String name, int value) {</a>
+<span class="sourceLineNo">309</span><a id="line.309">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">310</span><a id="line.310">    return this;</a>
+<span class="sourceLineNo">311</span><a id="line.311">  }</a>
+<span class="sourceLineNo">312</span><a id="line.312"></a>
+<span class="sourceLineNo">313</span><a id="line.313">  /**</a>
+<span class="sourceLineNo">314</span><a id="line.314">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;long&lt;/code&gt;</a>
+<span class="sourceLineNo">315</span><a id="line.315">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
+<span class="sourceLineNo">316</span><a id="line.316">   * this object contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">317</span><a id="line.317">   * &lt;p&gt;</a>
+<span class="sourceLineNo">318</span><a id="line.318">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">319</span><a id="line.319">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">320</span><a id="line.320">   * existing members).</a>
+<span class="sourceLineNo">321</span><a id="line.321">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">322</span><a id="line.322">   *</a>
+<span class="sourceLineNo">323</span><a id="line.323">   * @param name</a>
+<span class="sourceLineNo">324</span><a id="line.324">   *          the name of the member to replace</a>
+<span class="sourceLineNo">325</span><a id="line.325">   * @param value</a>
+<span class="sourceLineNo">326</span><a id="line.326">   *          the value to set to the member</a>
+<span class="sourceLineNo">327</span><a id="line.327">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">328</span><a id="line.328">   */</a>
+<span class="sourceLineNo">329</span><a id="line.329">  public JsonObject set(String name, long value) {</a>
+<span class="sourceLineNo">330</span><a id="line.330">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">331</span><a id="line.331">    return this;</a>
+<span class="sourceLineNo">332</span><a id="line.332">  }</a>
+<span class="sourceLineNo">333</span><a id="line.333"></a>
+<span class="sourceLineNo">334</span><a id="line.334">  /**</a>
+<span class="sourceLineNo">335</span><a id="line.335">   * Sets the value of the member with the specified name to the JSON representation of the specified &lt;code&gt;float&lt;/code&gt;</a>
+<span class="sourceLineNo">336</span><a id="line.336">   * value. If this object does not contain a member with this name, a new member is added at the end of the object. If</a>
+<span class="sourceLineNo">337</span><a id="line.337">   * this object contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">338</span><a id="line.338">   * &lt;p&gt;</a>
+<span class="sourceLineNo">339</span><a id="line.339">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">340</span><a id="line.340">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">341</span><a id="line.341">   * existing members).</a>
+<span class="sourceLineNo">342</span><a id="line.342">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">343</span><a id="line.343">   *</a>
+<span class="sourceLineNo">344</span><a id="line.344">   * @param name</a>
+<span class="sourceLineNo">345</span><a id="line.345">   *          the name of the member to add</a>
+<span class="sourceLineNo">346</span><a id="line.346">   * @param value</a>
+<span class="sourceLineNo">347</span><a id="line.347">   *          the value of the member to add</a>
+<span class="sourceLineNo">348</span><a id="line.348">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">349</span><a id="line.349">   */</a>
+<span class="sourceLineNo">350</span><a id="line.350">  public JsonObject set(String name, float value) {</a>
+<span class="sourceLineNo">351</span><a id="line.351">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">352</span><a id="line.352">    return this;</a>
+<span class="sourceLineNo">353</span><a id="line.353">  }</a>
+<span class="sourceLineNo">354</span><a id="line.354"></a>
+<span class="sourceLineNo">355</span><a id="line.355">  /**</a>
+<span class="sourceLineNo">356</span><a id="line.356">   * Sets the value of the member with the specified name to the JSON representation of the specified</a>
+<span class="sourceLineNo">357</span><a id="line.357">   * &lt;code&gt;double&lt;/code&gt; value. If this object does not contain a member with this name, a new member is added at the</a>
+<span class="sourceLineNo">358</span><a id="line.358">   * end of the object. If this object contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">359</span><a id="line.359">   * &lt;p&gt;</a>
+<span class="sourceLineNo">360</span><a id="line.360">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">361</span><a id="line.361">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">362</span><a id="line.362">   * existing members).</a>
+<span class="sourceLineNo">363</span><a id="line.363">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">364</span><a id="line.364">   *</a>
+<span class="sourceLineNo">365</span><a id="line.365">   * @param name</a>
+<span class="sourceLineNo">366</span><a id="line.366">   *          the name of the member to add</a>
+<span class="sourceLineNo">367</span><a id="line.367">   * @param value</a>
+<span class="sourceLineNo">368</span><a id="line.368">   *          the value of the member to add</a>
+<span class="sourceLineNo">369</span><a id="line.369">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">370</span><a id="line.370">   */</a>
+<span class="sourceLineNo">371</span><a id="line.371">  public JsonObject set(String name, double value) {</a>
+<span class="sourceLineNo">372</span><a id="line.372">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">373</span><a id="line.373">    return this;</a>
+<span class="sourceLineNo">374</span><a id="line.374">  }</a>
+<span class="sourceLineNo">375</span><a id="line.375"></a>
+<span class="sourceLineNo">376</span><a id="line.376">  /**</a>
+<span class="sourceLineNo">377</span><a id="line.377">   * Sets the value of the member with the specified name to the JSON representation of the specified</a>
+<span class="sourceLineNo">378</span><a id="line.378">   * &lt;code&gt;boolean&lt;/code&gt; value. If this object does not contain a member with this name, a new member is added at the</a>
+<span class="sourceLineNo">379</span><a id="line.379">   * end of the object. If this object contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">380</span><a id="line.380">   * &lt;p&gt;</a>
+<span class="sourceLineNo">381</span><a id="line.381">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">382</span><a id="line.382">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">383</span><a id="line.383">   * existing members).</a>
+<span class="sourceLineNo">384</span><a id="line.384">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">385</span><a id="line.385">   *</a>
+<span class="sourceLineNo">386</span><a id="line.386">   * @param name</a>
+<span class="sourceLineNo">387</span><a id="line.387">   *          the name of the member to add</a>
+<span class="sourceLineNo">388</span><a id="line.388">   * @param value</a>
+<span class="sourceLineNo">389</span><a id="line.389">   *          the value of the member to add</a>
+<span class="sourceLineNo">390</span><a id="line.390">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">391</span><a id="line.391">   */</a>
+<span class="sourceLineNo">392</span><a id="line.392">  public JsonObject set(String name, boolean value) {</a>
+<span class="sourceLineNo">393</span><a id="line.393">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">394</span><a id="line.394">    return this;</a>
+<span class="sourceLineNo">395</span><a id="line.395">  }</a>
+<span class="sourceLineNo">396</span><a id="line.396"></a>
+<span class="sourceLineNo">397</span><a id="line.397">  /**</a>
+<span class="sourceLineNo">398</span><a id="line.398">   * Sets the value of the member with the specified name to the JSON representation of the specified string. If this</a>
+<span class="sourceLineNo">399</span><a id="line.399">   * object does not contain a member with this name, a new member is added at the end of the object. If this object</a>
+<span class="sourceLineNo">400</span><a id="line.400">   * contains multiple members with this name, only the last one is changed.</a>
+<span class="sourceLineNo">401</span><a id="line.401">   * &lt;p&gt;</a>
+<span class="sourceLineNo">402</span><a id="line.402">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">403</span><a id="line.403">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">404</span><a id="line.404">   * existing members).</a>
+<span class="sourceLineNo">405</span><a id="line.405">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">406</span><a id="line.406">   *</a>
+<span class="sourceLineNo">407</span><a id="line.407">   * @param name</a>
+<span class="sourceLineNo">408</span><a id="line.408">   *          the name of the member to add</a>
+<span class="sourceLineNo">409</span><a id="line.409">   * @param value</a>
+<span class="sourceLineNo">410</span><a id="line.410">   *          the value of the member to add</a>
+<span class="sourceLineNo">411</span><a id="line.411">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">412</span><a id="line.412">   */</a>
+<span class="sourceLineNo">413</span><a id="line.413">  public JsonObject set(String name, String value) {</a>
+<span class="sourceLineNo">414</span><a id="line.414">    set(name, Json.value(value));</a>
+<span class="sourceLineNo">415</span><a id="line.415">    return this;</a>
+<span class="sourceLineNo">416</span><a id="line.416">  }</a>
+<span class="sourceLineNo">417</span><a id="line.417"></a>
+<span class="sourceLineNo">418</span><a id="line.418">  /**</a>
+<span class="sourceLineNo">419</span><a id="line.419">   * Sets the value of the member with the specified name to the specified JSON value. If this object does not contain a</a>
+<span class="sourceLineNo">420</span><a id="line.420">   * member with this name, a new member is added at the end of the object. If this object contains multiple members</a>
+<span class="sourceLineNo">421</span><a id="line.421">   * with this name, only the last one is changed.</a>
+<span class="sourceLineNo">422</span><a id="line.422">   * &lt;p&gt;</a>
+<span class="sourceLineNo">423</span><a id="line.423">   * This method should &lt;strong&gt;only be used to modify existing objects&lt;/strong&gt;. To fill a new object with members, the</a>
+<span class="sourceLineNo">424</span><a id="line.424">   * method &lt;code&gt;add(name, value)&lt;/code&gt; should be preferred which is much faster (as it does not need to search for</a>
+<span class="sourceLineNo">425</span><a id="line.425">   * existing members).</a>
+<span class="sourceLineNo">426</span><a id="line.426">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">427</span><a id="line.427">   *</a>
+<span class="sourceLineNo">428</span><a id="line.428">   * @param name</a>
+<span class="sourceLineNo">429</span><a id="line.429">   *          the name of the member to add</a>
+<span class="sourceLineNo">430</span><a id="line.430">   * @param value</a>
+<span class="sourceLineNo">431</span><a id="line.431">   *          the value of the member to add, must not be &lt;code&gt;null&lt;/code&gt;</a>
+<span class="sourceLineNo">432</span><a id="line.432">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">433</span><a id="line.433">   */</a>
+<span class="sourceLineNo">434</span><a id="line.434">  public JsonObject set(String name, JsonValue value) {</a>
+<span class="sourceLineNo">435</span><a id="line.435">    if (name == null) {</a>
+<span class="sourceLineNo">436</span><a id="line.436">      throw new NullPointerException(NAME_IS_NULL);</a>
+<span class="sourceLineNo">437</span><a id="line.437">    }</a>
+<span class="sourceLineNo">438</span><a id="line.438">    if (value == null) {</a>
+<span class="sourceLineNo">439</span><a id="line.439">      throw new NullPointerException(VALUE_IS_NULL);</a>
+<span class="sourceLineNo">440</span><a id="line.440">    }</a>
+<span class="sourceLineNo">441</span><a id="line.441">    int index = indexOf(name);</a>
+<span class="sourceLineNo">442</span><a id="line.442">    if (index != -1) {</a>
+<span class="sourceLineNo">443</span><a id="line.443">      values.set(index, value);</a>
+<span class="sourceLineNo">444</span><a id="line.444">    } else {</a>
+<span class="sourceLineNo">445</span><a id="line.445">      table.add(name, names.size());</a>
+<span class="sourceLineNo">446</span><a id="line.446">      names.add(name);</a>
+<span class="sourceLineNo">447</span><a id="line.447">      values.add(value);</a>
+<span class="sourceLineNo">448</span><a id="line.448">    }</a>
+<span class="sourceLineNo">449</span><a id="line.449">    return this;</a>
+<span class="sourceLineNo">450</span><a id="line.450">  }</a>
+<span class="sourceLineNo">451</span><a id="line.451"></a>
+<span class="sourceLineNo">452</span><a id="line.452">  /**</a>
+<span class="sourceLineNo">453</span><a id="line.453">   * Removes a member with the specified name from this object. If this object contains multiple members with the given</a>
+<span class="sourceLineNo">454</span><a id="line.454">   * name, only the last one is removed. If this object does not contain a member with the specified name, the object is</a>
+<span class="sourceLineNo">455</span><a id="line.455">   * not modified.</a>
+<span class="sourceLineNo">456</span><a id="line.456">   *</a>
+<span class="sourceLineNo">457</span><a id="line.457">   * @param name</a>
+<span class="sourceLineNo">458</span><a id="line.458">   *          the name of the member to remove</a>
+<span class="sourceLineNo">459</span><a id="line.459">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">460</span><a id="line.460">   */</a>
+<span class="sourceLineNo">461</span><a id="line.461">  public JsonObject remove(String name) {</a>
+<span class="sourceLineNo">462</span><a id="line.462">    if (name == null) {</a>
+<span class="sourceLineNo">463</span><a id="line.463">      throw new NullPointerException(NAME_IS_NULL);</a>
+<span class="sourceLineNo">464</span><a id="line.464">    }</a>
+<span class="sourceLineNo">465</span><a id="line.465">    int index = indexOf(name);</a>
+<span class="sourceLineNo">466</span><a id="line.466">    if (index != -1) {</a>
+<span class="sourceLineNo">467</span><a id="line.467">      table.remove(index);</a>
+<span class="sourceLineNo">468</span><a id="line.468">      names.remove(index);</a>
+<span class="sourceLineNo">469</span><a id="line.469">      values.remove(index);</a>
+<span class="sourceLineNo">470</span><a id="line.470">    }</a>
+<span class="sourceLineNo">471</span><a id="line.471">    return this;</a>
+<span class="sourceLineNo">472</span><a id="line.472">  }</a>
+<span class="sourceLineNo">473</span><a id="line.473"></a>
+<span class="sourceLineNo">474</span><a id="line.474">  /**</a>
+<span class="sourceLineNo">475</span><a id="line.475">   * Checks if a specified member is present as a child of this object. This will not test if</a>
+<span class="sourceLineNo">476</span><a id="line.476">   * this object contains the literal &lt;code&gt;null&lt;/code&gt;, {@link JsonValue#isNull()} should be used</a>
+<span class="sourceLineNo">477</span><a id="line.477">   * for this purpose.</a>
+<span class="sourceLineNo">478</span><a id="line.478">   *</a>
+<span class="sourceLineNo">479</span><a id="line.479">   * @param name</a>
+<span class="sourceLineNo">480</span><a id="line.480">   *          the name of the member to check for</a>
+<span class="sourceLineNo">481</span><a id="line.481">   * @return whether or not the member is present</a>
+<span class="sourceLineNo">482</span><a id="line.482">   */</a>
+<span class="sourceLineNo">483</span><a id="line.483">  public boolean contains(String name) {</a>
+<span class="sourceLineNo">484</span><a id="line.484">    return names.contains(name);</a>
+<span class="sourceLineNo">485</span><a id="line.485">  }</a>
+<span class="sourceLineNo">486</span><a id="line.486"></a>
+<span class="sourceLineNo">487</span><a id="line.487">  /**</a>
+<span class="sourceLineNo">488</span><a id="line.488">   * Copies all members of the specified object into this object. When the specified object contains</a>
+<span class="sourceLineNo">489</span><a id="line.489">   * members with names that also exist in this object, the existing values in this object will be</a>
+<span class="sourceLineNo">490</span><a id="line.490">   * replaced by the corresponding values in the specified object.</a>
+<span class="sourceLineNo">491</span><a id="line.491">   *</a>
+<span class="sourceLineNo">492</span><a id="line.492">   * @param object</a>
+<span class="sourceLineNo">493</span><a id="line.493">   *          the object to merge</a>
+<span class="sourceLineNo">494</span><a id="line.494">   * @return the object itself, to enable method chaining</a>
+<span class="sourceLineNo">495</span><a id="line.495">   */</a>
+<span class="sourceLineNo">496</span><a id="line.496">  public JsonObject merge(JsonObject object) {</a>
+<span class="sourceLineNo">497</span><a id="line.497">    if (object == null) {</a>
+<span class="sourceLineNo">498</span><a id="line.498">      throw new NullPointerException(OBJECT_IS_NULL);</a>
+<span class="sourceLineNo">499</span><a id="line.499">    }</a>
+<span class="sourceLineNo">500</span><a id="line.500">    for (Member member : object) {</a>
+<span class="sourceLineNo">501</span><a id="line.501">      this.set(member.name, member.value);</a>
+<span class="sourceLineNo">502</span><a id="line.502">    }</a>
+<span class="sourceLineNo">503</span><a id="line.503">    return this;</a>
+<span class="sourceLineNo">504</span><a id="line.504">  }</a>
+<span class="sourceLineNo">505</span><a id="line.505"></a>
+<span class="sourceLineNo">506</span><a id="line.506">  /**</a>
+<span class="sourceLineNo">507</span><a id="line.507">   * Returns the value of the member with the specified name in this object. If this object contains multiple members</a>
+<span class="sourceLineNo">508</span><a id="line.508">   * with the given name, this method will return the last one.</a>
+<span class="sourceLineNo">509</span><a id="line.509">   *</a>
+<span class="sourceLineNo">510</span><a id="line.510">   * @param name</a>
+<span class="sourceLineNo">511</span><a id="line.511">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">512</span><a id="line.512">   * @return the value of the last member with the specified name, or &lt;code&gt;null&lt;/code&gt; if this object does not contain</a>
+<span class="sourceLineNo">513</span><a id="line.513">   *         a member with that name</a>
+<span class="sourceLineNo">514</span><a id="line.514">   */</a>
+<span class="sourceLineNo">515</span><a id="line.515">  public JsonValue get(String name) {</a>
+<span class="sourceLineNo">516</span><a id="line.516">    if (name == null) {</a>
+<span class="sourceLineNo">517</span><a id="line.517">      throw new NullPointerException(NAME_IS_NULL);</a>
+<span class="sourceLineNo">518</span><a id="line.518">    }</a>
+<span class="sourceLineNo">519</span><a id="line.519">    int index = indexOf(name);</a>
+<span class="sourceLineNo">520</span><a id="line.520">    return index != -1 ? values.get(index) : null;</a>
+<span class="sourceLineNo">521</span><a id="line.521">  }</a>
+<span class="sourceLineNo">522</span><a id="line.522"></a>
+<span class="sourceLineNo">523</span><a id="line.523">  /**</a>
+<span class="sourceLineNo">524</span><a id="line.524">   * Returns the &lt;code&gt;int&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
+<span class="sourceLineNo">525</span><a id="line.525">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
+<span class="sourceLineNo">526</span><a id="line.526">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
+<span class="sourceLineNo">527</span><a id="line.527">   * cannot be interpreted as Java &lt;code&gt;int&lt;/code&gt;, an exception is thrown.</a>
+<span class="sourceLineNo">528</span><a id="line.528">   *</a>
+<span class="sourceLineNo">529</span><a id="line.529">   * @param name</a>
+<span class="sourceLineNo">530</span><a id="line.530">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">531</span><a id="line.531">   * @param defaultValue</a>
+<span class="sourceLineNo">532</span><a id="line.532">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">533</span><a id="line.533">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">534</span><a id="line.534">   *         contain a member with that name</a>
 <span class="sourceLineNo">535</span><a id="line.535">   */</a>
-<span class="sourceLineNo">536</span><a id="line.536">  public JsonObject merge(JsonObject object) {</a>
-<span class="sourceLineNo">537</span><a id="line.537">    if (object == null) {</a>
-<span class="sourceLineNo">538</span><a id="line.538">      throw new NullPointerException(OBJECT_IS_NULL);</a>
-<span class="sourceLineNo">539</span><a id="line.539">    }</a>
-<span class="sourceLineNo">540</span><a id="line.540">    for (Member member : object) {</a>
-<span class="sourceLineNo">541</span><a id="line.541">      this.set(member.name, member.value);</a>
-<span class="sourceLineNo">542</span><a id="line.542">    }</a>
-<span class="sourceLineNo">543</span><a id="line.543">    return this;</a>
-<span class="sourceLineNo">544</span><a id="line.544">  }</a>
-<span class="sourceLineNo">545</span><a id="line.545"></a>
-<span class="sourceLineNo">546</span><a id="line.546">  /**</a>
-<span class="sourceLineNo">547</span><a id="line.547">   * Returns the value of the member with the specified name in this object. If this object contains multiple members</a>
-<span class="sourceLineNo">548</span><a id="line.548">   * with the given name, this method will return the last one.</a>
-<span class="sourceLineNo">549</span><a id="line.549">   *</a>
-<span class="sourceLineNo">550</span><a id="line.550">   * @param name</a>
-<span class="sourceLineNo">551</span><a id="line.551">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">552</span><a id="line.552">   * @return the value of the last member with the specified name, or &lt;code&gt;null&lt;/code&gt; if this object does not contain</a>
-<span class="sourceLineNo">553</span><a id="line.553">   *         a member with that name</a>
-<span class="sourceLineNo">554</span><a id="line.554">   */</a>
-<span class="sourceLineNo">555</span><a id="line.555">  public JsonValue get(String name) {</a>
-<span class="sourceLineNo">556</span><a id="line.556">    if (name == null) {</a>
-<span class="sourceLineNo">557</span><a id="line.557">      throw new NullPointerException(NAME_IS_NULL);</a>
-<span class="sourceLineNo">558</span><a id="line.558">    }</a>
-<span class="sourceLineNo">559</span><a id="line.559">    int index = indexOf(name);</a>
-<span class="sourceLineNo">560</span><a id="line.560">    return index != -1 ? values.get(index) : null;</a>
-<span class="sourceLineNo">561</span><a id="line.561">  }</a>
-<span class="sourceLineNo">562</span><a id="line.562"></a>
-<span class="sourceLineNo">563</span><a id="line.563">  /**</a>
-<span class="sourceLineNo">564</span><a id="line.564">   * Returns the &lt;code&gt;int&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
-<span class="sourceLineNo">565</span><a id="line.565">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
-<span class="sourceLineNo">566</span><a id="line.566">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
-<span class="sourceLineNo">567</span><a id="line.567">   * cannot be interpreted as Java &lt;code&gt;int&lt;/code&gt;, an exception is thrown.</a>
-<span class="sourceLineNo">568</span><a id="line.568">   *</a>
-<span class="sourceLineNo">569</span><a id="line.569">   * @param name</a>
-<span class="sourceLineNo">570</span><a id="line.570">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">571</span><a id="line.571">   * @param defaultValue</a>
-<span class="sourceLineNo">572</span><a id="line.572">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">573</span><a id="line.573">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">574</span><a id="line.574">   *         contain a member with that name</a>
-<span class="sourceLineNo">575</span><a id="line.575">   */</a>
-<span class="sourceLineNo">576</span><a id="line.576">  public int getInt(String name, int defaultValue) {</a>
-<span class="sourceLineNo">577</span><a id="line.577">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">578</span><a id="line.578">    return value != null ? value.asInt() : defaultValue;</a>
-<span class="sourceLineNo">579</span><a id="line.579">  }</a>
-<span class="sourceLineNo">580</span><a id="line.580"></a>
-<span class="sourceLineNo">581</span><a id="line.581">  /**</a>
-<span class="sourceLineNo">582</span><a id="line.582">   * Returns the &lt;code&gt;long&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
-<span class="sourceLineNo">583</span><a id="line.583">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
-<span class="sourceLineNo">584</span><a id="line.584">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
-<span class="sourceLineNo">585</span><a id="line.585">   * cannot be interpreted as Java &lt;code&gt;long&lt;/code&gt;, an exception is thrown.</a>
-<span class="sourceLineNo">586</span><a id="line.586">   *</a>
-<span class="sourceLineNo">587</span><a id="line.587">   * @param name</a>
-<span class="sourceLineNo">588</span><a id="line.588">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">589</span><a id="line.589">   * @param defaultValue</a>
-<span class="sourceLineNo">590</span><a id="line.590">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">591</span><a id="line.591">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">592</span><a id="line.592">   *         contain a member with that name</a>
-<span class="sourceLineNo">593</span><a id="line.593">   */</a>
-<span class="sourceLineNo">594</span><a id="line.594">  public long getLong(String name, long defaultValue) {</a>
-<span class="sourceLineNo">595</span><a id="line.595">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">596</span><a id="line.596">    return value != null ? value.asLong() : defaultValue;</a>
-<span class="sourceLineNo">597</span><a id="line.597">  }</a>
-<span class="sourceLineNo">598</span><a id="line.598"></a>
-<span class="sourceLineNo">599</span><a id="line.599">  /**</a>
-<span class="sourceLineNo">600</span><a id="line.600">   * Returns the &lt;code&gt;float&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
-<span class="sourceLineNo">601</span><a id="line.601">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
-<span class="sourceLineNo">602</span><a id="line.602">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
-<span class="sourceLineNo">603</span><a id="line.603">   * cannot be interpreted as Java &lt;code&gt;float&lt;/code&gt;, an exception is thrown.</a>
-<span class="sourceLineNo">604</span><a id="line.604">   *</a>
-<span class="sourceLineNo">605</span><a id="line.605">   * @param name</a>
-<span class="sourceLineNo">606</span><a id="line.606">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">607</span><a id="line.607">   * @param defaultValue</a>
-<span class="sourceLineNo">608</span><a id="line.608">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">609</span><a id="line.609">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">610</span><a id="line.610">   *         contain a member with that name</a>
-<span class="sourceLineNo">611</span><a id="line.611">   */</a>
-<span class="sourceLineNo">612</span><a id="line.612">  public float getFloat(String name, float defaultValue) {</a>
-<span class="sourceLineNo">613</span><a id="line.613">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">614</span><a id="line.614">    return value != null ? value.asFloat() : defaultValue;</a>
-<span class="sourceLineNo">615</span><a id="line.615">  }</a>
-<span class="sourceLineNo">616</span><a id="line.616"></a>
-<span class="sourceLineNo">617</span><a id="line.617">  /**</a>
-<span class="sourceLineNo">618</span><a id="line.618">   * Returns the &lt;code&gt;double&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
-<span class="sourceLineNo">619</span><a id="line.619">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
-<span class="sourceLineNo">620</span><a id="line.620">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
-<span class="sourceLineNo">621</span><a id="line.621">   * cannot be interpreted as Java &lt;code&gt;double&lt;/code&gt;, an exception is thrown.</a>
-<span class="sourceLineNo">622</span><a id="line.622">   *</a>
-<span class="sourceLineNo">623</span><a id="line.623">   * @param name</a>
-<span class="sourceLineNo">624</span><a id="line.624">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">625</span><a id="line.625">   * @param defaultValue</a>
-<span class="sourceLineNo">626</span><a id="line.626">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">627</span><a id="line.627">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">628</span><a id="line.628">   *         contain a member with that name</a>
-<span class="sourceLineNo">629</span><a id="line.629">   */</a>
-<span class="sourceLineNo">630</span><a id="line.630">  public double getDouble(String name, double defaultValue) {</a>
-<span class="sourceLineNo">631</span><a id="line.631">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">632</span><a id="line.632">    return value != null ? value.asDouble() : defaultValue;</a>
-<span class="sourceLineNo">633</span><a id="line.633">  }</a>
-<span class="sourceLineNo">634</span><a id="line.634"></a>
-<span class="sourceLineNo">635</span><a id="line.635">  /**</a>
-<span class="sourceLineNo">636</span><a id="line.636">   * Returns the &lt;code&gt;boolean&lt;/code&gt; value of the member with the specified name in this object. If this object does</a>
-<span class="sourceLineNo">637</span><a id="line.637">   * not contain a member with this name, the given default value is returned. If this object contains multiple members</a>
-<span class="sourceLineNo">638</span><a id="line.638">   * with the given name, the last one will be picked. If this member's value does not represent a JSON</a>
-<span class="sourceLineNo">639</span><a id="line.639">   * &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; value, an exception is thrown.</a>
-<span class="sourceLineNo">640</span><a id="line.640">   *</a>
-<span class="sourceLineNo">641</span><a id="line.641">   * @param name</a>
-<span class="sourceLineNo">642</span><a id="line.642">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">643</span><a id="line.643">   * @param defaultValue</a>
-<span class="sourceLineNo">644</span><a id="line.644">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">645</span><a id="line.645">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">646</span><a id="line.646">   *         contain a member with that name</a>
-<span class="sourceLineNo">647</span><a id="line.647">   */</a>
-<span class="sourceLineNo">648</span><a id="line.648">  public boolean getBoolean(String name, boolean defaultValue) {</a>
-<span class="sourceLineNo">649</span><a id="line.649">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">650</span><a id="line.650">    return value != null ? value.asBoolean() : defaultValue;</a>
-<span class="sourceLineNo">651</span><a id="line.651">  }</a>
-<span class="sourceLineNo">652</span><a id="line.652"></a>
-<span class="sourceLineNo">653</span><a id="line.653">  /**</a>
-<span class="sourceLineNo">654</span><a id="line.654">   * Returns the &lt;code&gt;String&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
-<span class="sourceLineNo">655</span><a id="line.655">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
-<span class="sourceLineNo">656</span><a id="line.656">   * the given name, the last one is picked. If this member's value does not represent a JSON string, an exception is</a>
-<span class="sourceLineNo">657</span><a id="line.657">   * thrown.</a>
-<span class="sourceLineNo">658</span><a id="line.658">   *</a>
-<span class="sourceLineNo">659</span><a id="line.659">   * @param name</a>
-<span class="sourceLineNo">660</span><a id="line.660">   *          the name of the member whose value is to be returned</a>
-<span class="sourceLineNo">661</span><a id="line.661">   * @param defaultValue</a>
-<span class="sourceLineNo">662</span><a id="line.662">   *          the value to be returned if the requested member is missing</a>
-<span class="sourceLineNo">663</span><a id="line.663">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
-<span class="sourceLineNo">664</span><a id="line.664">   *         contain a member with that name</a>
+<span class="sourceLineNo">536</span><a id="line.536">  public int getInt(String name, int defaultValue) {</a>
+<span class="sourceLineNo">537</span><a id="line.537">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">538</span><a id="line.538">    return value != null ? value.asInt() : defaultValue;</a>
+<span class="sourceLineNo">539</span><a id="line.539">  }</a>
+<span class="sourceLineNo">540</span><a id="line.540"></a>
+<span class="sourceLineNo">541</span><a id="line.541">  /**</a>
+<span class="sourceLineNo">542</span><a id="line.542">   * Returns the &lt;code&gt;long&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
+<span class="sourceLineNo">543</span><a id="line.543">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
+<span class="sourceLineNo">544</span><a id="line.544">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
+<span class="sourceLineNo">545</span><a id="line.545">   * cannot be interpreted as Java &lt;code&gt;long&lt;/code&gt;, an exception is thrown.</a>
+<span class="sourceLineNo">546</span><a id="line.546">   *</a>
+<span class="sourceLineNo">547</span><a id="line.547">   * @param name</a>
+<span class="sourceLineNo">548</span><a id="line.548">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">549</span><a id="line.549">   * @param defaultValue</a>
+<span class="sourceLineNo">550</span><a id="line.550">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">551</span><a id="line.551">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">552</span><a id="line.552">   *         contain a member with that name</a>
+<span class="sourceLineNo">553</span><a id="line.553">   */</a>
+<span class="sourceLineNo">554</span><a id="line.554">  public long getLong(String name, long defaultValue) {</a>
+<span class="sourceLineNo">555</span><a id="line.555">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">556</span><a id="line.556">    return value != null ? value.asLong() : defaultValue;</a>
+<span class="sourceLineNo">557</span><a id="line.557">  }</a>
+<span class="sourceLineNo">558</span><a id="line.558"></a>
+<span class="sourceLineNo">559</span><a id="line.559">  /**</a>
+<span class="sourceLineNo">560</span><a id="line.560">   * Returns the &lt;code&gt;float&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
+<span class="sourceLineNo">561</span><a id="line.561">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
+<span class="sourceLineNo">562</span><a id="line.562">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
+<span class="sourceLineNo">563</span><a id="line.563">   * cannot be interpreted as Java &lt;code&gt;float&lt;/code&gt;, an exception is thrown.</a>
+<span class="sourceLineNo">564</span><a id="line.564">   *</a>
+<span class="sourceLineNo">565</span><a id="line.565">   * @param name</a>
+<span class="sourceLineNo">566</span><a id="line.566">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">567</span><a id="line.567">   * @param defaultValue</a>
+<span class="sourceLineNo">568</span><a id="line.568">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">569</span><a id="line.569">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">570</span><a id="line.570">   *         contain a member with that name</a>
+<span class="sourceLineNo">571</span><a id="line.571">   */</a>
+<span class="sourceLineNo">572</span><a id="line.572">  public float getFloat(String name, float defaultValue) {</a>
+<span class="sourceLineNo">573</span><a id="line.573">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">574</span><a id="line.574">    return value != null ? value.asFloat() : defaultValue;</a>
+<span class="sourceLineNo">575</span><a id="line.575">  }</a>
+<span class="sourceLineNo">576</span><a id="line.576"></a>
+<span class="sourceLineNo">577</span><a id="line.577">  /**</a>
+<span class="sourceLineNo">578</span><a id="line.578">   * Returns the &lt;code&gt;double&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
+<span class="sourceLineNo">579</span><a id="line.579">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
+<span class="sourceLineNo">580</span><a id="line.580">   * the given name, the last one will be picked. If this member's value does not represent a JSON number or if it</a>
+<span class="sourceLineNo">581</span><a id="line.581">   * cannot be interpreted as Java &lt;code&gt;double&lt;/code&gt;, an exception is thrown.</a>
+<span class="sourceLineNo">582</span><a id="line.582">   *</a>
+<span class="sourceLineNo">583</span><a id="line.583">   * @param name</a>
+<span class="sourceLineNo">584</span><a id="line.584">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">585</span><a id="line.585">   * @param defaultValue</a>
+<span class="sourceLineNo">586</span><a id="line.586">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">587</span><a id="line.587">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">588</span><a id="line.588">   *         contain a member with that name</a>
+<span class="sourceLineNo">589</span><a id="line.589">   */</a>
+<span class="sourceLineNo">590</span><a id="line.590">  public double getDouble(String name, double defaultValue) {</a>
+<span class="sourceLineNo">591</span><a id="line.591">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">592</span><a id="line.592">    return value != null ? value.asDouble() : defaultValue;</a>
+<span class="sourceLineNo">593</span><a id="line.593">  }</a>
+<span class="sourceLineNo">594</span><a id="line.594"></a>
+<span class="sourceLineNo">595</span><a id="line.595">  /**</a>
+<span class="sourceLineNo">596</span><a id="line.596">   * Returns the &lt;code&gt;boolean&lt;/code&gt; value of the member with the specified name in this object. If this object does</a>
+<span class="sourceLineNo">597</span><a id="line.597">   * not contain a member with this name, the given default value is returned. If this object contains multiple members</a>
+<span class="sourceLineNo">598</span><a id="line.598">   * with the given name, the last one will be picked. If this member's value does not represent a JSON</a>
+<span class="sourceLineNo">599</span><a id="line.599">   * &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; value, an exception is thrown.</a>
+<span class="sourceLineNo">600</span><a id="line.600">   *</a>
+<span class="sourceLineNo">601</span><a id="line.601">   * @param name</a>
+<span class="sourceLineNo">602</span><a id="line.602">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">603</span><a id="line.603">   * @param defaultValue</a>
+<span class="sourceLineNo">604</span><a id="line.604">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">605</span><a id="line.605">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">606</span><a id="line.606">   *         contain a member with that name</a>
+<span class="sourceLineNo">607</span><a id="line.607">   */</a>
+<span class="sourceLineNo">608</span><a id="line.608">  public boolean getBoolean(String name, boolean defaultValue) {</a>
+<span class="sourceLineNo">609</span><a id="line.609">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">610</span><a id="line.610">    return value != null ? value.asBoolean() : defaultValue;</a>
+<span class="sourceLineNo">611</span><a id="line.611">  }</a>
+<span class="sourceLineNo">612</span><a id="line.612"></a>
+<span class="sourceLineNo">613</span><a id="line.613">  /**</a>
+<span class="sourceLineNo">614</span><a id="line.614">   * Returns the &lt;code&gt;String&lt;/code&gt; value of the member with the specified name in this object. If this object does not</a>
+<span class="sourceLineNo">615</span><a id="line.615">   * contain a member with this name, the given default value is returned. If this object contains multiple members with</a>
+<span class="sourceLineNo">616</span><a id="line.616">   * the given name, the last one is picked. If this member's value does not represent a JSON string, an exception is</a>
+<span class="sourceLineNo">617</span><a id="line.617">   * thrown.</a>
+<span class="sourceLineNo">618</span><a id="line.618">   *</a>
+<span class="sourceLineNo">619</span><a id="line.619">   * @param name</a>
+<span class="sourceLineNo">620</span><a id="line.620">   *          the name of the member whose value is to be returned</a>
+<span class="sourceLineNo">621</span><a id="line.621">   * @param defaultValue</a>
+<span class="sourceLineNo">622</span><a id="line.622">   *          the value to be returned if the requested member is missing</a>
+<span class="sourceLineNo">623</span><a id="line.623">   * @return the value of the last member with the specified name, or the given default value if this object does not</a>
+<span class="sourceLineNo">624</span><a id="line.624">   *         contain a member with that name</a>
+<span class="sourceLineNo">625</span><a id="line.625">   */</a>
+<span class="sourceLineNo">626</span><a id="line.626">  public String getString(String name, String defaultValue) {</a>
+<span class="sourceLineNo">627</span><a id="line.627">    JsonValue value = get(name);</a>
+<span class="sourceLineNo">628</span><a id="line.628">    return value != null ? value.asString() : defaultValue;</a>
+<span class="sourceLineNo">629</span><a id="line.629">  }</a>
+<span class="sourceLineNo">630</span><a id="line.630"></a>
+<span class="sourceLineNo">631</span><a id="line.631">  /**</a>
+<span class="sourceLineNo">632</span><a id="line.632">   * Returns the number of members (name/value pairs) in this object.</a>
+<span class="sourceLineNo">633</span><a id="line.633">   *</a>
+<span class="sourceLineNo">634</span><a id="line.634">   * @return the number of members in this object</a>
+<span class="sourceLineNo">635</span><a id="line.635">   */</a>
+<span class="sourceLineNo">636</span><a id="line.636">  public int size() {</a>
+<span class="sourceLineNo">637</span><a id="line.637">    return names.size();</a>
+<span class="sourceLineNo">638</span><a id="line.638">  }</a>
+<span class="sourceLineNo">639</span><a id="line.639"></a>
+<span class="sourceLineNo">640</span><a id="line.640">  /**</a>
+<span class="sourceLineNo">641</span><a id="line.641">   * Returns &lt;code&gt;true&lt;/code&gt; if this object contains no members.</a>
+<span class="sourceLineNo">642</span><a id="line.642">   *</a>
+<span class="sourceLineNo">643</span><a id="line.643">   * @return &lt;code&gt;true&lt;/code&gt; if this object contains no members</a>
+<span class="sourceLineNo">644</span><a id="line.644">   */</a>
+<span class="sourceLineNo">645</span><a id="line.645">  public boolean isEmpty() {</a>
+<span class="sourceLineNo">646</span><a id="line.646">    return names.isEmpty();</a>
+<span class="sourceLineNo">647</span><a id="line.647">  }</a>
+<span class="sourceLineNo">648</span><a id="line.648"></a>
+<span class="sourceLineNo">649</span><a id="line.649">  /**</a>
+<span class="sourceLineNo">650</span><a id="line.650">   * Returns a list of the names in this object in document order. The returned list is backed by this object and will</a>
+<span class="sourceLineNo">651</span><a id="line.651">   * reflect subsequent changes. It cannot be used to modify this object. Attempts to modify the returned list will</a>
+<span class="sourceLineNo">652</span><a id="line.652">   * result in an exception.</a>
+<span class="sourceLineNo">653</span><a id="line.653">   *</a>
+<span class="sourceLineNo">654</span><a id="line.654">   * @return a list of the names in this object</a>
+<span class="sourceLineNo">655</span><a id="line.655">   */</a>
+<span class="sourceLineNo">656</span><a id="line.656">  public List&lt;String&gt; names() {</a>
+<span class="sourceLineNo">657</span><a id="line.657">    return Collections.unmodifiableList(names);</a>
+<span class="sourceLineNo">658</span><a id="line.658">  }</a>
+<span class="sourceLineNo">659</span><a id="line.659"></a>
+<span class="sourceLineNo">660</span><a id="line.660">  /**</a>
+<span class="sourceLineNo">661</span><a id="line.661">   * Returns an iterator over the members of this object in document order. The returned iterator cannot be used to</a>
+<span class="sourceLineNo">662</span><a id="line.662">   * modify this object.</a>
+<span class="sourceLineNo">663</span><a id="line.663">   *</a>
+<span class="sourceLineNo">664</span><a id="line.664">   * @return an iterator over the members of this object</a>
 <span class="sourceLineNo">665</span><a id="line.665">   */</a>
-<span class="sourceLineNo">666</span><a id="line.666">  public String getString(String name, String defaultValue) {</a>
-<span class="sourceLineNo">667</span><a id="line.667">    JsonValue value = get(name);</a>
-<span class="sourceLineNo">668</span><a id="line.668">    return value != null ? value.asString() : defaultValue;</a>
-<span class="sourceLineNo">669</span><a id="line.669">  }</a>
+<span class="sourceLineNo">666</span><a id="line.666">  public Iterator&lt;Member&gt; iterator() {</a>
+<span class="sourceLineNo">667</span><a id="line.667">    final Iterator&lt;String&gt; namesIterator = names.iterator();</a>
+<span class="sourceLineNo">668</span><a id="line.668">    final Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();</a>
+<span class="sourceLineNo">669</span><a id="line.669">    return new Iterator&lt;JsonObject.Member&gt;() {</a>
 <span class="sourceLineNo">670</span><a id="line.670"></a>
-<span class="sourceLineNo">671</span><a id="line.671">  /**</a>
-<span class="sourceLineNo">672</span><a id="line.672">   * Returns the number of members (name/value pairs) in this object.</a>
-<span class="sourceLineNo">673</span><a id="line.673">   *</a>
-<span class="sourceLineNo">674</span><a id="line.674">   * @return the number of members in this object</a>
-<span class="sourceLineNo">675</span><a id="line.675">   */</a>
-<span class="sourceLineNo">676</span><a id="line.676">  public int size() {</a>
-<span class="sourceLineNo">677</span><a id="line.677">    return names.size();</a>
-<span class="sourceLineNo">678</span><a id="line.678">  }</a>
-<span class="sourceLineNo">679</span><a id="line.679"></a>
-<span class="sourceLineNo">680</span><a id="line.680">  /**</a>
-<span class="sourceLineNo">681</span><a id="line.681">   * Returns &lt;code&gt;true&lt;/code&gt; if this object contains no members.</a>
-<span class="sourceLineNo">682</span><a id="line.682">   *</a>
-<span class="sourceLineNo">683</span><a id="line.683">   * @return &lt;code&gt;true&lt;/code&gt; if this object contains no members</a>
-<span class="sourceLineNo">684</span><a id="line.684">   */</a>
-<span class="sourceLineNo">685</span><a id="line.685">  public boolean isEmpty() {</a>
-<span class="sourceLineNo">686</span><a id="line.686">    return names.isEmpty();</a>
-<span class="sourceLineNo">687</span><a id="line.687">  }</a>
-<span class="sourceLineNo">688</span><a id="line.688"></a>
-<span class="sourceLineNo">689</span><a id="line.689">  /**</a>
-<span class="sourceLineNo">690</span><a id="line.690">   * Returns a list of the names in this object in document order. The returned list is backed by this object and will</a>
-<span class="sourceLineNo">691</span><a id="line.691">   * reflect subsequent changes. It cannot be used to modify this object. Attempts to modify the returned list will</a>
-<span class="sourceLineNo">692</span><a id="line.692">   * result in an exception.</a>
-<span class="sourceLineNo">693</span><a id="line.693">   *</a>
-<span class="sourceLineNo">694</span><a id="line.694">   * @return a list of the names in this object</a>
-<span class="sourceLineNo">695</span><a id="line.695">   */</a>
-<span class="sourceLineNo">696</span><a id="line.696">  public List&lt;String&gt; names() {</a>
-<span class="sourceLineNo">697</span><a id="line.697">    return Collections.unmodifiableList(names);</a>
-<span class="sourceLineNo">698</span><a id="line.698">  }</a>
-<span class="sourceLineNo">699</span><a id="line.699"></a>
-<span class="sourceLineNo">700</span><a id="line.700">  /**</a>
-<span class="sourceLineNo">701</span><a id="line.701">   * Returns an iterator over the members of this object in document order. The returned iterator cannot be used to</a>
-<span class="sourceLineNo">702</span><a id="line.702">   * modify this object.</a>
-<span class="sourceLineNo">703</span><a id="line.703">   *</a>
-<span class="sourceLineNo">704</span><a id="line.704">   * @return an iterator over the members of this object</a>
-<span class="sourceLineNo">705</span><a id="line.705">   */</a>
-<span class="sourceLineNo">706</span><a id="line.706">  public Iterator&lt;Member&gt; iterator() {</a>
-<span class="sourceLineNo">707</span><a id="line.707">    final Iterator&lt;String&gt; namesIterator = names.iterator();</a>
-<span class="sourceLineNo">708</span><a id="line.708">    final Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();</a>
-<span class="sourceLineNo">709</span><a id="line.709">    return new Iterator&lt;JsonObject.Member&gt;() {</a>
-<span class="sourceLineNo">710</span><a id="line.710"></a>
-<span class="sourceLineNo">711</span><a id="line.711">      @Override</a>
-<span class="sourceLineNo">712</span><a id="line.712">      public boolean hasNext() {</a>
-<span class="sourceLineNo">713</span><a id="line.713">        return namesIterator.hasNext();</a>
-<span class="sourceLineNo">714</span><a id="line.714">      }</a>
-<span class="sourceLineNo">715</span><a id="line.715"></a>
-<span class="sourceLineNo">716</span><a id="line.716">      @Override</a>
-<span class="sourceLineNo">717</span><a id="line.717">      public Member next() {</a>
-<span class="sourceLineNo">718</span><a id="line.718">        String name = namesIterator.next();</a>
-<span class="sourceLineNo">719</span><a id="line.719">        JsonValue value = valuesIterator.next();</a>
-<span class="sourceLineNo">720</span><a id="line.720">        return new Member(name, value);</a>
-<span class="sourceLineNo">721</span><a id="line.721">      }</a>
-<span class="sourceLineNo">722</span><a id="line.722"></a>
-<span class="sourceLineNo">723</span><a id="line.723">      @Override</a>
-<span class="sourceLineNo">724</span><a id="line.724">      public void remove() {</a>
-<span class="sourceLineNo">725</span><a id="line.725">        throw new UnsupportedOperationException();</a>
-<span class="sourceLineNo">726</span><a id="line.726">      }</a>
+<span class="sourceLineNo">671</span><a id="line.671">      @Override</a>
+<span class="sourceLineNo">672</span><a id="line.672">      public boolean hasNext() {</a>
+<span class="sourceLineNo">673</span><a id="line.673">        return namesIterator.hasNext();</a>
+<span class="sourceLineNo">674</span><a id="line.674">      }</a>
+<span class="sourceLineNo">675</span><a id="line.675"></a>
+<span class="sourceLineNo">676</span><a id="line.676">      @Override</a>
+<span class="sourceLineNo">677</span><a id="line.677">      public Member next() {</a>
+<span class="sourceLineNo">678</span><a id="line.678">        String name = namesIterator.next();</a>
+<span class="sourceLineNo">679</span><a id="line.679">        JsonValue value = valuesIterator.next();</a>
+<span class="sourceLineNo">680</span><a id="line.680">        return new Member(name, value);</a>
+<span class="sourceLineNo">681</span><a id="line.681">      }</a>
+<span class="sourceLineNo">682</span><a id="line.682"></a>
+<span class="sourceLineNo">683</span><a id="line.683">      @Override</a>
+<span class="sourceLineNo">684</span><a id="line.684">      public void remove() {</a>
+<span class="sourceLineNo">685</span><a id="line.685">        throw new UnsupportedOperationException();</a>
+<span class="sourceLineNo">686</span><a id="line.686">      }</a>
+<span class="sourceLineNo">687</span><a id="line.687"></a>
+<span class="sourceLineNo">688</span><a id="line.688">    };</a>
+<span class="sourceLineNo">689</span><a id="line.689">  }</a>
+<span class="sourceLineNo">690</span><a id="line.690"></a>
+<span class="sourceLineNo">691</span><a id="line.691">  @Override</a>
+<span class="sourceLineNo">692</span><a id="line.692">  void write(JsonWriter writer) throws IOException {</a>
+<span class="sourceLineNo">693</span><a id="line.693">    writer.writeObjectOpen();</a>
+<span class="sourceLineNo">694</span><a id="line.694">    Iterator&lt;String&gt; namesIterator = names.iterator();</a>
+<span class="sourceLineNo">695</span><a id="line.695">    Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();</a>
+<span class="sourceLineNo">696</span><a id="line.696">    if (namesIterator.hasNext()) {</a>
+<span class="sourceLineNo">697</span><a id="line.697">      writer.writeMemberName(namesIterator.next());</a>
+<span class="sourceLineNo">698</span><a id="line.698">      writer.writeMemberSeparator();</a>
+<span class="sourceLineNo">699</span><a id="line.699">      valuesIterator.next().write(writer);</a>
+<span class="sourceLineNo">700</span><a id="line.700">      while (namesIterator.hasNext()) {</a>
+<span class="sourceLineNo">701</span><a id="line.701">        writer.writeObjectSeparator();</a>
+<span class="sourceLineNo">702</span><a id="line.702">        writer.writeMemberName(namesIterator.next());</a>
+<span class="sourceLineNo">703</span><a id="line.703">        writer.writeMemberSeparator();</a>
+<span class="sourceLineNo">704</span><a id="line.704">        valuesIterator.next().write(writer);</a>
+<span class="sourceLineNo">705</span><a id="line.705">      }</a>
+<span class="sourceLineNo">706</span><a id="line.706">    }</a>
+<span class="sourceLineNo">707</span><a id="line.707">    writer.writeObjectClose();</a>
+<span class="sourceLineNo">708</span><a id="line.708">  }</a>
+<span class="sourceLineNo">709</span><a id="line.709"></a>
+<span class="sourceLineNo">710</span><a id="line.710">  @Override</a>
+<span class="sourceLineNo">711</span><a id="line.711">  public boolean isObject() {</a>
+<span class="sourceLineNo">712</span><a id="line.712">    return true;</a>
+<span class="sourceLineNo">713</span><a id="line.713">  }</a>
+<span class="sourceLineNo">714</span><a id="line.714"></a>
+<span class="sourceLineNo">715</span><a id="line.715">  @Override</a>
+<span class="sourceLineNo">716</span><a id="line.716">  public JsonObject asObject() {</a>
+<span class="sourceLineNo">717</span><a id="line.717">    return this;</a>
+<span class="sourceLineNo">718</span><a id="line.718">  }</a>
+<span class="sourceLineNo">719</span><a id="line.719"></a>
+<span class="sourceLineNo">720</span><a id="line.720">  @Override</a>
+<span class="sourceLineNo">721</span><a id="line.721">  public int hashCode() {</a>
+<span class="sourceLineNo">722</span><a id="line.722">    int result = 1;</a>
+<span class="sourceLineNo">723</span><a id="line.723">    result = 31 * result + names.hashCode();</a>
+<span class="sourceLineNo">724</span><a id="line.724">    result = 31 * result + values.hashCode();</a>
+<span class="sourceLineNo">725</span><a id="line.725">    return result;</a>
+<span class="sourceLineNo">726</span><a id="line.726">  }</a>
 <span class="sourceLineNo">727</span><a id="line.727"></a>
-<span class="sourceLineNo">728</span><a id="line.728">    };</a>
-<span class="sourceLineNo">729</span><a id="line.729">  }</a>
-<span class="sourceLineNo">730</span><a id="line.730"></a>
-<span class="sourceLineNo">731</span><a id="line.731">  @Override</a>
-<span class="sourceLineNo">732</span><a id="line.732">  void write(JsonWriter writer) throws IOException {</a>
-<span class="sourceLineNo">733</span><a id="line.733">    writer.writeObjectOpen();</a>
-<span class="sourceLineNo">734</span><a id="line.734">    Iterator&lt;String&gt; namesIterator = names.iterator();</a>
-<span class="sourceLineNo">735</span><a id="line.735">    Iterator&lt;JsonValue&gt; valuesIterator = values.iterator();</a>
-<span class="sourceLineNo">736</span><a id="line.736">    if (namesIterator.hasNext()) {</a>
-<span class="sourceLineNo">737</span><a id="line.737">      writer.writeMemberName(namesIterator.next());</a>
-<span class="sourceLineNo">738</span><a id="line.738">      writer.writeMemberSeparator();</a>
-<span class="sourceLineNo">739</span><a id="line.739">      valuesIterator.next().write(writer);</a>
-<span class="sourceLineNo">740</span><a id="line.740">      while (namesIterator.hasNext()) {</a>
-<span class="sourceLineNo">741</span><a id="line.741">        writer.writeObjectSeparator();</a>
-<span class="sourceLineNo">742</span><a id="line.742">        writer.writeMemberName(namesIterator.next());</a>
-<span class="sourceLineNo">743</span><a id="line.743">        writer.writeMemberSeparator();</a>
-<span class="sourceLineNo">744</span><a id="line.744">        valuesIterator.next().write(writer);</a>
-<span class="sourceLineNo">745</span><a id="line.745">      }</a>
-<span class="sourceLineNo">746</span><a id="line.746">    }</a>
-<span class="sourceLineNo">747</span><a id="line.747">    writer.writeObjectClose();</a>
-<span class="sourceLineNo">748</span><a id="line.748">  }</a>
-<span class="sourceLineNo">749</span><a id="line.749"></a>
-<span class="sourceLineNo">750</span><a id="line.750">  @Override</a>
-<span class="sourceLineNo">751</span><a id="line.751">  public boolean isObject() {</a>
-<span class="sourceLineNo">752</span><a id="line.752">    return true;</a>
-<span class="sourceLineNo">753</span><a id="line.753">  }</a>
-<span class="sourceLineNo">754</span><a id="line.754"></a>
-<span class="sourceLineNo">755</span><a id="line.755">  @Override</a>
-<span class="sourceLineNo">756</span><a id="line.756">  public JsonObject asObject() {</a>
-<span class="sourceLineNo">757</span><a id="line.757">    return this;</a>
-<span class="sourceLineNo">758</span><a id="line.758">  }</a>
-<span class="sourceLineNo">759</span><a id="line.759"></a>
-<span class="sourceLineNo">760</span><a id="line.760">  @Override</a>
-<span class="sourceLineNo">761</span><a id="line.761">  public int hashCode() {</a>
-<span class="sourceLineNo">762</span><a id="line.762">    int result = 1;</a>
-<span class="sourceLineNo">763</span><a id="line.763">    result = 31 * result + names.hashCode();</a>
-<span class="sourceLineNo">764</span><a id="line.764">    result = 31 * result + values.hashCode();</a>
-<span class="sourceLineNo">765</span><a id="line.765">    return result;</a>
-<span class="sourceLineNo">766</span><a id="line.766">  }</a>
-<span class="sourceLineNo">767</span><a id="line.767"></a>
-<span class="sourceLineNo">768</span><a id="line.768">  @Override</a>
-<span class="sourceLineNo">769</span><a id="line.769">  public boolean equals(Object obj) {</a>
-<span class="sourceLineNo">770</span><a id="line.770">    if (this == obj) {</a>
-<span class="sourceLineNo">771</span><a id="line.771">      return true;</a>
-<span class="sourceLineNo">772</span><a id="line.772">    }</a>
-<span class="sourceLineNo">773</span><a id="line.773">    if (obj == null) {</a>
-<span class="sourceLineNo">774</span><a id="line.774">      return false;</a>
+<span class="sourceLineNo">728</span><a id="line.728">  @Override</a>
+<span class="sourceLineNo">729</span><a id="line.729">  public boolean equals(Object obj) {</a>
+<span class="sourceLineNo">730</span><a id="line.730">    if (this == obj) {</a>
+<span class="sourceLineNo">731</span><a id="line.731">      return true;</a>
+<span class="sourceLineNo">732</span><a id="line.732">    }</a>
+<span class="sourceLineNo">733</span><a id="line.733">    if (obj == null) {</a>
+<span class="sourceLineNo">734</span><a id="line.734">      return false;</a>
+<span class="sourceLineNo">735</span><a id="line.735">    }</a>
+<span class="sourceLineNo">736</span><a id="line.736">    if (getClass() != obj.getClass()) {</a>
+<span class="sourceLineNo">737</span><a id="line.737">      return false;</a>
+<span class="sourceLineNo">738</span><a id="line.738">    }</a>
+<span class="sourceLineNo">739</span><a id="line.739">    JsonObject other = (JsonObject) obj;</a>
+<span class="sourceLineNo">740</span><a id="line.740">    return names.equals(other.names) &amp;&amp; values.equals(other.values);</a>
+<span class="sourceLineNo">741</span><a id="line.741">  }</a>
+<span class="sourceLineNo">742</span><a id="line.742"></a>
+<span class="sourceLineNo">743</span><a id="line.743">  int indexOf(String name) {</a>
+<span class="sourceLineNo">744</span><a id="line.744">    int index = table.get(name);</a>
+<span class="sourceLineNo">745</span><a id="line.745">    if (index != -1 &amp;&amp; name.equals(names.get(index))) {</a>
+<span class="sourceLineNo">746</span><a id="line.746">      return index;</a>
+<span class="sourceLineNo">747</span><a id="line.747">    }</a>
+<span class="sourceLineNo">748</span><a id="line.748">    return names.lastIndexOf(name);</a>
+<span class="sourceLineNo">749</span><a id="line.749">  }</a>
+<span class="sourceLineNo">750</span><a id="line.750"></a>
+<span class="sourceLineNo">751</span><a id="line.751">  private synchronized void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {</a>
+<span class="sourceLineNo">752</span><a id="line.752">    inputStream.defaultReadObject();</a>
+<span class="sourceLineNo">753</span><a id="line.753">    table = new HashIndexTable();</a>
+<span class="sourceLineNo">754</span><a id="line.754">    updateHashIndex();</a>
+<span class="sourceLineNo">755</span><a id="line.755">  }</a>
+<span class="sourceLineNo">756</span><a id="line.756"></a>
+<span class="sourceLineNo">757</span><a id="line.757">  private void updateHashIndex() {</a>
+<span class="sourceLineNo">758</span><a id="line.758">    int size = names.size();</a>
+<span class="sourceLineNo">759</span><a id="line.759">    for (int i = 0; i &lt; size; i++) {</a>
+<span class="sourceLineNo">760</span><a id="line.760">      table.add(names.get(i), i);</a>
+<span class="sourceLineNo">761</span><a id="line.761">    }</a>
+<span class="sourceLineNo">762</span><a id="line.762">  }</a>
+<span class="sourceLineNo">763</span><a id="line.763"></a>
+<span class="sourceLineNo">764</span><a id="line.764">  /**</a>
+<span class="sourceLineNo">765</span><a id="line.765">   * Represents a member of a JSON object, a pair of a name and a value.</a>
+<span class="sourceLineNo">766</span><a id="line.766">   */</a>
+<span class="sourceLineNo">767</span><a id="line.767">  public static class Member {</a>
+<span class="sourceLineNo">768</span><a id="line.768"></a>
+<span class="sourceLineNo">769</span><a id="line.769">    private final String name;</a>
+<span class="sourceLineNo">770</span><a id="line.770">    private final JsonValue value;</a>
+<span class="sourceLineNo">771</span><a id="line.771"></a>
+<span class="sourceLineNo">772</span><a id="line.772">    Member(String name, JsonValue value) {</a>
+<span class="sourceLineNo">773</span><a id="line.773">      this.name = name;</a>
+<span class="sourceLineNo">774</span><a id="line.774">      this.value = value;</a>
 <span class="sourceLineNo">775</span><a id="line.775">    }</a>
-<span class="sourceLineNo">776</span><a id="line.776">    if (getClass() != obj.getClass()) {</a>
-<span class="sourceLineNo">777</span><a id="line.777">      return false;</a>
-<span class="sourceLineNo">778</span><a id="line.778">    }</a>
-<span class="sourceLineNo">779</span><a id="line.779">    JsonObject other = (JsonObject) obj;</a>
-<span class="sourceLineNo">780</span><a id="line.780">    return names.equals(other.names) &amp;&amp; values.equals(other.values);</a>
-<span class="sourceLineNo">781</span><a id="line.781">  }</a>
-<span class="sourceLineNo">782</span><a id="line.782"></a>
-<span class="sourceLineNo">783</span><a id="line.783">  int indexOf(String name) {</a>
-<span class="sourceLineNo">784</span><a id="line.784">    int index = table.get(name);</a>
-<span class="sourceLineNo">785</span><a id="line.785">    if (index != -1 &amp;&amp; name.equals(names.get(index))) {</a>
-<span class="sourceLineNo">786</span><a id="line.786">      return index;</a>
-<span class="sourceLineNo">787</span><a id="line.787">    }</a>
-<span class="sourceLineNo">788</span><a id="line.788">    return names.lastIndexOf(name);</a>
-<span class="sourceLineNo">789</span><a id="line.789">  }</a>
-<span class="sourceLineNo">790</span><a id="line.790"></a>
-<span class="sourceLineNo">791</span><a id="line.791">  private synchronized void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {</a>
-<span class="sourceLineNo">792</span><a id="line.792">    inputStream.defaultReadObject();</a>
-<span class="sourceLineNo">793</span><a id="line.793">    table = new HashIndexTable();</a>
-<span class="sourceLineNo">794</span><a id="line.794">    updateHashIndex();</a>
-<span class="sourceLineNo">795</span><a id="line.795">  }</a>
-<span class="sourceLineNo">796</span><a id="line.796"></a>
-<span class="sourceLineNo">797</span><a id="line.797">  private void updateHashIndex() {</a>
-<span class="sourceLineNo">798</span><a id="line.798">    int size = names.size();</a>
-<span class="sourceLineNo">799</span><a id="line.799">    for (int i = 0; i &lt; size; i++) {</a>
-<span class="sourceLineNo">800</span><a id="line.800">      table.add(names.get(i), i);</a>
+<span class="sourceLineNo">776</span><a id="line.776"></a>
+<span class="sourceLineNo">777</span><a id="line.777">    /**</a>
+<span class="sourceLineNo">778</span><a id="line.778">     * Returns the name of this member.</a>
+<span class="sourceLineNo">779</span><a id="line.779">     *</a>
+<span class="sourceLineNo">780</span><a id="line.780">     * @return the name of this member, never &lt;code&gt;null&lt;/code&gt;</a>
+<span class="sourceLineNo">781</span><a id="line.781">     */</a>
+<span class="sourceLineNo">782</span><a id="line.782">    public String getName() {</a>
+<span class="sourceLineNo">783</span><a id="line.783">      return name;</a>
+<span class="sourceLineNo">784</span><a id="line.784">    }</a>
+<span class="sourceLineNo">785</span><a id="line.785"></a>
+<span class="sourceLineNo">786</span><a id="line.786">    /**</a>
+<span class="sourceLineNo">787</span><a id="line.787">     * Returns the value of this member.</a>
+<span class="sourceLineNo">788</span><a id="line.788">     *</a>
+<span class="sourceLineNo">789</span><a id="line.789">     * @return the value of this member, never &lt;code&gt;null&lt;/code&gt;</a>
+<span class="sourceLineNo">790</span><a id="line.790">     */</a>
+<span class="sourceLineNo">791</span><a id="line.791">    public JsonValue getValue() {</a>
+<span class="sourceLineNo">792</span><a id="line.792">      return value;</a>
+<span class="sourceLineNo">793</span><a id="line.793">    }</a>
+<span class="sourceLineNo">794</span><a id="line.794"></a>
+<span class="sourceLineNo">795</span><a id="line.795">    @Override</a>
+<span class="sourceLineNo">796</span><a id="line.796">    public int hashCode() {</a>
+<span class="sourceLineNo">797</span><a id="line.797">      int result = 1;</a>
+<span class="sourceLineNo">798</span><a id="line.798">      result = 31 * result + name.hashCode();</a>
+<span class="sourceLineNo">799</span><a id="line.799">      result = 31 * result + value.hashCode();</a>
+<span class="sourceLineNo">800</span><a id="line.800">      return result;</a>
 <span class="sourceLineNo">801</span><a id="line.801">    }</a>
-<span class="sourceLineNo">802</span><a id="line.802">  }</a>
-<span class="sourceLineNo">803</span><a id="line.803"></a>
-<span class="sourceLineNo">804</span><a id="line.804">  /**</a>
-<span class="sourceLineNo">805</span><a id="line.805">   * Represents a member of a JSON object, a pair of a name and a value.</a>
-<span class="sourceLineNo">806</span><a id="line.806">   */</a>
-<span class="sourceLineNo">807</span><a id="line.807">  public static class Member {</a>
-<span class="sourceLineNo">808</span><a id="line.808"></a>
-<span class="sourceLineNo">809</span><a id="line.809">    private final String name;</a>
-<span class="sourceLineNo">810</span><a id="line.810">    private final JsonValue value;</a>
-<span class="sourceLineNo">811</span><a id="line.811"></a>
-<span class="sourceLineNo">812</span><a id="line.812">    Member(String name, JsonValue value) {</a>
-<span class="sourceLineNo">813</span><a id="line.813">      this.name = name;</a>
-<span class="sourceLineNo">814</span><a id="line.814">      this.value = value;</a>
-<span class="sourceLineNo">815</span><a id="line.815">    }</a>
-<span class="sourceLineNo">816</span><a id="line.816"></a>
-<span class="sourceLineNo">817</span><a id="line.817">    /**</a>
-<span class="sourceLineNo">818</span><a id="line.818">     * Returns the name of this member.</a>
-<span class="sourceLineNo">819</span><a id="line.819">     *</a>
-<span class="sourceLineNo">820</span><a id="line.820">     * @return the name of this member, never &lt;code&gt;null&lt;/code&gt;</a>
-<span class="sourceLineNo">821</span><a id="line.821">     */</a>
-<span class="sourceLineNo">822</span><a id="line.822">    public String getName() {</a>
-<span class="sourceLineNo">823</span><a id="line.823">      return name;</a>
-<span class="sourceLineNo">824</span><a id="line.824">    }</a>
-<span class="sourceLineNo">825</span><a id="line.825"></a>
-<span class="sourceLineNo">826</span><a id="line.826">    /**</a>
-<span class="sourceLineNo">827</span><a id="line.827">     * Returns the value of this member.</a>
-<span class="sourceLineNo">828</span><a id="line.828">     *</a>
-<span class="sourceLineNo">829</span><a id="line.829">     * @return the value of this member, never &lt;code&gt;null&lt;/code&gt;</a>
-<span class="sourceLineNo">830</span><a id="line.830">     */</a>
-<span class="sourceLineNo">831</span><a id="line.831">    public JsonValue getValue() {</a>
-<span class="sourceLineNo">832</span><a id="line.832">      return value;</a>
-<span class="sourceLineNo">833</span><a id="line.833">    }</a>
+<span class="sourceLineNo">802</span><a id="line.802"></a>
+<span class="sourceLineNo">803</span><a id="line.803">    /**</a>
+<span class="sourceLineNo">804</span><a id="line.804">     * Indicates whether a given object is "equal to" this JsonObject. An object is considered equal</a>
+<span class="sourceLineNo">805</span><a id="line.805">     * if it is also a &lt;code&gt;JsonObject&lt;/code&gt; and both objects contain the same members &lt;em&gt;in</a>
+<span class="sourceLineNo">806</span><a id="line.806">     * the same order&lt;/em&gt;.</a>
+<span class="sourceLineNo">807</span><a id="line.807">     * &lt;p&gt;</a>
+<span class="sourceLineNo">808</span><a id="line.808">     * If two JsonObjects are equal, they will also produce the same JSON output.</a>
+<span class="sourceLineNo">809</span><a id="line.809">     * &lt;/p&gt;</a>
+<span class="sourceLineNo">810</span><a id="line.810">     *</a>
+<span class="sourceLineNo">811</span><a id="line.811">     * @param object</a>
+<span class="sourceLineNo">812</span><a id="line.812">     *          the object to be compared with this JsonObject</a>
+<span class="sourceLineNo">813</span><a id="line.813">     * @return &lt;tt&gt;true&lt;/tt&gt; if the specified object is equal to this JsonObject, &lt;code&gt;false&lt;/code&gt;</a>
+<span class="sourceLineNo">814</span><a id="line.814">     *         otherwise</a>
+<span class="sourceLineNo">815</span><a id="line.815">     */</a>
+<span class="sourceLineNo">816</span><a id="line.816">    @Override</a>
+<span class="sourceLineNo">817</span><a id="line.817">    public boolean equals(Object object) {</a>
+<span class="sourceLineNo">818</span><a id="line.818">      if (this == object) {</a>
+<span class="sourceLineNo">819</span><a id="line.819">        return true;</a>
+<span class="sourceLineNo">820</span><a id="line.820">      }</a>
+<span class="sourceLineNo">821</span><a id="line.821">      if (object == null) {</a>
+<span class="sourceLineNo">822</span><a id="line.822">        return false;</a>
+<span class="sourceLineNo">823</span><a id="line.823">      }</a>
+<span class="sourceLineNo">824</span><a id="line.824">      if (getClass() != object.getClass()) {</a>
+<span class="sourceLineNo">825</span><a id="line.825">        return false;</a>
+<span class="sourceLineNo">826</span><a id="line.826">      }</a>
+<span class="sourceLineNo">827</span><a id="line.827">      Member other = (Member)object;</a>
+<span class="sourceLineNo">828</span><a id="line.828">      return name.equals(other.name) &amp;&amp; value.equals(other.value);</a>
+<span class="sourceLineNo">829</span><a id="line.829">    }</a>
+<span class="sourceLineNo">830</span><a id="line.830"></a>
+<span class="sourceLineNo">831</span><a id="line.831">  }</a>
+<span class="sourceLineNo">832</span><a id="line.832"></a>
+<span class="sourceLineNo">833</span><a id="line.833">  static class HashIndexTable {</a>
 <span class="sourceLineNo">834</span><a id="line.834"></a>
-<span class="sourceLineNo">835</span><a id="line.835">    @Override</a>
-<span class="sourceLineNo">836</span><a id="line.836">    public int hashCode() {</a>
-<span class="sourceLineNo">837</span><a id="line.837">      int result = 1;</a>
-<span class="sourceLineNo">838</span><a id="line.838">      result = 31 * result + name.hashCode();</a>
-<span class="sourceLineNo">839</span><a id="line.839">      result = 31 * result + value.hashCode();</a>
-<span class="sourceLineNo">840</span><a id="line.840">      return result;</a>
-<span class="sourceLineNo">841</span><a id="line.841">    }</a>
-<span class="sourceLineNo">842</span><a id="line.842"></a>
-<span class="sourceLineNo">843</span><a id="line.843">    /**</a>
-<span class="sourceLineNo">844</span><a id="line.844">     * Indicates whether a given object is "equal to" this JsonObject. An object is considered equal</a>
-<span class="sourceLineNo">845</span><a id="line.845">     * if it is also a &lt;code&gt;JsonObject&lt;/code&gt; and both objects contain the same members &lt;em&gt;in</a>
-<span class="sourceLineNo">846</span><a id="line.846">     * the same order&lt;/em&gt;.</a>
-<span class="sourceLineNo">847</span><a id="line.847">     * &lt;p&gt;</a>
-<span class="sourceLineNo">848</span><a id="line.848">     * If two JsonObjects are equal, they will also produce the same JSON output.</a>
-<span class="sourceLineNo">849</span><a id="line.849">     * &lt;/p&gt;</a>
-<span class="sourceLineNo">850</span><a id="line.850">     *</a>
-<span class="sourceLineNo">851</span><a id="line.851">     * @param object</a>
-<span class="sourceLineNo">852</span><a id="line.852">     *          the object to be compared with this JsonObject</a>
-<span class="sourceLineNo">853</span><a id="line.853">     * @return &lt;tt&gt;true&lt;/tt&gt; if the specified object is equal to this JsonObject, &lt;code&gt;false&lt;/code&gt;</a>
-<span class="sourceLineNo">854</span><a id="line.854">     *         otherwise</a>
-<span class="sourceLineNo">855</span><a id="line.855">     */</a>
-<span class="sourceLineNo">856</span><a id="line.856">    @Override</a>
-<span class="sourceLineNo">857</span><a id="line.857">    public boolean equals(Object object) {</a>
-<span class="sourceLineNo">858</span><a id="line.858">      if (this == object) {</a>
-<span class="sourceLineNo">859</span><a id="line.859">        return true;</a>
-<span class="sourceLineNo">860</span><a id="line.860">      }</a>
-<span class="sourceLineNo">861</span><a id="line.861">      if (object == null) {</a>
-<span class="sourceLineNo">862</span><a id="line.862">        return false;</a>
-<span class="sourceLineNo">863</span><a id="line.863">      }</a>
-<span class="sourceLineNo">864</span><a id="line.864">      if (getClass() != object.getClass()) {</a>
-<span class="sourceLineNo">865</span><a id="line.865">        return false;</a>
-<span class="sourceLineNo">866</span><a id="line.866">      }</a>
-<span class="sourceLineNo">867</span><a id="line.867">      Member other = (Member)object;</a>
-<span class="sourceLineNo">868</span><a id="line.868">      return name.equals(other.name) &amp;&amp; value.equals(other.value);</a>
+<span class="sourceLineNo">835</span><a id="line.835">    private final byte[] hashTable = new byte[32]; // must be a power of two</a>
+<span class="sourceLineNo">836</span><a id="line.836"></a>
+<span class="sourceLineNo">837</span><a id="line.837">    public HashIndexTable() {</a>
+<span class="sourceLineNo">838</span><a id="line.838">        // nothing to do here</a>
+<span class="sourceLineNo">839</span><a id="line.839">    }</a>
+<span class="sourceLineNo">840</span><a id="line.840"></a>
+<span class="sourceLineNo">841</span><a id="line.841">    public HashIndexTable(HashIndexTable original) {</a>
+<span class="sourceLineNo">842</span><a id="line.842">      System.arraycopy(original.hashTable, 0, hashTable, 0, hashTable.length);</a>
+<span class="sourceLineNo">843</span><a id="line.843">    }</a>
+<span class="sourceLineNo">844</span><a id="line.844"></a>
+<span class="sourceLineNo">845</span><a id="line.845">    void add(String name, int index) {</a>
+<span class="sourceLineNo">846</span><a id="line.846">      int slot = hashSlotFor(name);</a>
+<span class="sourceLineNo">847</span><a id="line.847">      if (index &lt; 0xff) {</a>
+<span class="sourceLineNo">848</span><a id="line.848">        // increment by 1, 0 stands for empty</a>
+<span class="sourceLineNo">849</span><a id="line.849">        hashTable[slot] = (byte) (index + 1);</a>
+<span class="sourceLineNo">850</span><a id="line.850">      } else {</a>
+<span class="sourceLineNo">851</span><a id="line.851">        hashTable[slot] = 0;</a>
+<span class="sourceLineNo">852</span><a id="line.852">      }</a>
+<span class="sourceLineNo">853</span><a id="line.853">    }</a>
+<span class="sourceLineNo">854</span><a id="line.854"></a>
+<span class="sourceLineNo">855</span><a id="line.855">    void remove(int index) {</a>
+<span class="sourceLineNo">856</span><a id="line.856">      for (int i = 0; i &lt; hashTable.length; i++) {</a>
+<span class="sourceLineNo">857</span><a id="line.857">        if (hashTable[i] == index + 1) {</a>
+<span class="sourceLineNo">858</span><a id="line.858">          hashTable[i] = 0;</a>
+<span class="sourceLineNo">859</span><a id="line.859">        } else if (hashTable[i] &gt; index + 1) {</a>
+<span class="sourceLineNo">860</span><a id="line.860">          hashTable[i]--;</a>
+<span class="sourceLineNo">861</span><a id="line.861">        }</a>
+<span class="sourceLineNo">862</span><a id="line.862">      }</a>
+<span class="sourceLineNo">863</span><a id="line.863">    }</a>
+<span class="sourceLineNo">864</span><a id="line.864"></a>
+<span class="sourceLineNo">865</span><a id="line.865">    int get(Object name) {</a>
+<span class="sourceLineNo">866</span><a id="line.866">      int slot = hashSlotFor(name);</a>
+<span class="sourceLineNo">867</span><a id="line.867">      // subtract 1, 0 stands for empty</a>
+<span class="sourceLineNo">868</span><a id="line.868">      return (hashTable[slot] &amp; 0xff) - 1;</a>
 <span class="sourceLineNo">869</span><a id="line.869">    }</a>
 <span class="sourceLineNo">870</span><a id="line.870"></a>
-<span class="sourceLineNo">871</span><a id="line.871">  }</a>
-<span class="sourceLineNo">872</span><a id="line.872"></a>
-<span class="sourceLineNo">873</span><a id="line.873">  static class HashIndexTable {</a>
+<span class="sourceLineNo">871</span><a id="line.871">    private int hashSlotFor(Object element) {</a>
+<span class="sourceLineNo">872</span><a id="line.872">      return element.hashCode() &amp; hashTable.length - 1;</a>
+<span class="sourceLineNo">873</span><a id="line.873">    }</a>
 <span class="sourceLineNo">874</span><a id="line.874"></a>
-<span class="sourceLineNo">875</span><a id="line.875">    private final byte[] hashTable = new byte[32]; // must be a power of two</a>
+<span class="sourceLineNo">875</span><a id="line.875">  }</a>
 <span class="sourceLineNo">876</span><a id="line.876"></a>
-<span class="sourceLineNo">877</span><a id="line.877">    public HashIndexTable() {</a>
-<span class="sourceLineNo">878</span><a id="line.878">        // nothing to do here</a>
-<span class="sourceLineNo">879</span><a id="line.879">    }</a>
-<span class="sourceLineNo">880</span><a id="line.880"></a>
-<span class="sourceLineNo">881</span><a id="line.881">    public HashIndexTable(HashIndexTable original) {</a>
-<span class="sourceLineNo">882</span><a id="line.882">      System.arraycopy(original.hashTable, 0, hashTable, 0, hashTable.length);</a>
-<span class="sourceLineNo">883</span><a id="line.883">    }</a>
-<span class="sourceLineNo">884</span><a id="line.884"></a>
-<span class="sourceLineNo">885</span><a id="line.885">    void add(String name, int index) {</a>
-<span class="sourceLineNo">886</span><a id="line.886">      int slot = hashSlotFor(name);</a>
-<span class="sourceLineNo">887</span><a id="line.887">      if (index &lt; 0xff) {</a>
-<span class="sourceLineNo">888</span><a id="line.888">        // increment by 1, 0 stands for empty</a>
-<span class="sourceLineNo">889</span><a id="line.889">        hashTable[slot] = (byte) (index + 1);</a>
-<span class="sourceLineNo">890</span><a id="line.890">      } else {</a>
-<span class="sourceLineNo">891</span><a id="line.891">        hashTable[slot] = 0;</a>
-<span class="sourceLineNo">892</span><a id="line.892">      }</a>
-<span class="sourceLineNo">893</span><a id="line.893">    }</a>
-<span class="sourceLineNo">894</span><a id="line.894"></a>
-<span class="sourceLineNo">895</span><a id="line.895">    void remove(int index) {</a>
-<span class="sourceLineNo">896</span><a id="line.896">      for (int i = 0; i &lt; hashTable.length; i++) {</a>
-<span class="sourceLineNo">897</span><a id="line.897">        if (hashTable[i] == index + 1) {</a>
-<span class="sourceLineNo">898</span><a id="line.898">          hashTable[i] = 0;</a>
-<span class="sourceLineNo">899</span><a id="line.899">        } else if (hashTable[i] &gt; index + 1) {</a>
-<span class="sourceLineNo">900</span><a id="line.900">          hashTable[i]--;</a>
-<span class="sourceLineNo">901</span><a id="line.901">        }</a>
-<span class="sourceLineNo">902</span><a id="line.902">      }</a>
-<span class="sourceLineNo">903</span><a id="line.903">    }</a>
-<span class="sourceLineNo">904</span><a id="line.904"></a>
-<span class="sourceLineNo">905</span><a id="line.905">    int get(Object name) {</a>
-<span class="sourceLineNo">906</span><a id="line.906">      int slot = hashSlotFor(name);</a>
-<span class="sourceLineNo">907</span><a id="line.907">      // subtract 1, 0 stands for empty</a>
-<span class="sourceLineNo">908</span><a id="line.908">      return (hashTable[slot] &amp; 0xff) - 1;</a>
-<span class="sourceLineNo">909</span><a id="line.909">    }</a>
-<span class="sourceLineNo">910</span><a id="line.910"></a>
-<span class="sourceLineNo">911</span><a id="line.911">    private int hashSlotFor(Object element) {</a>
-<span class="sourceLineNo">912</span><a id="line.912">      return element.hashCode() &amp; hashTable.length - 1;</a>
-<span class="sourceLineNo">913</span><a id="line.913">    }</a>
-<span class="sourceLineNo">914</span><a id="line.914"></a>
-<span class="sourceLineNo">915</span><a id="line.915">  }</a>
-<span class="sourceLineNo">916</span><a id="line.916"></a>
-<span class="sourceLineNo">917</span><a id="line.917">}</a>
+<span class="sourceLineNo">877</span><a id="line.877">}</a>
 
 
 
