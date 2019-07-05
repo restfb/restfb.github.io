@@ -15,16 +15,11 @@ use the `JsonObject` API.
 
 <div class="rfb-callout info">
 	<h4>
-		The JsonObject API depends on the used RestFB version
+		The JsonObject API used by RestFB
 	</h4>
-	<p markdown="1">In RestFB 1.x we use the reference implementation that is 
-		provided by [json.org](https://github.com/stleary/JSON-java). Our `JsonObject` 
-		API is therefore the same as in that library. 
-	</p>
-	<p markdown="1">With RestFB 2.x the internally-used `JsonObject` implementation changed and is based on the
+	<p markdown="1">Since RestFB 2.x the internally-used `JsonObject` implementation is based on the
 		[minimal-json](https://github.com/ralfstx/minimal-json) library. In our benchmarks, this implementation
-		is much faster. When migrating from RestFB 1.x to 2.x, you must modify your code to support this API
-		change if you are using the low-level `JsonObject` in your project.
+		is really fast.
 	</p>
 </div>
 
