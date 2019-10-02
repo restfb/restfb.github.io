@@ -35,3 +35,23 @@ The code to create a `UserRefMessageRecipient` is:
 {% highlight java %}
 UserRefMessageRecipient recipient = new UserRefMessageRecipient("<userRef>");
 {% endhighlight %}
+
+### Private Replies and the Messenger API
+
+Private replies provide a way to send private messages to a user who created a post or a comment on a Facebook page. So you can start a private conversation from a public "entry point".
+
+Since <a href="_blank" href="https://developers.facebook.com/docs/messenger-platform/discovery/private-replies">September 30, 2019</a> Facebook allows to use the Send API for private replies. This leads to much better way to communicate with a user and you can use all the cool features the Send API provides.
+
+To use this new way to start the conversation, you simply need the `post` or `comment` id. With this id you create a recipient object like this:
+
+{% highlight java %}
+// private reply recipient based on a post
+String postId = post.getId(); 
+PostIdMessageRecipient recipient = new PostIdMessageRecipient(postId);
+
+// private reply recipient based on a comment
+String commentId = comment.getId();
+CommentIdMessageRecipient recipient = new CommentIdMessageRecipient(commentId);
+{% endhighlight %}
+
+Then you can use this object as recipient and you are done.
