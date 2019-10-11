@@ -97,98 +97,106 @@
 <span class="sourceLineNo">088</span><a id="line.88">          classDefinition += "_" + userObjectVerb.name();</a>
 <span class="sourceLineNo">089</span><a id="line.89">        }</a>
 <span class="sourceLineNo">090</span><a id="line.90"></a>
-<span class="sourceLineNo">091</span><a id="line.91">        try {</a>
-<span class="sourceLineNo">092</span><a id="line.92">          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);</a>
-<span class="sourceLineNo">093</span><a id="line.93">          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());</a>
-<span class="sourceLineNo">094</span><a id="line.94">        } catch (IllegalArgumentException iae) {</a>
-<span class="sourceLineNo">095</span><a id="line.95">          VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);</a>
-<span class="sourceLineNo">096</span><a id="line.96">          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());</a>
-<span class="sourceLineNo">097</span><a id="line.97">          return new FallBackChangeValue(objValue);</a>
-<span class="sourceLineNo">098</span><a id="line.98">        }</a>
-<span class="sourceLineNo">099</span><a id="line.99">      }</a>
-<span class="sourceLineNo">100</span><a id="line.100">    }</a>
-<span class="sourceLineNo">101</span><a id="line.101"></a>
-<span class="sourceLineNo">102</span><a id="line.102">    return null;</a>
-<span class="sourceLineNo">103</span><a id="line.103">  }</a>
-<span class="sourceLineNo">104</span><a id="line.104"></a>
-<span class="sourceLineNo">105</span><a id="line.105">  enum ChangeValueEnumeration {</a>
-<span class="sourceLineNo">106</span><a id="line.106">    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //</a>
-<span class="sourceLineNo">107</span><a id="line.107">    FEED_ALBUM_EDITED(FeedAlbumEditedValue.class), //</a>
-<span class="sourceLineNo">108</span><a id="line.108">    FEED_COMMENT_ADD(FeedCommentValue.class), //</a>
-<span class="sourceLineNo">109</span><a id="line.109">    FEED_COMMENT_EDITED(FeedCommentValue.class), //</a>
-<span class="sourceLineNo">110</span><a id="line.110">    FEED_COMMENT_REMOVE(FeedCommentValue.class), //</a>
-<span class="sourceLineNo">111</span><a id="line.111">    FEED_COMMENT_HIDE(FeedCommentValue.class), //</a>
-<span class="sourceLineNo">112</span><a id="line.112">    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //</a>
-<span class="sourceLineNo">113</span><a id="line.113">    FEED_EVENT_ADD(FeedEventValue.class), //</a>
-<span class="sourceLineNo">114</span><a id="line.114">    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //</a>
-<span class="sourceLineNo">115</span><a id="line.115">    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //</a>
-<span class="sourceLineNo">116</span><a id="line.116">    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //</a>
-<span class="sourceLineNo">117</span><a id="line.117">    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //</a>
-<span class="sourceLineNo">118</span><a id="line.118">    FEED_PHOTO_UNHIDE(FeedPhotoAddValue.class), //</a>
-<span class="sourceLineNo">119</span><a id="line.119">    FEED_VIDEO_ADD(FeedVideoValue.class), //</a>
-<span class="sourceLineNo">120</span><a id="line.120">    FEED_VIDEO_EDITED(FeedVideoValue.class), //</a>
-<span class="sourceLineNo">121</span><a id="line.121">    FEED_VIDEO_HIDE(FeedVideoValue.class), //</a>
-<span class="sourceLineNo">122</span><a id="line.122">    FEED_VIDEO_UNHIDE(FeedVideoValue.class), //</a>
-<span class="sourceLineNo">123</span><a id="line.123">    FEED_VIDEO_REMOVE(FeedVideoRemoveValue.class), //</a>
-<span class="sourceLineNo">124</span><a id="line.124">    FEED_VIDEO_UNBLOCK(FeedVideoBlockMute.class), //</a>
-<span class="sourceLineNo">125</span><a id="line.125">    FEED_VIDEO_BLOCK(FeedVideoBlockMute.class), //</a>
-<span class="sourceLineNo">126</span><a id="line.126">    FEED_VIDEO_MUTE(FeedVideoBlockMute.class), //</a>
-<span class="sourceLineNo">127</span><a id="line.127">    FEED_STATUS_ADD(FeedStatusValue.class), //</a>
-<span class="sourceLineNo">128</span><a id="line.128">    FEED_STATUS_EDITED(FeedStatusValue.class), //</a>
-<span class="sourceLineNo">129</span><a id="line.129">    FEED_STATUS_HIDE(FeedStatusValue.class), //</a>
-<span class="sourceLineNo">130</span><a id="line.130">    FEED_STATUS_UNHIDE(FeedStatusValue.class), //</a>
-<span class="sourceLineNo">131</span><a id="line.131">    FEED_POST_ADD(FeedPostValue.class), //</a>
-<span class="sourceLineNo">132</span><a id="line.132">    FEED_POST_EDITED(FeedPostValue.class), //</a>
-<span class="sourceLineNo">133</span><a id="line.133">    FEED_POST_EDIT(FeedPostValue.class), //</a>
-<span class="sourceLineNo">134</span><a id="line.134">    FEED_POST_HIDE(FeedPostValue.class), //</a>
-<span class="sourceLineNo">135</span><a id="line.135">    FEED_POST_REMOVE(FeedPostValue.class), //</a>
-<span class="sourceLineNo">136</span><a id="line.136">    FEED_POST_UNHIDE(FeedPostValue.class), //</a>
-<span class="sourceLineNo">137</span><a id="line.137">    FEED_REACTION_ADD(FeedReactionValue.class), //</a>
-<span class="sourceLineNo">138</span><a id="line.138">    FEED_REACTION_EDIT(FeedReactionValue.class), //</a>
-<span class="sourceLineNo">139</span><a id="line.139">    FEED_REACTION_REMOVE(FeedReactionValue.class), //</a>
-<span class="sourceLineNo">140</span><a id="line.140">    FEED_SHARE_ADD(FeedShareValue.class), //</a>
-<span class="sourceLineNo">141</span><a id="line.141">    FEED_SHARE_EDITED(FeedShareValue.class), //</a>
-<span class="sourceLineNo">142</span><a id="line.142">    FEED_SHARE_HIDE(FeedShareValue.class), //</a>
-<span class="sourceLineNo">143</span><a id="line.143">    FEED_SHARE_REMOVE(FeedShareValue.class), //</a>
-<span class="sourceLineNo">144</span><a id="line.144">    FEED_SHARE_UNHIDE(FeedShareValue.class), //</a>
-<span class="sourceLineNo">145</span><a id="line.145">    FEED_LIKE_ADD(FeedLikeValue.class), //</a>
-<span class="sourceLineNo">146</span><a id="line.146">    FEED_LIKE_REMOVE(FeedLikeValue.class), //</a>
-<span class="sourceLineNo">147</span><a id="line.147">    MENTION_POST_ADD(MentionPostAddValue.class), //</a>
-<span class="sourceLineNo">148</span><a id="line.148">    RATINGS_RATING_ADD(RatingsRatingValue.class), //</a>
-<span class="sourceLineNo">149</span><a id="line.149">    RATINGS_RATING_EDIT(RatingsRatingValue.class), //</a>
-<span class="sourceLineNo">150</span><a id="line.150">    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //</a>
-<span class="sourceLineNo">151</span><a id="line.151">    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //</a>
-<span class="sourceLineNo">152</span><a id="line.152">    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //</a>
-<span class="sourceLineNo">153</span><a id="line.153">    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //</a>
-<span class="sourceLineNo">154</span><a id="line.154">    RATINGS_LIKE_ADD(RatingsLikeValue.class), //</a>
-<span class="sourceLineNo">155</span><a id="line.155">    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //</a>
-<span class="sourceLineNo">156</span><a id="line.156">    RATINGS_REACTION_ADD(RatingsReactionValue.class), //</a>
-<span class="sourceLineNo">157</span><a id="line.157">    RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //</a>
-<span class="sourceLineNo">158</span><a id="line.158">    RATINGS_REACTION_EDIT(RatingsReactionValue.class), //</a>
-<span class="sourceLineNo">159</span><a id="line.159">    CONVERSATIONS(PageConversation.class), //</a>
-<span class="sourceLineNo">160</span><a id="line.160">    LEADGEN(PageLeadgen.class), //</a>
-<span class="sourceLineNo">161</span><a id="line.161">    // Instagram</a>
-<span class="sourceLineNo">162</span><a id="line.162">    STORY_INSIGHTS(InstagramStoryInsightsValue.class), //</a>
-<span class="sourceLineNo">163</span><a id="line.163">    MENTIONS(InstagramMentionsValue.class), //</a>
-<span class="sourceLineNo">164</span><a id="line.164">    COMMENTS(InstagramCommentsValue.class), //</a>
-<span class="sourceLineNo">165</span><a id="line.165">    // User</a>
-<span class="sourceLineNo">166</span><a id="line.166">    HOMETOWN_ADD(UserPageValue.class),</a>
-<span class="sourceLineNo">167</span><a id="line.167">    MOVIES_ADD(UserPageValue.class),</a>
-<span class="sourceLineNo">168</span><a id="line.168">    LIKES_ADD(UserPageValue.class),</a>
-<span class="sourceLineNo">169</span><a id="line.169">    LOCATION_ADD(UserPageValue.class),</a>
-<span class="sourceLineNo">170</span><a id="line.170">    TELEVISION_ADD(UserPageValue.class);</a>
-<span class="sourceLineNo">171</span><a id="line.171"></a>
-<span class="sourceLineNo">172</span><a id="line.172">    private Class&lt;ChangeValue&gt; valueClass;</a>
-<span class="sourceLineNo">173</span><a id="line.173"></a>
-<span class="sourceLineNo">174</span><a id="line.174">    ChangeValueEnumeration(Class valueClass) {</a>
-<span class="sourceLineNo">175</span><a id="line.175">      this.valueClass = valueClass;</a>
-<span class="sourceLineNo">176</span><a id="line.176">    }</a>
-<span class="sourceLineNo">177</span><a id="line.177"></a>
-<span class="sourceLineNo">178</span><a id="line.178">    public Class&lt;ChangeValue&gt; getValueClass() {</a>
-<span class="sourceLineNo">179</span><a id="line.179">      return valueClass;</a>
-<span class="sourceLineNo">180</span><a id="line.180">    }</a>
-<span class="sourceLineNo">181</span><a id="line.181">  }</a>
-<span class="sourceLineNo">182</span><a id="line.182">}</a>
+<span class="sourceLineNo">091</span><a id="line.91">        // special handling for permissions</a>
+<span class="sourceLineNo">092</span><a id="line.92">        String verbString = (objValue.get("verb") != null &amp;&amp; objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";</a>
+<span class="sourceLineNo">093</span><a id="line.93">        if (verbString.equals("granted") || verbString.equals("revoked")) {</a>
+<span class="sourceLineNo">094</span><a id="line.94">          classDefinition = verbString.toUpperCase();</a>
+<span class="sourceLineNo">095</span><a id="line.95">        }</a>
+<span class="sourceLineNo">096</span><a id="line.96"></a>
+<span class="sourceLineNo">097</span><a id="line.97">        try {</a>
+<span class="sourceLineNo">098</span><a id="line.98">          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);</a>
+<span class="sourceLineNo">099</span><a id="line.99">          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());</a>
+<span class="sourceLineNo">100</span><a id="line.100">        } catch (IllegalArgumentException iae) {</a>
+<span class="sourceLineNo">101</span><a id="line.101">          VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);</a>
+<span class="sourceLineNo">102</span><a id="line.102">          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());</a>
+<span class="sourceLineNo">103</span><a id="line.103">          return new FallBackChangeValue(objValue);</a>
+<span class="sourceLineNo">104</span><a id="line.104">        }</a>
+<span class="sourceLineNo">105</span><a id="line.105">      }</a>
+<span class="sourceLineNo">106</span><a id="line.106">    }</a>
+<span class="sourceLineNo">107</span><a id="line.107"></a>
+<span class="sourceLineNo">108</span><a id="line.108">    return null;</a>
+<span class="sourceLineNo">109</span><a id="line.109">  }</a>
+<span class="sourceLineNo">110</span><a id="line.110"></a>
+<span class="sourceLineNo">111</span><a id="line.111">  enum ChangeValueEnumeration {</a>
+<span class="sourceLineNo">112</span><a id="line.112">    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //</a>
+<span class="sourceLineNo">113</span><a id="line.113">    FEED_ALBUM_EDITED(FeedAlbumEditedValue.class), //</a>
+<span class="sourceLineNo">114</span><a id="line.114">    FEED_COMMENT_ADD(FeedCommentValue.class), //</a>
+<span class="sourceLineNo">115</span><a id="line.115">    FEED_COMMENT_EDITED(FeedCommentValue.class), //</a>
+<span class="sourceLineNo">116</span><a id="line.116">    FEED_COMMENT_REMOVE(FeedCommentValue.class), //</a>
+<span class="sourceLineNo">117</span><a id="line.117">    FEED_COMMENT_HIDE(FeedCommentValue.class), //</a>
+<span class="sourceLineNo">118</span><a id="line.118">    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //</a>
+<span class="sourceLineNo">119</span><a id="line.119">    FEED_EVENT_ADD(FeedEventValue.class), //</a>
+<span class="sourceLineNo">120</span><a id="line.120">    FEED_PHOTO_ADD(FeedPhotoAddValue.class), //</a>
+<span class="sourceLineNo">121</span><a id="line.121">    FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //</a>
+<span class="sourceLineNo">122</span><a id="line.122">    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //</a>
+<span class="sourceLineNo">123</span><a id="line.123">    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //</a>
+<span class="sourceLineNo">124</span><a id="line.124">    FEED_PHOTO_UNHIDE(FeedPhotoAddValue.class), //</a>
+<span class="sourceLineNo">125</span><a id="line.125">    FEED_VIDEO_ADD(FeedVideoValue.class), //</a>
+<span class="sourceLineNo">126</span><a id="line.126">    FEED_VIDEO_EDITED(FeedVideoValue.class), //</a>
+<span class="sourceLineNo">127</span><a id="line.127">    FEED_VIDEO_HIDE(FeedVideoValue.class), //</a>
+<span class="sourceLineNo">128</span><a id="line.128">    FEED_VIDEO_UNHIDE(FeedVideoValue.class), //</a>
+<span class="sourceLineNo">129</span><a id="line.129">    FEED_VIDEO_REMOVE(FeedVideoRemoveValue.class), //</a>
+<span class="sourceLineNo">130</span><a id="line.130">    FEED_VIDEO_UNBLOCK(FeedVideoBlockMute.class), //</a>
+<span class="sourceLineNo">131</span><a id="line.131">    FEED_VIDEO_BLOCK(FeedVideoBlockMute.class), //</a>
+<span class="sourceLineNo">132</span><a id="line.132">    FEED_VIDEO_MUTE(FeedVideoBlockMute.class), //</a>
+<span class="sourceLineNo">133</span><a id="line.133">    FEED_STATUS_ADD(FeedStatusValue.class), //</a>
+<span class="sourceLineNo">134</span><a id="line.134">    FEED_STATUS_EDITED(FeedStatusValue.class), //</a>
+<span class="sourceLineNo">135</span><a id="line.135">    FEED_STATUS_HIDE(FeedStatusValue.class), //</a>
+<span class="sourceLineNo">136</span><a id="line.136">    FEED_STATUS_UNHIDE(FeedStatusValue.class), //</a>
+<span class="sourceLineNo">137</span><a id="line.137">    FEED_POST_ADD(FeedPostValue.class), //</a>
+<span class="sourceLineNo">138</span><a id="line.138">    FEED_POST_EDITED(FeedPostValue.class), //</a>
+<span class="sourceLineNo">139</span><a id="line.139">    FEED_POST_EDIT(FeedPostValue.class), //</a>
+<span class="sourceLineNo">140</span><a id="line.140">    FEED_POST_HIDE(FeedPostValue.class), //</a>
+<span class="sourceLineNo">141</span><a id="line.141">    FEED_POST_REMOVE(FeedPostValue.class), //</a>
+<span class="sourceLineNo">142</span><a id="line.142">    FEED_POST_UNHIDE(FeedPostValue.class), //</a>
+<span class="sourceLineNo">143</span><a id="line.143">    FEED_REACTION_ADD(FeedReactionValue.class), //</a>
+<span class="sourceLineNo">144</span><a id="line.144">    FEED_REACTION_EDIT(FeedReactionValue.class), //</a>
+<span class="sourceLineNo">145</span><a id="line.145">    FEED_REACTION_REMOVE(FeedReactionValue.class), //</a>
+<span class="sourceLineNo">146</span><a id="line.146">    FEED_SHARE_ADD(FeedShareValue.class), //</a>
+<span class="sourceLineNo">147</span><a id="line.147">    FEED_SHARE_EDITED(FeedShareValue.class), //</a>
+<span class="sourceLineNo">148</span><a id="line.148">    FEED_SHARE_HIDE(FeedShareValue.class), //</a>
+<span class="sourceLineNo">149</span><a id="line.149">    FEED_SHARE_REMOVE(FeedShareValue.class), //</a>
+<span class="sourceLineNo">150</span><a id="line.150">    FEED_SHARE_UNHIDE(FeedShareValue.class), //</a>
+<span class="sourceLineNo">151</span><a id="line.151">    FEED_LIKE_ADD(FeedLikeValue.class), //</a>
+<span class="sourceLineNo">152</span><a id="line.152">    FEED_LIKE_REMOVE(FeedLikeValue.class), //</a>
+<span class="sourceLineNo">153</span><a id="line.153">    MENTION_POST_ADD(MentionPostAddValue.class), //</a>
+<span class="sourceLineNo">154</span><a id="line.154">    RATINGS_RATING_ADD(RatingsRatingValue.class), //</a>
+<span class="sourceLineNo">155</span><a id="line.155">    RATINGS_RATING_EDIT(RatingsRatingValue.class), //</a>
+<span class="sourceLineNo">156</span><a id="line.156">    RATINGS_RATING_REMOVE(RatingsRatingValue.class), //</a>
+<span class="sourceLineNo">157</span><a id="line.157">    RATINGS_COMMENT_ADD(RatingsCommentValue.class), //</a>
+<span class="sourceLineNo">158</span><a id="line.158">    RATINGS_COMMENT_EDITED(RatingsCommentValue.class), //</a>
+<span class="sourceLineNo">159</span><a id="line.159">    RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //</a>
+<span class="sourceLineNo">160</span><a id="line.160">    RATINGS_LIKE_ADD(RatingsLikeValue.class), //</a>
+<span class="sourceLineNo">161</span><a id="line.161">    RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //</a>
+<span class="sourceLineNo">162</span><a id="line.162">    RATINGS_REACTION_ADD(RatingsReactionValue.class), //</a>
+<span class="sourceLineNo">163</span><a id="line.163">    RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //</a>
+<span class="sourceLineNo">164</span><a id="line.164">    RATINGS_REACTION_EDIT(RatingsReactionValue.class), //</a>
+<span class="sourceLineNo">165</span><a id="line.165">    CONVERSATIONS(PageConversation.class), //</a>
+<span class="sourceLineNo">166</span><a id="line.166">    LEADGEN(PageLeadgen.class), //</a>
+<span class="sourceLineNo">167</span><a id="line.167">    // Instagram</a>
+<span class="sourceLineNo">168</span><a id="line.168">    STORY_INSIGHTS(InstagramStoryInsightsValue.class), //</a>
+<span class="sourceLineNo">169</span><a id="line.169">    MENTIONS(InstagramMentionsValue.class), //</a>
+<span class="sourceLineNo">170</span><a id="line.170">    COMMENTS(InstagramCommentsValue.class), //</a>
+<span class="sourceLineNo">171</span><a id="line.171">    // User</a>
+<span class="sourceLineNo">172</span><a id="line.172">    HOMETOWN_ADD(UserPageValue.class),</a>
+<span class="sourceLineNo">173</span><a id="line.173">    MOVIES_ADD(UserPageValue.class),</a>
+<span class="sourceLineNo">174</span><a id="line.174">    LIKES_ADD(UserPageValue.class),</a>
+<span class="sourceLineNo">175</span><a id="line.175">    LOCATION_ADD(UserPageValue.class),</a>
+<span class="sourceLineNo">176</span><a id="line.176">    TELEVISION_ADD(UserPageValue.class),</a>
+<span class="sourceLineNo">177</span><a id="line.177">    GRANTED(PermissionChangeValue.class),</a>
+<span class="sourceLineNo">178</span><a id="line.178">    REVOKED(PermissionChangeValue.class);</a>
+<span class="sourceLineNo">179</span><a id="line.179"></a>
+<span class="sourceLineNo">180</span><a id="line.180">    private Class&lt;ChangeValue&gt; valueClass;</a>
+<span class="sourceLineNo">181</span><a id="line.181"></a>
+<span class="sourceLineNo">182</span><a id="line.182">    ChangeValueEnumeration(Class valueClass) {</a>
+<span class="sourceLineNo">183</span><a id="line.183">      this.valueClass = valueClass;</a>
+<span class="sourceLineNo">184</span><a id="line.184">    }</a>
+<span class="sourceLineNo">185</span><a id="line.185"></a>
+<span class="sourceLineNo">186</span><a id="line.186">    public Class&lt;ChangeValue&gt; getValueClass() {</a>
+<span class="sourceLineNo">187</span><a id="line.187">      return valueClass;</a>
+<span class="sourceLineNo">188</span><a id="line.188">    }</a>
+<span class="sourceLineNo">189</span><a id="line.189">  }</a>
+<span class="sourceLineNo">190</span><a id="line.190">}</a>
 
 
 
