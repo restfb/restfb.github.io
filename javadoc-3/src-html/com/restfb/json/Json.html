@@ -32,359 +32,350 @@
 <span class="sourceLineNo">023</span><a id="line.23"></a>
 <span class="sourceLineNo">024</span><a id="line.24">import java.io.IOException;</a>
 <span class="sourceLineNo">025</span><a id="line.25">import java.io.Reader;</a>
-<span class="sourceLineNo">026</span><a id="line.26">import java.util.Objects;</a>
-<span class="sourceLineNo">027</span><a id="line.27"></a>
-<span class="sourceLineNo">028</span><a id="line.28">/**</a>
-<span class="sourceLineNo">029</span><a id="line.29"> * This class serves as the entry point to the minimal-json API.</a>
-<span class="sourceLineNo">030</span><a id="line.30"> * &lt;p&gt;</a>
-<span class="sourceLineNo">031</span><a id="line.31"> * To &lt;strong&gt;parse&lt;/strong&gt; a given JSON input, use the &lt;code&gt;parse()&lt;/code&gt; methods like in this example:</a>
-<span class="sourceLineNo">032</span><a id="line.32"> * &lt;/p&gt;</a>
-<span class="sourceLineNo">033</span><a id="line.33"> * </a>
-<span class="sourceLineNo">034</span><a id="line.34"> * &lt;pre&gt;</a>
-<span class="sourceLineNo">035</span><a id="line.35"> * JsonObject object = Json.parse(string).asObject();</a>
-<span class="sourceLineNo">036</span><a id="line.36"> * &lt;/pre&gt;</a>
-<span class="sourceLineNo">037</span><a id="line.37"> * &lt;p&gt;</a>
-<span class="sourceLineNo">038</span><a id="line.38"> * To &lt;strong&gt;create&lt;/strong&gt; a JSON data structure to be serialized, use the methods &lt;code&gt;value()&lt;/code&gt;,</a>
-<span class="sourceLineNo">039</span><a id="line.39"> * &lt;code&gt;array()&lt;/code&gt;, and &lt;code&gt;object()&lt;/code&gt;. For example, the following snippet will produce the JSON string</a>
-<span class="sourceLineNo">040</span><a id="line.40"> * &lt;em&gt;{"foo": 23, "bar": true}&lt;/em&gt;:</a>
-<span class="sourceLineNo">041</span><a id="line.41"> * &lt;/p&gt;</a>
-<span class="sourceLineNo">042</span><a id="line.42"> * </a>
-<span class="sourceLineNo">043</span><a id="line.43"> * &lt;pre&gt;</a>
-<span class="sourceLineNo">044</span><a id="line.44"> * String string = Json.object().add("foo", 23).add("bar", true).toString();</a>
-<span class="sourceLineNo">045</span><a id="line.45"> * &lt;/pre&gt;</a>
-<span class="sourceLineNo">046</span><a id="line.46"> * &lt;p&gt;</a>
-<span class="sourceLineNo">047</span><a id="line.47"> * To create a JSON array from a given Java array, you can use one of the &lt;code&gt;array()&lt;/code&gt; methods with varargs</a>
-<span class="sourceLineNo">048</span><a id="line.48"> * parameters:</a>
-<span class="sourceLineNo">049</span><a id="line.49"> * &lt;/p&gt;</a>
-<span class="sourceLineNo">050</span><a id="line.50"> * </a>
-<span class="sourceLineNo">051</span><a id="line.51"> * &lt;pre&gt;</a>
-<span class="sourceLineNo">052</span><a id="line.52"> * String[] names = ...</a>
-<span class="sourceLineNo">053</span><a id="line.53"> * JsonArray array = Json.array(names);</a>
-<span class="sourceLineNo">054</span><a id="line.54"> * &lt;/pre&gt;</a>
-<span class="sourceLineNo">055</span><a id="line.55"> */</a>
-<span class="sourceLineNo">056</span><a id="line.56">public final class Json {</a>
-<span class="sourceLineNo">057</span><a id="line.57"></a>
-<span class="sourceLineNo">058</span><a id="line.58">  // String constants</a>
-<span class="sourceLineNo">059</span><a id="line.59">  private static final String VALUES_IS_NULL = "values is null";</a>
-<span class="sourceLineNo">060</span><a id="line.60">  private static final String STRING_IS_NULL = "string is null";</a>
-<span class="sourceLineNo">061</span><a id="line.61">  private static final String READER_IS_NULL = "reader is null";</a>
-<span class="sourceLineNo">062</span><a id="line.62">  private static final String INFINITE_AND_NAN = "Infinite and NaN values not permitted in JSON";</a>
-<span class="sourceLineNo">063</span><a id="line.63"></a>
-<span class="sourceLineNo">064</span><a id="line.64">  private Json() {</a>
-<span class="sourceLineNo">065</span><a id="line.65">    // not meant to be instantiated</a>
-<span class="sourceLineNo">066</span><a id="line.66">  }</a>
-<span class="sourceLineNo">067</span><a id="line.67"></a>
-<span class="sourceLineNo">068</span><a id="line.68">  /**</a>
-<span class="sourceLineNo">069</span><a id="line.69">   * Represents the JSON literal &lt;code&gt;null&lt;/code&gt;.</a>
-<span class="sourceLineNo">070</span><a id="line.70">   */</a>
-<span class="sourceLineNo">071</span><a id="line.71">  public static final JsonValue NULL = new JsonLiteral("null");</a>
-<span class="sourceLineNo">072</span><a id="line.72"></a>
-<span class="sourceLineNo">073</span><a id="line.73">  /**</a>
-<span class="sourceLineNo">074</span><a id="line.74">   * Represents the JSON literal &lt;code&gt;true&lt;/code&gt;.</a>
-<span class="sourceLineNo">075</span><a id="line.75">   */</a>
-<span class="sourceLineNo">076</span><a id="line.76">  public static final JsonValue TRUE = new JsonLiteral("true");</a>
-<span class="sourceLineNo">077</span><a id="line.77"></a>
-<span class="sourceLineNo">078</span><a id="line.78">  /**</a>
-<span class="sourceLineNo">079</span><a id="line.79">   * Represents the JSON literal &lt;code&gt;false&lt;/code&gt;.</a>
-<span class="sourceLineNo">080</span><a id="line.80">   */</a>
-<span class="sourceLineNo">081</span><a id="line.81">  public static final JsonValue FALSE = new JsonLiteral("false");</a>
-<span class="sourceLineNo">082</span><a id="line.82"></a>
-<span class="sourceLineNo">083</span><a id="line.83">  /**</a>
-<span class="sourceLineNo">084</span><a id="line.84">   * Returns a JsonValue instance that represents the given &lt;code&gt;int&lt;/code&gt; value.</a>
-<span class="sourceLineNo">085</span><a id="line.85">   *</a>
-<span class="sourceLineNo">086</span><a id="line.86">   * @param value</a>
-<span class="sourceLineNo">087</span><a id="line.87">   *          the value to get a JSON representation for</a>
-<span class="sourceLineNo">088</span><a id="line.88">   * @return a JSON value that represents the given value</a>
-<span class="sourceLineNo">089</span><a id="line.89">   */</a>
-<span class="sourceLineNo">090</span><a id="line.90">  public static JsonValue value(int value) {</a>
-<span class="sourceLineNo">091</span><a id="line.91">    return new JsonNumber(Integer.toString(value, 10));</a>
-<span class="sourceLineNo">092</span><a id="line.92">  }</a>
-<span class="sourceLineNo">093</span><a id="line.93"></a>
-<span class="sourceLineNo">094</span><a id="line.94">  /**</a>
-<span class="sourceLineNo">095</span><a id="line.95">   * Returns a JsonValue instance that represents the given &lt;code&gt;long&lt;/code&gt; value.</a>
-<span class="sourceLineNo">096</span><a id="line.96">   *</a>
-<span class="sourceLineNo">097</span><a id="line.97">   * @param value</a>
-<span class="sourceLineNo">098</span><a id="line.98">   *          the value to get a JSON representation for</a>
-<span class="sourceLineNo">099</span><a id="line.99">   * @return a JSON value that represents the given value</a>
-<span class="sourceLineNo">100</span><a id="line.100">   */</a>
-<span class="sourceLineNo">101</span><a id="line.101">  public static JsonValue value(long value) {</a>
-<span class="sourceLineNo">102</span><a id="line.102">    return new JsonNumber(Long.toString(value, 10));</a>
-<span class="sourceLineNo">103</span><a id="line.103">  }</a>
-<span class="sourceLineNo">104</span><a id="line.104"></a>
-<span class="sourceLineNo">105</span><a id="line.105">  /**</a>
-<span class="sourceLineNo">106</span><a id="line.106">   * Returns a JsonValue instance that represents the given &lt;code&gt;float&lt;/code&gt; value.</a>
-<span class="sourceLineNo">107</span><a id="line.107">   *</a>
-<span class="sourceLineNo">108</span><a id="line.108">   * @param value</a>
-<span class="sourceLineNo">109</span><a id="line.109">   *          the value to get a JSON representation for</a>
-<span class="sourceLineNo">110</span><a id="line.110">   * @return a JSON value that represents the given value</a>
-<span class="sourceLineNo">111</span><a id="line.111">   */</a>
-<span class="sourceLineNo">112</span><a id="line.112">  public static JsonValue value(float value) {</a>
-<span class="sourceLineNo">113</span><a id="line.113">    if (Float.isInfinite(value) || Float.isNaN(value)) {</a>
-<span class="sourceLineNo">114</span><a id="line.114">      throw new IllegalArgumentException(INFINITE_AND_NAN);</a>
-<span class="sourceLineNo">115</span><a id="line.115">    }</a>
-<span class="sourceLineNo">116</span><a id="line.116">    return new JsonNumber(cutOffPointZero(Float.toString(value)));</a>
-<span class="sourceLineNo">117</span><a id="line.117">  }</a>
-<span class="sourceLineNo">118</span><a id="line.118"></a>
-<span class="sourceLineNo">119</span><a id="line.119">  /**</a>
-<span class="sourceLineNo">120</span><a id="line.120">   * Returns a JsonValue instance that represents the given &lt;code&gt;double&lt;/code&gt; value.</a>
-<span class="sourceLineNo">121</span><a id="line.121">   *</a>
-<span class="sourceLineNo">122</span><a id="line.122">   * @param value</a>
-<span class="sourceLineNo">123</span><a id="line.123">   *          the value to get a JSON representation for</a>
-<span class="sourceLineNo">124</span><a id="line.124">   * @return a JSON value that represents the given value</a>
-<span class="sourceLineNo">125</span><a id="line.125">   */</a>
-<span class="sourceLineNo">126</span><a id="line.126">  public static JsonValue value(double value) {</a>
-<span class="sourceLineNo">127</span><a id="line.127">    if (Double.isInfinite(value) || Double.isNaN(value)) {</a>
-<span class="sourceLineNo">128</span><a id="line.128">      throw new IllegalArgumentException(INFINITE_AND_NAN);</a>
-<span class="sourceLineNo">129</span><a id="line.129">    }</a>
-<span class="sourceLineNo">130</span><a id="line.130">    return new JsonNumber(cutOffPointZero(Double.toString(value)));</a>
-<span class="sourceLineNo">131</span><a id="line.131">  }</a>
-<span class="sourceLineNo">132</span><a id="line.132"></a>
-<span class="sourceLineNo">133</span><a id="line.133">  /**</a>
-<span class="sourceLineNo">134</span><a id="line.134">   * Returns a JsonValue instance that represents the given string.</a>
-<span class="sourceLineNo">135</span><a id="line.135">   *</a>
-<span class="sourceLineNo">136</span><a id="line.136">   * @param string</a>
-<span class="sourceLineNo">137</span><a id="line.137">   *          the string to get a JSON representation for</a>
-<span class="sourceLineNo">138</span><a id="line.138">   * @return a JSON value that represents the given string</a>
-<span class="sourceLineNo">139</span><a id="line.139">   */</a>
-<span class="sourceLineNo">140</span><a id="line.140">  public static JsonValue value(String string) {</a>
-<span class="sourceLineNo">141</span><a id="line.141">    return string == null ? NULL : new JsonString(string);</a>
-<span class="sourceLineNo">142</span><a id="line.142">  }</a>
-<span class="sourceLineNo">143</span><a id="line.143"></a>
-<span class="sourceLineNo">144</span><a id="line.144">  /**</a>
-<span class="sourceLineNo">145</span><a id="line.145">   * Returns a JsonValue instance that represents the given &lt;code&gt;boolean&lt;/code&gt; value.</a>
-<span class="sourceLineNo">146</span><a id="line.146">   *</a>
-<span class="sourceLineNo">147</span><a id="line.147">   * @param value</a>
-<span class="sourceLineNo">148</span><a id="line.148">   *          the value to get a JSON representation for</a>
-<span class="sourceLineNo">149</span><a id="line.149">   * @return a JSON value that represents the given value</a>
-<span class="sourceLineNo">150</span><a id="line.150">   */</a>
-<span class="sourceLineNo">151</span><a id="line.151">  public static JsonValue value(boolean value) {</a>
-<span class="sourceLineNo">152</span><a id="line.152">    return value ? TRUE : FALSE;</a>
-<span class="sourceLineNo">153</span><a id="line.153">  }</a>
-<span class="sourceLineNo">154</span><a id="line.154"></a>
-<span class="sourceLineNo">155</span><a id="line.155">  /**</a>
-<span class="sourceLineNo">156</span><a id="line.156">   * Creates a new empty JsonArray. This is equivalent to creating a new JsonArray using the constructor.</a>
-<span class="sourceLineNo">157</span><a id="line.157">   *</a>
-<span class="sourceLineNo">158</span><a id="line.158">   * @return a new empty JSON array</a>
-<span class="sourceLineNo">159</span><a id="line.159">   */</a>
-<span class="sourceLineNo">160</span><a id="line.160">  public static JsonArray array() {</a>
-<span class="sourceLineNo">161</span><a id="line.161">    return new JsonArray();</a>
-<span class="sourceLineNo">162</span><a id="line.162">  }</a>
-<span class="sourceLineNo">163</span><a id="line.163"></a>
-<span class="sourceLineNo">164</span><a id="line.164">  /**</a>
-<span class="sourceLineNo">165</span><a id="line.165">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;int&lt;/code&gt; values.</a>
-<span class="sourceLineNo">166</span><a id="line.166">   *</a>
-<span class="sourceLineNo">167</span><a id="line.167">   * @param values</a>
-<span class="sourceLineNo">168</span><a id="line.168">   *          the values to be included in the new JSON array</a>
-<span class="sourceLineNo">169</span><a id="line.169">   * @return a new JSON array that contains the given values</a>
-<span class="sourceLineNo">170</span><a id="line.170">   */</a>
-<span class="sourceLineNo">171</span><a id="line.171">  public static JsonArray array(int... values) {</a>
-<span class="sourceLineNo">172</span><a id="line.172">    if (values == null) {</a>
-<span class="sourceLineNo">173</span><a id="line.173">      throw new NullPointerException(VALUES_IS_NULL);</a>
-<span class="sourceLineNo">174</span><a id="line.174">    }</a>
-<span class="sourceLineNo">175</span><a id="line.175">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">176</span><a id="line.176">    for (int value : values) {</a>
-<span class="sourceLineNo">177</span><a id="line.177">      array.add(value);</a>
-<span class="sourceLineNo">178</span><a id="line.178">    }</a>
-<span class="sourceLineNo">179</span><a id="line.179">    return array;</a>
-<span class="sourceLineNo">180</span><a id="line.180">  }</a>
-<span class="sourceLineNo">181</span><a id="line.181"></a>
-<span class="sourceLineNo">182</span><a id="line.182">  /**</a>
-<span class="sourceLineNo">183</span><a id="line.183">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;long&lt;/code&gt; values.</a>
-<span class="sourceLineNo">184</span><a id="line.184">   *</a>
-<span class="sourceLineNo">185</span><a id="line.185">   * @param values</a>
-<span class="sourceLineNo">186</span><a id="line.186">   *          the values to be included in the new JSON array</a>
-<span class="sourceLineNo">187</span><a id="line.187">   * @return a new JSON array that contains the given values</a>
-<span class="sourceLineNo">188</span><a id="line.188">   */</a>
-<span class="sourceLineNo">189</span><a id="line.189">  public static JsonArray array(long... values) {</a>
-<span class="sourceLineNo">190</span><a id="line.190">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
-<span class="sourceLineNo">191</span><a id="line.191">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">192</span><a id="line.192">    for (long value : values) {</a>
-<span class="sourceLineNo">193</span><a id="line.193">      array.add(value);</a>
-<span class="sourceLineNo">194</span><a id="line.194">    }</a>
-<span class="sourceLineNo">195</span><a id="line.195">    return array;</a>
-<span class="sourceLineNo">196</span><a id="line.196">  }</a>
-<span class="sourceLineNo">197</span><a id="line.197"></a>
-<span class="sourceLineNo">198</span><a id="line.198">  /**</a>
-<span class="sourceLineNo">199</span><a id="line.199">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;float&lt;/code&gt; values.</a>
-<span class="sourceLineNo">200</span><a id="line.200">   *</a>
-<span class="sourceLineNo">201</span><a id="line.201">   * @param values</a>
-<span class="sourceLineNo">202</span><a id="line.202">   *          the values to be included in the new JSON array</a>
-<span class="sourceLineNo">203</span><a id="line.203">   * @return a new JSON array that contains the given values</a>
-<span class="sourceLineNo">204</span><a id="line.204">   */</a>
-<span class="sourceLineNo">205</span><a id="line.205">  public static JsonArray array(float... values) {</a>
-<span class="sourceLineNo">206</span><a id="line.206">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
-<span class="sourceLineNo">207</span><a id="line.207">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">208</span><a id="line.208">    for (float value : values) {</a>
-<span class="sourceLineNo">209</span><a id="line.209">      array.add(value);</a>
-<span class="sourceLineNo">210</span><a id="line.210">    }</a>
-<span class="sourceLineNo">211</span><a id="line.211">    return array;</a>
-<span class="sourceLineNo">212</span><a id="line.212">  }</a>
-<span class="sourceLineNo">213</span><a id="line.213"></a>
-<span class="sourceLineNo">214</span><a id="line.214">  /**</a>
-<span class="sourceLineNo">215</span><a id="line.215">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;double&lt;/code&gt; values.</a>
-<span class="sourceLineNo">216</span><a id="line.216">   *</a>
-<span class="sourceLineNo">217</span><a id="line.217">   * @param values</a>
-<span class="sourceLineNo">218</span><a id="line.218">   *          the values to be included in the new JSON array</a>
-<span class="sourceLineNo">219</span><a id="line.219">   * @return a new JSON array that contains the given values</a>
-<span class="sourceLineNo">220</span><a id="line.220">   */</a>
-<span class="sourceLineNo">221</span><a id="line.221">  public static JsonArray array(double... values) {</a>
-<span class="sourceLineNo">222</span><a id="line.222">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
-<span class="sourceLineNo">223</span><a id="line.223">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">224</span><a id="line.224">    for (double value : values) {</a>
-<span class="sourceLineNo">225</span><a id="line.225">      array.add(value);</a>
-<span class="sourceLineNo">226</span><a id="line.226">    }</a>
-<span class="sourceLineNo">227</span><a id="line.227">    return array;</a>
-<span class="sourceLineNo">228</span><a id="line.228">  }</a>
-<span class="sourceLineNo">229</span><a id="line.229"></a>
-<span class="sourceLineNo">230</span><a id="line.230">  /**</a>
-<span class="sourceLineNo">231</span><a id="line.231">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;boolean&lt;/code&gt; values.</a>
-<span class="sourceLineNo">232</span><a id="line.232">   *</a>
-<span class="sourceLineNo">233</span><a id="line.233">   * @param values</a>
-<span class="sourceLineNo">234</span><a id="line.234">   *          the values to be included in the new JSON array</a>
-<span class="sourceLineNo">235</span><a id="line.235">   * @return a new JSON array that contains the given values</a>
-<span class="sourceLineNo">236</span><a id="line.236">   */</a>
-<span class="sourceLineNo">237</span><a id="line.237">  public static JsonArray array(boolean... values) {</a>
-<span class="sourceLineNo">238</span><a id="line.238">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
-<span class="sourceLineNo">239</span><a id="line.239">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">240</span><a id="line.240">    for (boolean value : values) {</a>
-<span class="sourceLineNo">241</span><a id="line.241">      array.add(value);</a>
-<span class="sourceLineNo">242</span><a id="line.242">    }</a>
-<span class="sourceLineNo">243</span><a id="line.243">    return array;</a>
-<span class="sourceLineNo">244</span><a id="line.244">  }</a>
-<span class="sourceLineNo">245</span><a id="line.245"></a>
-<span class="sourceLineNo">246</span><a id="line.246">  /**</a>
-<span class="sourceLineNo">247</span><a id="line.247">   * Creates a new JsonArray that contains the JSON representations of the given strings.</a>
-<span class="sourceLineNo">248</span><a id="line.248">   *</a>
-<span class="sourceLineNo">249</span><a id="line.249">   * @param strings</a>
-<span class="sourceLineNo">250</span><a id="line.250">   *          the strings to be included in the new JSON array</a>
-<span class="sourceLineNo">251</span><a id="line.251">   * @return a new JSON array that contains the given strings</a>
-<span class="sourceLineNo">252</span><a id="line.252">   */</a>
-<span class="sourceLineNo">253</span><a id="line.253">  public static JsonArray array(String... strings) {</a>
-<span class="sourceLineNo">254</span><a id="line.254">    Objects.requireNonNull(strings, VALUES_IS_NULL);</a>
-<span class="sourceLineNo">255</span><a id="line.255">    JsonArray array = new JsonArray();</a>
-<span class="sourceLineNo">256</span><a id="line.256">    for (String value : strings) {</a>
-<span class="sourceLineNo">257</span><a id="line.257">      array.add(value);</a>
-<span class="sourceLineNo">258</span><a id="line.258">    }</a>
-<span class="sourceLineNo">259</span><a id="line.259">    return array;</a>
+<span class="sourceLineNo">026</span><a id="line.26">import java.util.Arrays;</a>
+<span class="sourceLineNo">027</span><a id="line.27">import java.util.Objects;</a>
+<span class="sourceLineNo">028</span><a id="line.28"></a>
+<span class="sourceLineNo">029</span><a id="line.29">/**</a>
+<span class="sourceLineNo">030</span><a id="line.30"> * This class serves as the entry point to the minimal-json API.</a>
+<span class="sourceLineNo">031</span><a id="line.31"> * &lt;p&gt;</a>
+<span class="sourceLineNo">032</span><a id="line.32"> * To &lt;strong&gt;parse&lt;/strong&gt; a given JSON input, use the &lt;code&gt;parse()&lt;/code&gt; methods like in this example:</a>
+<span class="sourceLineNo">033</span><a id="line.33"> * &lt;/p&gt;</a>
+<span class="sourceLineNo">034</span><a id="line.34"> * </a>
+<span class="sourceLineNo">035</span><a id="line.35"> * &lt;pre&gt;</a>
+<span class="sourceLineNo">036</span><a id="line.36"> * JsonObject object = Json.parse(string).asObject();</a>
+<span class="sourceLineNo">037</span><a id="line.37"> * &lt;/pre&gt;</a>
+<span class="sourceLineNo">038</span><a id="line.38"> * &lt;p&gt;</a>
+<span class="sourceLineNo">039</span><a id="line.39"> * To &lt;strong&gt;create&lt;/strong&gt; a JSON data structure to be serialized, use the methods &lt;code&gt;value()&lt;/code&gt;,</a>
+<span class="sourceLineNo">040</span><a id="line.40"> * &lt;code&gt;array()&lt;/code&gt;, and &lt;code&gt;object()&lt;/code&gt;. For example, the following snippet will produce the JSON string</a>
+<span class="sourceLineNo">041</span><a id="line.41"> * &lt;em&gt;{"foo": 23, "bar": true}&lt;/em&gt;:</a>
+<span class="sourceLineNo">042</span><a id="line.42"> * &lt;/p&gt;</a>
+<span class="sourceLineNo">043</span><a id="line.43"> * </a>
+<span class="sourceLineNo">044</span><a id="line.44"> * &lt;pre&gt;</a>
+<span class="sourceLineNo">045</span><a id="line.45"> * String string = Json.object().add("foo", 23).add("bar", true).toString();</a>
+<span class="sourceLineNo">046</span><a id="line.46"> * &lt;/pre&gt;</a>
+<span class="sourceLineNo">047</span><a id="line.47"> * &lt;p&gt;</a>
+<span class="sourceLineNo">048</span><a id="line.48"> * To create a JSON array from a given Java array, you can use one of the &lt;code&gt;array()&lt;/code&gt; methods with varargs</a>
+<span class="sourceLineNo">049</span><a id="line.49"> * parameters:</a>
+<span class="sourceLineNo">050</span><a id="line.50"> * &lt;/p&gt;</a>
+<span class="sourceLineNo">051</span><a id="line.51"> * </a>
+<span class="sourceLineNo">052</span><a id="line.52"> * &lt;pre&gt;</a>
+<span class="sourceLineNo">053</span><a id="line.53"> * String[] names = ...</a>
+<span class="sourceLineNo">054</span><a id="line.54"> * JsonArray array = Json.array(names);</a>
+<span class="sourceLineNo">055</span><a id="line.55"> * &lt;/pre&gt;</a>
+<span class="sourceLineNo">056</span><a id="line.56"> */</a>
+<span class="sourceLineNo">057</span><a id="line.57">public final class Json {</a>
+<span class="sourceLineNo">058</span><a id="line.58"></a>
+<span class="sourceLineNo">059</span><a id="line.59">  // String constants</a>
+<span class="sourceLineNo">060</span><a id="line.60">  private static final String VALUES_IS_NULL = "values is null";</a>
+<span class="sourceLineNo">061</span><a id="line.61">  private static final String STRING_IS_NULL = "string is null";</a>
+<span class="sourceLineNo">062</span><a id="line.62">  private static final String READER_IS_NULL = "reader is null";</a>
+<span class="sourceLineNo">063</span><a id="line.63">  private static final String INFINITE_AND_NAN = "Infinite and NaN values not permitted in JSON";</a>
+<span class="sourceLineNo">064</span><a id="line.64"></a>
+<span class="sourceLineNo">065</span><a id="line.65">  private Json() {</a>
+<span class="sourceLineNo">066</span><a id="line.66">    // not meant to be instantiated</a>
+<span class="sourceLineNo">067</span><a id="line.67">  }</a>
+<span class="sourceLineNo">068</span><a id="line.68"></a>
+<span class="sourceLineNo">069</span><a id="line.69">  /**</a>
+<span class="sourceLineNo">070</span><a id="line.70">   * Represents the JSON literal &lt;code&gt;null&lt;/code&gt;.</a>
+<span class="sourceLineNo">071</span><a id="line.71">   */</a>
+<span class="sourceLineNo">072</span><a id="line.72">  public static final JsonValue NULL = new JsonLiteral("null");</a>
+<span class="sourceLineNo">073</span><a id="line.73"></a>
+<span class="sourceLineNo">074</span><a id="line.74">  /**</a>
+<span class="sourceLineNo">075</span><a id="line.75">   * Represents the JSON literal &lt;code&gt;true&lt;/code&gt;.</a>
+<span class="sourceLineNo">076</span><a id="line.76">   */</a>
+<span class="sourceLineNo">077</span><a id="line.77">  public static final JsonValue TRUE = new JsonLiteral("true");</a>
+<span class="sourceLineNo">078</span><a id="line.78"></a>
+<span class="sourceLineNo">079</span><a id="line.79">  /**</a>
+<span class="sourceLineNo">080</span><a id="line.80">   * Represents the JSON literal &lt;code&gt;false&lt;/code&gt;.</a>
+<span class="sourceLineNo">081</span><a id="line.81">   */</a>
+<span class="sourceLineNo">082</span><a id="line.82">  public static final JsonValue FALSE = new JsonLiteral("false");</a>
+<span class="sourceLineNo">083</span><a id="line.83"></a>
+<span class="sourceLineNo">084</span><a id="line.84">  /**</a>
+<span class="sourceLineNo">085</span><a id="line.85">   * Returns a JsonValue instance that represents the given &lt;code&gt;int&lt;/code&gt; value.</a>
+<span class="sourceLineNo">086</span><a id="line.86">   *</a>
+<span class="sourceLineNo">087</span><a id="line.87">   * @param value</a>
+<span class="sourceLineNo">088</span><a id="line.88">   *          the value to get a JSON representation for</a>
+<span class="sourceLineNo">089</span><a id="line.89">   * @return a JSON value that represents the given value</a>
+<span class="sourceLineNo">090</span><a id="line.90">   */</a>
+<span class="sourceLineNo">091</span><a id="line.91">  public static JsonValue value(int value) {</a>
+<span class="sourceLineNo">092</span><a id="line.92">    return new JsonNumber(Integer.toString(value, 10));</a>
+<span class="sourceLineNo">093</span><a id="line.93">  }</a>
+<span class="sourceLineNo">094</span><a id="line.94"></a>
+<span class="sourceLineNo">095</span><a id="line.95">  /**</a>
+<span class="sourceLineNo">096</span><a id="line.96">   * Returns a JsonValue instance that represents the given &lt;code&gt;long&lt;/code&gt; value.</a>
+<span class="sourceLineNo">097</span><a id="line.97">   *</a>
+<span class="sourceLineNo">098</span><a id="line.98">   * @param value</a>
+<span class="sourceLineNo">099</span><a id="line.99">   *          the value to get a JSON representation for</a>
+<span class="sourceLineNo">100</span><a id="line.100">   * @return a JSON value that represents the given value</a>
+<span class="sourceLineNo">101</span><a id="line.101">   */</a>
+<span class="sourceLineNo">102</span><a id="line.102">  public static JsonValue value(long value) {</a>
+<span class="sourceLineNo">103</span><a id="line.103">    return new JsonNumber(Long.toString(value, 10));</a>
+<span class="sourceLineNo">104</span><a id="line.104">  }</a>
+<span class="sourceLineNo">105</span><a id="line.105"></a>
+<span class="sourceLineNo">106</span><a id="line.106">  /**</a>
+<span class="sourceLineNo">107</span><a id="line.107">   * Returns a JsonValue instance that represents the given &lt;code&gt;float&lt;/code&gt; value.</a>
+<span class="sourceLineNo">108</span><a id="line.108">   *</a>
+<span class="sourceLineNo">109</span><a id="line.109">   * @param value</a>
+<span class="sourceLineNo">110</span><a id="line.110">   *          the value to get a JSON representation for</a>
+<span class="sourceLineNo">111</span><a id="line.111">   * @return a JSON value that represents the given value</a>
+<span class="sourceLineNo">112</span><a id="line.112">   */</a>
+<span class="sourceLineNo">113</span><a id="line.113">  public static JsonValue value(float value) {</a>
+<span class="sourceLineNo">114</span><a id="line.114">    if (Float.isInfinite(value) || Float.isNaN(value)) {</a>
+<span class="sourceLineNo">115</span><a id="line.115">      throw new IllegalArgumentException(INFINITE_AND_NAN);</a>
+<span class="sourceLineNo">116</span><a id="line.116">    }</a>
+<span class="sourceLineNo">117</span><a id="line.117">    return new JsonNumber(cutOffPointZero(Float.toString(value)));</a>
+<span class="sourceLineNo">118</span><a id="line.118">  }</a>
+<span class="sourceLineNo">119</span><a id="line.119"></a>
+<span class="sourceLineNo">120</span><a id="line.120">  /**</a>
+<span class="sourceLineNo">121</span><a id="line.121">   * Returns a JsonValue instance that represents the given &lt;code&gt;double&lt;/code&gt; value.</a>
+<span class="sourceLineNo">122</span><a id="line.122">   *</a>
+<span class="sourceLineNo">123</span><a id="line.123">   * @param value</a>
+<span class="sourceLineNo">124</span><a id="line.124">   *          the value to get a JSON representation for</a>
+<span class="sourceLineNo">125</span><a id="line.125">   * @return a JSON value that represents the given value</a>
+<span class="sourceLineNo">126</span><a id="line.126">   */</a>
+<span class="sourceLineNo">127</span><a id="line.127">  public static JsonValue value(double value) {</a>
+<span class="sourceLineNo">128</span><a id="line.128">    if (Double.isInfinite(value) || Double.isNaN(value)) {</a>
+<span class="sourceLineNo">129</span><a id="line.129">      throw new IllegalArgumentException(INFINITE_AND_NAN);</a>
+<span class="sourceLineNo">130</span><a id="line.130">    }</a>
+<span class="sourceLineNo">131</span><a id="line.131">    return new JsonNumber(cutOffPointZero(Double.toString(value)));</a>
+<span class="sourceLineNo">132</span><a id="line.132">  }</a>
+<span class="sourceLineNo">133</span><a id="line.133"></a>
+<span class="sourceLineNo">134</span><a id="line.134">  /**</a>
+<span class="sourceLineNo">135</span><a id="line.135">   * Returns a JsonValue instance that represents the given string.</a>
+<span class="sourceLineNo">136</span><a id="line.136">   *</a>
+<span class="sourceLineNo">137</span><a id="line.137">   * @param string</a>
+<span class="sourceLineNo">138</span><a id="line.138">   *          the string to get a JSON representation for</a>
+<span class="sourceLineNo">139</span><a id="line.139">   * @return a JSON value that represents the given string</a>
+<span class="sourceLineNo">140</span><a id="line.140">   */</a>
+<span class="sourceLineNo">141</span><a id="line.141">  public static JsonValue value(String string) {</a>
+<span class="sourceLineNo">142</span><a id="line.142">    return string == null ? NULL : new JsonString(string);</a>
+<span class="sourceLineNo">143</span><a id="line.143">  }</a>
+<span class="sourceLineNo">144</span><a id="line.144"></a>
+<span class="sourceLineNo">145</span><a id="line.145">  /**</a>
+<span class="sourceLineNo">146</span><a id="line.146">   * Returns a JsonValue instance that represents the given &lt;code&gt;boolean&lt;/code&gt; value.</a>
+<span class="sourceLineNo">147</span><a id="line.147">   *</a>
+<span class="sourceLineNo">148</span><a id="line.148">   * @param value</a>
+<span class="sourceLineNo">149</span><a id="line.149">   *          the value to get a JSON representation for</a>
+<span class="sourceLineNo">150</span><a id="line.150">   * @return a JSON value that represents the given value</a>
+<span class="sourceLineNo">151</span><a id="line.151">   */</a>
+<span class="sourceLineNo">152</span><a id="line.152">  public static JsonValue value(boolean value) {</a>
+<span class="sourceLineNo">153</span><a id="line.153">    return value ? TRUE : FALSE;</a>
+<span class="sourceLineNo">154</span><a id="line.154">  }</a>
+<span class="sourceLineNo">155</span><a id="line.155"></a>
+<span class="sourceLineNo">156</span><a id="line.156">  /**</a>
+<span class="sourceLineNo">157</span><a id="line.157">   * Creates a new empty JsonArray. This is equivalent to creating a new JsonArray using the constructor.</a>
+<span class="sourceLineNo">158</span><a id="line.158">   *</a>
+<span class="sourceLineNo">159</span><a id="line.159">   * @return a new empty JSON array</a>
+<span class="sourceLineNo">160</span><a id="line.160">   */</a>
+<span class="sourceLineNo">161</span><a id="line.161">  public static JsonArray array() {</a>
+<span class="sourceLineNo">162</span><a id="line.162">    return new JsonArray();</a>
+<span class="sourceLineNo">163</span><a id="line.163">  }</a>
+<span class="sourceLineNo">164</span><a id="line.164"></a>
+<span class="sourceLineNo">165</span><a id="line.165">  /**</a>
+<span class="sourceLineNo">166</span><a id="line.166">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;int&lt;/code&gt; values.</a>
+<span class="sourceLineNo">167</span><a id="line.167">   *</a>
+<span class="sourceLineNo">168</span><a id="line.168">   * @param values</a>
+<span class="sourceLineNo">169</span><a id="line.169">   *          the values to be included in the new JSON array</a>
+<span class="sourceLineNo">170</span><a id="line.170">   * @return a new JSON array that contains the given values</a>
+<span class="sourceLineNo">171</span><a id="line.171">   */</a>
+<span class="sourceLineNo">172</span><a id="line.172">  public static JsonArray array(int... values) {</a>
+<span class="sourceLineNo">173</span><a id="line.173">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">174</span><a id="line.174">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">175</span><a id="line.175">    Arrays.stream(values).forEach(array::add);</a>
+<span class="sourceLineNo">176</span><a id="line.176">    return array;</a>
+<span class="sourceLineNo">177</span><a id="line.177">  }</a>
+<span class="sourceLineNo">178</span><a id="line.178"></a>
+<span class="sourceLineNo">179</span><a id="line.179">  /**</a>
+<span class="sourceLineNo">180</span><a id="line.180">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;long&lt;/code&gt; values.</a>
+<span class="sourceLineNo">181</span><a id="line.181">   *</a>
+<span class="sourceLineNo">182</span><a id="line.182">   * @param values</a>
+<span class="sourceLineNo">183</span><a id="line.183">   *          the values to be included in the new JSON array</a>
+<span class="sourceLineNo">184</span><a id="line.184">   * @return a new JSON array that contains the given values</a>
+<span class="sourceLineNo">185</span><a id="line.185">   */</a>
+<span class="sourceLineNo">186</span><a id="line.186">  public static JsonArray array(long... values) {</a>
+<span class="sourceLineNo">187</span><a id="line.187">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">188</span><a id="line.188">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">189</span><a id="line.189">    Arrays.stream(values).forEach(array::add);</a>
+<span class="sourceLineNo">190</span><a id="line.190">    return array;</a>
+<span class="sourceLineNo">191</span><a id="line.191">  }</a>
+<span class="sourceLineNo">192</span><a id="line.192"></a>
+<span class="sourceLineNo">193</span><a id="line.193">  /**</a>
+<span class="sourceLineNo">194</span><a id="line.194">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;float&lt;/code&gt; values.</a>
+<span class="sourceLineNo">195</span><a id="line.195">   *</a>
+<span class="sourceLineNo">196</span><a id="line.196">   * @param values</a>
+<span class="sourceLineNo">197</span><a id="line.197">   *          the values to be included in the new JSON array</a>
+<span class="sourceLineNo">198</span><a id="line.198">   * @return a new JSON array that contains the given values</a>
+<span class="sourceLineNo">199</span><a id="line.199">   */</a>
+<span class="sourceLineNo">200</span><a id="line.200">  public static JsonArray array(float... values) {</a>
+<span class="sourceLineNo">201</span><a id="line.201">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">202</span><a id="line.202">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">203</span><a id="line.203">    for (float value : values) {</a>
+<span class="sourceLineNo">204</span><a id="line.204">      array.add(value);</a>
+<span class="sourceLineNo">205</span><a id="line.205">    }</a>
+<span class="sourceLineNo">206</span><a id="line.206">    return array;</a>
+<span class="sourceLineNo">207</span><a id="line.207">  }</a>
+<span class="sourceLineNo">208</span><a id="line.208"></a>
+<span class="sourceLineNo">209</span><a id="line.209">  /**</a>
+<span class="sourceLineNo">210</span><a id="line.210">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;double&lt;/code&gt; values.</a>
+<span class="sourceLineNo">211</span><a id="line.211">   *</a>
+<span class="sourceLineNo">212</span><a id="line.212">   * @param values</a>
+<span class="sourceLineNo">213</span><a id="line.213">   *          the values to be included in the new JSON array</a>
+<span class="sourceLineNo">214</span><a id="line.214">   * @return a new JSON array that contains the given values</a>
+<span class="sourceLineNo">215</span><a id="line.215">   */</a>
+<span class="sourceLineNo">216</span><a id="line.216">  public static JsonArray array(double... values) {</a>
+<span class="sourceLineNo">217</span><a id="line.217">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">218</span><a id="line.218">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">219</span><a id="line.219">    Arrays.stream(values).forEach(array::add);</a>
+<span class="sourceLineNo">220</span><a id="line.220">    return array;</a>
+<span class="sourceLineNo">221</span><a id="line.221">  }</a>
+<span class="sourceLineNo">222</span><a id="line.222"></a>
+<span class="sourceLineNo">223</span><a id="line.223">  /**</a>
+<span class="sourceLineNo">224</span><a id="line.224">   * Creates a new JsonArray that contains the JSON representations of the given &lt;code&gt;boolean&lt;/code&gt; values.</a>
+<span class="sourceLineNo">225</span><a id="line.225">   *</a>
+<span class="sourceLineNo">226</span><a id="line.226">   * @param values</a>
+<span class="sourceLineNo">227</span><a id="line.227">   *          the values to be included in the new JSON array</a>
+<span class="sourceLineNo">228</span><a id="line.228">   * @return a new JSON array that contains the given values</a>
+<span class="sourceLineNo">229</span><a id="line.229">   */</a>
+<span class="sourceLineNo">230</span><a id="line.230">  public static JsonArray array(boolean... values) {</a>
+<span class="sourceLineNo">231</span><a id="line.231">    Objects.requireNonNull(values, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">232</span><a id="line.232">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">233</span><a id="line.233">    for (boolean value : values) {</a>
+<span class="sourceLineNo">234</span><a id="line.234">      array.add(value);</a>
+<span class="sourceLineNo">235</span><a id="line.235">    }</a>
+<span class="sourceLineNo">236</span><a id="line.236">    return array;</a>
+<span class="sourceLineNo">237</span><a id="line.237">  }</a>
+<span class="sourceLineNo">238</span><a id="line.238"></a>
+<span class="sourceLineNo">239</span><a id="line.239">  /**</a>
+<span class="sourceLineNo">240</span><a id="line.240">   * Creates a new JsonArray that contains the JSON representations of the given strings.</a>
+<span class="sourceLineNo">241</span><a id="line.241">   *</a>
+<span class="sourceLineNo">242</span><a id="line.242">   * @param strings</a>
+<span class="sourceLineNo">243</span><a id="line.243">   *          the strings to be included in the new JSON array</a>
+<span class="sourceLineNo">244</span><a id="line.244">   * @return a new JSON array that contains the given strings</a>
+<span class="sourceLineNo">245</span><a id="line.245">   */</a>
+<span class="sourceLineNo">246</span><a id="line.246">  public static JsonArray array(String... strings) {</a>
+<span class="sourceLineNo">247</span><a id="line.247">    Objects.requireNonNull(strings, VALUES_IS_NULL);</a>
+<span class="sourceLineNo">248</span><a id="line.248">    JsonArray array = new JsonArray();</a>
+<span class="sourceLineNo">249</span><a id="line.249">    Arrays.stream(strings).forEach(array::add);</a>
+<span class="sourceLineNo">250</span><a id="line.250">    return array;</a>
+<span class="sourceLineNo">251</span><a id="line.251">  }</a>
+<span class="sourceLineNo">252</span><a id="line.252"></a>
+<span class="sourceLineNo">253</span><a id="line.253">  /**</a>
+<span class="sourceLineNo">254</span><a id="line.254">   * Creates a new empty JsonObject. This is equivalent to creating a new JsonObject using the constructor.</a>
+<span class="sourceLineNo">255</span><a id="line.255">   *</a>
+<span class="sourceLineNo">256</span><a id="line.256">   * @return a new empty JSON object</a>
+<span class="sourceLineNo">257</span><a id="line.257">   */</a>
+<span class="sourceLineNo">258</span><a id="line.258">  public static JsonObject object() {</a>
+<span class="sourceLineNo">259</span><a id="line.259">    return new JsonObject();</a>
 <span class="sourceLineNo">260</span><a id="line.260">  }</a>
 <span class="sourceLineNo">261</span><a id="line.261"></a>
 <span class="sourceLineNo">262</span><a id="line.262">  /**</a>
-<span class="sourceLineNo">263</span><a id="line.263">   * Creates a new empty JsonObject. This is equivalent to creating a new JsonObject using the constructor.</a>
-<span class="sourceLineNo">264</span><a id="line.264">   *</a>
-<span class="sourceLineNo">265</span><a id="line.265">   * @return a new empty JSON object</a>
-<span class="sourceLineNo">266</span><a id="line.266">   */</a>
-<span class="sourceLineNo">267</span><a id="line.267">  public static JsonObject object() {</a>
-<span class="sourceLineNo">268</span><a id="line.268">    return new JsonObject();</a>
-<span class="sourceLineNo">269</span><a id="line.269">  }</a>
-<span class="sourceLineNo">270</span><a id="line.270"></a>
-<span class="sourceLineNo">271</span><a id="line.271">  /**</a>
-<span class="sourceLineNo">272</span><a id="line.272">   * Parses the given input string as JSON. The input must contain a valid JSON value, optionally padded with</a>
-<span class="sourceLineNo">273</span><a id="line.273">   * whitespace.</a>
-<span class="sourceLineNo">274</span><a id="line.274">   *</a>
-<span class="sourceLineNo">275</span><a id="line.275">   * @param string</a>
-<span class="sourceLineNo">276</span><a id="line.276">   *          the input string, must be valid JSON</a>
-<span class="sourceLineNo">277</span><a id="line.277">   * @return a value that represents the parsed JSON</a>
-<span class="sourceLineNo">278</span><a id="line.278">   * @throws ParseException</a>
-<span class="sourceLineNo">279</span><a id="line.279">   *           if the input is not valid JSON</a>
-<span class="sourceLineNo">280</span><a id="line.280">   */</a>
-<span class="sourceLineNo">281</span><a id="line.281">  public static JsonValue parse(String string) {</a>
-<span class="sourceLineNo">282</span><a id="line.282">    Objects.requireNonNull(string, STRING_IS_NULL);</a>
-<span class="sourceLineNo">283</span><a id="line.283">    DefaultHandler handler = new DefaultHandler();</a>
-<span class="sourceLineNo">284</span><a id="line.284">    new JsonParser(handler).parse(string);</a>
-<span class="sourceLineNo">285</span><a id="line.285">    return handler.getValue();</a>
-<span class="sourceLineNo">286</span><a id="line.286">  }</a>
-<span class="sourceLineNo">287</span><a id="line.287"></a>
-<span class="sourceLineNo">288</span><a id="line.288">  /**</a>
-<span class="sourceLineNo">289</span><a id="line.289">   * Reads the entire input from the given reader and parses it as JSON. The input must contain a</a>
-<span class="sourceLineNo">290</span><a id="line.290">   * valid JSON value, optionally padded with whitespace.</a>
-<span class="sourceLineNo">291</span><a id="line.291">   * &lt;p&gt;</a>
-<span class="sourceLineNo">292</span><a id="line.292">   * Characters are read in chunks into an input buffer. Hence, wrapping a reader in an additional</a>
-<span class="sourceLineNo">293</span><a id="line.293">   * &lt;code&gt;BufferedReader&lt;/code&gt; likely won't improve reading performance.</a>
-<span class="sourceLineNo">294</span><a id="line.294">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">295</span><a id="line.295">   *</a>
-<span class="sourceLineNo">296</span><a id="line.296">   * @param reader</a>
-<span class="sourceLineNo">297</span><a id="line.297">   *          the reader to read the JSON value from</a>
-<span class="sourceLineNo">298</span><a id="line.298">   * @return a value that represents the parsed JSON</a>
-<span class="sourceLineNo">299</span><a id="line.299">   * @throws IOException</a>
-<span class="sourceLineNo">300</span><a id="line.300">   *           if an I/O error occurs in the reader</a>
-<span class="sourceLineNo">301</span><a id="line.301">   * @throws ParseException</a>
-<span class="sourceLineNo">302</span><a id="line.302">   *           if the input is not valid JSON</a>
-<span class="sourceLineNo">303</span><a id="line.303">   */</a>
-<span class="sourceLineNo">304</span><a id="line.304">  public static JsonValue parse(Reader reader) throws IOException {</a>
-<span class="sourceLineNo">305</span><a id="line.305">    Objects.requireNonNull(reader, READER_IS_NULL);</a>
-<span class="sourceLineNo">306</span><a id="line.306">    DefaultHandler handler = new DefaultHandler();</a>
-<span class="sourceLineNo">307</span><a id="line.307">    new JsonParser(handler).parse(reader);</a>
-<span class="sourceLineNo">308</span><a id="line.308">    return handler.getValue();</a>
-<span class="sourceLineNo">309</span><a id="line.309">  }</a>
+<span class="sourceLineNo">263</span><a id="line.263">   * Parses the given input string as JSON. The input must contain a valid JSON value, optionally padded with</a>
+<span class="sourceLineNo">264</span><a id="line.264">   * whitespace.</a>
+<span class="sourceLineNo">265</span><a id="line.265">   *</a>
+<span class="sourceLineNo">266</span><a id="line.266">   * @param string</a>
+<span class="sourceLineNo">267</span><a id="line.267">   *          the input string, must be valid JSON</a>
+<span class="sourceLineNo">268</span><a id="line.268">   * @return a value that represents the parsed JSON</a>
+<span class="sourceLineNo">269</span><a id="line.269">   * @throws ParseException</a>
+<span class="sourceLineNo">270</span><a id="line.270">   *           if the input is not valid JSON</a>
+<span class="sourceLineNo">271</span><a id="line.271">   */</a>
+<span class="sourceLineNo">272</span><a id="line.272">  public static JsonValue parse(String string) {</a>
+<span class="sourceLineNo">273</span><a id="line.273">    Objects.requireNonNull(string, STRING_IS_NULL);</a>
+<span class="sourceLineNo">274</span><a id="line.274">    DefaultHandler handler = new DefaultHandler();</a>
+<span class="sourceLineNo">275</span><a id="line.275">    new JsonParser(handler).parse(string);</a>
+<span class="sourceLineNo">276</span><a id="line.276">    return handler.getValue();</a>
+<span class="sourceLineNo">277</span><a id="line.277">  }</a>
+<span class="sourceLineNo">278</span><a id="line.278"></a>
+<span class="sourceLineNo">279</span><a id="line.279">  /**</a>
+<span class="sourceLineNo">280</span><a id="line.280">   * Reads the entire input from the given reader and parses it as JSON. The input must contain a</a>
+<span class="sourceLineNo">281</span><a id="line.281">   * valid JSON value, optionally padded with whitespace.</a>
+<span class="sourceLineNo">282</span><a id="line.282">   * &lt;p&gt;</a>
+<span class="sourceLineNo">283</span><a id="line.283">   * Characters are read in chunks into an input buffer. Hence, wrapping a reader in an additional</a>
+<span class="sourceLineNo">284</span><a id="line.284">   * &lt;code&gt;BufferedReader&lt;/code&gt; likely won't improve reading performance.</a>
+<span class="sourceLineNo">285</span><a id="line.285">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">286</span><a id="line.286">   *</a>
+<span class="sourceLineNo">287</span><a id="line.287">   * @param reader</a>
+<span class="sourceLineNo">288</span><a id="line.288">   *          the reader to read the JSON value from</a>
+<span class="sourceLineNo">289</span><a id="line.289">   * @return a value that represents the parsed JSON</a>
+<span class="sourceLineNo">290</span><a id="line.290">   * @throws IOException</a>
+<span class="sourceLineNo">291</span><a id="line.291">   *           if an I/O error occurs in the reader</a>
+<span class="sourceLineNo">292</span><a id="line.292">   * @throws ParseException</a>
+<span class="sourceLineNo">293</span><a id="line.293">   *           if the input is not valid JSON</a>
+<span class="sourceLineNo">294</span><a id="line.294">   */</a>
+<span class="sourceLineNo">295</span><a id="line.295">  public static JsonValue parse(Reader reader) throws IOException {</a>
+<span class="sourceLineNo">296</span><a id="line.296">    Objects.requireNonNull(reader, READER_IS_NULL);</a>
+<span class="sourceLineNo">297</span><a id="line.297">    DefaultHandler handler = new DefaultHandler();</a>
+<span class="sourceLineNo">298</span><a id="line.298">    new JsonParser(handler).parse(reader);</a>
+<span class="sourceLineNo">299</span><a id="line.299">    return handler.getValue();</a>
+<span class="sourceLineNo">300</span><a id="line.300">  }</a>
+<span class="sourceLineNo">301</span><a id="line.301"></a>
+<span class="sourceLineNo">302</span><a id="line.302">  private static String cutOffPointZero(String string) {</a>
+<span class="sourceLineNo">303</span><a id="line.303">    if (string.endsWith(".0")) {</a>
+<span class="sourceLineNo">304</span><a id="line.304">      return string.substring(0, string.length() - 2);</a>
+<span class="sourceLineNo">305</span><a id="line.305">    }</a>
+<span class="sourceLineNo">306</span><a id="line.306">    return string;</a>
+<span class="sourceLineNo">307</span><a id="line.307">  }</a>
+<span class="sourceLineNo">308</span><a id="line.308"></a>
+<span class="sourceLineNo">309</span><a id="line.309">  static class DefaultHandler extends JsonHandler&lt;JsonArray, JsonObject&gt; {</a>
 <span class="sourceLineNo">310</span><a id="line.310"></a>
-<span class="sourceLineNo">311</span><a id="line.311">  private static String cutOffPointZero(String string) {</a>
-<span class="sourceLineNo">312</span><a id="line.312">    if (string.endsWith(".0")) {</a>
-<span class="sourceLineNo">313</span><a id="line.313">      return string.substring(0, string.length() - 2);</a>
-<span class="sourceLineNo">314</span><a id="line.314">    }</a>
-<span class="sourceLineNo">315</span><a id="line.315">    return string;</a>
-<span class="sourceLineNo">316</span><a id="line.316">  }</a>
+<span class="sourceLineNo">311</span><a id="line.311">    protected JsonValue value;</a>
+<span class="sourceLineNo">312</span><a id="line.312"></a>
+<span class="sourceLineNo">313</span><a id="line.313">    @Override</a>
+<span class="sourceLineNo">314</span><a id="line.314">    public JsonArray startArray() {</a>
+<span class="sourceLineNo">315</span><a id="line.315">      return new JsonArray();</a>
+<span class="sourceLineNo">316</span><a id="line.316">    }</a>
 <span class="sourceLineNo">317</span><a id="line.317"></a>
-<span class="sourceLineNo">318</span><a id="line.318">  static class DefaultHandler extends JsonHandler&lt;JsonArray, JsonObject&gt; {</a>
-<span class="sourceLineNo">319</span><a id="line.319"></a>
-<span class="sourceLineNo">320</span><a id="line.320">    protected JsonValue value;</a>
-<span class="sourceLineNo">321</span><a id="line.321"></a>
-<span class="sourceLineNo">322</span><a id="line.322">    @Override</a>
-<span class="sourceLineNo">323</span><a id="line.323">    public JsonArray startArray() {</a>
-<span class="sourceLineNo">324</span><a id="line.324">      return new JsonArray();</a>
-<span class="sourceLineNo">325</span><a id="line.325">    }</a>
-<span class="sourceLineNo">326</span><a id="line.326"></a>
-<span class="sourceLineNo">327</span><a id="line.327">    @Override</a>
-<span class="sourceLineNo">328</span><a id="line.328">    public JsonObject startObject() {</a>
-<span class="sourceLineNo">329</span><a id="line.329">      return new JsonObject();</a>
-<span class="sourceLineNo">330</span><a id="line.330">    }</a>
-<span class="sourceLineNo">331</span><a id="line.331"></a>
-<span class="sourceLineNo">332</span><a id="line.332">    @Override</a>
-<span class="sourceLineNo">333</span><a id="line.333">    public void endNull() {</a>
-<span class="sourceLineNo">334</span><a id="line.334">      value = NULL;</a>
-<span class="sourceLineNo">335</span><a id="line.335">    }</a>
-<span class="sourceLineNo">336</span><a id="line.336"></a>
-<span class="sourceLineNo">337</span><a id="line.337">    @Override</a>
-<span class="sourceLineNo">338</span><a id="line.338">    public void endBoolean(boolean bool) {</a>
-<span class="sourceLineNo">339</span><a id="line.339">      value = bool ? TRUE : FALSE;</a>
-<span class="sourceLineNo">340</span><a id="line.340">    }</a>
-<span class="sourceLineNo">341</span><a id="line.341"></a>
-<span class="sourceLineNo">342</span><a id="line.342">    @Override</a>
-<span class="sourceLineNo">343</span><a id="line.343">    public void endString(String string) {</a>
-<span class="sourceLineNo">344</span><a id="line.344">      value = new JsonString(string);</a>
-<span class="sourceLineNo">345</span><a id="line.345">    }</a>
-<span class="sourceLineNo">346</span><a id="line.346"></a>
-<span class="sourceLineNo">347</span><a id="line.347">    @Override</a>
-<span class="sourceLineNo">348</span><a id="line.348">    public void endNumber(String string) {</a>
-<span class="sourceLineNo">349</span><a id="line.349">      value = new JsonNumber(string);</a>
-<span class="sourceLineNo">350</span><a id="line.350">    }</a>
-<span class="sourceLineNo">351</span><a id="line.351"></a>
-<span class="sourceLineNo">352</span><a id="line.352">    @Override</a>
-<span class="sourceLineNo">353</span><a id="line.353">    public void endArray(JsonArray array) {</a>
-<span class="sourceLineNo">354</span><a id="line.354">      value = array;</a>
-<span class="sourceLineNo">355</span><a id="line.355">    }</a>
-<span class="sourceLineNo">356</span><a id="line.356"></a>
-<span class="sourceLineNo">357</span><a id="line.357">    @Override</a>
-<span class="sourceLineNo">358</span><a id="line.358">    public void endObject(JsonObject object) {</a>
-<span class="sourceLineNo">359</span><a id="line.359">      value = object;</a>
-<span class="sourceLineNo">360</span><a id="line.360">    }</a>
-<span class="sourceLineNo">361</span><a id="line.361"></a>
-<span class="sourceLineNo">362</span><a id="line.362">    @Override</a>
-<span class="sourceLineNo">363</span><a id="line.363">    public void endArrayValue(JsonArray array) {</a>
-<span class="sourceLineNo">364</span><a id="line.364">      array.add(value);</a>
+<span class="sourceLineNo">318</span><a id="line.318">    @Override</a>
+<span class="sourceLineNo">319</span><a id="line.319">    public JsonObject startObject() {</a>
+<span class="sourceLineNo">320</span><a id="line.320">      return new JsonObject();</a>
+<span class="sourceLineNo">321</span><a id="line.321">    }</a>
+<span class="sourceLineNo">322</span><a id="line.322"></a>
+<span class="sourceLineNo">323</span><a id="line.323">    @Override</a>
+<span class="sourceLineNo">324</span><a id="line.324">    public void endNull() {</a>
+<span class="sourceLineNo">325</span><a id="line.325">      value = NULL;</a>
+<span class="sourceLineNo">326</span><a id="line.326">    }</a>
+<span class="sourceLineNo">327</span><a id="line.327"></a>
+<span class="sourceLineNo">328</span><a id="line.328">    @Override</a>
+<span class="sourceLineNo">329</span><a id="line.329">    public void endBoolean(boolean bool) {</a>
+<span class="sourceLineNo">330</span><a id="line.330">      value = bool ? TRUE : FALSE;</a>
+<span class="sourceLineNo">331</span><a id="line.331">    }</a>
+<span class="sourceLineNo">332</span><a id="line.332"></a>
+<span class="sourceLineNo">333</span><a id="line.333">    @Override</a>
+<span class="sourceLineNo">334</span><a id="line.334">    public void endString(String string) {</a>
+<span class="sourceLineNo">335</span><a id="line.335">      value = new JsonString(string);</a>
+<span class="sourceLineNo">336</span><a id="line.336">    }</a>
+<span class="sourceLineNo">337</span><a id="line.337"></a>
+<span class="sourceLineNo">338</span><a id="line.338">    @Override</a>
+<span class="sourceLineNo">339</span><a id="line.339">    public void endNumber(String string) {</a>
+<span class="sourceLineNo">340</span><a id="line.340">      value = new JsonNumber(string);</a>
+<span class="sourceLineNo">341</span><a id="line.341">    }</a>
+<span class="sourceLineNo">342</span><a id="line.342"></a>
+<span class="sourceLineNo">343</span><a id="line.343">    @Override</a>
+<span class="sourceLineNo">344</span><a id="line.344">    public void endArray(JsonArray array) {</a>
+<span class="sourceLineNo">345</span><a id="line.345">      value = array;</a>
+<span class="sourceLineNo">346</span><a id="line.346">    }</a>
+<span class="sourceLineNo">347</span><a id="line.347"></a>
+<span class="sourceLineNo">348</span><a id="line.348">    @Override</a>
+<span class="sourceLineNo">349</span><a id="line.349">    public void endObject(JsonObject object) {</a>
+<span class="sourceLineNo">350</span><a id="line.350">      value = object;</a>
+<span class="sourceLineNo">351</span><a id="line.351">    }</a>
+<span class="sourceLineNo">352</span><a id="line.352"></a>
+<span class="sourceLineNo">353</span><a id="line.353">    @Override</a>
+<span class="sourceLineNo">354</span><a id="line.354">    public void endArrayValue(JsonArray array) {</a>
+<span class="sourceLineNo">355</span><a id="line.355">      array.add(value);</a>
+<span class="sourceLineNo">356</span><a id="line.356">    }</a>
+<span class="sourceLineNo">357</span><a id="line.357"></a>
+<span class="sourceLineNo">358</span><a id="line.358">    @Override</a>
+<span class="sourceLineNo">359</span><a id="line.359">    public void endObjectValue(JsonObject object, String name) {</a>
+<span class="sourceLineNo">360</span><a id="line.360">      object.add(name, value);</a>
+<span class="sourceLineNo">361</span><a id="line.361">    }</a>
+<span class="sourceLineNo">362</span><a id="line.362"></a>
+<span class="sourceLineNo">363</span><a id="line.363">    JsonValue getValue() {</a>
+<span class="sourceLineNo">364</span><a id="line.364">      return value;</a>
 <span class="sourceLineNo">365</span><a id="line.365">    }</a>
 <span class="sourceLineNo">366</span><a id="line.366"></a>
-<span class="sourceLineNo">367</span><a id="line.367">    @Override</a>
-<span class="sourceLineNo">368</span><a id="line.368">    public void endObjectValue(JsonObject object, String name) {</a>
-<span class="sourceLineNo">369</span><a id="line.369">      object.add(name, value);</a>
-<span class="sourceLineNo">370</span><a id="line.370">    }</a>
-<span class="sourceLineNo">371</span><a id="line.371"></a>
-<span class="sourceLineNo">372</span><a id="line.372">    JsonValue getValue() {</a>
-<span class="sourceLineNo">373</span><a id="line.373">      return value;</a>
-<span class="sourceLineNo">374</span><a id="line.374">    }</a>
-<span class="sourceLineNo">375</span><a id="line.375"></a>
-<span class="sourceLineNo">376</span><a id="line.376">  }</a>
-<span class="sourceLineNo">377</span><a id="line.377"></a>
-<span class="sourceLineNo">378</span><a id="line.378">}</a>
+<span class="sourceLineNo">367</span><a id="line.367">  }</a>
+<span class="sourceLineNo">368</span><a id="line.368"></a>
+<span class="sourceLineNo">369</span><a id="line.369">}</a>
 
 
 
