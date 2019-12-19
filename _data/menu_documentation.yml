@@ -248,6 +248,36 @@
         file: documentation/security-appsecret.md
         href: security-appsecret
 - 
+  title: Instagram
+  file: documentation/instagram-intro.md
+  href: instagram-intro
+  subsection:
+      -
+        title: Find the Instagram id
+        menu_title: Find Instagram id
+        file: documentation/instagram-find-ig-id.md
+        href: instagram-find-ig-id
+      -
+        title: Show user profile
+        menu_title: Show user profile
+        file: documentation/instagram-user-profile.md
+        href: instagram-user-profile
+      -
+        title: List media
+        menu_title: List media
+        file: documentation/instagram-list-media.md
+        href: instagram-list-media
+      -
+        title: Disable/Enable media comments
+        menu_title: Dis/Enable media comments
+        file: documentation/instagram-enable-comments.md
+        href: instagram-enable-comments
+      -
+        title: Writing a comment
+        menu_title: Writing comments
+        file: documentation/instagram-writing-comments.md
+        href: instagram-writing-comments
+- 
   title: Running The Examples
   file: documentation/running-examples.md
   href: running-examples
