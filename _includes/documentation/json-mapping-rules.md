@@ -8,6 +8,8 @@ RestFB is able to recursively map JSON fields annotated with `@Facebook` to the 
 * `Long`
 * `Double`
 * `Float`
+* `java.util.Date`
+* `Enum`
 * `BigInteger`
 * `BigDecimal`
 * Your own JavaBean-compliant classes<br />Don't forget to provide a public default constructor!
@@ -43,6 +45,16 @@ public class MyClass {
 {% endhighlight %}
 
 Java to JSON mapping is supported by default via <code><a target="_blank" href="/javadoc-2/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>. You may recursively convert primitive wrapper types as specified above, `List`s, `Map`s with `String` keys, and your own Javabean types by applying the `@Facebook` annotation to any fields you'd like to include in the conversion.
+
+<div class="rfb-callout info" role="alert">
+			<h4>The special Enum handling</h4>
+			<div>
+			    Enums can be used to convert a JSON field to a predefined set of constants. In the Facebook documentation you will find some fields where Facebook is using contants as values and we allow you to use them, too. But because we try to be as backward compatible as possible, enums are used very rarely in RestFB.<br /><br />
+				Important to know for defining your own enums is the internal handling of enums in the RestFB JSON mapper. Normally the mapper tries to convert the given string from the Facebook JSON to a constant name of the enum that has the exact spelling.<br />
+				Because the most Facebook enums don't meet the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html" target="_blank">official Java enum</a> conditions, RestFB provides a fallback and tries to convert the value to uppercase and create the enum from this.<br />
+				You have two ways to define your enums. Exactly as Facebook does or uppercase as Java expects.
+			</div>
+</div>
 
 The default behavior of `DefaultJsonMapper` is to throw a <code><a target="_blank" href="/javadoc-2/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> if it cannot map JSON to Java correctly. However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
 
