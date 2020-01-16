@@ -31,3 +31,12 @@ FacebookClient client =
 </ol>
 	</div>
 </div>
+
+It is possible to use another inner `Map` implementation. We have a static method to change the implementation before the `ETagWebRequestor` is initiated.
+
+{% highlight java %}
+ETagWebRequestor.setMapSupplier(HashMap::new);
+ETagWebRequestor requestor = new ETagWebRequestor();
+{% endhighlight %}
+
+Afterwards you can use the `webRequestor` as shown above.
