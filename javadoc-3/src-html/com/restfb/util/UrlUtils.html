@@ -8,7 +8,7 @@
 <main role="main">
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span><a id="line.1">/**</a>
-<span class="sourceLineNo">002</span><a id="line.2"> * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Copyright (c) 2010-2020 Mark Allen, Norbert Bartels.</a>
 <span class="sourceLineNo">003</span><a id="line.3"> *</a>
 <span class="sourceLineNo">004</span><a id="line.4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</a>
 <span class="sourceLineNo">005</span><a id="line.5"> * of this software and associated documentation files (the "Software"), to deal</a>
@@ -143,86 +143,88 @@
 <span class="sourceLineNo">134</span><a id="line.134">    Map&lt;String, List&lt;String&gt;&gt; parameters = new HashMap&lt;&gt;();</a>
 <span class="sourceLineNo">135</span><a id="line.135">    String[] urlParts = url.split("\\?");</a>
 <span class="sourceLineNo">136</span><a id="line.136"></a>
-<span class="sourceLineNo">137</span><a id="line.137">    if (urlParts.length &gt; 1) {</a>
-<span class="sourceLineNo">138</span><a id="line.138">      String query = urlParts[1];</a>
-<span class="sourceLineNo">139</span><a id="line.139"></a>
-<span class="sourceLineNo">140</span><a id="line.140">      for (String param : query.split("&amp;")) {</a>
-<span class="sourceLineNo">141</span><a id="line.141">        String[] pair = param.split("=");</a>
-<span class="sourceLineNo">142</span><a id="line.142">        String key = urlDecode(pair[0]);</a>
-<span class="sourceLineNo">143</span><a id="line.143">        String value = "";</a>
-<span class="sourceLineNo">144</span><a id="line.144"></a>
-<span class="sourceLineNo">145</span><a id="line.145">        if (pair.length &gt; 1) {</a>
-<span class="sourceLineNo">146</span><a id="line.146">          value = urlDecode(pair[1]);</a>
-<span class="sourceLineNo">147</span><a id="line.147">        }</a>
-<span class="sourceLineNo">148</span><a id="line.148"></a>
-<span class="sourceLineNo">149</span><a id="line.149">        parameters.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(value);</a>
-<span class="sourceLineNo">150</span><a id="line.150">      }</a>
-<span class="sourceLineNo">151</span><a id="line.151">    }</a>
-<span class="sourceLineNo">152</span><a id="line.152"></a>
-<span class="sourceLineNo">153</span><a id="line.153">    return parameters;</a>
-<span class="sourceLineNo">154</span><a id="line.154">  }</a>
-<span class="sourceLineNo">155</span><a id="line.155"></a>
-<span class="sourceLineNo">156</span><a id="line.156">  /**</a>
-<span class="sourceLineNo">157</span><a id="line.157">   * Modify the query string in the given {@code url} and return the new url as String.</a>
-<span class="sourceLineNo">158</span><a id="line.158">   * &lt;p&gt;</a>
-<span class="sourceLineNo">159</span><a id="line.159">   * The given key/value pair is added to the url. If the key is already present, it is replaced with the new value.</a>
-<span class="sourceLineNo">160</span><a id="line.160">   *</a>
-<span class="sourceLineNo">161</span><a id="line.161">   * @param url</a>
-<span class="sourceLineNo">162</span><a id="line.162">   *          The URL which parameters should be modified.</a>
-<span class="sourceLineNo">163</span><a id="line.163">   * @param key</a>
-<span class="sourceLineNo">164</span><a id="line.164">   *          the key, that should be modified or added</a>
-<span class="sourceLineNo">165</span><a id="line.165">   * @param value</a>
-<span class="sourceLineNo">166</span><a id="line.166">   *          the value of the key/value pair</a>
-<span class="sourceLineNo">167</span><a id="line.167">   * @return the modified URL as String</a>
-<span class="sourceLineNo">168</span><a id="line.168">   */</a>
-<span class="sourceLineNo">169</span><a id="line.169">  public static String replaceOrAddQueryParameter(String url, String key, String value) {</a>
-<span class="sourceLineNo">170</span><a id="line.170">    String[] urlParts = url.split("\\?");</a>
-<span class="sourceLineNo">171</span><a id="line.171">    String qParameter = key + "=" + value;</a>
-<span class="sourceLineNo">172</span><a id="line.172"></a>
-<span class="sourceLineNo">173</span><a id="line.173">    if (urlParts.length == 2) {</a>
-<span class="sourceLineNo">174</span><a id="line.174">      Map&lt;String, List&lt;String&gt;&gt; paramMap = extractParametersFromQueryString(urlParts[1]);</a>
-<span class="sourceLineNo">175</span><a id="line.175">      if (paramMap.containsKey(key)) {</a>
-<span class="sourceLineNo">176</span><a id="line.176">        String queryValue = paramMap.get(key).get(0);</a>
-<span class="sourceLineNo">177</span><a id="line.177">        return url.replace(key + "=" + queryValue, qParameter);</a>
-<span class="sourceLineNo">178</span><a id="line.178">      } else {</a>
-<span class="sourceLineNo">179</span><a id="line.179">        return url + "&amp;" + qParameter;</a>
-<span class="sourceLineNo">180</span><a id="line.180">      }</a>
-<span class="sourceLineNo">181</span><a id="line.181"></a>
-<span class="sourceLineNo">182</span><a id="line.182">    } else {</a>
-<span class="sourceLineNo">183</span><a id="line.183">      return url + "?" + qParameter;</a>
-<span class="sourceLineNo">184</span><a id="line.184">    }</a>
-<span class="sourceLineNo">185</span><a id="line.185">  }</a>
-<span class="sourceLineNo">186</span><a id="line.186"></a>
-<span class="sourceLineNo">187</span><a id="line.187">  /**</a>
-<span class="sourceLineNo">188</span><a id="line.188">   * Remove the given key from the url query string and return the new URL as String.</a>
-<span class="sourceLineNo">189</span><a id="line.189">   *</a>
-<span class="sourceLineNo">190</span><a id="line.190">   * @param url</a>
-<span class="sourceLineNo">191</span><a id="line.191">   *          The URL from which parameters are extracted.</a>
-<span class="sourceLineNo">192</span><a id="line.192">   * @param key</a>
-<span class="sourceLineNo">193</span><a id="line.193">   *          the key, that should be removed</a>
-<span class="sourceLineNo">194</span><a id="line.194">   * @return the modified URL as String</a>
-<span class="sourceLineNo">195</span><a id="line.195">   */</a>
-<span class="sourceLineNo">196</span><a id="line.196">  public static String removeQueryParameter(String url, String key) {</a>
-<span class="sourceLineNo">197</span><a id="line.197">    String[] urlParts = url.split("\\?");</a>
-<span class="sourceLineNo">198</span><a id="line.198"></a>
-<span class="sourceLineNo">199</span><a id="line.199">    if (urlParts.length == 2) {</a>
-<span class="sourceLineNo">200</span><a id="line.200">      Map&lt;String, List&lt;String&gt;&gt; paramMap = extractParametersFromQueryString(urlParts[1]);</a>
-<span class="sourceLineNo">201</span><a id="line.201">      if (paramMap.containsKey(key)) {</a>
-<span class="sourceLineNo">202</span><a id="line.202">        String queryValue = paramMap.get(key).get(0);</a>
-<span class="sourceLineNo">203</span><a id="line.203">        String result = url.replace(key + "=" + queryValue, "");</a>
-<span class="sourceLineNo">204</span><a id="line.204">        // improper separators have to be fixed</a>
-<span class="sourceLineNo">205</span><a id="line.205">        // @TODO find a better way to solve this</a>
-<span class="sourceLineNo">206</span><a id="line.206">        result = result.replace("?&amp;", "?").replace("&amp;&amp;", "&amp;");</a>
-<span class="sourceLineNo">207</span><a id="line.207">        if (result.endsWith("&amp;")) {</a>
-<span class="sourceLineNo">208</span><a id="line.208">          return result.substring(0, result.length() - 1);</a>
-<span class="sourceLineNo">209</span><a id="line.209">        } else {</a>
-<span class="sourceLineNo">210</span><a id="line.210">          return result;</a>
-<span class="sourceLineNo">211</span><a id="line.211">        }</a>
-<span class="sourceLineNo">212</span><a id="line.212">      }</a>
-<span class="sourceLineNo">213</span><a id="line.213">    }</a>
-<span class="sourceLineNo">214</span><a id="line.214">    return url;</a>
-<span class="sourceLineNo">215</span><a id="line.215">  }</a>
-<span class="sourceLineNo">216</span><a id="line.216">}</a>
+<span class="sourceLineNo">137</span><a id="line.137"></a>
+<span class="sourceLineNo">138</span><a id="line.138"></a>
+<span class="sourceLineNo">139</span><a id="line.139">    if (urlParts.length &gt; 1) {</a>
+<span class="sourceLineNo">140</span><a id="line.140">      String query = urlParts[1];</a>
+<span class="sourceLineNo">141</span><a id="line.141"></a>
+<span class="sourceLineNo">142</span><a id="line.142">      for (String param : query.split("&amp;")) {</a>
+<span class="sourceLineNo">143</span><a id="line.143">        String[] pair = param.split("=");</a>
+<span class="sourceLineNo">144</span><a id="line.144">        String key = urlDecode(pair[0]);</a>
+<span class="sourceLineNo">145</span><a id="line.145">        String value = "";</a>
+<span class="sourceLineNo">146</span><a id="line.146"></a>
+<span class="sourceLineNo">147</span><a id="line.147">        if (pair.length &gt; 1) {</a>
+<span class="sourceLineNo">148</span><a id="line.148">          value = urlDecode(pair[1]);</a>
+<span class="sourceLineNo">149</span><a id="line.149">        }</a>
+<span class="sourceLineNo">150</span><a id="line.150"></a>
+<span class="sourceLineNo">151</span><a id="line.151">        parameters.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(value);</a>
+<span class="sourceLineNo">152</span><a id="line.152">      }</a>
+<span class="sourceLineNo">153</span><a id="line.153">    }</a>
+<span class="sourceLineNo">154</span><a id="line.154"></a>
+<span class="sourceLineNo">155</span><a id="line.155">    return parameters;</a>
+<span class="sourceLineNo">156</span><a id="line.156">  }</a>
+<span class="sourceLineNo">157</span><a id="line.157"></a>
+<span class="sourceLineNo">158</span><a id="line.158">  /**</a>
+<span class="sourceLineNo">159</span><a id="line.159">   * Modify the query string in the given {@code url} and return the new url as String.</a>
+<span class="sourceLineNo">160</span><a id="line.160">   * &lt;p&gt;</a>
+<span class="sourceLineNo">161</span><a id="line.161">   * The given key/value pair is added to the url. If the key is already present, it is replaced with the new value.</a>
+<span class="sourceLineNo">162</span><a id="line.162">   *</a>
+<span class="sourceLineNo">163</span><a id="line.163">   * @param url</a>
+<span class="sourceLineNo">164</span><a id="line.164">   *          The URL which parameters should be modified.</a>
+<span class="sourceLineNo">165</span><a id="line.165">   * @param key</a>
+<span class="sourceLineNo">166</span><a id="line.166">   *          the key, that should be modified or added</a>
+<span class="sourceLineNo">167</span><a id="line.167">   * @param value</a>
+<span class="sourceLineNo">168</span><a id="line.168">   *          the value of the key/value pair</a>
+<span class="sourceLineNo">169</span><a id="line.169">   * @return the modified URL as String</a>
+<span class="sourceLineNo">170</span><a id="line.170">   */</a>
+<span class="sourceLineNo">171</span><a id="line.171">  public static String replaceOrAddQueryParameter(String url, String key, String value) {</a>
+<span class="sourceLineNo">172</span><a id="line.172">    String[] urlParts = url.split("\\?");</a>
+<span class="sourceLineNo">173</span><a id="line.173">    String qParameter = key + "=" + value;</a>
+<span class="sourceLineNo">174</span><a id="line.174"></a>
+<span class="sourceLineNo">175</span><a id="line.175">    if (urlParts.length == 2) {</a>
+<span class="sourceLineNo">176</span><a id="line.176">      Map&lt;String, List&lt;String&gt;&gt; paramMap = extractParametersFromQueryString(urlParts[1]);</a>
+<span class="sourceLineNo">177</span><a id="line.177">      if (paramMap.containsKey(key)) {</a>
+<span class="sourceLineNo">178</span><a id="line.178">        String queryValue = paramMap.get(key).get(0);</a>
+<span class="sourceLineNo">179</span><a id="line.179">        return url.replace(key + "=" + queryValue, qParameter);</a>
+<span class="sourceLineNo">180</span><a id="line.180">      } else {</a>
+<span class="sourceLineNo">181</span><a id="line.181">        return url + "&amp;" + qParameter;</a>
+<span class="sourceLineNo">182</span><a id="line.182">      }</a>
+<span class="sourceLineNo">183</span><a id="line.183"></a>
+<span class="sourceLineNo">184</span><a id="line.184">    } else {</a>
+<span class="sourceLineNo">185</span><a id="line.185">      return url + "?" + qParameter;</a>
+<span class="sourceLineNo">186</span><a id="line.186">    }</a>
+<span class="sourceLineNo">187</span><a id="line.187">  }</a>
+<span class="sourceLineNo">188</span><a id="line.188"></a>
+<span class="sourceLineNo">189</span><a id="line.189">  /**</a>
+<span class="sourceLineNo">190</span><a id="line.190">   * Remove the given key from the url query string and return the new URL as String.</a>
+<span class="sourceLineNo">191</span><a id="line.191">   *</a>
+<span class="sourceLineNo">192</span><a id="line.192">   * @param url</a>
+<span class="sourceLineNo">193</span><a id="line.193">   *          The URL from which parameters are extracted.</a>
+<span class="sourceLineNo">194</span><a id="line.194">   * @param key</a>
+<span class="sourceLineNo">195</span><a id="line.195">   *          the key, that should be removed</a>
+<span class="sourceLineNo">196</span><a id="line.196">   * @return the modified URL as String</a>
+<span class="sourceLineNo">197</span><a id="line.197">   */</a>
+<span class="sourceLineNo">198</span><a id="line.198">  public static String removeQueryParameter(String url, String key) {</a>
+<span class="sourceLineNo">199</span><a id="line.199">    String[] urlParts = url.split("\\?");</a>
+<span class="sourceLineNo">200</span><a id="line.200"></a>
+<span class="sourceLineNo">201</span><a id="line.201">    if (urlParts.length == 2) {</a>
+<span class="sourceLineNo">202</span><a id="line.202">      Map&lt;String, List&lt;String&gt;&gt; paramMap = extractParametersFromQueryString(urlParts[1]);</a>
+<span class="sourceLineNo">203</span><a id="line.203">      if (paramMap.containsKey(key)) {</a>
+<span class="sourceLineNo">204</span><a id="line.204">        String queryValue = paramMap.get(key).get(0);</a>
+<span class="sourceLineNo">205</span><a id="line.205">        String result = url.replace(key + "=" + queryValue, "");</a>
+<span class="sourceLineNo">206</span><a id="line.206">        // improper separators have to be fixed</a>
+<span class="sourceLineNo">207</span><a id="line.207">        // @TODO find a better way to solve this</a>
+<span class="sourceLineNo">208</span><a id="line.208">        result = result.replace("?&amp;", "?").replace("&amp;&amp;", "&amp;");</a>
+<span class="sourceLineNo">209</span><a id="line.209">        if (result.endsWith("&amp;")) {</a>
+<span class="sourceLineNo">210</span><a id="line.210">          return result.substring(0, result.length() - 1);</a>
+<span class="sourceLineNo">211</span><a id="line.211">        } else {</a>
+<span class="sourceLineNo">212</span><a id="line.212">          return result;</a>
+<span class="sourceLineNo">213</span><a id="line.213">        }</a>
+<span class="sourceLineNo">214</span><a id="line.214">      }</a>
+<span class="sourceLineNo">215</span><a id="line.215">    }</a>
+<span class="sourceLineNo">216</span><a id="line.216">    return url;</a>
+<span class="sourceLineNo">217</span><a id="line.217">  }</a>
+<span class="sourceLineNo">218</span><a id="line.218">}</a>
 
 
 

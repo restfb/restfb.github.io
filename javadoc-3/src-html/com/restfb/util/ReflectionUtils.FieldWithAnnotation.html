@@ -8,7 +8,7 @@
 <main role="main">
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span><a id="line.1">/**</a>
-<span class="sourceLineNo">002</span><a id="line.2"> * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.</a>
+<span class="sourceLineNo">002</span><a id="line.2"> * Copyright (c) 2010-2020 Mark Allen, Norbert Bartels.</a>
 <span class="sourceLineNo">003</span><a id="line.3"> *</a>
 <span class="sourceLineNo">004</span><a id="line.4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</a>
 <span class="sourceLineNo">005</span><a id="line.5"> * of this software and associated documentation files (the "Software"), to deal</a>
@@ -282,7 +282,7 @@
 <span class="sourceLineNo">273</span><a id="line.273">        // Accessors are guaranteed to take no parameters and return a value</a>
 <span class="sourceLineNo">274</span><a id="line.274">        buffer.append(method.invoke(object));</a>
 <span class="sourceLineNo">275</span><a id="line.275">      } catch (Exception e) {</a>
-<span class="sourceLineNo">276</span><a id="line.276">        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object.getClass(), e);</a>
+<span class="sourceLineNo">276</span><a id="line.276">        throwStateException(method, object.getClass(), e);</a>
 <span class="sourceLineNo">277</span><a id="line.277">      }</a>
 <span class="sourceLineNo">278</span><a id="line.278">    }</a>
 <span class="sourceLineNo">279</span><a id="line.279"></a>
@@ -317,7 +317,7 @@
 <span class="sourceLineNo">308</span><a id="line.308">          hashCode = hashCode * 31 + result.hashCode();</a>
 <span class="sourceLineNo">309</span><a id="line.309">        }</a>
 <span class="sourceLineNo">310</span><a id="line.310">      } catch (Exception e) {</a>
-<span class="sourceLineNo">311</span><a id="line.311">        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object, e);</a>
+<span class="sourceLineNo">311</span><a id="line.311">        throwStateException(method, object, e);</a>
 <span class="sourceLineNo">312</span><a id="line.312">      }</a>
 <span class="sourceLineNo">313</span><a id="line.313">    }</a>
 <span class="sourceLineNo">314</span><a id="line.314"></a>
@@ -370,7 +370,7 @@
 <span class="sourceLineNo">361</span><a id="line.361">          return false;</a>
 <span class="sourceLineNo">362</span><a id="line.362">        }</a>
 <span class="sourceLineNo">363</span><a id="line.363">      } catch (Exception e) {</a>
-<span class="sourceLineNo">364</span><a id="line.364">        throw new IllegalStateException("Unable to reflectively invoke " + method, e);</a>
+<span class="sourceLineNo">364</span><a id="line.364">        throwStateException(method, null, e);</a>
 <span class="sourceLineNo">365</span><a id="line.365">      }</a>
 <span class="sourceLineNo">366</span><a id="line.366">    }</a>
 <span class="sourceLineNo">367</span><a id="line.367"></a>
@@ -412,138 +412,136 @@
 <span class="sourceLineNo">403</span><a id="line.403">    }</a>
 <span class="sourceLineNo">404</span><a id="line.404">  }</a>
 <span class="sourceLineNo">405</span><a id="line.405"></a>
-<span class="sourceLineNo">406</span><a id="line.406">  /**</a>
-<span class="sourceLineNo">407</span><a id="line.407">   * A field/annotation pair.</a>
-<span class="sourceLineNo">408</span><a id="line.408">   * </a>
-<span class="sourceLineNo">409</span><a id="line.409">   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;</a>
-<span class="sourceLineNo">410</span><a id="line.410">   */</a>
-<span class="sourceLineNo">411</span><a id="line.411">  public static class FieldWithAnnotation&lt;T extends Annotation&gt; {</a>
-<span class="sourceLineNo">412</span><a id="line.412">    /**</a>
-<span class="sourceLineNo">413</span><a id="line.413">     * A field.</a>
-<span class="sourceLineNo">414</span><a id="line.414">     */</a>
-<span class="sourceLineNo">415</span><a id="line.415">    private Field field;</a>
-<span class="sourceLineNo">416</span><a id="line.416"></a>
-<span class="sourceLineNo">417</span><a id="line.417">    /**</a>
-<span class="sourceLineNo">418</span><a id="line.418">     * An annotation on the field.</a>
-<span class="sourceLineNo">419</span><a id="line.419">     */</a>
-<span class="sourceLineNo">420</span><a id="line.420">    private T annotation;</a>
-<span class="sourceLineNo">421</span><a id="line.421"></a>
-<span class="sourceLineNo">422</span><a id="line.422">    /**</a>
-<span class="sourceLineNo">423</span><a id="line.423">     * Creates a field/annotation pair.</a>
-<span class="sourceLineNo">424</span><a id="line.424">     * </a>
-<span class="sourceLineNo">425</span><a id="line.425">     * @param field</a>
-<span class="sourceLineNo">426</span><a id="line.426">     *          A field.</a>
-<span class="sourceLineNo">427</span><a id="line.427">     * @param annotation</a>
-<span class="sourceLineNo">428</span><a id="line.428">     *          An annotation on the field.</a>
-<span class="sourceLineNo">429</span><a id="line.429">     */</a>
-<span class="sourceLineNo">430</span><a id="line.430">    public FieldWithAnnotation(Field field, T annotation) {</a>
-<span class="sourceLineNo">431</span><a id="line.431">      this.field = field;</a>
-<span class="sourceLineNo">432</span><a id="line.432">      this.annotation = annotation;</a>
-<span class="sourceLineNo">433</span><a id="line.433">    }</a>
-<span class="sourceLineNo">434</span><a id="line.434"></a>
-<span class="sourceLineNo">435</span><a id="line.435">    /**</a>
-<span class="sourceLineNo">436</span><a id="line.436">     * Gets the field.</a>
-<span class="sourceLineNo">437</span><a id="line.437">     * </a>
-<span class="sourceLineNo">438</span><a id="line.438">     * @return The field.</a>
-<span class="sourceLineNo">439</span><a id="line.439">     */</a>
-<span class="sourceLineNo">440</span><a id="line.440">    public Field getField() {</a>
-<span class="sourceLineNo">441</span><a id="line.441">      return field;</a>
-<span class="sourceLineNo">442</span><a id="line.442">    }</a>
-<span class="sourceLineNo">443</span><a id="line.443"></a>
-<span class="sourceLineNo">444</span><a id="line.444">    /**</a>
-<span class="sourceLineNo">445</span><a id="line.445">     * Gets the annotation on the field.</a>
-<span class="sourceLineNo">446</span><a id="line.446">     * </a>
-<span class="sourceLineNo">447</span><a id="line.447">     * @return The annotation on the field.</a>
-<span class="sourceLineNo">448</span><a id="line.448">     */</a>
-<span class="sourceLineNo">449</span><a id="line.449">    public T getAnnotation() {</a>
-<span class="sourceLineNo">450</span><a id="line.450">      return annotation;</a>
-<span class="sourceLineNo">451</span><a id="line.451">    }</a>
-<span class="sourceLineNo">452</span><a id="line.452"></a>
-<span class="sourceLineNo">453</span><a id="line.453">    @Override</a>
-<span class="sourceLineNo">454</span><a id="line.454">    public String toString() {</a>
-<span class="sourceLineNo">455</span><a id="line.455">      return format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(), field.getType(),</a>
-<span class="sourceLineNo">456</span><a id="line.456">        annotation);</a>
-<span class="sourceLineNo">457</span><a id="line.457">    }</a>
-<span class="sourceLineNo">458</span><a id="line.458">  }</a>
-<span class="sourceLineNo">459</span><a id="line.459"></a>
-<span class="sourceLineNo">460</span><a id="line.460">  /**</a>
-<span class="sourceLineNo">461</span><a id="line.461">   * Cache key composed of a class and annotation pair. Used by {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.</a>
-<span class="sourceLineNo">462</span><a id="line.462">   * </a>
-<span class="sourceLineNo">463</span><a id="line.463">   * @author Igor Kabiljo</a>
-<span class="sourceLineNo">464</span><a id="line.464">   */</a>
-<span class="sourceLineNo">465</span><a id="line.465">  private static final class ClassAnnotationCacheKey {</a>
-<span class="sourceLineNo">466</span><a id="line.466">    /**</a>
-<span class="sourceLineNo">467</span><a id="line.467">     * Class component of this cache key.</a>
-<span class="sourceLineNo">468</span><a id="line.468">     */</a>
-<span class="sourceLineNo">469</span><a id="line.469">    private final Class&lt;?&gt; clazz;</a>
-<span class="sourceLineNo">470</span><a id="line.470"></a>
-<span class="sourceLineNo">471</span><a id="line.471">    /**</a>
-<span class="sourceLineNo">472</span><a id="line.472">     * Annotation component of this cache key.</a>
-<span class="sourceLineNo">473</span><a id="line.473">     */</a>
-<span class="sourceLineNo">474</span><a id="line.474">    private final Class&lt;? extends Annotation&gt; annotation;</a>
-<span class="sourceLineNo">475</span><a id="line.475"></a>
-<span class="sourceLineNo">476</span><a id="line.476">    /**</a>
-<span class="sourceLineNo">477</span><a id="line.477">     * Creates a cache key with the given {@code clazz}/@{code annotation} pair.</a>
-<span class="sourceLineNo">478</span><a id="line.478">     * </a>
-<span class="sourceLineNo">479</span><a id="line.479">     * @param clazz</a>
-<span class="sourceLineNo">480</span><a id="line.480">     *          Class component of this cache key.</a>
-<span class="sourceLineNo">481</span><a id="line.481">     * @param annotation</a>
-<span class="sourceLineNo">482</span><a id="line.482">     *          Annotation component of this cache key.</a>
-<span class="sourceLineNo">483</span><a id="line.483">     */</a>
-<span class="sourceLineNo">484</span><a id="line.484">    private ClassAnnotationCacheKey(Class&lt;?&gt; clazz, Class&lt;? extends Annotation&gt; annotation) {</a>
-<span class="sourceLineNo">485</span><a id="line.485">      this.clazz = clazz;</a>
-<span class="sourceLineNo">486</span><a id="line.486">      this.annotation = annotation;</a>
-<span class="sourceLineNo">487</span><a id="line.487">    }</a>
-<span class="sourceLineNo">488</span><a id="line.488"></a>
-<span class="sourceLineNo">489</span><a id="line.489">    /**</a>
-<span class="sourceLineNo">490</span><a id="line.490">     * @see java.lang.Object#hashCode()</a>
-<span class="sourceLineNo">491</span><a id="line.491">     */</a>
-<span class="sourceLineNo">492</span><a id="line.492">    @Override</a>
-<span class="sourceLineNo">493</span><a id="line.493">    public int hashCode() {</a>
-<span class="sourceLineNo">494</span><a id="line.494">      final int prime = 31;</a>
-<span class="sourceLineNo">495</span><a id="line.495">      int result = 1;</a>
-<span class="sourceLineNo">496</span><a id="line.496">      result = prime * result + (annotation == null ? 0 : annotation.hashCode());</a>
-<span class="sourceLineNo">497</span><a id="line.497">      result = prime * result + (clazz == null ? 0 : clazz.hashCode());</a>
-<span class="sourceLineNo">498</span><a id="line.498">      return result;</a>
-<span class="sourceLineNo">499</span><a id="line.499">    }</a>
-<span class="sourceLineNo">500</span><a id="line.500"></a>
-<span class="sourceLineNo">501</span><a id="line.501">    /**</a>
-<span class="sourceLineNo">502</span><a id="line.502">     * @see java.lang.Object#equals(java.lang.Object)</a>
-<span class="sourceLineNo">503</span><a id="line.503">     */</a>
-<span class="sourceLineNo">504</span><a id="line.504">    @Override</a>
-<span class="sourceLineNo">505</span><a id="line.505">    public boolean equals(Object obj) {</a>
-<span class="sourceLineNo">506</span><a id="line.506">      if (this == obj) {</a>
-<span class="sourceLineNo">507</span><a id="line.507">        return true;</a>
-<span class="sourceLineNo">508</span><a id="line.508">      }</a>
-<span class="sourceLineNo">509</span><a id="line.509">      if (obj == null) {</a>
-<span class="sourceLineNo">510</span><a id="line.510">        return false;</a>
-<span class="sourceLineNo">511</span><a id="line.511">      }</a>
-<span class="sourceLineNo">512</span><a id="line.512">      if (getClass() != obj.getClass()) {</a>
-<span class="sourceLineNo">513</span><a id="line.513">        return false;</a>
-<span class="sourceLineNo">514</span><a id="line.514">      }</a>
-<span class="sourceLineNo">515</span><a id="line.515"></a>
-<span class="sourceLineNo">516</span><a id="line.516">      ClassAnnotationCacheKey other = (ClassAnnotationCacheKey) obj;</a>
-<span class="sourceLineNo">517</span><a id="line.517"></a>
-<span class="sourceLineNo">518</span><a id="line.518">      if (annotation == null) {</a>
-<span class="sourceLineNo">519</span><a id="line.519">        if (other.annotation != null) {</a>
-<span class="sourceLineNo">520</span><a id="line.520">          return false;</a>
-<span class="sourceLineNo">521</span><a id="line.521">        }</a>
-<span class="sourceLineNo">522</span><a id="line.522">      } else if (!annotation.equals(other.annotation)) {</a>
-<span class="sourceLineNo">523</span><a id="line.523">        return false;</a>
-<span class="sourceLineNo">524</span><a id="line.524">      }</a>
-<span class="sourceLineNo">525</span><a id="line.525"></a>
-<span class="sourceLineNo">526</span><a id="line.526">      if (clazz == null) {</a>
-<span class="sourceLineNo">527</span><a id="line.527">        if (other.clazz != null) {</a>
-<span class="sourceLineNo">528</span><a id="line.528">          return false;</a>
-<span class="sourceLineNo">529</span><a id="line.529">        }</a>
-<span class="sourceLineNo">530</span><a id="line.530">      } else if (!clazz.equals(other.clazz)) {</a>
-<span class="sourceLineNo">531</span><a id="line.531">        return false;</a>
-<span class="sourceLineNo">532</span><a id="line.532">      }</a>
-<span class="sourceLineNo">533</span><a id="line.533"></a>
-<span class="sourceLineNo">534</span><a id="line.534">      return true;</a>
-<span class="sourceLineNo">535</span><a id="line.535">    }</a>
-<span class="sourceLineNo">536</span><a id="line.536">  }</a>
-<span class="sourceLineNo">537</span><a id="line.537">}</a>
+<span class="sourceLineNo">406</span><a id="line.406">  private static void throwStateException(Method method, Object obj, Exception e) {</a>
+<span class="sourceLineNo">407</span><a id="line.407">    throw new IllegalStateException("Unable to reflectively invoke " + method + Optional.ofNullable(obj).map(o -&gt; " on " + o).orElse(""), e);</a>
+<span class="sourceLineNo">408</span><a id="line.408">  }</a>
+<span class="sourceLineNo">409</span><a id="line.409"></a>
+<span class="sourceLineNo">410</span><a id="line.410">  /**</a>
+<span class="sourceLineNo">411</span><a id="line.411">   * A field/annotation pair.</a>
+<span class="sourceLineNo">412</span><a id="line.412">   * </a>
+<span class="sourceLineNo">413</span><a id="line.413">   * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;</a>
+<span class="sourceLineNo">414</span><a id="line.414">   */</a>
+<span class="sourceLineNo">415</span><a id="line.415">  public static class FieldWithAnnotation&lt;T extends Annotation&gt; {</a>
+<span class="sourceLineNo">416</span><a id="line.416">    /**</a>
+<span class="sourceLineNo">417</span><a id="line.417">     * A field.</a>
+<span class="sourceLineNo">418</span><a id="line.418">     */</a>
+<span class="sourceLineNo">419</span><a id="line.419">    private Field field;</a>
+<span class="sourceLineNo">420</span><a id="line.420"></a>
+<span class="sourceLineNo">421</span><a id="line.421">    /**</a>
+<span class="sourceLineNo">422</span><a id="line.422">     * An annotation on the field.</a>
+<span class="sourceLineNo">423</span><a id="line.423">     */</a>
+<span class="sourceLineNo">424</span><a id="line.424">    private T annotation;</a>
+<span class="sourceLineNo">425</span><a id="line.425"></a>
+<span class="sourceLineNo">426</span><a id="line.426">    /**</a>
+<span class="sourceLineNo">427</span><a id="line.427">     * Creates a field/annotation pair.</a>
+<span class="sourceLineNo">428</span><a id="line.428">     * </a>
+<span class="sourceLineNo">429</span><a id="line.429">     * @param field</a>
+<span class="sourceLineNo">430</span><a id="line.430">     *          A field.</a>
+<span class="sourceLineNo">431</span><a id="line.431">     * @param annotation</a>
+<span class="sourceLineNo">432</span><a id="line.432">     *          An annotation on the field.</a>
+<span class="sourceLineNo">433</span><a id="line.433">     */</a>
+<span class="sourceLineNo">434</span><a id="line.434">    public FieldWithAnnotation(Field field, T annotation) {</a>
+<span class="sourceLineNo">435</span><a id="line.435">      this.field = field;</a>
+<span class="sourceLineNo">436</span><a id="line.436">      this.annotation = annotation;</a>
+<span class="sourceLineNo">437</span><a id="line.437">    }</a>
+<span class="sourceLineNo">438</span><a id="line.438"></a>
+<span class="sourceLineNo">439</span><a id="line.439">    /**</a>
+<span class="sourceLineNo">440</span><a id="line.440">     * Gets the field.</a>
+<span class="sourceLineNo">441</span><a id="line.441">     * </a>
+<span class="sourceLineNo">442</span><a id="line.442">     * @return The field.</a>
+<span class="sourceLineNo">443</span><a id="line.443">     */</a>
+<span class="sourceLineNo">444</span><a id="line.444">    public Field getField() {</a>
+<span class="sourceLineNo">445</span><a id="line.445">      return field;</a>
+<span class="sourceLineNo">446</span><a id="line.446">    }</a>
+<span class="sourceLineNo">447</span><a id="line.447"></a>
+<span class="sourceLineNo">448</span><a id="line.448">    /**</a>
+<span class="sourceLineNo">449</span><a id="line.449">     * Gets the annotation on the field.</a>
+<span class="sourceLineNo">450</span><a id="line.450">     * </a>
+<span class="sourceLineNo">451</span><a id="line.451">     * @return The annotation on the field.</a>
+<span class="sourceLineNo">452</span><a id="line.452">     */</a>
+<span class="sourceLineNo">453</span><a id="line.453">    public T getAnnotation() {</a>
+<span class="sourceLineNo">454</span><a id="line.454">      return annotation;</a>
+<span class="sourceLineNo">455</span><a id="line.455">    }</a>
+<span class="sourceLineNo">456</span><a id="line.456"></a>
+<span class="sourceLineNo">457</span><a id="line.457">    @Override</a>
+<span class="sourceLineNo">458</span><a id="line.458">    public String toString() {</a>
+<span class="sourceLineNo">459</span><a id="line.459">      return format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(), field.getType(),</a>
+<span class="sourceLineNo">460</span><a id="line.460">        annotation);</a>
+<span class="sourceLineNo">461</span><a id="line.461">    }</a>
+<span class="sourceLineNo">462</span><a id="line.462">  }</a>
+<span class="sourceLineNo">463</span><a id="line.463"></a>
+<span class="sourceLineNo">464</span><a id="line.464">  /**</a>
+<span class="sourceLineNo">465</span><a id="line.465">   * Cache key composed of a class and annotation pair. Used by {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.</a>
+<span class="sourceLineNo">466</span><a id="line.466">   * </a>
+<span class="sourceLineNo">467</span><a id="line.467">   * @author Igor Kabiljo</a>
+<span class="sourceLineNo">468</span><a id="line.468">   */</a>
+<span class="sourceLineNo">469</span><a id="line.469">  private static final class ClassAnnotationCacheKey {</a>
+<span class="sourceLineNo">470</span><a id="line.470">    /**</a>
+<span class="sourceLineNo">471</span><a id="line.471">     * Class component of this cache key.</a>
+<span class="sourceLineNo">472</span><a id="line.472">     */</a>
+<span class="sourceLineNo">473</span><a id="line.473">    private final Class&lt;?&gt; clazz;</a>
+<span class="sourceLineNo">474</span><a id="line.474"></a>
+<span class="sourceLineNo">475</span><a id="line.475">    /**</a>
+<span class="sourceLineNo">476</span><a id="line.476">     * Annotation component of this cache key.</a>
+<span class="sourceLineNo">477</span><a id="line.477">     */</a>
+<span class="sourceLineNo">478</span><a id="line.478">    private final Class&lt;? extends Annotation&gt; annotation;</a>
+<span class="sourceLineNo">479</span><a id="line.479"></a>
+<span class="sourceLineNo">480</span><a id="line.480">    /**</a>
+<span class="sourceLineNo">481</span><a id="line.481">     * Creates a cache key with the given {@code clazz}/@{code annotation} pair.</a>
+<span class="sourceLineNo">482</span><a id="line.482">     * </a>
+<span class="sourceLineNo">483</span><a id="line.483">     * @param clazz</a>
+<span class="sourceLineNo">484</span><a id="line.484">     *          Class component of this cache key.</a>
+<span class="sourceLineNo">485</span><a id="line.485">     * @param annotation</a>
+<span class="sourceLineNo">486</span><a id="line.486">     *          Annotation component of this cache key.</a>
+<span class="sourceLineNo">487</span><a id="line.487">     */</a>
+<span class="sourceLineNo">488</span><a id="line.488">    private ClassAnnotationCacheKey(Class&lt;?&gt; clazz, Class&lt;? extends Annotation&gt; annotation) {</a>
+<span class="sourceLineNo">489</span><a id="line.489">      this.clazz = clazz;</a>
+<span class="sourceLineNo">490</span><a id="line.490">      this.annotation = annotation;</a>
+<span class="sourceLineNo">491</span><a id="line.491">    }</a>
+<span class="sourceLineNo">492</span><a id="line.492"></a>
+<span class="sourceLineNo">493</span><a id="line.493">    /**</a>
+<span class="sourceLineNo">494</span><a id="line.494">     * @see java.lang.Object#hashCode()</a>
+<span class="sourceLineNo">495</span><a id="line.495">     */</a>
+<span class="sourceLineNo">496</span><a id="line.496">    @Override</a>
+<span class="sourceLineNo">497</span><a id="line.497">    public int hashCode() {</a>
+<span class="sourceLineNo">498</span><a id="line.498">      final int prime = 31;</a>
+<span class="sourceLineNo">499</span><a id="line.499">      int result = 1;</a>
+<span class="sourceLineNo">500</span><a id="line.500">      result = prime * result + (annotation == null ? 0 : annotation.hashCode());</a>
+<span class="sourceLineNo">501</span><a id="line.501">      result = prime * result + (clazz == null ? 0 : clazz.hashCode());</a>
+<span class="sourceLineNo">502</span><a id="line.502">      return result;</a>
+<span class="sourceLineNo">503</span><a id="line.503">    }</a>
+<span class="sourceLineNo">504</span><a id="line.504"></a>
+<span class="sourceLineNo">505</span><a id="line.505">    /**</a>
+<span class="sourceLineNo">506</span><a id="line.506">     * @see java.lang.Object#equals(java.lang.Object)</a>
+<span class="sourceLineNo">507</span><a id="line.507">     */</a>
+<span class="sourceLineNo">508</span><a id="line.508">    @Override</a>
+<span class="sourceLineNo">509</span><a id="line.509">    public boolean equals(Object obj) {</a>
+<span class="sourceLineNo">510</span><a id="line.510">      if (this == obj) {</a>
+<span class="sourceLineNo">511</span><a id="line.511">        return true;</a>
+<span class="sourceLineNo">512</span><a id="line.512">      }</a>
+<span class="sourceLineNo">513</span><a id="line.513">      if (obj == null) {</a>
+<span class="sourceLineNo">514</span><a id="line.514">        return false;</a>
+<span class="sourceLineNo">515</span><a id="line.515">      }</a>
+<span class="sourceLineNo">516</span><a id="line.516">      if (getClass() != obj.getClass()) {</a>
+<span class="sourceLineNo">517</span><a id="line.517">        return false;</a>
+<span class="sourceLineNo">518</span><a id="line.518">      }</a>
+<span class="sourceLineNo">519</span><a id="line.519"></a>
+<span class="sourceLineNo">520</span><a id="line.520">      ClassAnnotationCacheKey other = (ClassAnnotationCacheKey) obj;</a>
+<span class="sourceLineNo">521</span><a id="line.521"></a>
+<span class="sourceLineNo">522</span><a id="line.522">      if (annotation == null) {</a>
+<span class="sourceLineNo">523</span><a id="line.523">        if (other.annotation != null) {</a>
+<span class="sourceLineNo">524</span><a id="line.524">          return false;</a>
+<span class="sourceLineNo">525</span><a id="line.525">        }</a>
+<span class="sourceLineNo">526</span><a id="line.526">      } else if (!annotation.equals(other.annotation)) {</a>
+<span class="sourceLineNo">527</span><a id="line.527">        return false;</a>
+<span class="sourceLineNo">528</span><a id="line.528">      }</a>
+<span class="sourceLineNo">529</span><a id="line.529"></a>
+<span class="sourceLineNo">530</span><a id="line.530">      if (clazz == null) {</a>
+<span class="sourceLineNo">531</span><a id="line.531">        return other.clazz == null;</a>
+<span class="sourceLineNo">532</span><a id="line.532">      } else return clazz.equals(other.clazz);</a>
+<span class="sourceLineNo">533</span><a id="line.533">    }</a>
+<span class="sourceLineNo">534</span><a id="line.534">  }</a>
+<span class="sourceLineNo">535</span><a id="line.535">}</a>
 
 
 
