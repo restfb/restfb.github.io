@@ -61,15 +61,15 @@
 <span class="sourceLineNo">052</span><a id="line.52"></a>
 <span class="sourceLineNo">053</span><a id="line.53">  private static final class SimpleDateFormatHolder {</a>
 <span class="sourceLineNo">054</span><a id="line.54"></a>
-<span class="sourceLineNo">055</span><a id="line.55">    private static final ThreadLocal&lt;SoftReference&gt; THREADLOCAL_FORMATTER_MAP =</a>
-<span class="sourceLineNo">056</span><a id="line.56">        ThreadLocal.withInitial(() -&gt; new SoftReference&lt;Map&gt;(new HashMap&lt;String, SimpleDateFormat&gt;()));</a>
+<span class="sourceLineNo">055</span><a id="line.55">    private static final ThreadLocal&lt;SoftReference&lt;Map&lt;String, SimpleDateFormat&gt;&gt;&gt; THREADLOCAL_FORMATTER_MAP =</a>
+<span class="sourceLineNo">056</span><a id="line.56">        ThreadLocal.withInitial(() -&gt; new SoftReference&lt;&gt;(new HashMap&lt;&gt;()));</a>
 <span class="sourceLineNo">057</span><a id="line.57"></a>
 <span class="sourceLineNo">058</span><a id="line.58">    private static SimpleDateFormat formatFor(String pattern) {</a>
-<span class="sourceLineNo">059</span><a id="line.59">      SoftReference&lt;Map&gt; ref = THREADLOCAL_FORMATTER_MAP.get();</a>
+<span class="sourceLineNo">059</span><a id="line.59">      SoftReference&lt;Map&lt;String, SimpleDateFormat&gt;&gt; ref = THREADLOCAL_FORMATTER_MAP.get();</a>
 <span class="sourceLineNo">060</span><a id="line.60">      Map&lt;String, SimpleDateFormat&gt; formatterMap = ref.get();</a>
-<span class="sourceLineNo">061</span><a id="line.61">      if (formatterMap == null) {</a>
+<span class="sourceLineNo">061</span><a id="line.61">      if (null == formatterMap) {</a>
 <span class="sourceLineNo">062</span><a id="line.62">        formatterMap = new HashMap&lt;&gt;();</a>
-<span class="sourceLineNo">063</span><a id="line.63">        THREADLOCAL_FORMATTER_MAP.set(new SoftReference&lt;Map&gt;(formatterMap));</a>
+<span class="sourceLineNo">063</span><a id="line.63">        THREADLOCAL_FORMATTER_MAP.set(new SoftReference&lt;&gt;(formatterMap));</a>
 <span class="sourceLineNo">064</span><a id="line.64">      }</a>
 <span class="sourceLineNo">065</span><a id="line.65"></a>
 <span class="sourceLineNo">066</span><a id="line.66">      return formatterMap.computeIfAbsent(pattern, SimpleDateFormatHolder::createSDF);</a>

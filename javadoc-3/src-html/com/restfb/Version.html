@@ -118,19 +118,21 @@
 <span class="sourceLineNo">109</span><a id="line.109">  }</a>
 <span class="sourceLineNo">110</span><a id="line.110"></a>
 <span class="sourceLineNo">111</span><a id="line.111">  /**</a>
-<span class="sourceLineNo">112</span><a id="line.112">   * converts a String (for example the url paramter) into a Version object</a>
+<span class="sourceLineNo">112</span><a id="line.112">   * converts a String (for example the url parameter) into a Version object</a>
 <span class="sourceLineNo">113</span><a id="line.113">   * </a>
-<span class="sourceLineNo">114</span><a id="line.114">   * @param urlElement</a>
+<span class="sourceLineNo">114</span><a id="line.114">   * @param urlElementStr</a>
 <span class="sourceLineNo">115</span><a id="line.115">   *          String that should</a>
 <span class="sourceLineNo">116</span><a id="line.116">   * @return the generated version</a>
 <span class="sourceLineNo">117</span><a id="line.117">   */</a>
-<span class="sourceLineNo">118</span><a id="line.118">  public static Version getVersionFromString(String urlElement) {</a>
-<span class="sourceLineNo">119</span><a id="line.119">    if (urlElement != null) {</a>
-<span class="sourceLineNo">120</span><a id="line.120">      return Stream.of(Version.values()).filter(v -&gt; urlElement.equals(v.getUrlElement())).findFirst().orElse(UNVERSIONED);</a>
-<span class="sourceLineNo">121</span><a id="line.121">    }</a>
-<span class="sourceLineNo">122</span><a id="line.122">    return UNVERSIONED;</a>
-<span class="sourceLineNo">123</span><a id="line.123">  }</a>
-<span class="sourceLineNo">124</span><a id="line.124">}</a>
+<span class="sourceLineNo">118</span><a id="line.118">  public static Version getVersionFromString(String urlElementStr) {</a>
+<span class="sourceLineNo">119</span><a id="line.119">    if (urlElementStr != null) {</a>
+<span class="sourceLineNo">120</span><a id="line.120">      return Stream.of(Version.values()).filter(v -&gt; urlElementStr.equals(v.getUrlElement())).findFirst()</a>
+<span class="sourceLineNo">121</span><a id="line.121">              .orElse(UNVERSIONED);</a>
+<span class="sourceLineNo">122</span><a id="line.122">    }</a>
+<span class="sourceLineNo">123</span><a id="line.123"></a>
+<span class="sourceLineNo">124</span><a id="line.124">    return UNVERSIONED;</a>
+<span class="sourceLineNo">125</span><a id="line.125">  }</a>
+<span class="sourceLineNo">126</span><a id="line.126">}</a>
 
 
 

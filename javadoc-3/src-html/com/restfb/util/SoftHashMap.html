@@ -95,58 +95,54 @@
 <span class="sourceLineNo">086</span><a id="line.86">  @Override</a>
 <span class="sourceLineNo">087</span><a id="line.87">  public V remove(Object key) {</a>
 <span class="sourceLineNo">088</span><a id="line.88">    expungeStaleEntries();</a>
-<span class="sourceLineNo">089</span><a id="line.89">    SoftReference&lt;V&gt; result = hash.remove(key);</a>
-<span class="sourceLineNo">090</span><a id="line.90">    if (result == null) {</a>
-<span class="sourceLineNo">091</span><a id="line.91">      return null;</a>
-<span class="sourceLineNo">092</span><a id="line.92">    }</a>
-<span class="sourceLineNo">093</span><a id="line.93">    return result.get();</a>
-<span class="sourceLineNo">094</span><a id="line.94">  }</a>
-<span class="sourceLineNo">095</span><a id="line.95"></a>
-<span class="sourceLineNo">096</span><a id="line.96">  @Override</a>
-<span class="sourceLineNo">097</span><a id="line.97">  public void clear() {</a>
-<span class="sourceLineNo">098</span><a id="line.98">    hash.clear();</a>
-<span class="sourceLineNo">099</span><a id="line.99">    reverseLookup.clear();</a>
-<span class="sourceLineNo">100</span><a id="line.100">  }</a>
-<span class="sourceLineNo">101</span><a id="line.101"></a>
-<span class="sourceLineNo">102</span><a id="line.102">  @Override</a>
-<span class="sourceLineNo">103</span><a id="line.103">  public int size() {</a>
-<span class="sourceLineNo">104</span><a id="line.104">    expungeStaleEntries();</a>
-<span class="sourceLineNo">105</span><a id="line.105">    return hash.size();</a>
-<span class="sourceLineNo">106</span><a id="line.106">  }</a>
-<span class="sourceLineNo">107</span><a id="line.107"></a>
-<span class="sourceLineNo">108</span><a id="line.108">  /**</a>
-<span class="sourceLineNo">109</span><a id="line.109">   * Returns a copy of the key/values in the map at the point of calling. However, setValue still sets the value in the</a>
-<span class="sourceLineNo">110</span><a id="line.110">   * actual SoftHashMap.</a>
-<span class="sourceLineNo">111</span><a id="line.111">   */</a>
-<span class="sourceLineNo">112</span><a id="line.112">  @Override</a>
-<span class="sourceLineNo">113</span><a id="line.113">  public Set&lt;Entry&lt;K, V&gt;&gt; entrySet() {</a>
-<span class="sourceLineNo">114</span><a id="line.114">    expungeStaleEntries();</a>
-<span class="sourceLineNo">115</span><a id="line.115">    Set&lt;Entry&lt;K, V&gt;&gt; result = new LinkedHashSet&lt;&gt;();</a>
-<span class="sourceLineNo">116</span><a id="line.116">    for (final Entry&lt;K, SoftReference&lt;V&gt;&gt; entry : hash.entrySet()) {</a>
-<span class="sourceLineNo">117</span><a id="line.117">      final V value = entry.getValue().get();</a>
-<span class="sourceLineNo">118</span><a id="line.118">      if (value != null) {</a>
-<span class="sourceLineNo">119</span><a id="line.119">        result.add(new Entry&lt;K, V&gt;() {</a>
-<span class="sourceLineNo">120</span><a id="line.120">          @Override</a>
-<span class="sourceLineNo">121</span><a id="line.121">          public K getKey() {</a>
-<span class="sourceLineNo">122</span><a id="line.122">            return entry.getKey();</a>
-<span class="sourceLineNo">123</span><a id="line.123">          }</a>
-<span class="sourceLineNo">124</span><a id="line.124"></a>
-<span class="sourceLineNo">125</span><a id="line.125">          @Override</a>
-<span class="sourceLineNo">126</span><a id="line.126">          public V getValue() {</a>
-<span class="sourceLineNo">127</span><a id="line.127">            return value;</a>
-<span class="sourceLineNo">128</span><a id="line.128">          }</a>
-<span class="sourceLineNo">129</span><a id="line.129"></a>
-<span class="sourceLineNo">130</span><a id="line.130">          @Override</a>
-<span class="sourceLineNo">131</span><a id="line.131">          public V setValue(V v) {</a>
-<span class="sourceLineNo">132</span><a id="line.132">            entry.setValue(new SoftReference&lt;&gt;(v, queue));</a>
-<span class="sourceLineNo">133</span><a id="line.133">            return value;</a>
-<span class="sourceLineNo">134</span><a id="line.134">          }</a>
-<span class="sourceLineNo">135</span><a id="line.135">        });</a>
-<span class="sourceLineNo">136</span><a id="line.136">      }</a>
-<span class="sourceLineNo">137</span><a id="line.137">    }</a>
-<span class="sourceLineNo">138</span><a id="line.138">    return result;</a>
-<span class="sourceLineNo">139</span><a id="line.139">  }</a>
-<span class="sourceLineNo">140</span><a id="line.140">}</a>
+<span class="sourceLineNo">089</span><a id="line.89">    return Optional.ofNullable(hash.remove(key)).map(SoftReference::get).orElse(null);</a>
+<span class="sourceLineNo">090</span><a id="line.90">  }</a>
+<span class="sourceLineNo">091</span><a id="line.91"></a>
+<span class="sourceLineNo">092</span><a id="line.92">  @Override</a>
+<span class="sourceLineNo">093</span><a id="line.93">  public void clear() {</a>
+<span class="sourceLineNo">094</span><a id="line.94">    hash.clear();</a>
+<span class="sourceLineNo">095</span><a id="line.95">    reverseLookup.clear();</a>
+<span class="sourceLineNo">096</span><a id="line.96">  }</a>
+<span class="sourceLineNo">097</span><a id="line.97"></a>
+<span class="sourceLineNo">098</span><a id="line.98">  @Override</a>
+<span class="sourceLineNo">099</span><a id="line.99">  public int size() {</a>
+<span class="sourceLineNo">100</span><a id="line.100">    expungeStaleEntries();</a>
+<span class="sourceLineNo">101</span><a id="line.101">    return hash.size();</a>
+<span class="sourceLineNo">102</span><a id="line.102">  }</a>
+<span class="sourceLineNo">103</span><a id="line.103"></a>
+<span class="sourceLineNo">104</span><a id="line.104">  /**</a>
+<span class="sourceLineNo">105</span><a id="line.105">   * Returns a copy of the key/values in the map at the point of calling. However, setValue still sets the value in the</a>
+<span class="sourceLineNo">106</span><a id="line.106">   * actual SoftHashMap.</a>
+<span class="sourceLineNo">107</span><a id="line.107">   */</a>
+<span class="sourceLineNo">108</span><a id="line.108">  @Override</a>
+<span class="sourceLineNo">109</span><a id="line.109">  public Set&lt;Entry&lt;K, V&gt;&gt; entrySet() {</a>
+<span class="sourceLineNo">110</span><a id="line.110">    expungeStaleEntries();</a>
+<span class="sourceLineNo">111</span><a id="line.111">    Set&lt;Entry&lt;K, V&gt;&gt; result = new LinkedHashSet&lt;&gt;();</a>
+<span class="sourceLineNo">112</span><a id="line.112">    for (final Entry&lt;K, SoftReference&lt;V&gt;&gt; entry : hash.entrySet()) {</a>
+<span class="sourceLineNo">113</span><a id="line.113">      final V value = entry.getValue().get();</a>
+<span class="sourceLineNo">114</span><a id="line.114">      if (value != null) {</a>
+<span class="sourceLineNo">115</span><a id="line.115">        result.add(new Entry&lt;K, V&gt;() {</a>
+<span class="sourceLineNo">116</span><a id="line.116">          @Override</a>
+<span class="sourceLineNo">117</span><a id="line.117">          public K getKey() {</a>
+<span class="sourceLineNo">118</span><a id="line.118">            return entry.getKey();</a>
+<span class="sourceLineNo">119</span><a id="line.119">          }</a>
+<span class="sourceLineNo">120</span><a id="line.120"></a>
+<span class="sourceLineNo">121</span><a id="line.121">          @Override</a>
+<span class="sourceLineNo">122</span><a id="line.122">          public V getValue() {</a>
+<span class="sourceLineNo">123</span><a id="line.123">            return value;</a>
+<span class="sourceLineNo">124</span><a id="line.124">          }</a>
+<span class="sourceLineNo">125</span><a id="line.125"></a>
+<span class="sourceLineNo">126</span><a id="line.126">          @Override</a>
+<span class="sourceLineNo">127</span><a id="line.127">          public V setValue(V v) {</a>
+<span class="sourceLineNo">128</span><a id="line.128">            entry.setValue(new SoftReference&lt;&gt;(v, queue));</a>
+<span class="sourceLineNo">129</span><a id="line.129">            return value;</a>
+<span class="sourceLineNo">130</span><a id="line.130">          }</a>
+<span class="sourceLineNo">131</span><a id="line.131">        });</a>
+<span class="sourceLineNo">132</span><a id="line.132">      }</a>
+<span class="sourceLineNo">133</span><a id="line.133">    }</a>
+<span class="sourceLineNo">134</span><a id="line.134">    return result;</a>
+<span class="sourceLineNo">135</span><a id="line.135">  }</a>
+<span class="sourceLineNo">136</span><a id="line.136">}</a>
 
 
 
