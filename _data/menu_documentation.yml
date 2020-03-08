@@ -99,6 +99,10 @@
         file: documentation/messenger-sendapi.md
         href: messenger-sendapi
       -
+        title: Sending a media message
+        file: documentation/messenger-send-media.md
+        href: messenger-sendmedia
+      -
         title: Using the Personas API
         file: documentation/messenger-personas.md
         href: messenger-personas
