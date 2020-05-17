@@ -77,14 +77,14 @@ clients:
      url: https://apps.facebook.com/angrybirds/
      pic: img/clients/angry-birds-friends.min.png
    - name: Hubspot
-     url: http://www.hubspot.com/
+     url: https://www.hubspot.com/
      pic: img/clients/hubspot.min.png
-   - name: Atchik Services
-     url: http://www.atchik-services.com
-     pic: img/clients/atchikservices.min.png
-   - name: Lithium
-     url: http://www.lithium.com/
-     pic: img/clients/lithium.min.png
+   - name: Atchik
+     url: https://atchik.com/
+     pic: img/clients/atchik.min.png
+   - name: Khoros
+     url: https://khoros.com/
+     pic: img/clients/khoros.min.png
    - name: ITyX Solutions AG
      url: https://www.ityxsolutions.com/
      pic: img/clients/ityx.min.png
@@ -97,11 +97,11 @@ clients:
    - name: Sematell GmbH
      url: http://www.sematell.com/
      pic: img/clients/sematell.min.png	
-   - name: Perka, Inc.
-     url: https://perka.com/
-     pic: img/clients/perka.min.png	 
+   - name: Clover
+     url: https://www.clover.com/
+     pic: img/clients/clover.min.png	 
    - name: The Socialstation
-     url: http://thesocialstation.com/
+     url: https://thesocialstation.com/
      pic: img/clients/thesocialstation.color.jpg
    - name: Sparkcentral
      url: https://www.sparkcentral.com/
@@ -113,10 +113,10 @@ clients:
      url: http://www.friend2friend.com/
      pic: img/clients/friend2friend.min.png
    - name: Tynamo
-     url: http://www.tynamo.org/
+     url: https://www.tynamo.org/
      pic: img/clients/tynamo.min.png
    - name: IBM
-     url: http://www.ibm.com/
+     url: https://www.ibm.com/
      pic: img/clients/ibm.min.png
    - name: nukesuite
      url: https://www.nukesuite.com/
