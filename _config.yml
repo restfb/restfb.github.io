@@ -75,52 +75,52 @@ navigation:
 clients:
    - name: Angry Birds
      url: https://apps.facebook.com/angrybirds/
-     pic: img/clients/angry-birds-friends.min.png
+     pic: img/clients/angry-birds-friends.webp
    - name: Hubspot
      url: https://www.hubspot.com/
-     pic: img/clients/hubspot.min.png
+     pic: img/clients/hubspot.webp
    - name: Atchik
      url: https://atchik.com/
-     pic: img/clients/atchik.min.png
+     pic: img/clients/atchik.webp
    - name: Khoros
      url: https://khoros.com/
-     pic: img/clients/khoros.min.png
+     pic: img/clients/khoros.webp
    - name: ITyX Solutions AG
      url: https://www.ityxsolutions.com/
-     pic: img/clients/ityx.min.png
+     pic: img/clients/ityx.webp
    - name: Nitro AI
      url: http://nitro.ai
-     pic: img/clients/nitro-ai.min.png
+     pic: img/clients/nitro-ai.webp
    - name: Dwinq
      url: http://dwinq.com/
-     pic: img/clients/dwinq.min.png
+     pic: img/clients/dwinq.webp
    - name: Sematell GmbH
      url: http://www.sematell.com/
-     pic: img/clients/sematell.min.png	
+     pic: img/clients/sematell.webp
    - name: Clover
      url: https://www.clover.com/
-     pic: img/clients/clover.min.png	 
+     pic: img/clients/clover.webp
    - name: The Socialstation
      url: https://thesocialstation.com/
-     pic: img/clients/thesocialstation.color.jpg
+     pic: img/clients/thesocialstation.webp
    - name: Sparkcentral
      url: https://www.sparkcentral.com/
-     pic: img/clients/sparkcentral.min.png
+     pic: img/clients/sparkcentral.webp
    - name: Falcon.io
      url: https://www.falcon.io/
-     pic: img/clients/falconio.min.png 
+     pic: img/clients/falconio.webp
    - name: Friend2Friend
      url: http://www.friend2friend.com/
-     pic: img/clients/friend2friend.min.png
+     pic: img/clients/friend2friend.webp
    - name: Tynamo
      url: https://www.tynamo.org/
-     pic: img/clients/tynamo.min.png
+     pic: img/clients/tynamo.webp
    - name: IBM
      url: https://www.ibm.com/
-     pic: img/clients/ibm.min.png
+     pic: img/clients/ibm.webp
    - name: nukesuite
      url: https://www.nukesuite.com/
-     pic: img/clients/nukesuite.min.png
+     pic: img/clients/nukesuite.webp
 
 plugins:
   - jekyll-sitemap
