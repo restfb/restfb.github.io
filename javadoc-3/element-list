@@ -11,6 +11,7 @@ com.restfb.types
 com.restfb.types.ads
 com.restfb.types.features
 com.restfb.types.instagram
+com.restfb.types.oembed
 com.restfb.types.send
 com.restfb.types.send.airline
 com.restfb.types.send.buybutton
