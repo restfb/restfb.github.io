@@ -180,62 +180,92 @@
 <span class="sourceLineNo">168</span><a id="line.168">      if (messagingItem.isAccountLinking()) {</a>
 <span class="sourceLineNo">169</span><a id="line.169">        messagingListener.accountLinking(messagingItem.getAccountLinking(), messagingItem.getRecipient(),</a>
 <span class="sourceLineNo">170</span><a id="line.170">          messagingItem.getSender());</a>
-<span class="sourceLineNo">171</span><a id="line.171">      }</a>
-<span class="sourceLineNo">172</span><a id="line.172">      if (messagingItem.isAppRoles()) {</a>
-<span class="sourceLineNo">173</span><a id="line.173">        messagingListener.appRoles(messagingItem.getAppRoles(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">174</span><a id="line.174">          messagingItem.getSender());</a>
-<span class="sourceLineNo">175</span><a id="line.175">      }</a>
-<span class="sourceLineNo">176</span><a id="line.176">      if (messagingItem.isCheckoutUpdate()) {</a>
-<span class="sourceLineNo">177</span><a id="line.177">        messagingListener.checkoutUpdate(messagingItem.getCheckoutUpdate(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">178</span><a id="line.178">          messagingItem.getSender());</a>
+<span class="sourceLineNo">171</span><a id="line.171">        messagingListener.accountLinking(messagingItem.getAccountLinking(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">172</span><a id="line.172">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">173</span><a id="line.173">      }</a>
+<span class="sourceLineNo">174</span><a id="line.174">      if (messagingItem.isAppRoles()) {</a>
+<span class="sourceLineNo">175</span><a id="line.175">        messagingListener.appRoles(messagingItem.getAppRoles(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">176</span><a id="line.176">          messagingItem.getSender());</a>
+<span class="sourceLineNo">177</span><a id="line.177">        messagingListener.appRoles(messagingItem.getAppRoles(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">178</span><a id="line.178">          messagingItem.getTimestamp());</a>
 <span class="sourceLineNo">179</span><a id="line.179">      }</a>
-<span class="sourceLineNo">180</span><a id="line.180">      if (messagingItem.isDelivery()) {</a>
-<span class="sourceLineNo">181</span><a id="line.181">        messagingListener.delivery(messagingItem.getDelivery(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">180</span><a id="line.180">      if (messagingItem.isCheckoutUpdate()) {</a>
+<span class="sourceLineNo">181</span><a id="line.181">        messagingListener.checkoutUpdate(messagingItem.getCheckoutUpdate(), messagingItem.getRecipient(),</a>
 <span class="sourceLineNo">182</span><a id="line.182">          messagingItem.getSender());</a>
-<span class="sourceLineNo">183</span><a id="line.183">      }</a>
-<span class="sourceLineNo">184</span><a id="line.184">      if (messagingItem.isMessage()) {</a>
-<span class="sourceLineNo">185</span><a id="line.185">        messagingListener.message(messagingItem.getMessage(), messagingItem.getRecipient(), messagingItem.getSender());</a>
-<span class="sourceLineNo">186</span><a id="line.186">      }</a>
-<span class="sourceLineNo">187</span><a id="line.187">      if (messagingItem.isOptin()) {</a>
-<span class="sourceLineNo">188</span><a id="line.188">        messagingListener.optin(messagingItem.getOptin(), messagingItem.getRecipient(), messagingItem.getSender());</a>
-<span class="sourceLineNo">189</span><a id="line.189">      }</a>
-<span class="sourceLineNo">190</span><a id="line.190">      if (messagingItem.isPassThreadControl()) {</a>
-<span class="sourceLineNo">191</span><a id="line.191">        messagingListener.passThreadControl(messagingItem.getPassThreadControl(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">192</span><a id="line.192">          messagingItem.getSender());</a>
-<span class="sourceLineNo">193</span><a id="line.193">      }</a>
-<span class="sourceLineNo">194</span><a id="line.194">      if (messagingItem.isPayment()) {</a>
-<span class="sourceLineNo">195</span><a id="line.195">        messagingListener.payment(messagingItem.getPayment(), messagingItem.getRecipient(), messagingItem.getSender());</a>
+<span class="sourceLineNo">183</span><a id="line.183">        messagingListener.checkoutUpdate(messagingItem.getCheckoutUpdate(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">184</span><a id="line.184">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">185</span><a id="line.185">      }</a>
+<span class="sourceLineNo">186</span><a id="line.186">      if (messagingItem.isDelivery()) {</a>
+<span class="sourceLineNo">187</span><a id="line.187">        messagingListener.delivery(messagingItem.getDelivery(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">188</span><a id="line.188">          messagingItem.getSender());</a>
+<span class="sourceLineNo">189</span><a id="line.189">        messagingListener.delivery(messagingItem.getDelivery(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">190</span><a id="line.190">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">191</span><a id="line.191">      }</a>
+<span class="sourceLineNo">192</span><a id="line.192">      if (messagingItem.isMessage()) {</a>
+<span class="sourceLineNo">193</span><a id="line.193">        messagingListener.message(messagingItem.getMessage(), messagingItem.getRecipient(), messagingItem.getSender());</a>
+<span class="sourceLineNo">194</span><a id="line.194">        messagingListener.message(messagingItem.getMessage(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">195</span><a id="line.195">          messagingItem.getTimestamp());</a>
 <span class="sourceLineNo">196</span><a id="line.196">      }</a>
-<span class="sourceLineNo">197</span><a id="line.197">      if (messagingItem.isPolicyEnforcement()) {</a>
-<span class="sourceLineNo">198</span><a id="line.198">        messagingListener.policyEnforcement(messagingItem.getPolicyEnforcement(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">199</span><a id="line.199">          messagingItem.getSender());</a>
-<span class="sourceLineNo">200</span><a id="line.200">      }</a>
-<span class="sourceLineNo">201</span><a id="line.201">      if (messagingItem.isPostback()) {</a>
-<span class="sourceLineNo">202</span><a id="line.202">        messagingListener.postback(messagingItem.getPostback(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">203</span><a id="line.203">          messagingItem.getSender());</a>
-<span class="sourceLineNo">204</span><a id="line.204">      }</a>
-<span class="sourceLineNo">205</span><a id="line.205">      if (messagingItem.isReaction()) {</a>
-<span class="sourceLineNo">206</span><a id="line.206">        messagingListener.reaction(messagingItem.getReaction(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">207</span><a id="line.207">          messagingItem.getSender());</a>
-<span class="sourceLineNo">208</span><a id="line.208">      }</a>
-<span class="sourceLineNo">209</span><a id="line.209">      if (messagingItem.isRead()) {</a>
-<span class="sourceLineNo">210</span><a id="line.210">        messagingListener.read(messagingItem.getRead(), messagingItem.getRecipient(), messagingItem.getSender());</a>
-<span class="sourceLineNo">211</span><a id="line.211">      }</a>
-<span class="sourceLineNo">212</span><a id="line.212">      if (messagingItem.isReferral()) {</a>
-<span class="sourceLineNo">213</span><a id="line.213">        messagingListener.referral(messagingItem.getReferral(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">214</span><a id="line.214">          messagingItem.getSender());</a>
-<span class="sourceLineNo">215</span><a id="line.215">      }</a>
-<span class="sourceLineNo">216</span><a id="line.216">      if (messagingItem.isRequestThreadControl()) {</a>
-<span class="sourceLineNo">217</span><a id="line.217">        messagingListener.requestThreadControl(messagingItem.getRequestThreadControl(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">218</span><a id="line.218">          messagingItem.getSender());</a>
-<span class="sourceLineNo">219</span><a id="line.219">      }</a>
-<span class="sourceLineNo">220</span><a id="line.220">      if (messagingItem.isTakeThreadControl()) {</a>
-<span class="sourceLineNo">221</span><a id="line.221">        messagingListener.takeThreadControl(messagingItem.getTakeThreadControl(), messagingItem.getRecipient(),</a>
-<span class="sourceLineNo">222</span><a id="line.222">          messagingItem.getSender());</a>
-<span class="sourceLineNo">223</span><a id="line.223">      }</a>
-<span class="sourceLineNo">224</span><a id="line.224">    });</a>
-<span class="sourceLineNo">225</span><a id="line.225">  }</a>
-<span class="sourceLineNo">226</span><a id="line.226">}</a>
+<span class="sourceLineNo">197</span><a id="line.197">      if (messagingItem.isOptin()) {</a>
+<span class="sourceLineNo">198</span><a id="line.198">        messagingListener.optin(messagingItem.getOptin(), messagingItem.getRecipient(), messagingItem.getSender());</a>
+<span class="sourceLineNo">199</span><a id="line.199">        messagingListener.optin(messagingItem.getOptin(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">200</span><a id="line.200">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">201</span><a id="line.201">      }</a>
+<span class="sourceLineNo">202</span><a id="line.202">      if (messagingItem.isPassThreadControl()) {</a>
+<span class="sourceLineNo">203</span><a id="line.203">        messagingListener.passThreadControl(messagingItem.getPassThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">204</span><a id="line.204">          messagingItem.getSender());</a>
+<span class="sourceLineNo">205</span><a id="line.205">        messagingListener.passThreadControl(messagingItem.getPassThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">206</span><a id="line.206">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">207</span><a id="line.207">      }</a>
+<span class="sourceLineNo">208</span><a id="line.208">      if (messagingItem.isPayment()) {</a>
+<span class="sourceLineNo">209</span><a id="line.209">        messagingListener.payment(messagingItem.getPayment(), messagingItem.getRecipient(), messagingItem.getSender());</a>
+<span class="sourceLineNo">210</span><a id="line.210">        messagingListener.payment(messagingItem.getPayment(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">211</span><a id="line.211">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">212</span><a id="line.212">      }</a>
+<span class="sourceLineNo">213</span><a id="line.213">      if (messagingItem.isPolicyEnforcement()) {</a>
+<span class="sourceLineNo">214</span><a id="line.214">        messagingListener.policyEnforcement(messagingItem.getPolicyEnforcement(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">215</span><a id="line.215">          messagingItem.getSender());</a>
+<span class="sourceLineNo">216</span><a id="line.216">        messagingListener.policyEnforcement(messagingItem.getPolicyEnforcement(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">217</span><a id="line.217">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">218</span><a id="line.218">      }</a>
+<span class="sourceLineNo">219</span><a id="line.219">      if (messagingItem.isPostback()) {</a>
+<span class="sourceLineNo">220</span><a id="line.220">        messagingListener.postback(messagingItem.getPostback(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">221</span><a id="line.221">          messagingItem.getSender());</a>
+<span class="sourceLineNo">222</span><a id="line.222">        messagingListener.postback(messagingItem.getPostback(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">223</span><a id="line.223">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">224</span><a id="line.224">      }</a>
+<span class="sourceLineNo">225</span><a id="line.225">      if (messagingItem.isReaction()) {</a>
+<span class="sourceLineNo">226</span><a id="line.226">        messagingListener.reaction(messagingItem.getReaction(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">227</span><a id="line.227">          messagingItem.getSender());</a>
+<span class="sourceLineNo">228</span><a id="line.228">        messagingListener.reaction(messagingItem.getReaction(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">229</span><a id="line.229">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">230</span><a id="line.230">      }</a>
+<span class="sourceLineNo">231</span><a id="line.231">      if (messagingItem.isRead()) {</a>
+<span class="sourceLineNo">232</span><a id="line.232">        messagingListener.read(messagingItem.getRead(), messagingItem.getRecipient(), messagingItem.getSender());</a>
+<span class="sourceLineNo">233</span><a id="line.233">        messagingListener.read(messagingItem.getRead(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">234</span><a id="line.234">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">235</span><a id="line.235">      }</a>
+<span class="sourceLineNo">236</span><a id="line.236">      if (messagingItem.isReferral()) {</a>
+<span class="sourceLineNo">237</span><a id="line.237">        messagingListener.referral(messagingItem.getReferral(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">238</span><a id="line.238">          messagingItem.getSender());</a>
+<span class="sourceLineNo">239</span><a id="line.239">        messagingListener.referral(messagingItem.getReferral(), messagingItem.getRecipient(), messagingItem.getSender(),</a>
+<span class="sourceLineNo">240</span><a id="line.240">          messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">241</span><a id="line.241">      }</a>
+<span class="sourceLineNo">242</span><a id="line.242">      if (messagingItem.isRequestThreadControl()) {</a>
+<span class="sourceLineNo">243</span><a id="line.243">        messagingListener.requestThreadControl(messagingItem.getRequestThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">244</span><a id="line.244">          messagingItem.getSender());</a>
+<span class="sourceLineNo">245</span><a id="line.245">        messagingListener.requestThreadControl(messagingItem.getRequestThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">246</span><a id="line.246">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">247</span><a id="line.247">      }</a>
+<span class="sourceLineNo">248</span><a id="line.248">      if (messagingItem.isTakeThreadControl()) {</a>
+<span class="sourceLineNo">249</span><a id="line.249">        messagingListener.takeThreadControl(messagingItem.getTakeThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">250</span><a id="line.250">          messagingItem.getSender());</a>
+<span class="sourceLineNo">251</span><a id="line.251">        messagingListener.takeThreadControl(messagingItem.getTakeThreadControl(), messagingItem.getRecipient(),</a>
+<span class="sourceLineNo">252</span><a id="line.252">          messagingItem.getSender(), messagingItem.getTimestamp());</a>
+<span class="sourceLineNo">253</span><a id="line.253">      }</a>
+<span class="sourceLineNo">254</span><a id="line.254">    });</a>
+<span class="sourceLineNo">255</span><a id="line.255">  }</a>
+<span class="sourceLineNo">256</span><a id="line.256">}</a>
 
 
 
