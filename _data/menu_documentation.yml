@@ -255,6 +255,11 @@
         menu_title: Secure Requests
         file: documentation/security-appsecret.md
         href: security-appsecret
+      -
+        title: Use access token as header field
+        menu_title: HTTP header access token
+        file: documentation/security-accesstoken-header.md
+        href: security-accesstoken
 - 
   title: Instagram
   file: documentation/instagram-intro.md
