@@ -121,6 +121,9 @@ clients:
    - name: nukesuite
      url: https://www.nukesuite.com/
      pic: img/clients/nukesuite.webp
+   - name: Peoples Fundraising
+     url: https://www.peoplesfundraising.com/
+     pic: img/clients/peoplesfundraising.webp
 
 plugins:
   - jekyll-sitemap
