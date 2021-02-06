@@ -1,7 +1,7 @@
 Despite from fetching instagram media objects and the connected comments, it is very interesting to manage
 the comments. Managing comments is not only answering and sending text, but handle the problems in this area, too.
 
-So a simple solution to stop a flood of comments is to disble or enable the comment function for a media object
+So a simple solution to stop a flood of comments is to disable or enable the comment function for a media object
 completely.
 
 To use this function, you first need a media id. You can get one via webhook or while fetching the profiles media list. Then you simply need to make a special request and the comments are disabled.
