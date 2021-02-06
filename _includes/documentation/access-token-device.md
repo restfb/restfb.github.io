@@ -56,7 +56,7 @@ The polling method should return the AccessToken, but may throw a <a href="/java
 			</a>
 			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenCodeExpiredException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenCodeExpiredException</h4>
-			    <p class="list-group-item-text">Everything workd fine, but the authorisation proccess took to long. Perhaps you showed the <code>user_token</code> to the user and he/she did not start the authorisation. Anyway, it is not possible to finish the process and you have to start again from the beginning.</p>
+			    <p class="list-group-item-text">Everything workd fine, but the authorisation process took to long. Perhaps you showed the <code>user_token</code> to the user and he/she did not start the authorisation. Anyway, it is not possible to finish the process and you have to start again from the beginning.</p>
 			</a>
 			<a href="/javadoc-2/com/restfb/exception/devicetoken/FacebookDeviceTokenSlowdownException.html" class="list-group-item" target="_blank">
 			    <h4 class="list-group-item-heading">FacebookDeviceTokenSlowdownException</h4>

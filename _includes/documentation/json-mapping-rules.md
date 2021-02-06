@@ -49,7 +49,7 @@ public class MyClass {
 <div class="rfb-callout info" role="alert">
 			<h4>The special Enum handling</h4>
 			<div>
-			    Enums can be used to convert a JSON field to a predefined set of constants. In the Facebook documentation you will find some fields where Facebook is using contants as values and we allow you to use them, too. But because we try to be as backward compatible as possible, enums are used very rarely in RestFB.<br /><br />
+			    Enums can be used to convert a JSON field to a predefined set of constants. In the Facebook documentation you will find some fields where Facebook is using constants as values and we allow you to use them, too. But because we try to be as backward compatible as possible, enums are used very rarely in RestFB.<br /><br />
 				Important to know for defining your own enums is the internal handling of enums in the RestFB JSON mapper. Normally the mapper tries to convert the given string from the Facebook JSON to a constant name of the enum that has the exact spelling.<br />
 				Because the most Facebook enums don't meet the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html" target="_blank">official Java enum</a> conditions, RestFB provides a fallback and tries to convert the value to uppercase and create the enum from this.<br />
 				You have two ways to define your enums. Exactly as Facebook does or uppercase as Java expects.
