@@ -6,8 +6,8 @@ new relases to use the new limits.
 	<h4>Limitations while creating new messages</h4>
 	<div>
 			<ul>
-				<li>Titles may have up to 45 charactes</li>
-				<li>Subtitles may have up to 80 charactes</li>
+				<li>Titles may have up to 45 characters</li>
+				<li>Subtitles may have up to 80 characters</li>
 				<li>Call-to-action titles may have up to 20 characters</li>
 				<li>Call-to-action items may have up to 3 buttons</li>
 				<li>A message may have up to 10 bubbles</li>
