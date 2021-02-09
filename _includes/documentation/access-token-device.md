@@ -7,7 +7,7 @@ See <a target="_blank" href="https://developers.facebook.com/docs/facebook-login
 
 With the Device Access Token, Facebook provides functionality to connect to devices with limited input or display capabilities. 
 
-The device access token is generated using a two-step process. First, you have to call <code>FacebookClient.fetchDeviceCode</code>(see example code). You receive a user code, a code and some additional information. The user code has to be shown to the user and she has to enter it on a special Facebook page. The url of that page is part of the DeviceCode object. You should not hardcode this url, because Facebook might change it. As soon as you present this information to the user, you have to poll Facebook and try to fetch the device access token.
+The device access token is generated using a two-step process. First, you have to call <code>FacebookClient.fetchDeviceCode</code>(see example code). You receive a user code, a code and some additional information. The user code has to be shown to the user and she has to enter it on a special Facebook page. The url of that page is part of the DeviceCode object. You should not hard code this url, because Facebook might change it. As soon as you present this information to the user, you have to poll Facebook and try to fetch the device access token.
 
 
 ### Fetching the Device Access Token

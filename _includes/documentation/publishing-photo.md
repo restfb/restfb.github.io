@@ -1,8 +1,8 @@
 See <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/" class="badge badge-primary">Graph API documentation</a>
 
-Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to Facebook. The old and deprecated way is with an `InputStream` and the new way with a `ByteArray`. Although the InputStream method is deprecated, you may use it and we don't intend to remove it in the near future.
+Publishing a photo is an example of publishing binary content. There are two ways to publish binary content to Facebook. The old and deprecated way is with an `InputStream` and the new way with a `ByteArray`. Although the InputStream method is deprecated, you may use it, and we don't intend to remove it in the near future.
 
-You may use several endpoints to publish a photo and it depends on your usecase which one you have to use. It is important to use the correct access token, because some endpoints have specific permission requirements.
+You may use several endpoints to publish a photo and it depends on your use case which one you have to choose. It is important to use the correct access token, because some endpoints have specific permission requirements.
 
 
 <div class="rfb-callout warning">

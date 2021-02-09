@@ -1,6 +1,6 @@
 See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/making-multiple-requests/#operations" class="badge badge-primary">Batch API documentation</a>
 
-A special usage of the batch requests are dependant requests. These requests are put in one batch, but you can for example use the result of the first request in the second request and receive the complete result. The requests are executed sequentially on the Facebook servers.
+A special usage of the batch requests are dependent requests. These requests are put in one batch, but you can for example use the result of the first request in the second request and receive the complete result. The requests are executed sequentially on the Facebook servers.
 
 We like to show you an example that is ported from the Facebook reference to RestFB. First you have to define the request to fetch the friends. The request is named, so it can be used in a second request as we see later on.
 

@@ -18,7 +18,7 @@ The second identifier type is the phone number of the user you are attempting to
 		Only bots that belong to a Facebook page with a U.S. based administrator can use the <a href="https://developers.facebook.com/docs/messenger-platform/identity/customer-matching/" target="_blank">customer matching</a> feature. Phone numbers may belong to users in other countries, too.
 	</p>
 	<p>
-		You can only send messages as long as the user has not previously opted-out. As soon as she receives the message, a message request is shown and the she can read the message. Afterwards she can decide whether to accept or decline further messages. If the message request is accepted, the bot is allowed to send further messages.
+		You can only send messages as long as the user has not previously opted-out. As soon as she receives the message, a message request is shown and then she can read the message. Afterwards she can decide whether to accept or decline further messages. If the message request is accepted, the bot is allowed to send further messages.
 	</p>
 </div>
 
