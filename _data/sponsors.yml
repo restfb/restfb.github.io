@@ -12,4 +12,19 @@
      -
        text: Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web framework and iOS/Android technologies.
      -
-       text: Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com" title="Contact Transmogrify">product@xmog.com</a> if you need a hand with anything software-related. We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.		
+       text: Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com" title="Contact Transmogrify">product@xmog.com</a> if you need a hand with anything software-related. We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.
+-
+  type: platinum
+  link: https://www.sematell.com/
+  name: Sematell GmbH
+  logo: sematell-logo.svg
+  since: 2021
+  mainText: Long term supporter and new sponsor.
+  target: sponsor2
+  content:
+     -
+       text: Sematell is one of the pioneers in the field of AI-based call center software. 
+     -
+       text: The intelligent solution ReplyOne analyzes requests from all written communication channels and enables service agents to answer their customer inquiries faster and better. 
+     -
+       text: The software can be used in over 70 languages and increases the quality and efficiency of service centers. With more than 120 installations, Sematell supports the customer communication of well-known companies of all sizes & from various industries.
