@@ -987,61 +987,76 @@
 <span class="source-line-no">975</span><span id="line.975">  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),</span>
 <span class="source-line-no">976</span><span id="line.976"></span>
 <span class="source-line-no">977</span><span id="line.977">  /**</span>
-<span class="source-line-no">978</span><span id="line.978">   * Provides the ability to publish content to Instagram account you have access to.</span>
-<span class="source-line-no">979</span><span id="line.979">   *</span>
+<span class="source-line-no">978</span><span id="line.978">   * The instagram_manage_messages permission allows business users to read and respond to Instagram Direct messages.</span>
+<span class="source-line-no">979</span><span id="line.979">   * </span>
 <span class="source-line-no">980</span><span id="line.980">   * &lt;p&gt;</span>
-<span class="source-line-no">981</span><span id="line.981">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/reference/user/media_publish"&gt;Instagram's</span>
-<span class="source-line-no">982</span><span id="line.982">   * reference&lt;/a&gt; for details.</span>
-<span class="source-line-no">983</span><span id="line.983">   *</span>
+<span class="source-line-no">981</span><span id="line.981">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</span>
+<span class="source-line-no">982</span><span id="line.982">   * Guide&lt;/a&gt; for details.</span>
+<span class="source-line-no">983</span><span id="line.983">   * </span>
 <span class="source-line-no">984</span><span id="line.984">   * &lt;p&gt;</span>
 <span class="source-line-no">985</span><span id="line.985">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">986</span><span id="line.986">   *</span>
+<span class="source-line-no">986</span><span id="line.986">   * </span>
 <span class="source-line-no">987</span><span id="line.987">   * &lt;p&gt;</span>
 <span class="source-line-no">988</span><span id="line.988">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
 <span class="source-line-no">989</span><span id="line.989">   */</span>
-<span class="source-line-no">990</span><span id="line.990">  @GraphAPI(since = "2.5")</span>
-<span class="source-line-no">991</span><span id="line.991">  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM),</span>
-<span class="source-line-no">992</span><span id="line.992"></span>
-<span class="source-line-no">993</span><span id="line.993">  /**</span>
-<span class="source-line-no">994</span><span id="line.994">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</span>
-<span class="source-line-no">995</span><span id="line.995">   * businesses through this permission.</span>
-<span class="source-line-no">996</span><span id="line.996">   *</span>
-<span class="source-line-no">997</span><span id="line.997">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</span>
+<span class="source-line-no">990</span><span id="line.990">  INSTAGRAM_MANAGE_MESSAGES("instagram_manage_messages", Category.INSTAGRAM),</span>
+<span class="source-line-no">991</span><span id="line.991"></span>
+<span class="source-line-no">992</span><span id="line.992">  /**</span>
+<span class="source-line-no">993</span><span id="line.993">   * Provides the ability to publish content to Instagram account you have access to.</span>
+<span class="source-line-no">994</span><span id="line.994">   *</span>
+<span class="source-line-no">995</span><span id="line.995">   * &lt;p&gt;</span>
+<span class="source-line-no">996</span><span id="line.996">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/reference/user/media_publish"&gt;Instagram's</span>
+<span class="source-line-no">997</span><span id="line.997">   * reference&lt;/a&gt; for details.</span>
 <span class="source-line-no">998</span><span id="line.998">   *</span>
 <span class="source-line-no">999</span><span id="line.999">   * &lt;p&gt;</span>
-<span class="source-line-no">1000</span><span id="line.1000">   * Please see &lt;a href=</span>
-<span class="source-line-no">1001</span><span id="line.1001">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</span>
-<span class="source-line-no">1002</span><span id="line.1002">   * reference&lt;/a&gt; for details.</span>
-<span class="source-line-no">1003</span><span id="line.1003">   *</span>
-<span class="source-line-no">1004</span><span id="line.1004">   * &lt;p&gt;</span>
-<span class="source-line-no">1005</span><span id="line.1005">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1006</span><span id="line.1006">   *</span>
-<span class="source-line-no">1007</span><span id="line.1007">   * &lt;p&gt;</span>
-<span class="source-line-no">1008</span><span id="line.1008">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1009</span><span id="line.1009">   */</span>
-<span class="source-line-no">1010</span><span id="line.1010">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);</span>
-<span class="source-line-no">1011</span><span id="line.1011"></span>
-<span class="source-line-no">1012</span><span id="line.1012">  private final String permissionString;</span>
-<span class="source-line-no">1013</span><span id="line.1013"></span>
-<span class="source-line-no">1014</span><span id="line.1014">  private final Category category;</span>
-<span class="source-line-no">1015</span><span id="line.1015"></span>
-<span class="source-line-no">1016</span><span id="line.1016">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
-<span class="source-line-no">1017</span><span id="line.1017">    this.permissionString = facebookPermissionString;</span>
-<span class="source-line-no">1018</span><span id="line.1018">    this.category = category;</span>
-<span class="source-line-no">1019</span><span id="line.1019">  }</span>
-<span class="source-line-no">1020</span><span id="line.1020"></span>
-<span class="source-line-no">1021</span><span id="line.1021">  public String getPermissionString() {</span>
-<span class="source-line-no">1022</span><span id="line.1022">    return this.permissionString;</span>
-<span class="source-line-no">1023</span><span id="line.1023">  }</span>
-<span class="source-line-no">1024</span><span id="line.1024"></span>
-<span class="source-line-no">1025</span><span id="line.1025">  public Category getCategory() {</span>
-<span class="source-line-no">1026</span><span id="line.1026">    return this.category;</span>
-<span class="source-line-no">1027</span><span id="line.1027">  }</span>
+<span class="source-line-no">1000</span><span id="line.1000">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1001</span><span id="line.1001">   *</span>
+<span class="source-line-no">1002</span><span id="line.1002">   * &lt;p&gt;</span>
+<span class="source-line-no">1003</span><span id="line.1003">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1004</span><span id="line.1004">   */</span>
+<span class="source-line-no">1005</span><span id="line.1005">  @GraphAPI(since = "2.5")</span>
+<span class="source-line-no">1006</span><span id="line.1006">  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM),</span>
+<span class="source-line-no">1007</span><span id="line.1007"></span>
+<span class="source-line-no">1008</span><span id="line.1008">  /**</span>
+<span class="source-line-no">1009</span><span id="line.1009">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</span>
+<span class="source-line-no">1010</span><span id="line.1010">   * businesses through this permission.</span>
+<span class="source-line-no">1011</span><span id="line.1011">   *</span>
+<span class="source-line-no">1012</span><span id="line.1012">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</span>
+<span class="source-line-no">1013</span><span id="line.1013">   *</span>
+<span class="source-line-no">1014</span><span id="line.1014">   * &lt;p&gt;</span>
+<span class="source-line-no">1015</span><span id="line.1015">   * Please see &lt;a href=</span>
+<span class="source-line-no">1016</span><span id="line.1016">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</span>
+<span class="source-line-no">1017</span><span id="line.1017">   * reference&lt;/a&gt; for details.</span>
+<span class="source-line-no">1018</span><span id="line.1018">   *</span>
+<span class="source-line-no">1019</span><span id="line.1019">   * &lt;p&gt;</span>
+<span class="source-line-no">1020</span><span id="line.1020">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1021</span><span id="line.1021">   *</span>
+<span class="source-line-no">1022</span><span id="line.1022">   * &lt;p&gt;</span>
+<span class="source-line-no">1023</span><span id="line.1023">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1024</span><span id="line.1024">   */</span>
+<span class="source-line-no">1025</span><span id="line.1025">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);</span>
+<span class="source-line-no">1026</span><span id="line.1026"></span>
+<span class="source-line-no">1027</span><span id="line.1027">  private final String permissionString;</span>
 <span class="source-line-no">1028</span><span id="line.1028"></span>
-<span class="source-line-no">1029</span><span id="line.1029">  public enum Category {</span>
-<span class="source-line-no">1030</span><span id="line.1030">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP</span>
-<span class="source-line-no">1031</span><span id="line.1031">  }</span>
-<span class="source-line-no">1032</span><span id="line.1032">}</span>
+<span class="source-line-no">1029</span><span id="line.1029">  private final Category category;</span>
+<span class="source-line-no">1030</span><span id="line.1030"></span>
+<span class="source-line-no">1031</span><span id="line.1031">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
+<span class="source-line-no">1032</span><span id="line.1032">    this.permissionString = facebookPermissionString;</span>
+<span class="source-line-no">1033</span><span id="line.1033">    this.category = category;</span>
+<span class="source-line-no">1034</span><span id="line.1034">  }</span>
+<span class="source-line-no">1035</span><span id="line.1035"></span>
+<span class="source-line-no">1036</span><span id="line.1036">  public String getPermissionString() {</span>
+<span class="source-line-no">1037</span><span id="line.1037">    return this.permissionString;</span>
+<span class="source-line-no">1038</span><span id="line.1038">  }</span>
+<span class="source-line-no">1039</span><span id="line.1039"></span>
+<span class="source-line-no">1040</span><span id="line.1040">  public Category getCategory() {</span>
+<span class="source-line-no">1041</span><span id="line.1041">    return this.category;</span>
+<span class="source-line-no">1042</span><span id="line.1042">  }</span>
+<span class="source-line-no">1043</span><span id="line.1043"></span>
+<span class="source-line-no">1044</span><span id="line.1044">  public enum Category {</span>
+<span class="source-line-no">1045</span><span id="line.1045">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP</span>
+<span class="source-line-no">1046</span><span id="line.1046">  }</span>
+<span class="source-line-no">1047</span><span id="line.1047">}</span>
 
 
 

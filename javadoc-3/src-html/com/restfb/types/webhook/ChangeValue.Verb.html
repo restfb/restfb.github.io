@@ -70,10 +70,14 @@
 <span class="source-line-no">058</span><span id="line.58">    return ReflectionUtils.toString(this);</span>
 <span class="source-line-no">059</span><span id="line.59">  }</span>
 <span class="source-line-no">060</span><span id="line.60"></span>
-<span class="source-line-no">061</span><span id="line.61">  public &lt;T extends ChangeValue&gt; T convertChangeValue(Class&lt;T&gt; clazz) {</span>
-<span class="source-line-no">062</span><span id="line.62">    return (T) this;</span>
+<span class="source-line-no">061</span><span id="line.61">  public boolean isWhatsapp() {</span>
+<span class="source-line-no">062</span><span id="line.62">    return false;</span>
 <span class="source-line-no">063</span><span id="line.63">  }</span>
-<span class="source-line-no">064</span><span id="line.64">}</span>
+<span class="source-line-no">064</span><span id="line.64"></span>
+<span class="source-line-no">065</span><span id="line.65">  public &lt;T extends ChangeValue&gt; T convertChangeValue(Class&lt;T&gt; clazz) {</span>
+<span class="source-line-no">066</span><span id="line.66">    return (T) this;</span>
+<span class="source-line-no">067</span><span id="line.67">  }</span>
+<span class="source-line-no">068</span><span id="line.68">}</span>
 
 
 
