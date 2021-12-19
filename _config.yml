@@ -29,6 +29,7 @@ color:
 people:
 - name: Mark Allen
   pic: 1
+  extension: webp
   position: Founder
   social:
     - title: github
@@ -38,6 +39,7 @@ people:
 
 - name: Norbert Bartels
   pic: 2
+  extension: webp
   position: Maintainer and Lead Developer
   social:
     - title: github
@@ -49,6 +51,7 @@ people:
 
 - name: many contributors
   pic: 3
+  extension: svg
 
 # site Social network links and types (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
