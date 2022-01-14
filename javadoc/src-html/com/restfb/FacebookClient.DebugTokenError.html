@@ -789,155 +789,205 @@
 <span class="source-line-no">776</span><span id="line-776">    @Facebook</span>
 <span class="source-line-no">777</span><span id="line-777">    private List&lt;String&gt; scopes = new ArrayList&lt;&gt;();</span>
 <span class="source-line-no">778</span><span id="line-778"></span>
-<span class="source-line-no">779</span><span id="line-779">    @Facebook</span>
-<span class="source-line-no">780</span><span id="line-780">    private String type;</span>
-<span class="source-line-no">781</span><span id="line-781"></span>
-<span class="source-line-no">782</span><span id="line-782">    /**</span>
-<span class="source-line-no">783</span><span id="line-783">     * The application id.</span>
-<span class="source-line-no">784</span><span id="line-784">     * </span>
-<span class="source-line-no">785</span><span id="line-785">     * @return The id of the application.</span>
-<span class="source-line-no">786</span><span id="line-786">     */</span>
-<span class="source-line-no">787</span><span id="line-787">    public String getAppId() {</span>
-<span class="source-line-no">788</span><span id="line-788">      return appId;</span>
-<span class="source-line-no">789</span><span id="line-789">    }</span>
-<span class="source-line-no">790</span><span id="line-790"></span>
-<span class="source-line-no">791</span><span id="line-791">    /**</span>
-<span class="source-line-no">792</span><span id="line-792">     * The application name.</span>
-<span class="source-line-no">793</span><span id="line-793">     * </span>
-<span class="source-line-no">794</span><span id="line-794">     * @return The name of the application.</span>
-<span class="source-line-no">795</span><span id="line-795">     */</span>
-<span class="source-line-no">796</span><span id="line-796">    public String getApplication() {</span>
-<span class="source-line-no">797</span><span id="line-797">      return application;</span>
-<span class="source-line-no">798</span><span id="line-798">    }</span>
-<span class="source-line-no">799</span><span id="line-799"></span>
-<span class="source-line-no">800</span><span id="line-800">    /**</span>
-<span class="source-line-no">801</span><span id="line-801">     * The date on which the access token expires.</span>
-<span class="source-line-no">802</span><span id="line-802">     * </span>
-<span class="source-line-no">803</span><span id="line-803">     * @return The date on which the access token expires.</span>
-<span class="source-line-no">804</span><span id="line-804">     */</span>
-<span class="source-line-no">805</span><span id="line-805">    public Date getExpiresAt() {</span>
-<span class="source-line-no">806</span><span id="line-806">      return expiresAt;</span>
-<span class="source-line-no">807</span><span id="line-807">    }</span>
-<span class="source-line-no">808</span><span id="line-808"></span>
-<span class="source-line-no">809</span><span id="line-809">    /**</span>
-<span class="source-line-no">810</span><span id="line-810">     * Timestamp when app's access to user data expires.</span>
-<span class="source-line-no">811</span><span id="line-811">     *</span>
-<span class="source-line-no">812</span><span id="line-812">     * @return The date when app's access to user data expires.</span>
-<span class="source-line-no">813</span><span id="line-813">     */</span>
-<span class="source-line-no">814</span><span id="line-814">    public Date getDataAccessExpiresAt() {</span>
-<span class="source-line-no">815</span><span id="line-815">      return dataAccessExpiresAt;</span>
-<span class="source-line-no">816</span><span id="line-816">    }</span>
-<span class="source-line-no">817</span><span id="line-817"></span>
-<span class="source-line-no">818</span><span id="line-818">    /**</span>
-<span class="source-line-no">819</span><span id="line-819">     * The date on which the access token was issued.</span>
-<span class="source-line-no">820</span><span id="line-820">     * </span>
-<span class="source-line-no">821</span><span id="line-821">     * @return The date on which the access token was issued.</span>
-<span class="source-line-no">822</span><span id="line-822">     */</span>
-<span class="source-line-no">823</span><span id="line-823">    public Date getIssuedAt() {</span>
-<span class="source-line-no">824</span><span id="line-824">      return issuedAt;</span>
-<span class="source-line-no">825</span><span id="line-825">    }</span>
-<span class="source-line-no">826</span><span id="line-826"></span>
-<span class="source-line-no">827</span><span id="line-827">    /**</span>
-<span class="source-line-no">828</span><span id="line-828">     * Whether or not the token is valid.</span>
-<span class="source-line-no">829</span><span id="line-829">     * </span>
-<span class="source-line-no">830</span><span id="line-830">     * @return Whether or not the token is valid.</span>
-<span class="source-line-no">831</span><span id="line-831">     */</span>
-<span class="source-line-no">832</span><span id="line-832">    public Boolean isValid() {</span>
-<span class="source-line-no">833</span><span id="line-833">      return isValid;</span>
-<span class="source-line-no">834</span><span id="line-834">    }</span>
-<span class="source-line-no">835</span><span id="line-835"></span>
-<span class="source-line-no">836</span><span id="line-836">    /**</span>
-<span class="source-line-no">837</span><span id="line-837">     * The user id.</span>
-<span class="source-line-no">838</span><span id="line-838">     * </span>
-<span class="source-line-no">839</span><span id="line-839">     * @return The user id.</span>
-<span class="source-line-no">840</span><span id="line-840">     */</span>
-<span class="source-line-no">841</span><span id="line-841">    public String getUserId() {</span>
-<span class="source-line-no">842</span><span id="line-842">      return userId;</span>
-<span class="source-line-no">843</span><span id="line-843">    }</span>
-<span class="source-line-no">844</span><span id="line-844"></span>
-<span class="source-line-no">845</span><span id="line-845">    /**</span>
-<span class="source-line-no">846</span><span id="line-846">     * List of scopes the access token 'contains'</span>
-<span class="source-line-no">847</span><span id="line-847">     * </span>
-<span class="source-line-no">848</span><span id="line-848">     * @return list of scopes</span>
-<span class="source-line-no">849</span><span id="line-849">     */</span>
-<span class="source-line-no">850</span><span id="line-850">    public List&lt;String&gt; getScopes() {</span>
-<span class="source-line-no">851</span><span id="line-851">      return unmodifiableList(scopes);</span>
-<span class="source-line-no">852</span><span id="line-852">    }</span>
-<span class="source-line-no">853</span><span id="line-853"></span>
-<span class="source-line-no">854</span><span id="line-854">    /**</span>
-<span class="source-line-no">855</span><span id="line-855">     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'</span>
-<span class="source-line-no">856</span><span id="line-856">     * </span>
-<span class="source-line-no">857</span><span id="line-857">     * @return General metadata associated with the access token</span>
-<span class="source-line-no">858</span><span id="line-858">     */</span>
-<span class="source-line-no">859</span><span id="line-859">    public JsonObject getMetaData() {</span>
-<span class="source-line-no">860</span><span id="line-860">      return metadata;</span>
-<span class="source-line-no">861</span><span id="line-861">    }</span>
-<span class="source-line-no">862</span><span id="line-862"></span>
-<span class="source-line-no">863</span><span id="line-863">    /**</span>
-<span class="source-line-no">864</span><span id="line-864">     * All Error data associated with access token debug.</span>
-<span class="source-line-no">865</span><span id="line-865">     * </span>
-<span class="source-line-no">866</span><span id="line-866">     * @return debug token error</span>
-<span class="source-line-no">867</span><span id="line-867">     */</span>
-<span class="source-line-no">868</span><span id="line-868">    public DebugTokenError getDebugTokenError() {</span>
-<span class="source-line-no">869</span><span id="line-869">      return error;</span>
-<span class="source-line-no">870</span><span id="line-870">    }</span>
-<span class="source-line-no">871</span><span id="line-871"></span>
-<span class="source-line-no">872</span><span id="line-872">    public String getType() {</span>
-<span class="source-line-no">873</span><span id="line-873">      return type;</span>
-<span class="source-line-no">874</span><span id="line-874">    }</span>
-<span class="source-line-no">875</span><span id="line-875">  }</span>
-<span class="source-line-no">876</span><span id="line-876"></span>
-<span class="source-line-no">877</span><span id="line-877">  class DebugTokenError extends AbstractFacebookType {</span>
-<span class="source-line-no">878</span><span id="line-878"></span>
-<span class="source-line-no">879</span><span id="line-879">    private static final long serialVersionUID = 1L;</span>
-<span class="source-line-no">880</span><span id="line-880"></span>
-<span class="source-line-no">881</span><span id="line-881">    /**</span>
-<span class="source-line-no">882</span><span id="line-882">     * The error code for the error.</span>
-<span class="source-line-no">883</span><span id="line-883">     */</span>
-<span class="source-line-no">884</span><span id="line-884">    @Facebook</span>
-<span class="source-line-no">885</span><span id="line-885">    private Integer code;</span>
+<span class="source-line-no">779</span><span id="line-779">    /**</span>
+<span class="source-line-no">780</span><span id="line-780">     * List of granular permissions that the user has granted for this app in this access token.</span>
+<span class="source-line-no">781</span><span id="line-781">     */</span>
+<span class="source-line-no">782</span><span id="line-782">    @Facebook("granular_scopes")</span>
+<span class="source-line-no">783</span><span id="line-783">    private List&lt;GranularScope&gt; granularScopes = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">784</span><span id="line-784"></span>
+<span class="source-line-no">785</span><span id="line-785">    @Facebook</span>
+<span class="source-line-no">786</span><span id="line-786">    private String type;</span>
+<span class="source-line-no">787</span><span id="line-787"></span>
+<span class="source-line-no">788</span><span id="line-788">    /**</span>
+<span class="source-line-no">789</span><span id="line-789">     * The application id.</span>
+<span class="source-line-no">790</span><span id="line-790">     * </span>
+<span class="source-line-no">791</span><span id="line-791">     * @return The id of the application.</span>
+<span class="source-line-no">792</span><span id="line-792">     */</span>
+<span class="source-line-no">793</span><span id="line-793">    public String getAppId() {</span>
+<span class="source-line-no">794</span><span id="line-794">      return appId;</span>
+<span class="source-line-no">795</span><span id="line-795">    }</span>
+<span class="source-line-no">796</span><span id="line-796"></span>
+<span class="source-line-no">797</span><span id="line-797">    /**</span>
+<span class="source-line-no">798</span><span id="line-798">     * The application name.</span>
+<span class="source-line-no">799</span><span id="line-799">     * </span>
+<span class="source-line-no">800</span><span id="line-800">     * @return The name of the application.</span>
+<span class="source-line-no">801</span><span id="line-801">     */</span>
+<span class="source-line-no">802</span><span id="line-802">    public String getApplication() {</span>
+<span class="source-line-no">803</span><span id="line-803">      return application;</span>
+<span class="source-line-no">804</span><span id="line-804">    }</span>
+<span class="source-line-no">805</span><span id="line-805"></span>
+<span class="source-line-no">806</span><span id="line-806">    /**</span>
+<span class="source-line-no">807</span><span id="line-807">     * The date on which the access token expires.</span>
+<span class="source-line-no">808</span><span id="line-808">     * </span>
+<span class="source-line-no">809</span><span id="line-809">     * @return The date on which the access token expires.</span>
+<span class="source-line-no">810</span><span id="line-810">     */</span>
+<span class="source-line-no">811</span><span id="line-811">    public Date getExpiresAt() {</span>
+<span class="source-line-no">812</span><span id="line-812">      return expiresAt;</span>
+<span class="source-line-no">813</span><span id="line-813">    }</span>
+<span class="source-line-no">814</span><span id="line-814"></span>
+<span class="source-line-no">815</span><span id="line-815">    /**</span>
+<span class="source-line-no">816</span><span id="line-816">     * Timestamp when app's access to user data expires.</span>
+<span class="source-line-no">817</span><span id="line-817">     *</span>
+<span class="source-line-no">818</span><span id="line-818">     * @return The date when app's access to user data expires.</span>
+<span class="source-line-no">819</span><span id="line-819">     */</span>
+<span class="source-line-no">820</span><span id="line-820">    public Date getDataAccessExpiresAt() {</span>
+<span class="source-line-no">821</span><span id="line-821">      return dataAccessExpiresAt;</span>
+<span class="source-line-no">822</span><span id="line-822">    }</span>
+<span class="source-line-no">823</span><span id="line-823"></span>
+<span class="source-line-no">824</span><span id="line-824">    /**</span>
+<span class="source-line-no">825</span><span id="line-825">     * The date on which the access token was issued.</span>
+<span class="source-line-no">826</span><span id="line-826">     * </span>
+<span class="source-line-no">827</span><span id="line-827">     * @return The date on which the access token was issued.</span>
+<span class="source-line-no">828</span><span id="line-828">     */</span>
+<span class="source-line-no">829</span><span id="line-829">    public Date getIssuedAt() {</span>
+<span class="source-line-no">830</span><span id="line-830">      return issuedAt;</span>
+<span class="source-line-no">831</span><span id="line-831">    }</span>
+<span class="source-line-no">832</span><span id="line-832"></span>
+<span class="source-line-no">833</span><span id="line-833">    /**</span>
+<span class="source-line-no">834</span><span id="line-834">     * Whether or not the token is valid.</span>
+<span class="source-line-no">835</span><span id="line-835">     * </span>
+<span class="source-line-no">836</span><span id="line-836">     * @return Whether or not the token is valid.</span>
+<span class="source-line-no">837</span><span id="line-837">     */</span>
+<span class="source-line-no">838</span><span id="line-838">    public Boolean isValid() {</span>
+<span class="source-line-no">839</span><span id="line-839">      return isValid;</span>
+<span class="source-line-no">840</span><span id="line-840">    }</span>
+<span class="source-line-no">841</span><span id="line-841"></span>
+<span class="source-line-no">842</span><span id="line-842">    /**</span>
+<span class="source-line-no">843</span><span id="line-843">     * The user id.</span>
+<span class="source-line-no">844</span><span id="line-844">     * </span>
+<span class="source-line-no">845</span><span id="line-845">     * @return The user id.</span>
+<span class="source-line-no">846</span><span id="line-846">     */</span>
+<span class="source-line-no">847</span><span id="line-847">    public String getUserId() {</span>
+<span class="source-line-no">848</span><span id="line-848">      return userId;</span>
+<span class="source-line-no">849</span><span id="line-849">    }</span>
+<span class="source-line-no">850</span><span id="line-850"></span>
+<span class="source-line-no">851</span><span id="line-851">    /**</span>
+<span class="source-line-no">852</span><span id="line-852">     * List of scopes the access token 'contains'</span>
+<span class="source-line-no">853</span><span id="line-853">     * </span>
+<span class="source-line-no">854</span><span id="line-854">     * @return list of scopes</span>
+<span class="source-line-no">855</span><span id="line-855">     */</span>
+<span class="source-line-no">856</span><span id="line-856">    public List&lt;String&gt; getScopes() {</span>
+<span class="source-line-no">857</span><span id="line-857">      return unmodifiableList(scopes);</span>
+<span class="source-line-no">858</span><span id="line-858">    }</span>
+<span class="source-line-no">859</span><span id="line-859"></span>
+<span class="source-line-no">860</span><span id="line-860">    /**</span>
+<span class="source-line-no">861</span><span id="line-861">     * List of granular scopes the access token 'contains'</span>
+<span class="source-line-no">862</span><span id="line-862">     * </span>
+<span class="source-line-no">863</span><span id="line-863">     * @return list of granular scopes</span>
+<span class="source-line-no">864</span><span id="line-864">     */</span>
+<span class="source-line-no">865</span><span id="line-865">    public List&lt;GranularScope&gt; getGranularScopes() {</span>
+<span class="source-line-no">866</span><span id="line-866">      return unmodifiableList(granularScopes);</span>
+<span class="source-line-no">867</span><span id="line-867">    }</span>
+<span class="source-line-no">868</span><span id="line-868"></span>
+<span class="source-line-no">869</span><span id="line-869">    /**</span>
+<span class="source-line-no">870</span><span id="line-870">     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'</span>
+<span class="source-line-no">871</span><span id="line-871">     * </span>
+<span class="source-line-no">872</span><span id="line-872">     * @return General metadata associated with the access token</span>
+<span class="source-line-no">873</span><span id="line-873">     */</span>
+<span class="source-line-no">874</span><span id="line-874">    public JsonObject getMetaData() {</span>
+<span class="source-line-no">875</span><span id="line-875">      return metadata;</span>
+<span class="source-line-no">876</span><span id="line-876">    }</span>
+<span class="source-line-no">877</span><span id="line-877"></span>
+<span class="source-line-no">878</span><span id="line-878">    /**</span>
+<span class="source-line-no">879</span><span id="line-879">     * All Error data associated with access token debug.</span>
+<span class="source-line-no">880</span><span id="line-880">     * </span>
+<span class="source-line-no">881</span><span id="line-881">     * @return debug token error</span>
+<span class="source-line-no">882</span><span id="line-882">     */</span>
+<span class="source-line-no">883</span><span id="line-883">    public DebugTokenError getDebugTokenError() {</span>
+<span class="source-line-no">884</span><span id="line-884">      return error;</span>
+<span class="source-line-no">885</span><span id="line-885">    }</span>
 <span class="source-line-no">886</span><span id="line-886"></span>
-<span class="source-line-no">887</span><span id="line-887">    /**</span>
-<span class="source-line-no">888</span><span id="line-888">     * The error message for the error.</span>
-<span class="source-line-no">889</span><span id="line-889">     */</span>
-<span class="source-line-no">890</span><span id="line-890">    @Facebook</span>
-<span class="source-line-no">891</span><span id="line-891">    private String message;</span>
-<span class="source-line-no">892</span><span id="line-892"></span>
-<span class="source-line-no">893</span><span id="line-893">    /**</span>
-<span class="source-line-no">894</span><span id="line-894">     * The error subcode for the error.</span>
-<span class="source-line-no">895</span><span id="line-895">     */</span>
-<span class="source-line-no">896</span><span id="line-896">    @Facebook</span>
-<span class="source-line-no">897</span><span id="line-897">    private Integer subcode;</span>
-<span class="source-line-no">898</span><span id="line-898"></span>
-<span class="source-line-no">899</span><span id="line-899">    /**</span>
-<span class="source-line-no">900</span><span id="line-900">     * The error code for the error.</span>
-<span class="source-line-no">901</span><span id="line-901">     * </span>
-<span class="source-line-no">902</span><span id="line-902">     * @return The error code for the error.</span>
-<span class="source-line-no">903</span><span id="line-903">     */</span>
-<span class="source-line-no">904</span><span id="line-904">    public Integer getCode() {</span>
-<span class="source-line-no">905</span><span id="line-905">      return code;</span>
-<span class="source-line-no">906</span><span id="line-906">    }</span>
+<span class="source-line-no">887</span><span id="line-887">    public String getType() {</span>
+<span class="source-line-no">888</span><span id="line-888">      return type;</span>
+<span class="source-line-no">889</span><span id="line-889">    }</span>
+<span class="source-line-no">890</span><span id="line-890">  }</span>
+<span class="source-line-no">891</span><span id="line-891"></span>
+<span class="source-line-no">892</span><span id="line-892">  class GranularScope extends AbstractFacebookType {</span>
+<span class="source-line-no">893</span><span id="line-893"></span>
+<span class="source-line-no">894</span><span id="line-894">    private static final long serialVersionUID = 1L;</span>
+<span class="source-line-no">895</span><span id="line-895"></span>
+<span class="source-line-no">896</span><span id="line-896">    /**</span>
+<span class="source-line-no">897</span><span id="line-897">     * The permission granted by the user.</span>
+<span class="source-line-no">898</span><span id="line-898">     */</span>
+<span class="source-line-no">899</span><span id="line-899">    @Facebook</span>
+<span class="source-line-no">900</span><span id="line-900">    private String scope;</span>
+<span class="source-line-no">901</span><span id="line-901"></span>
+<span class="source-line-no">902</span><span id="line-902">    /**</span>
+<span class="source-line-no">903</span><span id="line-903">     * The target ids of Pages, Groups, or business assets the user granted the above permission for.</span>
+<span class="source-line-no">904</span><span id="line-904">     */</span>
+<span class="source-line-no">905</span><span id="line-905">    @Facebook("target_ids")</span>
+<span class="source-line-no">906</span><span id="line-906">    private List&lt;String&gt; targetIds = new ArrayList&lt;&gt;();</span>
 <span class="source-line-no">907</span><span id="line-907"></span>
 <span class="source-line-no">908</span><span id="line-908">    /**</span>
-<span class="source-line-no">909</span><span id="line-909">     * The error message for the error.</span>
+<span class="source-line-no">909</span><span id="line-909">     * The permission granted by the user.</span>
 <span class="source-line-no">910</span><span id="line-910">     * </span>
-<span class="source-line-no">911</span><span id="line-911">     * @return The error message for the error.</span>
+<span class="source-line-no">911</span><span id="line-911">     * @return The permission granted by the user.</span>
 <span class="source-line-no">912</span><span id="line-912">     */</span>
-<span class="source-line-no">913</span><span id="line-913">    public String getMessage() {</span>
-<span class="source-line-no">914</span><span id="line-914">      return message;</span>
+<span class="source-line-no">913</span><span id="line-913">    public String getScope() {</span>
+<span class="source-line-no">914</span><span id="line-914">      return scope;</span>
 <span class="source-line-no">915</span><span id="line-915">    }</span>
 <span class="source-line-no">916</span><span id="line-916"></span>
 <span class="source-line-no">917</span><span id="line-917">    /**</span>
-<span class="source-line-no">918</span><span id="line-918">     * The error subcode for the error.</span>
+<span class="source-line-no">918</span><span id="line-918">     * The target ids of Pages, Groups, or business assets the user granted the above permission for.</span>
 <span class="source-line-no">919</span><span id="line-919">     * </span>
-<span class="source-line-no">920</span><span id="line-920">     * @return The error subcode for the error.</span>
+<span class="source-line-no">920</span><span id="line-920">     * @return The target ids of Pages, Groups, or business assets the user granted the above permission for.</span>
 <span class="source-line-no">921</span><span id="line-921">     */</span>
-<span class="source-line-no">922</span><span id="line-922">    public Integer getSubcode() {</span>
-<span class="source-line-no">923</span><span id="line-923">      return subcode;</span>
+<span class="source-line-no">922</span><span id="line-922">    public List&lt;String&gt; getTargetIds() {</span>
+<span class="source-line-no">923</span><span id="line-923">      return unmodifiableList(targetIds);</span>
 <span class="source-line-no">924</span><span id="line-924">    }</span>
-<span class="source-line-no">925</span><span id="line-925"></span>
-<span class="source-line-no">926</span><span id="line-926">  }</span>
-<span class="source-line-no">927</span><span id="line-927">}</span>
+<span class="source-line-no">925</span><span id="line-925">  }</span>
+<span class="source-line-no">926</span><span id="line-926"></span>
+<span class="source-line-no">927</span><span id="line-927">  class DebugTokenError extends AbstractFacebookType {</span>
+<span class="source-line-no">928</span><span id="line-928"></span>
+<span class="source-line-no">929</span><span id="line-929">    private static final long serialVersionUID = 1L;</span>
+<span class="source-line-no">930</span><span id="line-930"></span>
+<span class="source-line-no">931</span><span id="line-931">    /**</span>
+<span class="source-line-no">932</span><span id="line-932">     * The error code for the error.</span>
+<span class="source-line-no">933</span><span id="line-933">     */</span>
+<span class="source-line-no">934</span><span id="line-934">    @Facebook</span>
+<span class="source-line-no">935</span><span id="line-935">    private Integer code;</span>
+<span class="source-line-no">936</span><span id="line-936"></span>
+<span class="source-line-no">937</span><span id="line-937">    /**</span>
+<span class="source-line-no">938</span><span id="line-938">     * The error message for the error.</span>
+<span class="source-line-no">939</span><span id="line-939">     */</span>
+<span class="source-line-no">940</span><span id="line-940">    @Facebook</span>
+<span class="source-line-no">941</span><span id="line-941">    private String message;</span>
+<span class="source-line-no">942</span><span id="line-942"></span>
+<span class="source-line-no">943</span><span id="line-943">    /**</span>
+<span class="source-line-no">944</span><span id="line-944">     * The error subcode for the error.</span>
+<span class="source-line-no">945</span><span id="line-945">     */</span>
+<span class="source-line-no">946</span><span id="line-946">    @Facebook</span>
+<span class="source-line-no">947</span><span id="line-947">    private Integer subcode;</span>
+<span class="source-line-no">948</span><span id="line-948"></span>
+<span class="source-line-no">949</span><span id="line-949">    /**</span>
+<span class="source-line-no">950</span><span id="line-950">     * The error code for the error.</span>
+<span class="source-line-no">951</span><span id="line-951">     * </span>
+<span class="source-line-no">952</span><span id="line-952">     * @return The error code for the error.</span>
+<span class="source-line-no">953</span><span id="line-953">     */</span>
+<span class="source-line-no">954</span><span id="line-954">    public Integer getCode() {</span>
+<span class="source-line-no">955</span><span id="line-955">      return code;</span>
+<span class="source-line-no">956</span><span id="line-956">    }</span>
+<span class="source-line-no">957</span><span id="line-957"></span>
+<span class="source-line-no">958</span><span id="line-958">    /**</span>
+<span class="source-line-no">959</span><span id="line-959">     * The error message for the error.</span>
+<span class="source-line-no">960</span><span id="line-960">     * </span>
+<span class="source-line-no">961</span><span id="line-961">     * @return The error message for the error.</span>
+<span class="source-line-no">962</span><span id="line-962">     */</span>
+<span class="source-line-no">963</span><span id="line-963">    public String getMessage() {</span>
+<span class="source-line-no">964</span><span id="line-964">      return message;</span>
+<span class="source-line-no">965</span><span id="line-965">    }</span>
+<span class="source-line-no">966</span><span id="line-966"></span>
+<span class="source-line-no">967</span><span id="line-967">    /**</span>
+<span class="source-line-no">968</span><span id="line-968">     * The error subcode for the error.</span>
+<span class="source-line-no">969</span><span id="line-969">     * </span>
+<span class="source-line-no">970</span><span id="line-970">     * @return The error subcode for the error.</span>
+<span class="source-line-no">971</span><span id="line-971">     */</span>
+<span class="source-line-no">972</span><span id="line-972">    public Integer getSubcode() {</span>
+<span class="source-line-no">973</span><span id="line-973">      return subcode;</span>
+<span class="source-line-no">974</span><span id="line-974">    }</span>
+<span class="source-line-no">975</span><span id="line-975"></span>
+<span class="source-line-no">976</span><span id="line-976">  }</span>
+<span class="source-line-no">977</span><span id="line-977">}</span>
 
 
 
