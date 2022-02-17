@@ -33,9 +33,9 @@ people:
   position: Founder
   social:
     - title: github
-      url: http://bit.ly/2Hjo9QS
+      url: https://bit.ly/2Hjo9QS
     - title: linkedin
-      url: http://bit.ly/2VNlXV0
+      url: https://bit.ly/2VNlXV0
 
 - name: Norbert Bartels
   pic: 2
@@ -43,11 +43,11 @@ people:
   position: Maintainer and Lead Developer
   social:
     - title: github
-      url: http://bit.ly/2AKeAVt
+      url: https://bit.ly/2AKeAVt
     - title: stack-overflow
-      url: http://bit.ly/2QHetzd
-    - title: xing
-      url: http://bit.ly/2D7nnm5
+      url: https://bit.ly/2QHetzd
+    - title: linkedin
+      url: https://bit.ly/36exLJH
 
 - name: many contributors
   pic: 3
@@ -98,7 +98,7 @@ clients:
      url: http://dwinq.com/
      pic: img/clients/dwinq.webp
    - name: Sematell GmbH
-     url: http://www.sematell.com/
+     url: https://www.sematell.com/
      pic: img/clients/sematell.webp
    - name: Clover
      url: https://www.clover.com/
