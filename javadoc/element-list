@@ -25,5 +25,8 @@ com.restfb.types.webhook.messaging.nlp
 com.restfb.types.webhook.messaging.payment
 com.restfb.types.webhook.whatsapp
 com.restfb.types.whatsapp
+com.restfb.types.whatsapp.platform
+com.restfb.types.whatsapp.platform.message
+com.restfb.types.whatsapp.platform.status
 com.restfb.util
 com.restfb.webhook

@@ -854,29 +854,47 @@
 <span class="source-line-no">841</span><span id="line-841">   * &lt;p&gt;</span>
 <span class="source-line-no">842</span><span id="line-842">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
 <span class="source-line-no">843</span><span id="line-843">   */</span>
-<span class="source-line-no">844</span><span id="line-844">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);</span>
+<span class="source-line-no">844</span><span id="line-844">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),</span>
 <span class="source-line-no">845</span><span id="line-845"></span>
-<span class="source-line-no">846</span><span id="line-846">  private final String permissionString;</span>
-<span class="source-line-no">847</span><span id="line-847"></span>
-<span class="source-line-no">848</span><span id="line-848">  private final Category category;</span>
-<span class="source-line-no">849</span><span id="line-849"></span>
-<span class="source-line-no">850</span><span id="line-850">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
-<span class="source-line-no">851</span><span id="line-851">    this.permissionString = facebookPermissionString;</span>
-<span class="source-line-no">852</span><span id="line-852">    this.category = category;</span>
-<span class="source-line-no">853</span><span id="line-853">  }</span>
-<span class="source-line-no">854</span><span id="line-854"></span>
-<span class="source-line-no">855</span><span id="line-855">  public String getPermissionString() {</span>
-<span class="source-line-no">856</span><span id="line-856">    return this.permissionString;</span>
-<span class="source-line-no">857</span><span id="line-857">  }</span>
-<span class="source-line-no">858</span><span id="line-858"></span>
-<span class="source-line-no">859</span><span id="line-859">  public Category getCategory() {</span>
-<span class="source-line-no">860</span><span id="line-860">    return this.category;</span>
-<span class="source-line-no">861</span><span id="line-861">  }</span>
-<span class="source-line-no">862</span><span id="line-862"></span>
-<span class="source-line-no">863</span><span id="line-863">  public enum Category {</span>
-<span class="source-line-no">864</span><span id="line-864">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP</span>
-<span class="source-line-no">865</span><span id="line-865">  }</span>
-<span class="source-line-no">866</span><span id="line-866">}</span>
+<span class="source-line-no">846</span><span id="line-846">  /**</span>
+<span class="source-line-no">847</span><span id="line-847">   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,</span>
+<span class="source-line-no">848</span><span id="line-848">   * upload and retrieve media from messages, manage and get WhatsApp business profile information,</span>
+<span class="source-line-no">849</span><span id="line-849">   * and to register those phone numbers with Meta.</span>
+<span class="source-line-no">850</span><span id="line-850">   *</span>
+<span class="source-line-no">851</span><span id="line-851">   * &lt;p&gt;</span>
+<span class="source-line-no">852</span><span id="line-852">   * Please see &lt;a href=</span>
+<span class="source-line-no">853</span><span id="line-853">   * "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging"&gt;Whatsapps's</span>
+<span class="source-line-no">854</span><span id="line-854">   * reference&lt;/a&gt; for details.</span>
+<span class="source-line-no">855</span><span id="line-855">   *</span>
+<span class="source-line-no">856</span><span id="line-856">   * &lt;p&gt;</span>
+<span class="source-line-no">857</span><span id="line-857">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">858</span><span id="line-858">   *</span>
+<span class="source-line-no">859</span><span id="line-859">   * &lt;p&gt;</span>
+<span class="source-line-no">860</span><span id="line-860">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">861</span><span id="line-861">   */</span>
+<span class="source-line-no">862</span><span id="line-862">  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP);</span>
+<span class="source-line-no">863</span><span id="line-863"></span>
+<span class="source-line-no">864</span><span id="line-864">  private final String permissionString;</span>
+<span class="source-line-no">865</span><span id="line-865"></span>
+<span class="source-line-no">866</span><span id="line-866">  private final Category category;</span>
+<span class="source-line-no">867</span><span id="line-867"></span>
+<span class="source-line-no">868</span><span id="line-868">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
+<span class="source-line-no">869</span><span id="line-869">    this.permissionString = facebookPermissionString;</span>
+<span class="source-line-no">870</span><span id="line-870">    this.category = category;</span>
+<span class="source-line-no">871</span><span id="line-871">  }</span>
+<span class="source-line-no">872</span><span id="line-872"></span>
+<span class="source-line-no">873</span><span id="line-873">  public String getPermissionString() {</span>
+<span class="source-line-no">874</span><span id="line-874">    return this.permissionString;</span>
+<span class="source-line-no">875</span><span id="line-875">  }</span>
+<span class="source-line-no">876</span><span id="line-876"></span>
+<span class="source-line-no">877</span><span id="line-877">  public Category getCategory() {</span>
+<span class="source-line-no">878</span><span id="line-878">    return this.category;</span>
+<span class="source-line-no">879</span><span id="line-879">  }</span>
+<span class="source-line-no">880</span><span id="line-880"></span>
+<span class="source-line-no">881</span><span id="line-881">  public enum Category {</span>
+<span class="source-line-no">882</span><span id="line-882">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP</span>
+<span class="source-line-no">883</span><span id="line-883">  }</span>
+<span class="source-line-no">884</span><span id="line-884">}</span>
 
 
 
