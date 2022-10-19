@@ -28,6 +28,7 @@ com.restfb.types.whatsapp
 com.restfb.types.whatsapp.platform
 com.restfb.types.whatsapp.platform.message
 com.restfb.types.whatsapp.platform.send
+com.restfb.types.whatsapp.platform.send.contact
 com.restfb.types.whatsapp.platform.send.interactive
 com.restfb.types.whatsapp.platform.status
 com.restfb.util
