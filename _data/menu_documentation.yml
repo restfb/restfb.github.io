@@ -2,6 +2,9 @@
   title: Migration
   href: migration
   file: documentation/migration.md
+- title: Versioning
+  href: versioning
+  file: documentation/versioning.md
 - 
   title: Fetching
   href: fetching
