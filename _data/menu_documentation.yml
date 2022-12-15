@@ -293,6 +293,15 @@
         menu_title: Writing comments
         file: documentation/instagram-writing-comments.md
         href: instagram-writing-comments
+- title: WhatsApp
+  file: documentation/whatsapp-intro.md
+  href: whatsapp-intro
+  subsection:
+      -
+       title: WhatsApp Business Platform Client
+       menu_title: WABP Client
+       file: documentation/whatsapp-client.md
+       href: whatsapp-client
 - 
   title: Running The Examples
   file: documentation/running-examples.md

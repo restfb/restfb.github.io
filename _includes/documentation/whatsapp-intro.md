@@ -1,0 +1,3 @@
+With the introduction of the [WhatsApp Business Platform](https://developers.facebook.com/docs/whatsapp), Facebook now also allows WhatsApp to be used via the API. Specifically, there are currently two APIs to use WhatsApp. On the one hand the [Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api) and on the other hand the [On-Premises API](https://developers.facebook.com/docs/whatsapp/on-premises).
+
+RestFB supports the Cloud API and covers both the communication with the WhatsApp Graph API and the conversion of the incoming [Whatsapp Webhook](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) messages.
