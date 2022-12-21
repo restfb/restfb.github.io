@@ -247,651 +247,685 @@
 <span class="source-line-no">234</span><span id="line-234"></span>
 <span class="source-line-no">235</span><span id="line-235">        fieldWithAnnotation.getField().setAccessible(true);</span>
 <span class="source-line-no">236</span><span id="line-236"></span>
-<span class="source-line-no">237</span><span id="line-237">        setJavaFileValue(json, facebookFieldNamesWithMultipleMappings, instance, jsonObject, fieldWithAnnotation, facebookFieldName);</span>
-<span class="source-line-no">238</span><span id="line-238">      }</span>
-<span class="source-line-no">239</span><span id="line-239"></span>
-<span class="source-line-no">240</span><span id="line-240">      // If there are any methods annotated with @JsonMappingCompleted,</span>
-<span class="source-line-no">241</span><span id="line-241">      // invoke them.</span>
-<span class="source-line-no">242</span><span id="line-242">      invokeJsonMappingCompletedMethods(instance);</span>
-<span class="source-line-no">243</span><span id="line-243"></span>
-<span class="source-line-no">244</span><span id="line-244">      return instance;</span>
-<span class="source-line-no">245</span><span id="line-245">    } catch (FacebookJsonMappingException e) {</span>
-<span class="source-line-no">246</span><span id="line-246">      throw e;</span>
-<span class="source-line-no">247</span><span id="line-247">    } catch (Exception e) {</span>
-<span class="source-line-no">248</span><span id="line-248">      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);</span>
-<span class="source-line-no">249</span><span id="line-249">    }</span>
-<span class="source-line-no">250</span><span id="line-250">  }</span>
-<span class="source-line-no">251</span><span id="line-251"></span>
-<span class="source-line-no">252</span><span id="line-252">  private &lt;T&gt; void setJavaFileValue(String json, Set&lt;String&gt; facebookFieldNamesWithMultipleMappings, T instance, JsonObject jsonObject, FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String facebookFieldName) throws IllegalAccessException {</span>
-<span class="source-line-no">253</span><span id="line-253">    // Set the Java field's value.</span>
-<span class="source-line-no">254</span><span id="line-254">    //</span>
-<span class="source-line-no">255</span><span id="line-255">    // If we notice that this Facebook field name is mapped more than once,</span>
-<span class="source-line-no">256</span><span id="line-256">    // go into a special mode where we swallow any exceptions that occur</span>
-<span class="source-line-no">257</span><span id="line-257">    // when mapping to the Java field. This is because Facebook will</span>
-<span class="source-line-no">258</span><span id="line-258">    // sometimes return data in different formats for the same field name.</span>
-<span class="source-line-no">259</span><span id="line-259">    // See issues 56 and 90 for examples of this behavior and discussion.</span>
-<span class="source-line-no">260</span><span id="line-260">    try {</span>
-<span class="source-line-no">261</span><span id="line-261">      fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));</span>
-<span class="source-line-no">262</span><span id="line-262">    } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {</span>
-<span class="source-line-no">263</span><span id="line-263">      if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {</span>
-<span class="source-line-no">264</span><span id="line-264">        logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);</span>
-<span class="source-line-no">265</span><span id="line-265">      } else {</span>
-<span class="source-line-no">266</span><span id="line-266">        throw e;</span>
-<span class="source-line-no">267</span><span id="line-267">      }</span>
-<span class="source-line-no">268</span><span id="line-268">    }</span>
-<span class="source-line-no">269</span><span id="line-269">  }</span>
-<span class="source-line-no">270</span><span id="line-270"></span>
-<span class="source-line-no">271</span><span id="line-271">  private &lt;T&gt; void handleAbstractFacebookType(String json, T instance) {</span>
-<span class="source-line-no">272</span><span id="line-272">    if (instance instanceof AbstractFacebookType) {</span>
-<span class="source-line-no">273</span><span id="line-273">      ReflectionUtils.setJson(instance, json);</span>
-<span class="source-line-no">274</span><span id="line-274">    }</span>
-<span class="source-line-no">275</span><span id="line-275">  }</span>
-<span class="source-line-no">276</span><span id="line-276"></span>
-<span class="source-line-no">277</span><span id="line-277">  private void checkJsonNotBlank(String json) {</span>
-<span class="source-line-no">278</span><span id="line-278">    if (isBlank(json)) {</span>
-<span class="source-line-no">279</span><span id="line-279">      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");</span>
-<span class="source-line-no">280</span><span id="line-280">    }</span>
-<span class="source-line-no">281</span><span id="line-281">  }</span>
-<span class="source-line-no">282</span><span id="line-282"></span>
-<span class="source-line-no">283</span><span id="line-283">  private void checkJsonNotList(String json) {</span>
-<span class="source-line-no">284</span><span id="line-284">    if (StringJsonUtils.isList(json)) {</span>
-<span class="source-line-no">285</span><span id="line-285">      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "</span>
-<span class="source-line-no">286</span><span id="line-286">          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");</span>
-<span class="source-line-no">287</span><span id="line-287">    }</span>
-<span class="source-line-no">288</span><span id="line-288">  }</span>
-<span class="source-line-no">289</span><span id="line-289"></span>
-<span class="source-line-no">290</span><span id="line-290">  /**</span>
-<span class="source-line-no">291</span><span id="line-291">   * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.</span>
-<span class="source-line-no">292</span><span id="line-292">   * &lt;p&gt;</span>
-<span class="source-line-no">293</span><span id="line-293">   * This will even work on {@code private} methods.</span>
-<span class="source-line-no">294</span><span id="line-294">   * </span>
-<span class="source-line-no">295</span><span id="line-295">   * @param object</span>
-<span class="source-line-no">296</span><span id="line-296">   *          The object on which to invoke the method.</span>
-<span class="source-line-no">297</span><span id="line-297">   * @throws IllegalAccessException</span>
-<span class="source-line-no">298</span><span id="line-298">   *           If unable to invoke the method.</span>
-<span class="source-line-no">299</span><span id="line-299">   * @throws InvocationTargetException</span>
-<span class="source-line-no">300</span><span id="line-300">   *           If unable to invoke the method.</span>
-<span class="source-line-no">301</span><span id="line-301">   */</span>
-<span class="source-line-no">302</span><span id="line-302">  protected void invokeJsonMappingCompletedMethods(Object object)</span>
-<span class="source-line-no">303</span><span id="line-303">      throws IllegalAccessException, InvocationTargetException {</span>
-<span class="source-line-no">304</span><span id="line-304">    for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {</span>
-<span class="source-line-no">305</span><span id="line-305">      method.setAccessible(true);</span>
-<span class="source-line-no">306</span><span id="line-306"></span>
-<span class="source-line-no">307</span><span id="line-307">      int methodParameterCount = method.getParameterTypes().length;</span>
-<span class="source-line-no">308</span><span id="line-308"></span>
-<span class="source-line-no">309</span><span id="line-309">      if (methodParameterCount == 0) {</span>
-<span class="source-line-no">310</span><span id="line-310">        method.invoke(object);</span>
-<span class="source-line-no">311</span><span id="line-311">      } else if (methodParameterCount == 1 &amp;&amp; JsonMapper.class.equals(method.getParameterTypes()[0])) {</span>
-<span class="source-line-no">312</span><span id="line-312">        method.invoke(object, this);</span>
-<span class="source-line-no">313</span><span id="line-313">      } else {</span>
-<span class="source-line-no">314</span><span id="line-314">        throw new FacebookJsonMappingException(</span>
-<span class="source-line-no">315</span><span id="line-315">          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",</span>
-<span class="source-line-no">316</span><span id="line-316">            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));</span>
-<span class="source-line-no">317</span><span id="line-317">      }</span>
-<span class="source-line-no">318</span><span id="line-318">    }</span>
-<span class="source-line-no">319</span><span id="line-319">  }</span>
-<span class="source-line-no">320</span><span id="line-320"></span>
-<span class="source-line-no">321</span><span id="line-321">  /**</span>
-<span class="source-line-no">322</span><span id="line-322">   * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.</span>
-<span class="source-line-no">323</span><span id="line-323">   * </span>
-<span class="source-line-no">324</span><span id="line-324">   * @param facebookFieldName</span>
-<span class="source-line-no">325</span><span id="line-325">   *          The Facebook field name.</span>
-<span class="source-line-no">326</span><span id="line-326">   * @param fieldWithAnnotation</span>
-<span class="source-line-no">327</span><span id="line-327">   *          The Java field to map to and its annotation.</span>
-<span class="source-line-no">328</span><span id="line-328">   * @param json</span>
-<span class="source-line-no">329</span><span id="line-329">   *          The JSON that failed to map to the Java field.</span>
-<span class="source-line-no">330</span><span id="line-330">   */</span>
-<span class="source-line-no">331</span><span id="line-331">  protected void logMultipleMappingFailedForField(String facebookFieldName,</span>
-<span class="source-line-no">332</span><span id="line-332">      FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String json) {</span>
-<span class="source-line-no">333</span><span id="line-333">    if (!MAPPER_LOGGER.isTraceEnabled()) {</span>
-<span class="source-line-no">334</span><span id="line-334">      return;</span>
-<span class="source-line-no">335</span><span id="line-335">    }</span>
-<span class="source-line-no">336</span><span id="line-336"></span>
-<span class="source-line-no">337</span><span id="line-337">    Field field = fieldWithAnnotation.getField();</span>
-<span class="source-line-no">338</span><span id="line-338"></span>
-<span class="source-line-no">339</span><span id="line-339">    MAPPER_LOGGER.trace(</span>
-<span class="source-line-no">340</span><span id="line-340">      "Could not map '{}' to {}. {}, but continuing on because '{}"</span>
-<span class="source-line-no">341</span><span id="line-341">          + "' is mapped to multiple fields in {}. JSON is {}",</span>
-<span class="source-line-no">342</span><span id="line-342">      facebookFieldName, field.getDeclaringClass().getSimpleName(), field.getName(), facebookFieldName,</span>
-<span class="source-line-no">343</span><span id="line-343">      field.getDeclaringClass().getSimpleName(), json);</span>
-<span class="source-line-no">344</span><span id="line-344">  }</span>
-<span class="source-line-no">345</span><span id="line-345"></span>
-<span class="source-line-no">346</span><span id="line-346">  /**</span>
-<span class="source-line-no">347</span><span id="line-347">   * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON</span>
-<span class="source-line-no">348</span><span id="line-348">   * field name to map to it is.</span>
-<span class="source-line-no">349</span><span id="line-349">   * </span>
-<span class="source-line-no">350</span><span id="line-350">   * @param fieldWithAnnotation</span>
-<span class="source-line-no">351</span><span id="line-351">   *          A Java field annotated with the {@code Facebook} annotation.</span>
-<span class="source-line-no">352</span><span id="line-352">   * @return The Facebook JSON field name that should be mapped to this Java field.</span>
-<span class="source-line-no">353</span><span id="line-353">   */</span>
-<span class="source-line-no">354</span><span id="line-354">  protected String getFacebookFieldName(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation) {</span>
-<span class="source-line-no">355</span><span id="line-355">    String facebookFieldName = fieldWithAnnotation.getAnnotation().value();</span>
-<span class="source-line-no">356</span><span id="line-356">    Field field = fieldWithAnnotation.getField();</span>
-<span class="source-line-no">357</span><span id="line-357"></span>
-<span class="source-line-no">358</span><span id="line-358">    // If no Facebook field name was specified in the annotation, assume</span>
-<span class="source-line-no">359</span><span id="line-359">    // it's the same name as the Java field</span>
-<span class="source-line-no">360</span><span id="line-360">    if (isBlank(facebookFieldName)) {</span>
-<span class="source-line-no">361</span><span id="line-361">      MAPPER_LOGGER.trace("No explicit Facebook field name found for {}, so defaulting to the field name itself ({})",</span>
-<span class="source-line-no">362</span><span id="line-362">        field, field.getName());</span>
-<span class="source-line-no">363</span><span id="line-363"></span>
-<span class="source-line-no">364</span><span id="line-364">      facebookFieldName = field.getName();</span>
-<span class="source-line-no">365</span><span id="line-365">    }</span>
+<span class="source-line-no">237</span><span id="line-237">        setJavaFileValue(json, facebookFieldNamesWithMultipleMappings, instance, jsonObject, fieldWithAnnotation,</span>
+<span class="source-line-no">238</span><span id="line-238">          facebookFieldName);</span>
+<span class="source-line-no">239</span><span id="line-239">      }</span>
+<span class="source-line-no">240</span><span id="line-240"></span>
+<span class="source-line-no">241</span><span id="line-241">      // If there are any methods annotated with @JsonMappingCompleted,</span>
+<span class="source-line-no">242</span><span id="line-242">      // invoke them.</span>
+<span class="source-line-no">243</span><span id="line-243">      invokeJsonMappingCompletedMethods(instance);</span>
+<span class="source-line-no">244</span><span id="line-244"></span>
+<span class="source-line-no">245</span><span id="line-245">      return instance;</span>
+<span class="source-line-no">246</span><span id="line-246">    } catch (FacebookJsonMappingException e) {</span>
+<span class="source-line-no">247</span><span id="line-247">      throw e;</span>
+<span class="source-line-no">248</span><span id="line-248">    } catch (Exception e) {</span>
+<span class="source-line-no">249</span><span id="line-249">      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);</span>
+<span class="source-line-no">250</span><span id="line-250">    }</span>
+<span class="source-line-no">251</span><span id="line-251">  }</span>
+<span class="source-line-no">252</span><span id="line-252"></span>
+<span class="source-line-no">253</span><span id="line-253">  private &lt;T&gt; void setJavaFileValue(String json, Set&lt;String&gt; facebookFieldNamesWithMultipleMappings, T instance,</span>
+<span class="source-line-no">254</span><span id="line-254">      JsonObject jsonObject, FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String facebookFieldName)</span>
+<span class="source-line-no">255</span><span id="line-255">      throws IllegalAccessException {</span>
+<span class="source-line-no">256</span><span id="line-256">    // Set the Java field's value.</span>
+<span class="source-line-no">257</span><span id="line-257">    //</span>
+<span class="source-line-no">258</span><span id="line-258">    // If we notice that this Facebook field name is mapped more than once,</span>
+<span class="source-line-no">259</span><span id="line-259">    // go into a special mode where we swallow any exceptions that occur</span>
+<span class="source-line-no">260</span><span id="line-260">    // when mapping to the Java field. This is because Facebook will</span>
+<span class="source-line-no">261</span><span id="line-261">    // sometimes return data in different formats for the same field name.</span>
+<span class="source-line-no">262</span><span id="line-262">    // See issues 56 and 90 for examples of this behavior and discussion.</span>
+<span class="source-line-no">263</span><span id="line-263">    try {</span>
+<span class="source-line-no">264</span><span id="line-264">      fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));</span>
+<span class="source-line-no">265</span><span id="line-265">    } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {</span>
+<span class="source-line-no">266</span><span id="line-266">      if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {</span>
+<span class="source-line-no">267</span><span id="line-267">        logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);</span>
+<span class="source-line-no">268</span><span id="line-268">      } else {</span>
+<span class="source-line-no">269</span><span id="line-269">        throw e;</span>
+<span class="source-line-no">270</span><span id="line-270">      }</span>
+<span class="source-line-no">271</span><span id="line-271">    }</span>
+<span class="source-line-no">272</span><span id="line-272">  }</span>
+<span class="source-line-no">273</span><span id="line-273"></span>
+<span class="source-line-no">274</span><span id="line-274">  private &lt;T&gt; void handleAbstractFacebookType(String json, T instance) {</span>
+<span class="source-line-no">275</span><span id="line-275">    if (instance instanceof AbstractFacebookType) {</span>
+<span class="source-line-no">276</span><span id="line-276">      ReflectionUtils.setJson(instance, json);</span>
+<span class="source-line-no">277</span><span id="line-277">    }</span>
+<span class="source-line-no">278</span><span id="line-278">  }</span>
+<span class="source-line-no">279</span><span id="line-279"></span>
+<span class="source-line-no">280</span><span id="line-280">  private void checkJsonNotBlank(String json) {</span>
+<span class="source-line-no">281</span><span id="line-281">    if (isBlank(json)) {</span>
+<span class="source-line-no">282</span><span id="line-282">      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");</span>
+<span class="source-line-no">283</span><span id="line-283">    }</span>
+<span class="source-line-no">284</span><span id="line-284">  }</span>
+<span class="source-line-no">285</span><span id="line-285"></span>
+<span class="source-line-no">286</span><span id="line-286">  private void checkJsonNotList(String json) {</span>
+<span class="source-line-no">287</span><span id="line-287">    if (StringJsonUtils.isList(json)) {</span>
+<span class="source-line-no">288</span><span id="line-288">      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "</span>
+<span class="source-line-no">289</span><span id="line-289">          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");</span>
+<span class="source-line-no">290</span><span id="line-290">    }</span>
+<span class="source-line-no">291</span><span id="line-291">  }</span>
+<span class="source-line-no">292</span><span id="line-292"></span>
+<span class="source-line-no">293</span><span id="line-293">  /**</span>
+<span class="source-line-no">294</span><span id="line-294">   * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.</span>
+<span class="source-line-no">295</span><span id="line-295">   * &lt;p&gt;</span>
+<span class="source-line-no">296</span><span id="line-296">   * This will even work on {@code private} methods.</span>
+<span class="source-line-no">297</span><span id="line-297">   * </span>
+<span class="source-line-no">298</span><span id="line-298">   * @param object</span>
+<span class="source-line-no">299</span><span id="line-299">   *          The object on which to invoke the method.</span>
+<span class="source-line-no">300</span><span id="line-300">   * @throws IllegalAccessException</span>
+<span class="source-line-no">301</span><span id="line-301">   *           If unable to invoke the method.</span>
+<span class="source-line-no">302</span><span id="line-302">   * @throws InvocationTargetException</span>
+<span class="source-line-no">303</span><span id="line-303">   *           If unable to invoke the method.</span>
+<span class="source-line-no">304</span><span id="line-304">   */</span>
+<span class="source-line-no">305</span><span id="line-305">  protected void invokeJsonMappingCompletedMethods(Object object)</span>
+<span class="source-line-no">306</span><span id="line-306">      throws IllegalAccessException, InvocationTargetException {</span>
+<span class="source-line-no">307</span><span id="line-307">    for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {</span>
+<span class="source-line-no">308</span><span id="line-308">      method.setAccessible(true);</span>
+<span class="source-line-no">309</span><span id="line-309"></span>
+<span class="source-line-no">310</span><span id="line-310">      int methodParameterCount = method.getParameterTypes().length;</span>
+<span class="source-line-no">311</span><span id="line-311"></span>
+<span class="source-line-no">312</span><span id="line-312">      if (methodParameterCount == 0) {</span>
+<span class="source-line-no">313</span><span id="line-313">        method.invoke(object);</span>
+<span class="source-line-no">314</span><span id="line-314">      } else if (methodParameterCount == 1 &amp;&amp; JsonMapper.class.equals(method.getParameterTypes()[0])) {</span>
+<span class="source-line-no">315</span><span id="line-315">        method.invoke(object, this);</span>
+<span class="source-line-no">316</span><span id="line-316">      } else {</span>
+<span class="source-line-no">317</span><span id="line-317">        throw new FacebookJsonMappingException(</span>
+<span class="source-line-no">318</span><span id="line-318">          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",</span>
+<span class="source-line-no">319</span><span id="line-319">            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));</span>
+<span class="source-line-no">320</span><span id="line-320">      }</span>
+<span class="source-line-no">321</span><span id="line-321">    }</span>
+<span class="source-line-no">322</span><span id="line-322">  }</span>
+<span class="source-line-no">323</span><span id="line-323"></span>
+<span class="source-line-no">324</span><span id="line-324">  /**</span>
+<span class="source-line-no">325</span><span id="line-325">   * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.</span>
+<span class="source-line-no">326</span><span id="line-326">   * </span>
+<span class="source-line-no">327</span><span id="line-327">   * @param facebookFieldName</span>
+<span class="source-line-no">328</span><span id="line-328">   *          The Facebook field name.</span>
+<span class="source-line-no">329</span><span id="line-329">   * @param fieldWithAnnotation</span>
+<span class="source-line-no">330</span><span id="line-330">   *          The Java field to map to and its annotation.</span>
+<span class="source-line-no">331</span><span id="line-331">   * @param json</span>
+<span class="source-line-no">332</span><span id="line-332">   *          The JSON that failed to map to the Java field.</span>
+<span class="source-line-no">333</span><span id="line-333">   */</span>
+<span class="source-line-no">334</span><span id="line-334">  protected void logMultipleMappingFailedForField(String facebookFieldName,</span>
+<span class="source-line-no">335</span><span id="line-335">      FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, String json) {</span>
+<span class="source-line-no">336</span><span id="line-336">    if (!MAPPER_LOGGER.isTraceEnabled()) {</span>
+<span class="source-line-no">337</span><span id="line-337">      return;</span>
+<span class="source-line-no">338</span><span id="line-338">    }</span>
+<span class="source-line-no">339</span><span id="line-339"></span>
+<span class="source-line-no">340</span><span id="line-340">    Field field = fieldWithAnnotation.getField();</span>
+<span class="source-line-no">341</span><span id="line-341"></span>
+<span class="source-line-no">342</span><span id="line-342">    MAPPER_LOGGER.trace(</span>
+<span class="source-line-no">343</span><span id="line-343">      "Could not map '{}' to {}. {}, but continuing on because '{}"</span>
+<span class="source-line-no">344</span><span id="line-344">          + "' is mapped to multiple fields in {}. JSON is {}",</span>
+<span class="source-line-no">345</span><span id="line-345">      facebookFieldName, field.getDeclaringClass().getSimpleName(), field.getName(), facebookFieldName,</span>
+<span class="source-line-no">346</span><span id="line-346">      field.getDeclaringClass().getSimpleName(), json);</span>
+<span class="source-line-no">347</span><span id="line-347">  }</span>
+<span class="source-line-no">348</span><span id="line-348"></span>
+<span class="source-line-no">349</span><span id="line-349">  /**</span>
+<span class="source-line-no">350</span><span id="line-350">   * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON</span>
+<span class="source-line-no">351</span><span id="line-351">   * field name to map to it is.</span>
+<span class="source-line-no">352</span><span id="line-352">   * </span>
+<span class="source-line-no">353</span><span id="line-353">   * @param fieldWithAnnotation</span>
+<span class="source-line-no">354</span><span id="line-354">   *          A Java field annotated with the {@code Facebook} annotation.</span>
+<span class="source-line-no">355</span><span id="line-355">   * @return The Facebook JSON field name that should be mapped to this Java field.</span>
+<span class="source-line-no">356</span><span id="line-356">   */</span>
+<span class="source-line-no">357</span><span id="line-357">  protected String getFacebookFieldName(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation) {</span>
+<span class="source-line-no">358</span><span id="line-358">    String facebookFieldName = fieldWithAnnotation.getAnnotation().value();</span>
+<span class="source-line-no">359</span><span id="line-359">    Field field = fieldWithAnnotation.getField();</span>
+<span class="source-line-no">360</span><span id="line-360"></span>
+<span class="source-line-no">361</span><span id="line-361">    // If no Facebook field name was specified in the annotation, assume</span>
+<span class="source-line-no">362</span><span id="line-362">    // it's the same name as the Java field</span>
+<span class="source-line-no">363</span><span id="line-363">    if (isBlank(facebookFieldName)) {</span>
+<span class="source-line-no">364</span><span id="line-364">      MAPPER_LOGGER.trace("No explicit Facebook field name found for {}, so defaulting to the field name itself ({})",</span>
+<span class="source-line-no">365</span><span id="line-365">        field, field.getName());</span>
 <span class="source-line-no">366</span><span id="line-366"></span>
-<span class="source-line-no">367</span><span id="line-367">    return facebookFieldName;</span>
-<span class="source-line-no">368</span><span id="line-368">  }</span>
+<span class="source-line-no">367</span><span id="line-367">      facebookFieldName = field.getName();</span>
+<span class="source-line-no">368</span><span id="line-368">    }</span>
 <span class="source-line-no">369</span><span id="line-369"></span>
-<span class="source-line-no">370</span><span id="line-370">  /**</span>
-<span class="source-line-no">371</span><span id="line-371">   * Finds any Facebook JSON fields that are mapped to more than 1 Java field.</span>
-<span class="source-line-no">372</span><span id="line-372">   * </span>
-<span class="source-line-no">373</span><span id="line-373">   * @param fieldsWithAnnotation</span>
-<span class="source-line-no">374</span><span id="line-374">   *          Java fields annotated with the {@code Facebook} annotation.</span>
-<span class="source-line-no">375</span><span id="line-375">   * @return Any Facebook JSON fields that are mapped to more than 1 Java field.</span>
-<span class="source-line-no">376</span><span id="line-376">   */</span>
-<span class="source-line-no">377</span><span id="line-377">  protected Set&lt;String&gt; facebookFieldNamesWithMultipleMappings(</span>
-<span class="source-line-no">378</span><span id="line-378">      List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation) {</span>
-<span class="source-line-no">379</span><span id="line-379">    Map&lt;String, Integer&gt; facebookFieldsNamesWithOccurrenceCount = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">380</span><span id="line-380"></span>
-<span class="source-line-no">381</span><span id="line-381">    // Get a count of Facebook field name occurrences for each</span>
-<span class="source-line-no">382</span><span id="line-382">    // @Facebook-annotated field</span>
-<span class="source-line-no">383</span><span id="line-383">    fieldsWithAnnotation.forEach(field -&gt; occurrenceCounter(facebookFieldsNamesWithOccurrenceCount, field));</span>
-<span class="source-line-no">384</span><span id="line-384"></span>
-<span class="source-line-no">385</span><span id="line-385">    // Pull out only those field names with multiple mappings</span>
-<span class="source-line-no">386</span><span id="line-386">    Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldsNamesWithOccurrenceCount.entrySet().stream()</span>
-<span class="source-line-no">387</span><span id="line-387">      .filter(entry -&gt; entry.getValue() &gt; 1).map(Entry::getKey).collect(Collectors.toSet());</span>
-<span class="source-line-no">388</span><span id="line-388"></span>
-<span class="source-line-no">389</span><span id="line-389">    return unmodifiableSet(facebookFieldNamesWithMultipleMappings);</span>
-<span class="source-line-no">390</span><span id="line-390">  }</span>
+<span class="source-line-no">370</span><span id="line-370">    return facebookFieldName;</span>
+<span class="source-line-no">371</span><span id="line-371">  }</span>
+<span class="source-line-no">372</span><span id="line-372"></span>
+<span class="source-line-no">373</span><span id="line-373">  /**</span>
+<span class="source-line-no">374</span><span id="line-374">   * Finds any Facebook JSON fields that are mapped to more than 1 Java field.</span>
+<span class="source-line-no">375</span><span id="line-375">   * </span>
+<span class="source-line-no">376</span><span id="line-376">   * @param fieldsWithAnnotation</span>
+<span class="source-line-no">377</span><span id="line-377">   *          Java fields annotated with the {@code Facebook} annotation.</span>
+<span class="source-line-no">378</span><span id="line-378">   * @return Any Facebook JSON fields that are mapped to more than 1 Java field.</span>
+<span class="source-line-no">379</span><span id="line-379">   */</span>
+<span class="source-line-no">380</span><span id="line-380">  protected Set&lt;String&gt; facebookFieldNamesWithMultipleMappings(</span>
+<span class="source-line-no">381</span><span id="line-381">      List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation) {</span>
+<span class="source-line-no">382</span><span id="line-382">    Map&lt;String, Integer&gt; facebookFieldsNamesWithOccurrenceCount = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">383</span><span id="line-383"></span>
+<span class="source-line-no">384</span><span id="line-384">    // Get a count of Facebook field name occurrences for each</span>
+<span class="source-line-no">385</span><span id="line-385">    // @Facebook-annotated field</span>
+<span class="source-line-no">386</span><span id="line-386">    fieldsWithAnnotation.forEach(field -&gt; occurrenceCounter(facebookFieldsNamesWithOccurrenceCount, field));</span>
+<span class="source-line-no">387</span><span id="line-387"></span>
+<span class="source-line-no">388</span><span id="line-388">    // Pull out only those field names with multiple mappings</span>
+<span class="source-line-no">389</span><span id="line-389">    Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldsNamesWithOccurrenceCount.entrySet().stream()</span>
+<span class="source-line-no">390</span><span id="line-390">      .filter(entry -&gt; entry.getValue() &gt; 1).map(Entry::getKey).collect(Collectors.toSet());</span>
 <span class="source-line-no">391</span><span id="line-391"></span>
-<span class="source-line-no">392</span><span id="line-392">  private void occurrenceCounter(Map&lt;String, Integer&gt; facebookFieldsNamesWithOccurrenceCount, FieldWithAnnotation&lt;Facebook&gt; field) {</span>
-<span class="source-line-no">393</span><span id="line-393">    String fieldName = getFacebookFieldName(field);</span>
-<span class="source-line-no">394</span><span id="line-394">    int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);</span>
-<span class="source-line-no">395</span><span id="line-395">    facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);</span>
-<span class="source-line-no">396</span><span id="line-396">  }</span>
-<span class="source-line-no">397</span><span id="line-397"></span>
-<span class="source-line-no">398</span><span id="line-398">  @Override</span>
-<span class="source-line-no">399</span><span id="line-399">  public String toJson(Object object) {</span>
-<span class="source-line-no">400</span><span id="line-400">    return toJson(object, false);</span>
-<span class="source-line-no">401</span><span id="line-401">  }</span>
-<span class="source-line-no">402</span><span id="line-402"></span>
-<span class="source-line-no">403</span><span id="line-403">  @Override</span>
-<span class="source-line-no">404</span><span id="line-404">  public String toJson(Object object, boolean ignoreNullValuedProperties) {</span>
-<span class="source-line-no">405</span><span id="line-405">    JsonValue jsonObj = toJsonInternal(object, ignoreNullValuedProperties);</span>
-<span class="source-line-no">406</span><span id="line-406">    return jsonHelper.getStringFrom(jsonObj);</span>
-<span class="source-line-no">407</span><span id="line-407">  }</span>
-<span class="source-line-no">408</span><span id="line-408"></span>
-<span class="source-line-no">409</span><span id="line-409">  /**</span>
-<span class="source-line-no">410</span><span id="line-410">   * Recursively marshal the given {@code object} to JSON.</span>
-<span class="source-line-no">411</span><span id="line-411">   * &lt;p&gt;</span>
-<span class="source-line-no">412</span><span id="line-412">   * Used by {@link #toJson(Object)}.</span>
-<span class="source-line-no">413</span><span id="line-413">   * </span>
-<span class="source-line-no">414</span><span id="line-414">   * @param object</span>
-<span class="source-line-no">415</span><span id="line-415">   *          The object to marshal.</span>
-<span class="source-line-no">416</span><span id="line-416">   * @param ignoreNullValuedProperties</span>
-<span class="source-line-no">417</span><span id="line-417">   *          If this is {@code true}, no Javabean properties with {@code null} values will be included in the generated</span>
-<span class="source-line-no">418</span><span id="line-418">   *          JSON.</span>
-<span class="source-line-no">419</span><span id="line-419">   * @return JSON representation of the given {@code object}.</span>
-<span class="source-line-no">420</span><span id="line-420">   * @throws FacebookJsonMappingException</span>
-<span class="source-line-no">421</span><span id="line-421">   *           If an error occurs while marshaling to JSON.</span>
-<span class="source-line-no">422</span><span id="line-422">   */</span>
-<span class="source-line-no">423</span><span id="line-423">  protected JsonValue toJsonInternal(Object object, boolean ignoreNullValuedProperties) {</span>
-<span class="source-line-no">424</span><span id="line-424">    if (object == null) {</span>
-<span class="source-line-no">425</span><span id="line-425">      return Json.NULL;</span>
-<span class="source-line-no">426</span><span id="line-426">    }</span>
-<span class="source-line-no">427</span><span id="line-427"></span>
-<span class="source-line-no">428</span><span id="line-428">    if (object instanceof JsonValue) {</span>
-<span class="source-line-no">429</span><span id="line-429">      return (JsonValue) object;</span>
+<span class="source-line-no">392</span><span id="line-392">    return unmodifiableSet(facebookFieldNamesWithMultipleMappings);</span>
+<span class="source-line-no">393</span><span id="line-393">  }</span>
+<span class="source-line-no">394</span><span id="line-394"></span>
+<span class="source-line-no">395</span><span id="line-395">  private void occurrenceCounter(Map&lt;String, Integer&gt; facebookFieldsNamesWithOccurrenceCount,</span>
+<span class="source-line-no">396</span><span id="line-396">      FieldWithAnnotation&lt;Facebook&gt; field) {</span>
+<span class="source-line-no">397</span><span id="line-397">    String fieldName = getFacebookFieldName(field);</span>
+<span class="source-line-no">398</span><span id="line-398">    int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);</span>
+<span class="source-line-no">399</span><span id="line-399">    facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);</span>
+<span class="source-line-no">400</span><span id="line-400">  }</span>
+<span class="source-line-no">401</span><span id="line-401"></span>
+<span class="source-line-no">402</span><span id="line-402">  @Override</span>
+<span class="source-line-no">403</span><span id="line-403">  public String toJson(Object object) {</span>
+<span class="source-line-no">404</span><span id="line-404">    return toJson(object, false);</span>
+<span class="source-line-no">405</span><span id="line-405">  }</span>
+<span class="source-line-no">406</span><span id="line-406"></span>
+<span class="source-line-no">407</span><span id="line-407">  @Override</span>
+<span class="source-line-no">408</span><span id="line-408">  public String toJson(Object object, boolean ignoreNullValuedProperties) {</span>
+<span class="source-line-no">409</span><span id="line-409">    JsonValue jsonObj = toJsonInternal(object, ignoreNullValuedProperties);</span>
+<span class="source-line-no">410</span><span id="line-410">    return jsonHelper.getStringFrom(jsonObj);</span>
+<span class="source-line-no">411</span><span id="line-411">  }</span>
+<span class="source-line-no">412</span><span id="line-412"></span>
+<span class="source-line-no">413</span><span id="line-413">  /**</span>
+<span class="source-line-no">414</span><span id="line-414">   * Recursively marshal the given {@code object} to JSON.</span>
+<span class="source-line-no">415</span><span id="line-415">   * &lt;p&gt;</span>
+<span class="source-line-no">416</span><span id="line-416">   * Used by {@link #toJson(Object)}.</span>
+<span class="source-line-no">417</span><span id="line-417">   * </span>
+<span class="source-line-no">418</span><span id="line-418">   * @param object</span>
+<span class="source-line-no">419</span><span id="line-419">   *          The object to marshal.</span>
+<span class="source-line-no">420</span><span id="line-420">   * @param ignoreNullValuedProperties</span>
+<span class="source-line-no">421</span><span id="line-421">   *          If this is {@code true}, no Javabean properties with {@code null} values will be included in the generated</span>
+<span class="source-line-no">422</span><span id="line-422">   *          JSON.</span>
+<span class="source-line-no">423</span><span id="line-423">   * @return JSON representation of the given {@code object}.</span>
+<span class="source-line-no">424</span><span id="line-424">   * @throws FacebookJsonMappingException</span>
+<span class="source-line-no">425</span><span id="line-425">   *           If an error occurs while marshaling to JSON.</span>
+<span class="source-line-no">426</span><span id="line-426">   */</span>
+<span class="source-line-no">427</span><span id="line-427">  protected JsonValue toJsonInternal(Object object, boolean ignoreNullValuedProperties) {</span>
+<span class="source-line-no">428</span><span id="line-428">    if (object == null) {</span>
+<span class="source-line-no">429</span><span id="line-429">      return Json.NULL;</span>
 <span class="source-line-no">430</span><span id="line-430">    }</span>
 <span class="source-line-no">431</span><span id="line-431"></span>
-<span class="source-line-no">432</span><span id="line-432">    if (object instanceof List&lt;?&gt;) {</span>
-<span class="source-line-no">433</span><span id="line-433">      return convertListToJsonArray((List&lt;?&gt;) object, ignoreNullValuedProperties);</span>
+<span class="source-line-no">432</span><span id="line-432">    if (object instanceof JsonValue) {</span>
+<span class="source-line-no">433</span><span id="line-433">      return (JsonValue) object;</span>
 <span class="source-line-no">434</span><span id="line-434">    }</span>
 <span class="source-line-no">435</span><span id="line-435"></span>
-<span class="source-line-no">436</span><span id="line-436">    if (object instanceof Map&lt;?, ?&gt;) {</span>
-<span class="source-line-no">437</span><span id="line-437">      return convertMapToJsonObject(object, ignoreNullValuedProperties);</span>
+<span class="source-line-no">436</span><span id="line-436">    if (object instanceof List&lt;?&gt;) {</span>
+<span class="source-line-no">437</span><span id="line-437">      return convertListToJsonArray((List&lt;?&gt;) object, ignoreNullValuedProperties);</span>
 <span class="source-line-no">438</span><span id="line-438">    }</span>
 <span class="source-line-no">439</span><span id="line-439"></span>
-<span class="source-line-no">440</span><span id="line-440">    if (isPrimitive(object)) {</span>
-<span class="source-line-no">441</span><span id="line-441">      return javaTypeToJsonValue(object);</span>
+<span class="source-line-no">440</span><span id="line-440">    if (object instanceof Map&lt;?, ?&gt;) {</span>
+<span class="source-line-no">441</span><span id="line-441">      return convertMapToJsonObject(object, ignoreNullValuedProperties);</span>
 <span class="source-line-no">442</span><span id="line-442">    }</span>
 <span class="source-line-no">443</span><span id="line-443"></span>
-<span class="source-line-no">444</span><span id="line-444">    if (object instanceof Optional) {</span>
-<span class="source-line-no">445</span><span id="line-445">      return convertOptionalToJsonValue((Optional) object, ignoreNullValuedProperties);</span>
+<span class="source-line-no">444</span><span id="line-444">    if (isPrimitive(object)) {</span>
+<span class="source-line-no">445</span><span id="line-445">      return javaTypeToJsonValue(object);</span>
 <span class="source-line-no">446</span><span id="line-446">    }</span>
 <span class="source-line-no">447</span><span id="line-447"></span>
-<span class="source-line-no">448</span><span id="line-448">    if (object instanceof BigInteger) {</span>
-<span class="source-line-no">449</span><span id="line-449">      return Json.value(((BigInteger) object).longValue());</span>
+<span class="source-line-no">448</span><span id="line-448">    if (object instanceof Optional) {</span>
+<span class="source-line-no">449</span><span id="line-449">      return convertOptionalToJsonValue((Optional) object, ignoreNullValuedProperties);</span>
 <span class="source-line-no">450</span><span id="line-450">    }</span>
 <span class="source-line-no">451</span><span id="line-451"></span>
-<span class="source-line-no">452</span><span id="line-452">    if (object instanceof BigDecimal) {</span>
-<span class="source-line-no">453</span><span id="line-453">      return Json.value(((BigDecimal) object).doubleValue());</span>
+<span class="source-line-no">452</span><span id="line-452">    if (object instanceof BigInteger) {</span>
+<span class="source-line-no">453</span><span id="line-453">      return Json.value(((BigInteger) object).longValue());</span>
 <span class="source-line-no">454</span><span id="line-454">    }</span>
 <span class="source-line-no">455</span><span id="line-455"></span>
-<span class="source-line-no">456</span><span id="line-456">    if (object instanceof Enum) {</span>
-<span class="source-line-no">457</span><span id="line-457">      return Json.value(((Enum) object).name());</span>
+<span class="source-line-no">456</span><span id="line-456">    if (object instanceof BigDecimal) {</span>
+<span class="source-line-no">457</span><span id="line-457">      return Json.value(((BigDecimal) object).doubleValue());</span>
 <span class="source-line-no">458</span><span id="line-458">    }</span>
 <span class="source-line-no">459</span><span id="line-459"></span>
-<span class="source-line-no">460</span><span id="line-460">    if (object instanceof Date) {</span>
-<span class="source-line-no">461</span><span id="line-461">      return Json.value(DateUtils.toLongFormatFromDate((Date) object));</span>
-<span class="source-line-no">462</span><span id="line-462">    }</span>
-<span class="source-line-no">463</span><span id="line-463"></span>
-<span class="source-line-no">464</span><span id="line-464">    // We've passed the special-case bits, so let's try to marshal this as a</span>
-<span class="source-line-no">465</span><span id="line-465">    // plain old Javabean...</span>
-<span class="source-line-no">466</span><span id="line-466"></span>
-<span class="source-line-no">467</span><span id="line-467">    List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation =</span>
-<span class="source-line-no">468</span><span id="line-468">        findFieldsWithAnnotation(object.getClass(), Facebook.class);</span>
-<span class="source-line-no">469</span><span id="line-469"></span>
-<span class="source-line-no">470</span><span id="line-470">    JsonObject jsonObject = new JsonObject();</span>
+<span class="source-line-no">460</span><span id="line-460">    if (object instanceof Enum) {</span>
+<span class="source-line-no">461</span><span id="line-461">      Enum e = (Enum) object;</span>
+<span class="source-line-no">462</span><span id="line-462">      return Json.value(getAlternativeEnumValue(e).orElseGet(e::name));</span>
+<span class="source-line-no">463</span><span id="line-463">    }</span>
+<span class="source-line-no">464</span><span id="line-464"></span>
+<span class="source-line-no">465</span><span id="line-465">    if (object instanceof Date) {</span>
+<span class="source-line-no">466</span><span id="line-466">      return Json.value(DateUtils.toLongFormatFromDate((Date) object));</span>
+<span class="source-line-no">467</span><span id="line-467">    }</span>
+<span class="source-line-no">468</span><span id="line-468"></span>
+<span class="source-line-no">469</span><span id="line-469">    // We've passed the special-case bits, so let's try to marshal this as a</span>
+<span class="source-line-no">470</span><span id="line-470">    // plain old Javabean...</span>
 <span class="source-line-no">471</span><span id="line-471"></span>
-<span class="source-line-no">472</span><span id="line-472">    // No longer throw an exception in this case. If there are multiple fields</span>
-<span class="source-line-no">473</span><span id="line-473">    // with the same @Facebook value, it's luck of the draw which is picked for</span>
-<span class="source-line-no">474</span><span id="line-474">    // JSON marshaling.</span>
-<span class="source-line-no">475</span><span id="line-475">    // TODO: A better implementation would query each duplicate-mapped field. If</span>
-<span class="source-line-no">476</span><span id="line-476">    // it has is a non-null value and the other duplicate values are null, use</span>
-<span class="source-line-no">477</span><span id="line-477">    // the non-null field.</span>
-<span class="source-line-no">478</span><span id="line-478">    Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);</span>
-<span class="source-line-no">479</span><span id="line-479">    if (!facebookFieldNamesWithMultipleMappings.isEmpty() &amp;&amp; MAPPER_LOGGER.isDebugEnabled()) {</span>
-<span class="source-line-no">480</span><span id="line-480">      MAPPER_LOGGER.debug(</span>
-<span class="source-line-no">481</span><span id="line-481">        "Unable to convert to JSON because multiple @{} annotations for the same name are present: {}",</span>
-<span class="source-line-no">482</span><span id="line-482">        Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings);</span>
-<span class="source-line-no">483</span><span id="line-483">    }</span>
-<span class="source-line-no">484</span><span id="line-484"></span>
-<span class="source-line-no">485</span><span id="line-485">    for (FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation : fieldsWithAnnotation) {</span>
-<span class="source-line-no">486</span><span id="line-486">      String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);</span>
-<span class="source-line-no">487</span><span id="line-487">      fieldWithAnnotation.getField().setAccessible(true);</span>
-<span class="source-line-no">488</span><span id="line-488"></span>
-<span class="source-line-no">489</span><span id="line-489">      try {</span>
-<span class="source-line-no">490</span><span id="line-490">        Object fieldValue = fieldWithAnnotation.getField().get(object);</span>
-<span class="source-line-no">491</span><span id="line-491"></span>
-<span class="source-line-no">492</span><span id="line-492">        if (fieldValue instanceof Connection) {</span>
-<span class="source-line-no">493</span><span id="line-493">          continue;</span>
-<span class="source-line-no">494</span><span id="line-494">        }</span>
-<span class="source-line-no">495</span><span id="line-495"></span>
-<span class="source-line-no">496</span><span id="line-496">        if (!(ignoreNullValuedProperties</span>
-<span class="source-line-no">497</span><span id="line-497">            &amp;&amp; (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {</span>
-<span class="source-line-no">498</span><span id="line-498">          jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));</span>
+<span class="source-line-no">472</span><span id="line-472">    List&lt;FieldWithAnnotation&lt;Facebook&gt;&gt; fieldsWithAnnotation =</span>
+<span class="source-line-no">473</span><span id="line-473">        findFieldsWithAnnotation(object.getClass(), Facebook.class);</span>
+<span class="source-line-no">474</span><span id="line-474"></span>
+<span class="source-line-no">475</span><span id="line-475">    JsonObject jsonObject = new JsonObject();</span>
+<span class="source-line-no">476</span><span id="line-476"></span>
+<span class="source-line-no">477</span><span id="line-477">    // No longer throw an exception in this case. If there are multiple fields</span>
+<span class="source-line-no">478</span><span id="line-478">    // with the same @Facebook value, it's luck of the draw which is picked for</span>
+<span class="source-line-no">479</span><span id="line-479">    // JSON marshaling.</span>
+<span class="source-line-no">480</span><span id="line-480">    // TODO: A better implementation would query each duplicate-mapped field. If</span>
+<span class="source-line-no">481</span><span id="line-481">    // it has is a non-null value and the other duplicate values are null, use</span>
+<span class="source-line-no">482</span><span id="line-482">    // the non-null field.</span>
+<span class="source-line-no">483</span><span id="line-483">    Set&lt;String&gt; facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);</span>
+<span class="source-line-no">484</span><span id="line-484">    if (!facebookFieldNamesWithMultipleMappings.isEmpty() &amp;&amp; MAPPER_LOGGER.isDebugEnabled()) {</span>
+<span class="source-line-no">485</span><span id="line-485">      MAPPER_LOGGER.debug(</span>
+<span class="source-line-no">486</span><span id="line-486">        "Unable to convert to JSON because multiple @{} annotations for the same name are present: {}",</span>
+<span class="source-line-no">487</span><span id="line-487">        Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings);</span>
+<span class="source-line-no">488</span><span id="line-488">    }</span>
+<span class="source-line-no">489</span><span id="line-489"></span>
+<span class="source-line-no">490</span><span id="line-490">    for (FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation : fieldsWithAnnotation) {</span>
+<span class="source-line-no">491</span><span id="line-491">      String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);</span>
+<span class="source-line-no">492</span><span id="line-492">      fieldWithAnnotation.getField().setAccessible(true);</span>
+<span class="source-line-no">493</span><span id="line-493"></span>
+<span class="source-line-no">494</span><span id="line-494">      try {</span>
+<span class="source-line-no">495</span><span id="line-495">        Object fieldValue = fieldWithAnnotation.getField().get(object);</span>
+<span class="source-line-no">496</span><span id="line-496"></span>
+<span class="source-line-no">497</span><span id="line-497">        if (fieldValue instanceof Connection) {</span>
+<span class="source-line-no">498</span><span id="line-498">          continue;</span>
 <span class="source-line-no">499</span><span id="line-499">        }</span>
-<span class="source-line-no">500</span><span id="line-500">      } catch (Exception e) {</span>
-<span class="source-line-no">501</span><span id="line-501">        throw new FacebookJsonMappingException(</span>
-<span class="source-line-no">502</span><span id="line-502">          "Unable to process field '" + facebookFieldName + "' for " + object.getClass(), e);</span>
-<span class="source-line-no">503</span><span id="line-503">      }</span>
-<span class="source-line-no">504</span><span id="line-504">    }</span>
-<span class="source-line-no">505</span><span id="line-505"></span>
-<span class="source-line-no">506</span><span id="line-506">    return jsonObject;</span>
-<span class="source-line-no">507</span><span id="line-507">  }</span>
-<span class="source-line-no">508</span><span id="line-508"></span>
-<span class="source-line-no">509</span><span id="line-509">  private boolean isEmptyOptional(Object fieldValue) {</span>
-<span class="source-line-no">510</span><span id="line-510">    return fieldValue instanceof Optional &amp;&amp; !((Optional) fieldValue).isPresent();</span>
-<span class="source-line-no">511</span><span id="line-511">  }</span>
-<span class="source-line-no">512</span><span id="line-512"></span>
-<span class="source-line-no">513</span><span id="line-513">  private JsonArray convertListToJsonArray(List&lt;?&gt; objects, boolean ignoreNullValuedProperties) {</span>
-<span class="source-line-no">514</span><span id="line-514">    JsonArray jsonArray = new JsonArray();</span>
-<span class="source-line-no">515</span><span id="line-515">    objects.stream().map(o -&gt; toJsonInternal(o, ignoreNullValuedProperties)).forEach(jsonArray::add);</span>
-<span class="source-line-no">516</span><span id="line-516">    return jsonArray;</span>
-<span class="source-line-no">517</span><span id="line-517">  }</span>
-<span class="source-line-no">518</span><span id="line-518"></span>
-<span class="source-line-no">519</span><span id="line-519">  private JsonObject convertMapToJsonObject(Object object, boolean ignoreNullValuedProperties) {</span>
-<span class="source-line-no">520</span><span id="line-520">    JsonObject jsonObject = new JsonObject();</span>
-<span class="source-line-no">521</span><span id="line-521">    for (Entry&lt;?, ?&gt; entry : ((Map&lt;?, ?&gt;) object).entrySet()) {</span>
-<span class="source-line-no">522</span><span id="line-522">      if (!(entry.getKey() instanceof String)) {</span>
-<span class="source-line-no">523</span><span id="line-523">        throw new FacebookJsonMappingException("Your Map keys must be of type " + String.class</span>
-<span class="source-line-no">524</span><span id="line-524">            + " in order to be converted to JSON.  Offending map is " + object);</span>
-<span class="source-line-no">525</span><span id="line-525">      }</span>
-<span class="source-line-no">526</span><span id="line-526"></span>
-<span class="source-line-no">527</span><span id="line-527">      try {</span>
-<span class="source-line-no">528</span><span id="line-528">        jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));</span>
-<span class="source-line-no">529</span><span id="line-529">      } catch (ParseException | IllegalArgumentException e) {</span>
-<span class="source-line-no">530</span><span id="line-530">        throw new FacebookJsonMappingException(</span>
-<span class="source-line-no">531</span><span id="line-531">          "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);</span>
-<span class="source-line-no">532</span><span id="line-532">      }</span>
-<span class="source-line-no">533</span><span id="line-533">    }</span>
-<span class="source-line-no">534</span><span id="line-534">    return jsonObject;</span>
-<span class="source-line-no">535</span><span id="line-535">  }</span>
-<span class="source-line-no">536</span><span id="line-536"></span>
-<span class="source-line-no">537</span><span id="line-537">  private JsonValue convertOptionalToJsonValue(Optional&lt;?&gt; object, boolean ignoreNullValuedProperties) {</span>
-<span class="source-line-no">538</span><span id="line-538">    return toJsonInternal(object.orElse(null), ignoreNullValuedProperties);</span>
-<span class="source-line-no">539</span><span id="line-539">  }</span>
-<span class="source-line-no">540</span><span id="line-540"></span>
-<span class="source-line-no">541</span><span id="line-541">  /**</span>
-<span class="source-line-no">542</span><span id="line-542">   * Given a {@code json} value of something like {@code MyValue} or {@code 123} , return a representation of that value</span>
-<span class="source-line-no">543</span><span id="line-543">   * of type {@code type}.</span>
-<span class="source-line-no">544</span><span id="line-544">   * &lt;p&gt;</span>
-<span class="source-line-no">545</span><span id="line-545">   * This is to support non-legal JSON served up by Facebook for API calls like {@code Friends.get} (example result:</span>
-<span class="source-line-no">546</span><span id="line-546">   * {@code [222333,1240079]}).</span>
-<span class="source-line-no">547</span><span id="line-547">   * </span>
-<span class="source-line-no">548</span><span id="line-548">   * @param &lt;T&gt;</span>
-<span class="source-line-no">549</span><span id="line-549">   *          The Java type to map to.</span>
-<span class="source-line-no">550</span><span id="line-550">   * @param json</span>
-<span class="source-line-no">551</span><span id="line-551">   *          The non-legal JSON to map to the Java type.</span>
-<span class="source-line-no">552</span><span id="line-552">   * @param type</span>
-<span class="source-line-no">553</span><span id="line-553">   *          Type token.</span>
-<span class="source-line-no">554</span><span id="line-554">   * @return Java representation of {@code json}.</span>
-<span class="source-line-no">555</span><span id="line-555">   * @throws FacebookJsonMappingException</span>
-<span class="source-line-no">556</span><span id="line-556">   *           If an error occurs while mapping JSON to Java.</span>
-<span class="source-line-no">557</span><span id="line-557">   */</span>
-<span class="source-line-no">558</span><span id="line-558">  @SuppressWarnings("unchecked")</span>
-<span class="source-line-no">559</span><span id="line-559">  protected &lt;T&gt; T toPrimitiveJavaType(String json, Class&lt;T&gt; type) {</span>
-<span class="source-line-no">560</span><span id="line-560"></span>
-<span class="source-line-no">561</span><span id="line-561">    json = jsonHelper.cleanString(json);</span>
-<span class="source-line-no">562</span><span id="line-562"></span>
-<span class="source-line-no">563</span><span id="line-563">    if (typeIsString(type)) {</span>
-<span class="source-line-no">564</span><span id="line-564">      return (T) json;</span>
-<span class="source-line-no">565</span><span id="line-565">    }</span>
-<span class="source-line-no">566</span><span id="line-566">    if (typeIsInteger(type)) {</span>
-<span class="source-line-no">567</span><span id="line-567">      return (T) Integer.valueOf(json);</span>
-<span class="source-line-no">568</span><span id="line-568">    }</span>
-<span class="source-line-no">569</span><span id="line-569">    if (typeIsBoolean(type)) {</span>
-<span class="source-line-no">570</span><span id="line-570">      return (T) Boolean.valueOf(json);</span>
-<span class="source-line-no">571</span><span id="line-571">    }</span>
-<span class="source-line-no">572</span><span id="line-572">    if (typeIsLong(type)) {</span>
-<span class="source-line-no">573</span><span id="line-573">      return (T) Long.valueOf(json);</span>
-<span class="source-line-no">574</span><span id="line-574">    }</span>
-<span class="source-line-no">575</span><span id="line-575">    if (typeIsDouble(type)) {</span>
-<span class="source-line-no">576</span><span id="line-576">      return (T) Double.valueOf(json);</span>
-<span class="source-line-no">577</span><span id="line-577">    }</span>
-<span class="source-line-no">578</span><span id="line-578">    if (typeIsFloat(type)) {</span>
-<span class="source-line-no">579</span><span id="line-579">      return (T) Float.valueOf(json);</span>
-<span class="source-line-no">580</span><span id="line-580">    }</span>
-<span class="source-line-no">581</span><span id="line-581">    if (typeIsBigInteger(type)) {</span>
-<span class="source-line-no">582</span><span id="line-582">      return (T) new BigInteger(json);</span>
-<span class="source-line-no">583</span><span id="line-583">    }</span>
-<span class="source-line-no">584</span><span id="line-584">    if (typeIsBigDecimal(type)) {</span>
-<span class="source-line-no">585</span><span id="line-585">      return (T) new BigDecimal(json);</span>
-<span class="source-line-no">586</span><span id="line-586">    }</span>
-<span class="source-line-no">587</span><span id="line-587"></span>
-<span class="source-line-no">588</span><span id="line-588">    throw new FacebookJsonMappingException("Don't know how to map JSON to " + type</span>
-<span class="source-line-no">589</span><span id="line-589">        + ". Are you sure you're mapping to the right class?\nOffending JSON is '" + json + "'.");</span>
-<span class="source-line-no">590</span><span id="line-590">  }</span>
-<span class="source-line-no">591</span><span id="line-591"></span>
-<span class="source-line-no">592</span><span id="line-592">  /**</span>
-<span class="source-line-no">593</span><span id="line-593">   * Extracts JSON data for a field according to its {@code Facebook} annotation and returns it converted to the proper</span>
-<span class="source-line-no">594</span><span id="line-594">   * Java type.</span>
-<span class="source-line-no">595</span><span id="line-595">   * </span>
-<span class="source-line-no">596</span><span id="line-596">   * @param fieldWithAnnotation</span>
-<span class="source-line-no">597</span><span id="line-597">   *          The field/annotation pair which specifies what Java type to convert to.</span>
-<span class="source-line-no">598</span><span id="line-598">   * @param jsonObject</span>
-<span class="source-line-no">599</span><span id="line-599">   *          "Raw" JSON object to pull data from.</span>
-<span class="source-line-no">600</span><span id="line-600">   * @param facebookFieldName</span>
-<span class="source-line-no">601</span><span id="line-601">   *          Specifies what JSON field to pull "raw" data from.</span>
-<span class="source-line-no">602</span><span id="line-602">   * @return A</span>
-<span class="source-line-no">603</span><span id="line-603">   * @throws ParseException</span>
-<span class="source-line-no">604</span><span id="line-604">   *           If an error occurs while mapping JSON to Java.</span>
-<span class="source-line-no">605</span><span id="line-605">   * @throws FacebookJsonMappingException</span>
-<span class="source-line-no">606</span><span id="line-606">   *           If an error occurs while mapping JSON to Java.</span>
-<span class="source-line-no">607</span><span id="line-607">   */</span>
-<span class="source-line-no">608</span><span id="line-608">  protected Object toJavaType(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, JsonObject jsonObject,</span>
-<span class="source-line-no">609</span><span id="line-609">      String facebookFieldName) {</span>
-<span class="source-line-no">610</span><span id="line-610">    Class&lt;?&gt; type = fieldWithAnnotation.getField().getType();</span>
-<span class="source-line-no">611</span><span id="line-611">    JsonValue rawValue = jsonObject.get(facebookFieldName);</span>
-<span class="source-line-no">612</span><span id="line-612"></span>
-<span class="source-line-no">613</span><span id="line-613">    // Short-circuit right off the bat if we've got a null value, but Optionals are created nevertheless.</span>
-<span class="source-line-no">614</span><span id="line-614">    if (jsonHelper.isNull(rawValue)) {</span>
-<span class="source-line-no">615</span><span id="line-615">      if (typeIsOptional(type)) {</span>
-<span class="source-line-no">616</span><span id="line-616">        return Optional.empty();</span>
-<span class="source-line-no">617</span><span id="line-617">      }</span>
-<span class="source-line-no">618</span><span id="line-618">      return null;</span>
-<span class="source-line-no">619</span><span id="line-619">    }</span>
-<span class="source-line-no">620</span><span id="line-620"></span>
-<span class="source-line-no">621</span><span id="line-621">    if (typeIsString(type)) {</span>
-<span class="source-line-no">622</span><span id="line-622">      /*</span>
-<span class="source-line-no">623</span><span id="line-623">       * Special handling here for better error checking.</span>
-<span class="source-line-no">624</span><span id="line-624">       *</span>
-<span class="source-line-no">625</span><span id="line-625">       * Since {@code JsonObject.getString()} will return literal JSON text even if it's _not_ a JSON string, we check</span>
-<span class="source-line-no">626</span><span id="line-626">       * the marshaled type and bail if needed. For example, calling {@code JsonObject.getString("results")} on the</span>
-<span class="source-line-no">627</span><span id="line-627">       * below JSON...</span>
-<span class="source-line-no">628</span><span id="line-628">       *</span>
-<span class="source-line-no">629</span><span id="line-629">       * &lt;code&gt; { "results":[ {"name":"Mark Allen"} ] } &lt;/code&gt;</span>
-<span class="source-line-no">630</span><span id="line-630">       *</span>
-<span class="source-line-no">631</span><span id="line-631">       * ... would return the string {@code "[{"name":"Mark Allen"}]"} instead of throwing an error. So we throw the</span>
-<span class="source-line-no">632</span><span id="line-632">       * error ourselves.</span>
+<span class="source-line-no">500</span><span id="line-500"></span>
+<span class="source-line-no">501</span><span id="line-501">        if (!(ignoreNullValuedProperties</span>
+<span class="source-line-no">502</span><span id="line-502">            &amp;&amp; (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {</span>
+<span class="source-line-no">503</span><span id="line-503">          jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));</span>
+<span class="source-line-no">504</span><span id="line-504">        }</span>
+<span class="source-line-no">505</span><span id="line-505">      } catch (Exception e) {</span>
+<span class="source-line-no">506</span><span id="line-506">        throw new FacebookJsonMappingException(</span>
+<span class="source-line-no">507</span><span id="line-507">          "Unable to process field '" + facebookFieldName + "' for " + object.getClass(), e);</span>
+<span class="source-line-no">508</span><span id="line-508">      }</span>
+<span class="source-line-no">509</span><span id="line-509">    }</span>
+<span class="source-line-no">510</span><span id="line-510"></span>
+<span class="source-line-no">511</span><span id="line-511">    return jsonObject;</span>
+<span class="source-line-no">512</span><span id="line-512">  }</span>
+<span class="source-line-no">513</span><span id="line-513"></span>
+<span class="source-line-no">514</span><span id="line-514">  private boolean isEmptyOptional(Object fieldValue) {</span>
+<span class="source-line-no">515</span><span id="line-515">    return fieldValue instanceof Optional &amp;&amp; !((Optional) fieldValue).isPresent();</span>
+<span class="source-line-no">516</span><span id="line-516">  }</span>
+<span class="source-line-no">517</span><span id="line-517"></span>
+<span class="source-line-no">518</span><span id="line-518">  private JsonArray convertListToJsonArray(List&lt;?&gt; objects, boolean ignoreNullValuedProperties) {</span>
+<span class="source-line-no">519</span><span id="line-519">    JsonArray jsonArray = new JsonArray();</span>
+<span class="source-line-no">520</span><span id="line-520">    objects.stream().map(o -&gt; toJsonInternal(o, ignoreNullValuedProperties)).forEach(jsonArray::add);</span>
+<span class="source-line-no">521</span><span id="line-521">    return jsonArray;</span>
+<span class="source-line-no">522</span><span id="line-522">  }</span>
+<span class="source-line-no">523</span><span id="line-523"></span>
+<span class="source-line-no">524</span><span id="line-524">  private JsonObject convertMapToJsonObject(Object object, boolean ignoreNullValuedProperties) {</span>
+<span class="source-line-no">525</span><span id="line-525">    JsonObject jsonObject = new JsonObject();</span>
+<span class="source-line-no">526</span><span id="line-526">    for (Entry&lt;?, ?&gt; entry : ((Map&lt;?, ?&gt;) object).entrySet()) {</span>
+<span class="source-line-no">527</span><span id="line-527">      if (!(entry.getKey() instanceof String)) {</span>
+<span class="source-line-no">528</span><span id="line-528">        throw new FacebookJsonMappingException("Your Map keys must be of type " + String.class</span>
+<span class="source-line-no">529</span><span id="line-529">            + " in order to be converted to JSON.  Offending map is " + object);</span>
+<span class="source-line-no">530</span><span id="line-530">      }</span>
+<span class="source-line-no">531</span><span id="line-531"></span>
+<span class="source-line-no">532</span><span id="line-532">      try {</span>
+<span class="source-line-no">533</span><span id="line-533">        jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));</span>
+<span class="source-line-no">534</span><span id="line-534">      } catch (ParseException | IllegalArgumentException e) {</span>
+<span class="source-line-no">535</span><span id="line-535">        throw new FacebookJsonMappingException(</span>
+<span class="source-line-no">536</span><span id="line-536">          "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);</span>
+<span class="source-line-no">537</span><span id="line-537">      }</span>
+<span class="source-line-no">538</span><span id="line-538">    }</span>
+<span class="source-line-no">539</span><span id="line-539">    return jsonObject;</span>
+<span class="source-line-no">540</span><span id="line-540">  }</span>
+<span class="source-line-no">541</span><span id="line-541"></span>
+<span class="source-line-no">542</span><span id="line-542">  private JsonValue convertOptionalToJsonValue(Optional&lt;?&gt; object, boolean ignoreNullValuedProperties) {</span>
+<span class="source-line-no">543</span><span id="line-543">    return toJsonInternal(object.orElse(null), ignoreNullValuedProperties);</span>
+<span class="source-line-no">544</span><span id="line-544">  }</span>
+<span class="source-line-no">545</span><span id="line-545"></span>
+<span class="source-line-no">546</span><span id="line-546">  /**</span>
+<span class="source-line-no">547</span><span id="line-547">   * Given a {@code json} value of something like {@code MyValue} or {@code 123} , return a representation of that value</span>
+<span class="source-line-no">548</span><span id="line-548">   * of type {@code type}.</span>
+<span class="source-line-no">549</span><span id="line-549">   * &lt;p&gt;</span>
+<span class="source-line-no">550</span><span id="line-550">   * This is to support non-legal JSON served up by Facebook for API calls like {@code Friends.get} (example result:</span>
+<span class="source-line-no">551</span><span id="line-551">   * {@code [222333,1240079]}).</span>
+<span class="source-line-no">552</span><span id="line-552">   * </span>
+<span class="source-line-no">553</span><span id="line-553">   * @param &lt;T&gt;</span>
+<span class="source-line-no">554</span><span id="line-554">   *          The Java type to map to.</span>
+<span class="source-line-no">555</span><span id="line-555">   * @param json</span>
+<span class="source-line-no">556</span><span id="line-556">   *          The non-legal JSON to map to the Java type.</span>
+<span class="source-line-no">557</span><span id="line-557">   * @param type</span>
+<span class="source-line-no">558</span><span id="line-558">   *          Type token.</span>
+<span class="source-line-no">559</span><span id="line-559">   * @return Java representation of {@code json}.</span>
+<span class="source-line-no">560</span><span id="line-560">   * @throws FacebookJsonMappingException</span>
+<span class="source-line-no">561</span><span id="line-561">   *           If an error occurs while mapping JSON to Java.</span>
+<span class="source-line-no">562</span><span id="line-562">   */</span>
+<span class="source-line-no">563</span><span id="line-563">  @SuppressWarnings("unchecked")</span>
+<span class="source-line-no">564</span><span id="line-564">  protected &lt;T&gt; T toPrimitiveJavaType(String json, Class&lt;T&gt; type) {</span>
+<span class="source-line-no">565</span><span id="line-565"></span>
+<span class="source-line-no">566</span><span id="line-566">    json = jsonHelper.cleanString(json);</span>
+<span class="source-line-no">567</span><span id="line-567"></span>
+<span class="source-line-no">568</span><span id="line-568">    if (typeIsString(type)) {</span>
+<span class="source-line-no">569</span><span id="line-569">      return (T) json;</span>
+<span class="source-line-no">570</span><span id="line-570">    }</span>
+<span class="source-line-no">571</span><span id="line-571">    if (typeIsInteger(type)) {</span>
+<span class="source-line-no">572</span><span id="line-572">      return (T) Integer.valueOf(json);</span>
+<span class="source-line-no">573</span><span id="line-573">    }</span>
+<span class="source-line-no">574</span><span id="line-574">    if (typeIsBoolean(type)) {</span>
+<span class="source-line-no">575</span><span id="line-575">      return (T) Boolean.valueOf(json);</span>
+<span class="source-line-no">576</span><span id="line-576">    }</span>
+<span class="source-line-no">577</span><span id="line-577">    if (typeIsLong(type)) {</span>
+<span class="source-line-no">578</span><span id="line-578">      return (T) Long.valueOf(json);</span>
+<span class="source-line-no">579</span><span id="line-579">    }</span>
+<span class="source-line-no">580</span><span id="line-580">    if (typeIsDouble(type)) {</span>
+<span class="source-line-no">581</span><span id="line-581">      return (T) Double.valueOf(json);</span>
+<span class="source-line-no">582</span><span id="line-582">    }</span>
+<span class="source-line-no">583</span><span id="line-583">    if (typeIsFloat(type)) {</span>
+<span class="source-line-no">584</span><span id="line-584">      return (T) Float.valueOf(json);</span>
+<span class="source-line-no">585</span><span id="line-585">    }</span>
+<span class="source-line-no">586</span><span id="line-586">    if (typeIsBigInteger(type)) {</span>
+<span class="source-line-no">587</span><span id="line-587">      return (T) new BigInteger(json);</span>
+<span class="source-line-no">588</span><span id="line-588">    }</span>
+<span class="source-line-no">589</span><span id="line-589">    if (typeIsBigDecimal(type)) {</span>
+<span class="source-line-no">590</span><span id="line-590">      return (T) new BigDecimal(json);</span>
+<span class="source-line-no">591</span><span id="line-591">    }</span>
+<span class="source-line-no">592</span><span id="line-592"></span>
+<span class="source-line-no">593</span><span id="line-593">    throw new FacebookJsonMappingException("Don't know how to map JSON to " + type</span>
+<span class="source-line-no">594</span><span id="line-594">        + ". Are you sure you're mapping to the right class?\nOffending JSON is '" + json + "'.");</span>
+<span class="source-line-no">595</span><span id="line-595">  }</span>
+<span class="source-line-no">596</span><span id="line-596"></span>
+<span class="source-line-no">597</span><span id="line-597">  /**</span>
+<span class="source-line-no">598</span><span id="line-598">   * Extracts JSON data for a field according to its {@code Facebook} annotation and returns it converted to the proper</span>
+<span class="source-line-no">599</span><span id="line-599">   * Java type.</span>
+<span class="source-line-no">600</span><span id="line-600">   * </span>
+<span class="source-line-no">601</span><span id="line-601">   * @param fieldWithAnnotation</span>
+<span class="source-line-no">602</span><span id="line-602">   *          The field/annotation pair which specifies what Java type to convert to.</span>
+<span class="source-line-no">603</span><span id="line-603">   * @param jsonObject</span>
+<span class="source-line-no">604</span><span id="line-604">   *          "Raw" JSON object to pull data from.</span>
+<span class="source-line-no">605</span><span id="line-605">   * @param facebookFieldName</span>
+<span class="source-line-no">606</span><span id="line-606">   *          Specifies what JSON field to pull "raw" data from.</span>
+<span class="source-line-no">607</span><span id="line-607">   * @return A</span>
+<span class="source-line-no">608</span><span id="line-608">   * @throws ParseException</span>
+<span class="source-line-no">609</span><span id="line-609">   *           If an error occurs while mapping JSON to Java.</span>
+<span class="source-line-no">610</span><span id="line-610">   * @throws FacebookJsonMappingException</span>
+<span class="source-line-no">611</span><span id="line-611">   *           If an error occurs while mapping JSON to Java.</span>
+<span class="source-line-no">612</span><span id="line-612">   */</span>
+<span class="source-line-no">613</span><span id="line-613">  protected Object toJavaType(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation, JsonObject jsonObject,</span>
+<span class="source-line-no">614</span><span id="line-614">      String facebookFieldName) {</span>
+<span class="source-line-no">615</span><span id="line-615">    Class&lt;?&gt; type = fieldWithAnnotation.getField().getType();</span>
+<span class="source-line-no">616</span><span id="line-616">    JsonValue rawValue = jsonObject.get(facebookFieldName);</span>
+<span class="source-line-no">617</span><span id="line-617"></span>
+<span class="source-line-no">618</span><span id="line-618">    // Short-circuit right off the bat if we've got a null value, but Optionals are created nevertheless.</span>
+<span class="source-line-no">619</span><span id="line-619">    if (jsonHelper.isNull(rawValue)) {</span>
+<span class="source-line-no">620</span><span id="line-620">      if (typeIsOptional(type)) {</span>
+<span class="source-line-no">621</span><span id="line-621">        return Optional.empty();</span>
+<span class="source-line-no">622</span><span id="line-622">      }</span>
+<span class="source-line-no">623</span><span id="line-623">      return null;</span>
+<span class="source-line-no">624</span><span id="line-624">    }</span>
+<span class="source-line-no">625</span><span id="line-625"></span>
+<span class="source-line-no">626</span><span id="line-626">    if (typeIsString(type)) {</span>
+<span class="source-line-no">627</span><span id="line-627">      /*</span>
+<span class="source-line-no">628</span><span id="line-628">       * Special handling here for better error checking.</span>
+<span class="source-line-no">629</span><span id="line-629">       *</span>
+<span class="source-line-no">630</span><span id="line-630">       * Since {@code JsonObject.getString()} will return literal JSON text even if it's _not_ a JSON string, we check</span>
+<span class="source-line-no">631</span><span id="line-631">       * the marshaled type and bail if needed. For example, calling {@code JsonObject.getString("results")} on the</span>
+<span class="source-line-no">632</span><span id="line-632">       * below JSON...</span>
 <span class="source-line-no">633</span><span id="line-633">       *</span>
-<span class="source-line-no">634</span><span id="line-634">       * Per Antonello Naccarato, sometimes FB will return an empty JSON array instead of an empty string. Look for that</span>
-<span class="source-line-no">635</span><span id="line-635">       * here.</span>
-<span class="source-line-no">636</span><span id="line-636">       */</span>
-<span class="source-line-no">637</span><span id="line-637">      if (jsonHelper.isEmptyArray(rawValue)) {</span>
-<span class="source-line-no">638</span><span id="line-638">        MAPPER_LOGGER.trace("Coercing an empty JSON array to an empty string for {}", fieldWithAnnotation);</span>
-<span class="source-line-no">639</span><span id="line-639"></span>
-<span class="source-line-no">640</span><span id="line-640">        return "";</span>
-<span class="source-line-no">641</span><span id="line-641">      }</span>
-<span class="source-line-no">642</span><span id="line-642"></span>
-<span class="source-line-no">643</span><span id="line-643">      /*</span>
-<span class="source-line-no">644</span><span id="line-644">       * If the user wants a string, _always_ give her a string.</span>
-<span class="source-line-no">645</span><span id="line-645">       *</span>
-<span class="source-line-no">646</span><span id="line-646">       * This is useful if, for example, you've got a @Facebook-annotated string field that you'd like to have a numeric</span>
-<span class="source-line-no">647</span><span id="line-647">       * type shoved into.</span>
-<span class="source-line-no">648</span><span id="line-648">       *</span>
-<span class="source-line-no">649</span><span id="line-649">       * User beware: this will turn *anything* into a string, which might lead to results you don't expect.</span>
-<span class="source-line-no">650</span><span id="line-650">       */</span>
-<span class="source-line-no">651</span><span id="line-651">      return jsonHelper.getStringFrom(rawValue);</span>
-<span class="source-line-no">652</span><span id="line-652">    }</span>
-<span class="source-line-no">653</span><span id="line-653"></span>
-<span class="source-line-no">654</span><span id="line-654">    if (typeIsInteger(type)) {</span>
-<span class="source-line-no">655</span><span id="line-655">      return jsonHelper.getIntegerFrom(rawValue);</span>
-<span class="source-line-no">656</span><span id="line-656">    }</span>
-<span class="source-line-no">657</span><span id="line-657">    if (typeIsBoolean(type)) {</span>
-<span class="source-line-no">658</span><span id="line-658">      return jsonHelper.getBooleanFrom(rawValue);</span>
-<span class="source-line-no">659</span><span id="line-659">    }</span>
-<span class="source-line-no">660</span><span id="line-660">    if (typeIsLong(type)) {</span>
-<span class="source-line-no">661</span><span id="line-661">      return jsonHelper.getLongFrom(rawValue);</span>
-<span class="source-line-no">662</span><span id="line-662">    }</span>
-<span class="source-line-no">663</span><span id="line-663">    if (typeIsDouble(type)) {</span>
-<span class="source-line-no">664</span><span id="line-664">      return jsonHelper.getDoubleFrom(rawValue);</span>
-<span class="source-line-no">665</span><span id="line-665">    }</span>
-<span class="source-line-no">666</span><span id="line-666">    if (typeIsFloat(type)) {</span>
-<span class="source-line-no">667</span><span id="line-667">      return jsonHelper.getFloatFrom(rawValue);</span>
-<span class="source-line-no">668</span><span id="line-668">    }</span>
-<span class="source-line-no">669</span><span id="line-669">    if (typeIsBigInteger(type)) {</span>
-<span class="source-line-no">670</span><span id="line-670">      return jsonHelper.getBigIntegerFrom(rawValue);</span>
-<span class="source-line-no">671</span><span id="line-671">    }</span>
-<span class="source-line-no">672</span><span id="line-672">    if (typeIsBigDecimal(type)) {</span>
-<span class="source-line-no">673</span><span id="line-673">      return jsonHelper.getBigDecimalFrom(rawValue);</span>
-<span class="source-line-no">674</span><span id="line-674">    }</span>
-<span class="source-line-no">675</span><span id="line-675">    if (typeIsList(type)) {</span>
-<span class="source-line-no">676</span><span id="line-676">      return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));</span>
-<span class="source-line-no">677</span><span id="line-677">    }</span>
-<span class="source-line-no">678</span><span id="line-678">    if (typeIsMap(type)) {</span>
-<span class="source-line-no">679</span><span id="line-679">      return convertRawValueToMap(rawValue.toString(), fieldWithAnnotation.getField());</span>
-<span class="source-line-no">680</span><span id="line-680">    }</span>
-<span class="source-line-no">681</span><span id="line-681"></span>
-<span class="source-line-no">682</span><span id="line-682">    if (typeIsOptional(type)) {</span>
-<span class="source-line-no">683</span><span id="line-683">      return Optional.ofNullable(</span>
-<span class="source-line-no">684</span><span id="line-684">        toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));</span>
+<span class="source-line-no">634</span><span id="line-634">       * &lt;code&gt; { "results":[ {"name":"Mark Allen"} ] } &lt;/code&gt;</span>
+<span class="source-line-no">635</span><span id="line-635">       *</span>
+<span class="source-line-no">636</span><span id="line-636">       * ... would return the string {@code "[{"name":"Mark Allen"}]"} instead of throwing an error. So we throw the</span>
+<span class="source-line-no">637</span><span id="line-637">       * error ourselves.</span>
+<span class="source-line-no">638</span><span id="line-638">       *</span>
+<span class="source-line-no">639</span><span id="line-639">       * Per Antonello Naccarato, sometimes FB will return an empty JSON array instead of an empty string. Look for that</span>
+<span class="source-line-no">640</span><span id="line-640">       * here.</span>
+<span class="source-line-no">641</span><span id="line-641">       */</span>
+<span class="source-line-no">642</span><span id="line-642">      if (jsonHelper.isEmptyArray(rawValue)) {</span>
+<span class="source-line-no">643</span><span id="line-643">        MAPPER_LOGGER.trace("Coercing an empty JSON array to an empty string for {}", fieldWithAnnotation);</span>
+<span class="source-line-no">644</span><span id="line-644"></span>
+<span class="source-line-no">645</span><span id="line-645">        return "";</span>
+<span class="source-line-no">646</span><span id="line-646">      }</span>
+<span class="source-line-no">647</span><span id="line-647"></span>
+<span class="source-line-no">648</span><span id="line-648">      /*</span>
+<span class="source-line-no">649</span><span id="line-649">       * If the user wants a string, _always_ give her a string.</span>
+<span class="source-line-no">650</span><span id="line-650">       *</span>
+<span class="source-line-no">651</span><span id="line-651">       * This is useful if, for example, you've got a @Facebook-annotated string field that you'd like to have a numeric</span>
+<span class="source-line-no">652</span><span id="line-652">       * type shoved into.</span>
+<span class="source-line-no">653</span><span id="line-653">       *</span>
+<span class="source-line-no">654</span><span id="line-654">       * User beware: this will turn *anything* into a string, which might lead to results you don't expect.</span>
+<span class="source-line-no">655</span><span id="line-655">       */</span>
+<span class="source-line-no">656</span><span id="line-656">      return jsonHelper.getStringFrom(rawValue);</span>
+<span class="source-line-no">657</span><span id="line-657">    }</span>
+<span class="source-line-no">658</span><span id="line-658"></span>
+<span class="source-line-no">659</span><span id="line-659">    if (typeIsInteger(type)) {</span>
+<span class="source-line-no">660</span><span id="line-660">      return jsonHelper.getIntegerFrom(rawValue);</span>
+<span class="source-line-no">661</span><span id="line-661">    }</span>
+<span class="source-line-no">662</span><span id="line-662">    if (typeIsBoolean(type)) {</span>
+<span class="source-line-no">663</span><span id="line-663">      return jsonHelper.getBooleanFrom(rawValue);</span>
+<span class="source-line-no">664</span><span id="line-664">    }</span>
+<span class="source-line-no">665</span><span id="line-665">    if (typeIsLong(type)) {</span>
+<span class="source-line-no">666</span><span id="line-666">      return jsonHelper.getLongFrom(rawValue);</span>
+<span class="source-line-no">667</span><span id="line-667">    }</span>
+<span class="source-line-no">668</span><span id="line-668">    if (typeIsDouble(type)) {</span>
+<span class="source-line-no">669</span><span id="line-669">      return jsonHelper.getDoubleFrom(rawValue);</span>
+<span class="source-line-no">670</span><span id="line-670">    }</span>
+<span class="source-line-no">671</span><span id="line-671">    if (typeIsFloat(type)) {</span>
+<span class="source-line-no">672</span><span id="line-672">      return jsonHelper.getFloatFrom(rawValue);</span>
+<span class="source-line-no">673</span><span id="line-673">    }</span>
+<span class="source-line-no">674</span><span id="line-674">    if (typeIsBigInteger(type)) {</span>
+<span class="source-line-no">675</span><span id="line-675">      return jsonHelper.getBigIntegerFrom(rawValue);</span>
+<span class="source-line-no">676</span><span id="line-676">    }</span>
+<span class="source-line-no">677</span><span id="line-677">    if (typeIsBigDecimal(type)) {</span>
+<span class="source-line-no">678</span><span id="line-678">      return jsonHelper.getBigDecimalFrom(rawValue);</span>
+<span class="source-line-no">679</span><span id="line-679">    }</span>
+<span class="source-line-no">680</span><span id="line-680">    if (typeIsList(type)) {</span>
+<span class="source-line-no">681</span><span id="line-681">      return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));</span>
+<span class="source-line-no">682</span><span id="line-682">    }</span>
+<span class="source-line-no">683</span><span id="line-683">    if (typeIsMap(type)) {</span>
+<span class="source-line-no">684</span><span id="line-684">      return convertRawValueToMap(rawValue.toString(), fieldWithAnnotation.getField());</span>
 <span class="source-line-no">685</span><span id="line-685">    }</span>
 <span class="source-line-no">686</span><span id="line-686"></span>
-<span class="source-line-no">687</span><span id="line-687">    if (type.isEnum()) {</span>
-<span class="source-line-no">688</span><span id="line-688">      Optional&lt;Enum&gt; enumTypeOpt = convertRawValueToEnumType(type, rawValue);</span>
-<span class="source-line-no">689</span><span id="line-689">      if (enumTypeOpt.isPresent()) {</span>
-<span class="source-line-no">690</span><span id="line-690">        return enumTypeOpt.get();</span>
-<span class="source-line-no">691</span><span id="line-691">      }</span>
-<span class="source-line-no">692</span><span id="line-692">    }</span>
-<span class="source-line-no">693</span><span id="line-693"></span>
-<span class="source-line-no">694</span><span id="line-694">    if (typeIsDate(type)) {</span>
-<span class="source-line-no">695</span><span id="line-695">      return DateUtils.toDateFromLongFormat(jsonHelper.getStringFrom(rawValue));</span>
-<span class="source-line-no">696</span><span id="line-696">    }</span>
-<span class="source-line-no">697</span><span id="line-697"></span>
-<span class="source-line-no">698</span><span id="line-698">    if (Connection.class.equals(type)) {</span>
-<span class="source-line-no">699</span><span id="line-699">      Optional&lt;Connection&gt; createdConnectionOpt = convertRawValueToConnection(fieldWithAnnotation, rawValue);</span>
-<span class="source-line-no">700</span><span id="line-700">      if (createdConnectionOpt.isPresent()) {</span>
-<span class="source-line-no">701</span><span id="line-701">        return createdConnectionOpt.get();</span>
-<span class="source-line-no">702</span><span id="line-702">      }</span>
-<span class="source-line-no">703</span><span id="line-703">    }</span>
-<span class="source-line-no">704</span><span id="line-704"></span>
-<span class="source-line-no">705</span><span id="line-705">    String rawValueAsString = jsonHelper.getStringFrom(rawValue);</span>
-<span class="source-line-no">706</span><span id="line-706"></span>
-<span class="source-line-no">707</span><span id="line-707">    // Hack for issue #76 where FB will sometimes return a Post's Comments as</span>
-<span class="source-line-no">708</span><span id="line-708">    // "[]" instead of an object type (wtf)F</span>
-<span class="source-line-no">709</span><span id="line-709">    if (Comments.class.isAssignableFrom(type) &amp;&amp; rawValue instanceof JsonArray) {</span>
-<span class="source-line-no">710</span><span id="line-710">      MAPPER_LOGGER.debug(</span>
-<span class="source-line-no">711</span><span id="line-711">        "Encountered comment array '{}' but expected a {} object instead.  Working around that by coercing "</span>
-<span class="source-line-no">712</span><span id="line-712">            + "into an empty {} instance...",</span>
-<span class="source-line-no">713</span><span id="line-713">        rawValueAsString, Comments.class.getSimpleName(), Comments.class.getSimpleName());</span>
-<span class="source-line-no">714</span><span id="line-714"></span>
-<span class="source-line-no">715</span><span id="line-715">      JsonObject workaroundJsonObject = new JsonObject();</span>
-<span class="source-line-no">716</span><span id="line-716">      workaroundJsonObject.add("total_count", 0);</span>
-<span class="source-line-no">717</span><span id="line-717">      workaroundJsonObject.add("data", new JsonArray());</span>
-<span class="source-line-no">718</span><span id="line-718">      rawValueAsString = workaroundJsonObject.toString();</span>
-<span class="source-line-no">719</span><span id="line-719">    }</span>
-<span class="source-line-no">720</span><span id="line-720"></span>
-<span class="source-line-no">721</span><span id="line-721">    // Some other type - recurse into it</span>
-<span class="source-line-no">722</span><span id="line-722">    return toJavaObject(rawValueAsString, type);</span>
-<span class="source-line-no">723</span><span id="line-723">  }</span>
-<span class="source-line-no">724</span><span id="line-724"></span>
-<span class="source-line-no">725</span><span id="line-725">  private Optional&lt;Connection&gt; convertRawValueToConnection(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation,</span>
-<span class="source-line-no">726</span><span id="line-726">      JsonValue rawValue) {</span>
-<span class="source-line-no">727</span><span id="line-727">    if (null != facebookClient) {</span>
-<span class="source-line-no">728</span><span id="line-728">      return Optional.of(new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),</span>
-<span class="source-line-no">729</span><span id="line-729">        getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));</span>
-<span class="source-line-no">730</span><span id="line-730">    } else {</span>
-<span class="source-line-no">731</span><span id="line-731">      MAPPER_LOGGER.warn(</span>
-<span class="source-line-no">732</span><span id="line-732">        "Skipping java field {}, because it has the type Connection, but the given facebook client is null",</span>
-<span class="source-line-no">733</span><span id="line-733">        fieldWithAnnotation.getField().getName());</span>
-<span class="source-line-no">734</span><span id="line-734">    }</span>
-<span class="source-line-no">735</span><span id="line-735">    return Optional.empty();</span>
-<span class="source-line-no">736</span><span id="line-736">  }</span>
-<span class="source-line-no">737</span><span id="line-737"></span>
-<span class="source-line-no">738</span><span id="line-738">  private Optional&lt;Enum&gt; convertRawValueToEnumType(Class&lt;?&gt; type, JsonValue rawValue) {</span>
-<span class="source-line-no">739</span><span id="line-739">    Class&lt;? extends Enum&gt; enumType = type.asSubclass(Enum.class);</span>
-<span class="source-line-no">740</span><span id="line-740">    try {</span>
-<span class="source-line-no">741</span><span id="line-741">      return Optional.of(Enum.valueOf(enumType, rawValue.asString()));</span>
-<span class="source-line-no">742</span><span id="line-742">    } catch (IllegalArgumentException iae) {</span>
-<span class="source-line-no">743</span><span id="line-743">      MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),</span>
-<span class="source-line-no">744</span><span id="line-744">        enumType.getName());</span>
-<span class="source-line-no">745</span><span id="line-745">    }</span>
-<span class="source-line-no">746</span><span id="line-746">    try {</span>
-<span class="source-line-no">747</span><span id="line-747">      return Optional.of(Enum.valueOf(enumType, rawValue.asString().toUpperCase()));</span>
-<span class="source-line-no">748</span><span id="line-748">    } catch (IllegalArgumentException iae) {</span>
-<span class="source-line-no">749</span><span id="line-749">      MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());</span>
+<span class="source-line-no">687</span><span id="line-687">    if (typeIsOptional(type)) {</span>
+<span class="source-line-no">688</span><span id="line-688">      return Optional.ofNullable(</span>
+<span class="source-line-no">689</span><span id="line-689">        toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));</span>
+<span class="source-line-no">690</span><span id="line-690">    }</span>
+<span class="source-line-no">691</span><span id="line-691"></span>
+<span class="source-line-no">692</span><span id="line-692">    if (type.isEnum()) {</span>
+<span class="source-line-no">693</span><span id="line-693">      Optional&lt;Enum&gt; enumTypeOpt = convertRawValueToEnumType(type, rawValue);</span>
+<span class="source-line-no">694</span><span id="line-694">      if (enumTypeOpt.isPresent()) {</span>
+<span class="source-line-no">695</span><span id="line-695">        return enumTypeOpt.get();</span>
+<span class="source-line-no">696</span><span id="line-696">      }</span>
+<span class="source-line-no">697</span><span id="line-697">    }</span>
+<span class="source-line-no">698</span><span id="line-698"></span>
+<span class="source-line-no">699</span><span id="line-699">    if (typeIsDate(type)) {</span>
+<span class="source-line-no">700</span><span id="line-700">      return DateUtils.toDateFromLongFormat(jsonHelper.getStringFrom(rawValue));</span>
+<span class="source-line-no">701</span><span id="line-701">    }</span>
+<span class="source-line-no">702</span><span id="line-702"></span>
+<span class="source-line-no">703</span><span id="line-703">    if (Connection.class.equals(type)) {</span>
+<span class="source-line-no">704</span><span id="line-704">      Optional&lt;Connection&gt; createdConnectionOpt = convertRawValueToConnection(fieldWithAnnotation, rawValue);</span>
+<span class="source-line-no">705</span><span id="line-705">      if (createdConnectionOpt.isPresent()) {</span>
+<span class="source-line-no">706</span><span id="line-706">        return createdConnectionOpt.get();</span>
+<span class="source-line-no">707</span><span id="line-707">      }</span>
+<span class="source-line-no">708</span><span id="line-708">    }</span>
+<span class="source-line-no">709</span><span id="line-709"></span>
+<span class="source-line-no">710</span><span id="line-710">    String rawValueAsString = jsonHelper.getStringFrom(rawValue);</span>
+<span class="source-line-no">711</span><span id="line-711"></span>
+<span class="source-line-no">712</span><span id="line-712">    // Hack for issue #76 where FB will sometimes return a Post's Comments as</span>
+<span class="source-line-no">713</span><span id="line-713">    // "[]" instead of an object type (wtf)F</span>
+<span class="source-line-no">714</span><span id="line-714">    if (Comments.class.isAssignableFrom(type) &amp;&amp; rawValue instanceof JsonArray) {</span>
+<span class="source-line-no">715</span><span id="line-715">      MAPPER_LOGGER.debug(</span>
+<span class="source-line-no">716</span><span id="line-716">        "Encountered comment array '{}' but expected a {} object instead.  Working around that by coercing "</span>
+<span class="source-line-no">717</span><span id="line-717">            + "into an empty {} instance...",</span>
+<span class="source-line-no">718</span><span id="line-718">        rawValueAsString, Comments.class.getSimpleName(), Comments.class.getSimpleName());</span>
+<span class="source-line-no">719</span><span id="line-719"></span>
+<span class="source-line-no">720</span><span id="line-720">      JsonObject workaroundJsonObject = new JsonObject();</span>
+<span class="source-line-no">721</span><span id="line-721">      workaroundJsonObject.add("total_count", 0);</span>
+<span class="source-line-no">722</span><span id="line-722">      workaroundJsonObject.add("data", new JsonArray());</span>
+<span class="source-line-no">723</span><span id="line-723">      rawValueAsString = workaroundJsonObject.toString();</span>
+<span class="source-line-no">724</span><span id="line-724">    }</span>
+<span class="source-line-no">725</span><span id="line-725"></span>
+<span class="source-line-no">726</span><span id="line-726">    // Some other type - recurse into it</span>
+<span class="source-line-no">727</span><span id="line-727">    return toJavaObject(rawValueAsString, type);</span>
+<span class="source-line-no">728</span><span id="line-728">  }</span>
+<span class="source-line-no">729</span><span id="line-729"></span>
+<span class="source-line-no">730</span><span id="line-730">  private Optional&lt;Connection&gt; convertRawValueToConnection(FieldWithAnnotation&lt;Facebook&gt; fieldWithAnnotation,</span>
+<span class="source-line-no">731</span><span id="line-731">      JsonValue rawValue) {</span>
+<span class="source-line-no">732</span><span id="line-732">    if (null != facebookClient) {</span>
+<span class="source-line-no">733</span><span id="line-733">      return Optional.of(new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),</span>
+<span class="source-line-no">734</span><span id="line-734">        getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));</span>
+<span class="source-line-no">735</span><span id="line-735">    } else {</span>
+<span class="source-line-no">736</span><span id="line-736">      MAPPER_LOGGER.warn(</span>
+<span class="source-line-no">737</span><span id="line-737">        "Skipping java field {}, because it has the type Connection, but the given facebook client is null",</span>
+<span class="source-line-no">738</span><span id="line-738">        fieldWithAnnotation.getField().getName());</span>
+<span class="source-line-no">739</span><span id="line-739">    }</span>
+<span class="source-line-no">740</span><span id="line-740">    return Optional.empty();</span>
+<span class="source-line-no">741</span><span id="line-741">  }</span>
+<span class="source-line-no">742</span><span id="line-742"></span>
+<span class="source-line-no">743</span><span id="line-743">  private Optional&lt;Enum&gt; convertRawValueToEnumType(Class&lt;?&gt; type, JsonValue rawValue) {</span>
+<span class="source-line-no">744</span><span id="line-744">    Class&lt;? extends Enum&gt; enumType = type.asSubclass(Enum.class);</span>
+<span class="source-line-no">745</span><span id="line-745">    Map&lt;String, Enum&gt; annotatedEnumMapping = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">746</span><span id="line-746">    if (enumType.getEnumConstants() != null) {</span>
+<span class="source-line-no">747</span><span id="line-747">      for (Enum e : enumType.getEnumConstants()) {</span>
+<span class="source-line-no">748</span><span id="line-748">        getAlternativeEnumValue(e).ifPresent(s -&gt; annotatedEnumMapping.put(s, e));</span>
+<span class="source-line-no">749</span><span id="line-749">      }</span>
 <span class="source-line-no">750</span><span id="line-750">    }</span>
-<span class="source-line-no">751</span><span id="line-751">    return Optional.empty();</span>
-<span class="source-line-no">752</span><span id="line-752">  }</span>
-<span class="source-line-no">753</span><span id="line-753"></span>
-<span class="source-line-no">754</span><span id="line-754">  private Map convertRawValueToMap(String json, Field field) {</span>
-<span class="source-line-no">755</span><span id="line-755">    Class&lt;?&gt; firstParam = getFirstParameterizedTypeArgument(field);</span>
-<span class="source-line-no">756</span><span id="line-756">    if (!typeIsString(firstParam)) {</span>
-<span class="source-line-no">757</span><span id="line-757">      throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);</span>
-<span class="source-line-no">758</span><span id="line-758">    }</span>
-<span class="source-line-no">759</span><span id="line-759"></span>
-<span class="source-line-no">760</span><span id="line-760">    Class&lt;?&gt; secondParam = getSecondParameterizedTypeArgument(field);</span>
-<span class="source-line-no">761</span><span id="line-761"></span>
-<span class="source-line-no">762</span><span id="line-762">    if (StringJsonUtils.isObject(json)) {</span>
-<span class="source-line-no">763</span><span id="line-763">      JsonObject jsonObject = Json.parse(json).asObject();</span>
-<span class="source-line-no">764</span><span id="line-764">      Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">765</span><span id="line-765">      for (String key : jsonObject.names()) {</span>
-<span class="source-line-no">766</span><span id="line-766">        String value = jsonHelper.getStringFrom(jsonObject.get(key));</span>
-<span class="source-line-no">767</span><span id="line-767">        map.put(key, toJavaObject(value, secondParam));</span>
-<span class="source-line-no">768</span><span id="line-768">      }</span>
-<span class="source-line-no">769</span><span id="line-769">      return map;</span>
-<span class="source-line-no">770</span><span id="line-770">    }</span>
-<span class="source-line-no">771</span><span id="line-771"></span>
-<span class="source-line-no">772</span><span id="line-772">    return null;</span>
+<span class="source-line-no">751</span><span id="line-751"></span>
+<span class="source-line-no">752</span><span id="line-752">    Enum e = annotatedEnumMapping.get(rawValue.asString());</span>
+<span class="source-line-no">753</span><span id="line-753">    if (e != null) {</span>
+<span class="source-line-no">754</span><span id="line-754">      return Optional.of(e);</span>
+<span class="source-line-no">755</span><span id="line-755">    } else {</span>
+<span class="source-line-no">756</span><span id="line-756">      MAPPER_LOGGER.debug(</span>
+<span class="source-line-no">757</span><span id="line-757">        "No suitable annotated enum constant found for string {} and enum {}, use default enum detection.",</span>
+<span class="source-line-no">758</span><span id="line-758">        rawValue.asString(), enumType.getName());</span>
+<span class="source-line-no">759</span><span id="line-759">    }</span>
+<span class="source-line-no">760</span><span id="line-760"></span>
+<span class="source-line-no">761</span><span id="line-761">    try {</span>
+<span class="source-line-no">762</span><span id="line-762">      return Optional.of(Enum.valueOf(enumType, rawValue.asString()));</span>
+<span class="source-line-no">763</span><span id="line-763">    } catch (IllegalArgumentException iae) {</span>
+<span class="source-line-no">764</span><span id="line-764">      MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),</span>
+<span class="source-line-no">765</span><span id="line-765">        enumType.getName());</span>
+<span class="source-line-no">766</span><span id="line-766">    }</span>
+<span class="source-line-no">767</span><span id="line-767">    try {</span>
+<span class="source-line-no">768</span><span id="line-768">      return Optional.of(Enum.valueOf(enumType, rawValue.asString().toUpperCase()));</span>
+<span class="source-line-no">769</span><span id="line-769">    } catch (IllegalArgumentException iae) {</span>
+<span class="source-line-no">770</span><span id="line-770">      MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());</span>
+<span class="source-line-no">771</span><span id="line-771">    }</span>
+<span class="source-line-no">772</span><span id="line-772">    return Optional.empty();</span>
 <span class="source-line-no">773</span><span id="line-773">  }</span>
 <span class="source-line-no">774</span><span id="line-774"></span>
-<span class="source-line-no">775</span><span id="line-775">  private JsonValue javaTypeToJsonValue(Object object) {</span>
-<span class="source-line-no">776</span><span id="line-776">    if (object == null) {</span>
-<span class="source-line-no">777</span><span id="line-777">      return Json.NULL;</span>
-<span class="source-line-no">778</span><span id="line-778">    }</span>
-<span class="source-line-no">779</span><span id="line-779"></span>
-<span class="source-line-no">780</span><span id="line-780">    Class&lt;?&gt; type = object.getClass();</span>
-<span class="source-line-no">781</span><span id="line-781"></span>
-<span class="source-line-no">782</span><span id="line-782">    if (typeIsString(type)) {</span>
-<span class="source-line-no">783</span><span id="line-783">      return Json.value((String) object);</span>
+<span class="source-line-no">775</span><span id="line-775">  private Optional&lt;String&gt; getAlternativeEnumValue(Enum e) {</span>
+<span class="source-line-no">776</span><span id="line-776">    try {</span>
+<span class="source-line-no">777</span><span id="line-777">      Field f = e.getClass().getField(e.toString());</span>
+<span class="source-line-no">778</span><span id="line-778">      Facebook a = f.getAnnotation(Facebook.class);</span>
+<span class="source-line-no">779</span><span id="line-779">      if (a != null &amp;&amp; !a.value().isEmpty()) {</span>
+<span class="source-line-no">780</span><span id="line-780">        return Optional.of(a.value());</span>
+<span class="source-line-no">781</span><span id="line-781">      }</span>
+<span class="source-line-no">782</span><span id="line-782">    } catch (NoSuchFieldException ex) {</span>
+<span class="source-line-no">783</span><span id="line-783">      MAPPER_LOGGER.debug("Enum constant without annotation, skip annotation value detection for {}", e);</span>
 <span class="source-line-no">784</span><span id="line-784">    }</span>
-<span class="source-line-no">785</span><span id="line-785"></span>
-<span class="source-line-no">786</span><span id="line-786">    if (typeIsInteger(type)) {</span>
-<span class="source-line-no">787</span><span id="line-787">      return Json.value((Integer) object);</span>
-<span class="source-line-no">788</span><span id="line-788">    }</span>
-<span class="source-line-no">789</span><span id="line-789"></span>
-<span class="source-line-no">790</span><span id="line-790">    if (typeIsBoolean(type)) {</span>
-<span class="source-line-no">791</span><span id="line-791">      return Json.value((Boolean) object);</span>
+<span class="source-line-no">785</span><span id="line-785">    return Optional.empty();</span>
+<span class="source-line-no">786</span><span id="line-786">  }</span>
+<span class="source-line-no">787</span><span id="line-787"></span>
+<span class="source-line-no">788</span><span id="line-788">  private Map convertRawValueToMap(String json, Field field) {</span>
+<span class="source-line-no">789</span><span id="line-789">    Class&lt;?&gt; firstParam = getFirstParameterizedTypeArgument(field);</span>
+<span class="source-line-no">790</span><span id="line-790">    if (!typeIsString(firstParam)) {</span>
+<span class="source-line-no">791</span><span id="line-791">      throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);</span>
 <span class="source-line-no">792</span><span id="line-792">    }</span>
 <span class="source-line-no">793</span><span id="line-793"></span>
-<span class="source-line-no">794</span><span id="line-794">    if (typeIsLong(type)) {</span>
-<span class="source-line-no">795</span><span id="line-795">      return Json.value((Long) object);</span>
-<span class="source-line-no">796</span><span id="line-796">    }</span>
-<span class="source-line-no">797</span><span id="line-797"></span>
-<span class="source-line-no">798</span><span id="line-798">    if (typeIsDouble(type)) {</span>
-<span class="source-line-no">799</span><span id="line-799">      return Json.value((Double) object);</span>
-<span class="source-line-no">800</span><span id="line-800">    }</span>
-<span class="source-line-no">801</span><span id="line-801"></span>
-<span class="source-line-no">802</span><span id="line-802">    if (typeIsFloat(type)) {</span>
-<span class="source-line-no">803</span><span id="line-803">      return Json.value((Float) object);</span>
+<span class="source-line-no">794</span><span id="line-794">    Class&lt;?&gt; secondParam = getSecondParameterizedTypeArgument(field);</span>
+<span class="source-line-no">795</span><span id="line-795"></span>
+<span class="source-line-no">796</span><span id="line-796">    if (StringJsonUtils.isObject(json)) {</span>
+<span class="source-line-no">797</span><span id="line-797">      JsonObject jsonObject = Json.parse(json).asObject();</span>
+<span class="source-line-no">798</span><span id="line-798">      Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">799</span><span id="line-799">      for (String key : jsonObject.names()) {</span>
+<span class="source-line-no">800</span><span id="line-800">        String value = jsonHelper.getStringFrom(jsonObject.get(key));</span>
+<span class="source-line-no">801</span><span id="line-801">        map.put(key, toJavaObject(value, secondParam));</span>
+<span class="source-line-no">802</span><span id="line-802">      }</span>
+<span class="source-line-no">803</span><span id="line-803">      return map;</span>
 <span class="source-line-no">804</span><span id="line-804">    }</span>
 <span class="source-line-no">805</span><span id="line-805"></span>
-<span class="source-line-no">806</span><span id="line-806">    if (typeIsByte(type)) {</span>
-<span class="source-line-no">807</span><span id="line-807">      return Json.value((Byte) object);</span>
-<span class="source-line-no">808</span><span id="line-808">    }</span>
-<span class="source-line-no">809</span><span id="line-809"></span>
-<span class="source-line-no">810</span><span id="line-810">    if (typeIsShort(type)) {</span>
-<span class="source-line-no">811</span><span id="line-811">      return Json.value((Short) object);</span>
+<span class="source-line-no">806</span><span id="line-806">    return null;</span>
+<span class="source-line-no">807</span><span id="line-807">  }</span>
+<span class="source-line-no">808</span><span id="line-808"></span>
+<span class="source-line-no">809</span><span id="line-809">  private JsonValue javaTypeToJsonValue(Object object) {</span>
+<span class="source-line-no">810</span><span id="line-810">    if (object == null) {</span>
+<span class="source-line-no">811</span><span id="line-811">      return Json.NULL;</span>
 <span class="source-line-no">812</span><span id="line-812">    }</span>
 <span class="source-line-no">813</span><span id="line-813"></span>
-<span class="source-line-no">814</span><span id="line-814">    if (typeIsCharacter(type)) {</span>
-<span class="source-line-no">815</span><span id="line-815">      return Json.value(Character.toString((Character) object));</span>
-<span class="source-line-no">816</span><span id="line-816">    }</span>
-<span class="source-line-no">817</span><span id="line-817"></span>
-<span class="source-line-no">818</span><span id="line-818">    return Json.NULL;</span>
+<span class="source-line-no">814</span><span id="line-814">    Class&lt;?&gt; type = object.getClass();</span>
+<span class="source-line-no">815</span><span id="line-815"></span>
+<span class="source-line-no">816</span><span id="line-816">    if (typeIsString(type)) {</span>
+<span class="source-line-no">817</span><span id="line-817">      return Json.value((String) object);</span>
+<span class="source-line-no">818</span><span id="line-818">    }</span>
 <span class="source-line-no">819</span><span id="line-819"></span>
-<span class="source-line-no">820</span><span id="line-820">  }</span>
-<span class="source-line-no">821</span><span id="line-821"></span>
-<span class="source-line-no">822</span><span id="line-822">  private boolean typeIsCharacter(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">823</span><span id="line-823">    return Character.class.equals(type) || Character.TYPE.equals(type);</span>
-<span class="source-line-no">824</span><span id="line-824">  }</span>
-<span class="source-line-no">825</span><span id="line-825"></span>
-<span class="source-line-no">826</span><span id="line-826">  private boolean typeIsShort(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">827</span><span id="line-827">    return Short.class.equals(type) || Short.TYPE.equals(type);</span>
-<span class="source-line-no">828</span><span id="line-828">  }</span>
-<span class="source-line-no">829</span><span id="line-829"></span>
-<span class="source-line-no">830</span><span id="line-830">  private boolean typeIsByte(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">831</span><span id="line-831">    return Byte.class.equals(type) || Byte.TYPE.equals(type);</span>
-<span class="source-line-no">832</span><span id="line-832">  }</span>
-<span class="source-line-no">833</span><span id="line-833"></span>
-<span class="source-line-no">834</span><span id="line-834">  private boolean typeIsFloat(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">835</span><span id="line-835">    return Float.class.equals(type) || Float.TYPE.equals(type);</span>
-<span class="source-line-no">836</span><span id="line-836">  }</span>
-<span class="source-line-no">837</span><span id="line-837"></span>
-<span class="source-line-no">838</span><span id="line-838">  private boolean typeIsLong(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">839</span><span id="line-839">    return Long.class.equals(type) || Long.TYPE.equals(type);</span>
-<span class="source-line-no">840</span><span id="line-840">  }</span>
-<span class="source-line-no">841</span><span id="line-841"></span>
-<span class="source-line-no">842</span><span id="line-842">  private boolean typeIsInteger(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">843</span><span id="line-843">    return Integer.class.equals(type) || Integer.TYPE.equals(type);</span>
-<span class="source-line-no">844</span><span id="line-844">  }</span>
-<span class="source-line-no">845</span><span id="line-845"></span>
-<span class="source-line-no">846</span><span id="line-846">  private boolean typeIsBigDecimal(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">847</span><span id="line-847">    return BigDecimal.class.equals(type);</span>
-<span class="source-line-no">848</span><span id="line-848">  }</span>
-<span class="source-line-no">849</span><span id="line-849"></span>
-<span class="source-line-no">850</span><span id="line-850">  private boolean typeIsBigInteger(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">851</span><span id="line-851">    return BigInteger.class.equals(type);</span>
-<span class="source-line-no">852</span><span id="line-852">  }</span>
+<span class="source-line-no">820</span><span id="line-820">    if (typeIsInteger(type)) {</span>
+<span class="source-line-no">821</span><span id="line-821">      return Json.value((Integer) object);</span>
+<span class="source-line-no">822</span><span id="line-822">    }</span>
+<span class="source-line-no">823</span><span id="line-823"></span>
+<span class="source-line-no">824</span><span id="line-824">    if (typeIsBoolean(type)) {</span>
+<span class="source-line-no">825</span><span id="line-825">      return Json.value((Boolean) object);</span>
+<span class="source-line-no">826</span><span id="line-826">    }</span>
+<span class="source-line-no">827</span><span id="line-827"></span>
+<span class="source-line-no">828</span><span id="line-828">    if (typeIsLong(type)) {</span>
+<span class="source-line-no">829</span><span id="line-829">      return Json.value((Long) object);</span>
+<span class="source-line-no">830</span><span id="line-830">    }</span>
+<span class="source-line-no">831</span><span id="line-831"></span>
+<span class="source-line-no">832</span><span id="line-832">    if (typeIsDouble(type)) {</span>
+<span class="source-line-no">833</span><span id="line-833">      return Json.value((Double) object);</span>
+<span class="source-line-no">834</span><span id="line-834">    }</span>
+<span class="source-line-no">835</span><span id="line-835"></span>
+<span class="source-line-no">836</span><span id="line-836">    if (typeIsFloat(type)) {</span>
+<span class="source-line-no">837</span><span id="line-837">      return Json.value((Float) object);</span>
+<span class="source-line-no">838</span><span id="line-838">    }</span>
+<span class="source-line-no">839</span><span id="line-839"></span>
+<span class="source-line-no">840</span><span id="line-840">    if (typeIsByte(type)) {</span>
+<span class="source-line-no">841</span><span id="line-841">      return Json.value((Byte) object);</span>
+<span class="source-line-no">842</span><span id="line-842">    }</span>
+<span class="source-line-no">843</span><span id="line-843"></span>
+<span class="source-line-no">844</span><span id="line-844">    if (typeIsShort(type)) {</span>
+<span class="source-line-no">845</span><span id="line-845">      return Json.value((Short) object);</span>
+<span class="source-line-no">846</span><span id="line-846">    }</span>
+<span class="source-line-no">847</span><span id="line-847"></span>
+<span class="source-line-no">848</span><span id="line-848">    if (typeIsCharacter(type)) {</span>
+<span class="source-line-no">849</span><span id="line-849">      return Json.value(Character.toString((Character) object));</span>
+<span class="source-line-no">850</span><span id="line-850">    }</span>
+<span class="source-line-no">851</span><span id="line-851"></span>
+<span class="source-line-no">852</span><span id="line-852">    return Json.NULL;</span>
 <span class="source-line-no">853</span><span id="line-853"></span>
-<span class="source-line-no">854</span><span id="line-854">  private boolean typeIsDouble(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">855</span><span id="line-855">    return Double.class.equals(type) || Double.TYPE.equals(type);</span>
-<span class="source-line-no">856</span><span id="line-856">  }</span>
-<span class="source-line-no">857</span><span id="line-857"></span>
-<span class="source-line-no">858</span><span id="line-858">  private boolean typeIsBoolean(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">859</span><span id="line-859">    return Boolean.class.equals(type) || Boolean.TYPE.equals(type);</span>
-<span class="source-line-no">860</span><span id="line-860">  }</span>
-<span class="source-line-no">861</span><span id="line-861"></span>
-<span class="source-line-no">862</span><span id="line-862">  private boolean typeIsString(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">863</span><span id="line-863">    return String.class.equals(type);</span>
-<span class="source-line-no">864</span><span id="line-864">  }</span>
-<span class="source-line-no">865</span><span id="line-865"></span>
-<span class="source-line-no">866</span><span id="line-866">  private boolean typeIsOptional(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">867</span><span id="line-867">    return Optional.class.equals(type);</span>
-<span class="source-line-no">868</span><span id="line-868">  }</span>
-<span class="source-line-no">869</span><span id="line-869"></span>
-<span class="source-line-no">870</span><span id="line-870">  private boolean typeIsMap(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">871</span><span id="line-871">    return Map.class.equals(type);</span>
-<span class="source-line-no">872</span><span id="line-872">  }</span>
-<span class="source-line-no">873</span><span id="line-873"></span>
-<span class="source-line-no">874</span><span id="line-874">  private boolean typeIsList(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">875</span><span id="line-875">    return List.class.equals(type);</span>
-<span class="source-line-no">876</span><span id="line-876">  }</span>
-<span class="source-line-no">877</span><span id="line-877"></span>
-<span class="source-line-no">878</span><span id="line-878">  private boolean typeIsDate(Class&lt;?&gt; type) {</span>
-<span class="source-line-no">879</span><span id="line-879">    return Date.class.equals(type);</span>
-<span class="source-line-no">880</span><span id="line-880">  }</span>
-<span class="source-line-no">881</span><span id="line-881">}</span>
+<span class="source-line-no">854</span><span id="line-854">  }</span>
+<span class="source-line-no">855</span><span id="line-855"></span>
+<span class="source-line-no">856</span><span id="line-856">  private boolean typeIsCharacter(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">857</span><span id="line-857">    return Character.class.equals(type) || Character.TYPE.equals(type);</span>
+<span class="source-line-no">858</span><span id="line-858">  }</span>
+<span class="source-line-no">859</span><span id="line-859"></span>
+<span class="source-line-no">860</span><span id="line-860">  private boolean typeIsShort(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">861</span><span id="line-861">    return Short.class.equals(type) || Short.TYPE.equals(type);</span>
+<span class="source-line-no">862</span><span id="line-862">  }</span>
+<span class="source-line-no">863</span><span id="line-863"></span>
+<span class="source-line-no">864</span><span id="line-864">  private boolean typeIsByte(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">865</span><span id="line-865">    return Byte.class.equals(type) || Byte.TYPE.equals(type);</span>
+<span class="source-line-no">866</span><span id="line-866">  }</span>
+<span class="source-line-no">867</span><span id="line-867"></span>
+<span class="source-line-no">868</span><span id="line-868">  private boolean typeIsFloat(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">869</span><span id="line-869">    return Float.class.equals(type) || Float.TYPE.equals(type);</span>
+<span class="source-line-no">870</span><span id="line-870">  }</span>
+<span class="source-line-no">871</span><span id="line-871"></span>
+<span class="source-line-no">872</span><span id="line-872">  private boolean typeIsLong(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">873</span><span id="line-873">    return Long.class.equals(type) || Long.TYPE.equals(type);</span>
+<span class="source-line-no">874</span><span id="line-874">  }</span>
+<span class="source-line-no">875</span><span id="line-875"></span>
+<span class="source-line-no">876</span><span id="line-876">  private boolean typeIsInteger(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">877</span><span id="line-877">    return Integer.class.equals(type) || Integer.TYPE.equals(type);</span>
+<span class="source-line-no">878</span><span id="line-878">  }</span>
+<span class="source-line-no">879</span><span id="line-879"></span>
+<span class="source-line-no">880</span><span id="line-880">  private boolean typeIsBigDecimal(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">881</span><span id="line-881">    return BigDecimal.class.equals(type);</span>
+<span class="source-line-no">882</span><span id="line-882">  }</span>
+<span class="source-line-no">883</span><span id="line-883"></span>
+<span class="source-line-no">884</span><span id="line-884">  private boolean typeIsBigInteger(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">885</span><span id="line-885">    return BigInteger.class.equals(type);</span>
+<span class="source-line-no">886</span><span id="line-886">  }</span>
+<span class="source-line-no">887</span><span id="line-887"></span>
+<span class="source-line-no">888</span><span id="line-888">  private boolean typeIsDouble(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">889</span><span id="line-889">    return Double.class.equals(type) || Double.TYPE.equals(type);</span>
+<span class="source-line-no">890</span><span id="line-890">  }</span>
+<span class="source-line-no">891</span><span id="line-891"></span>
+<span class="source-line-no">892</span><span id="line-892">  private boolean typeIsBoolean(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">893</span><span id="line-893">    return Boolean.class.equals(type) || Boolean.TYPE.equals(type);</span>
+<span class="source-line-no">894</span><span id="line-894">  }</span>
+<span class="source-line-no">895</span><span id="line-895"></span>
+<span class="source-line-no">896</span><span id="line-896">  private boolean typeIsString(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">897</span><span id="line-897">    return String.class.equals(type);</span>
+<span class="source-line-no">898</span><span id="line-898">  }</span>
+<span class="source-line-no">899</span><span id="line-899"></span>
+<span class="source-line-no">900</span><span id="line-900">  private boolean typeIsOptional(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">901</span><span id="line-901">    return Optional.class.equals(type);</span>
+<span class="source-line-no">902</span><span id="line-902">  }</span>
+<span class="source-line-no">903</span><span id="line-903"></span>
+<span class="source-line-no">904</span><span id="line-904">  private boolean typeIsMap(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">905</span><span id="line-905">    return Map.class.equals(type);</span>
+<span class="source-line-no">906</span><span id="line-906">  }</span>
+<span class="source-line-no">907</span><span id="line-907"></span>
+<span class="source-line-no">908</span><span id="line-908">  private boolean typeIsList(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">909</span><span id="line-909">    return List.class.equals(type);</span>
+<span class="source-line-no">910</span><span id="line-910">  }</span>
+<span class="source-line-no">911</span><span id="line-911"></span>
+<span class="source-line-no">912</span><span id="line-912">  private boolean typeIsDate(Class&lt;?&gt; type) {</span>
+<span class="source-line-no">913</span><span id="line-913">    return Date.class.equals(type);</span>
+<span class="source-line-no">914</span><span id="line-914">  }</span>
+<span class="source-line-no">915</span><span id="line-915">}</span>
 
 
 
