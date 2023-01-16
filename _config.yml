@@ -127,6 +127,9 @@ clients:
    - name: Peoples Fundraising
      url: https://www.peoplesfundraising.com/
      pic: img/clients/peoplesfundraising.webp
+   - name: Fanpage Karma
+     url: https://fanpagekarma.com/
+     pic: img/clients/fanpagekarma.webp
 
 plugins:
   - jekyll-sitemap
