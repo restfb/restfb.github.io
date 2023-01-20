@@ -5,7 +5,7 @@ If you want to fetch several objects at once and these objects are very similar,
 {% highlight java %}
 JsonObject fetchObjectsResults =
   facebookClient.fetchObjects(Arrays.asList("me", "123456789"), 
-           JsonObject.class, Parameter.with("fields","name,id"));
+           JsonObject.class, Parameter.withFields("name,id"));
 {% endhighlight %}
 
 As you can see, you use the `fetchObjects` method and supply a list of `ids` as first parameter. You get a `JsonObject` as a response with the previously provided `ids` as names in this `JsonObject`.

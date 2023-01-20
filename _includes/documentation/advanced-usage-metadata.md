@@ -13,7 +13,7 @@ The `type` is very important if you don't know what kind of node an `id` represe
 // See the Facebook Graph API documentation for more details.
 
 User userWithMetadata =
-  facebookClient.fetchObject("me", User.class, Parameter.with("metadata", 1));
+  facebookClient.fetchObject("me", User.class, Parameter.withMetadata()));
 
 out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());

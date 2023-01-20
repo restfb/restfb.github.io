@@ -11,7 +11,7 @@ Sometimes it is necessary to provide some additional query parameters for the re
 
 {% highlight java %}
 BatchRequest meRequest = new BatchRequestBuilder("me")
-  .parameters(Parameter.with("fields","name,id")).build();
+  .parameters(Parameter.withFields("name,id")).build();
 {% endhighlight %}
 
 Sending data to Facebook is as easy as fetching data. You only have to change the request method and provide some data you like to send in the body. The code looks similar to this.

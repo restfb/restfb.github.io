@@ -7,7 +7,7 @@ String mediaFields = "children{permalink,media_type,media_url,timestamp},thumbna
 
 Connection<IgMedia> mediaConnection = 
     client.fetchObject("<instagram profile id>/media", IgMedia.class,
-		Parameter.with("fields", mediaFields));
+		Parameter.withFields(mediaFields));
 		
 List<IgMedia> mediaList = StreamSupport.stream(pageConnection.spliterator(), false)
 	.flatMap(List::stream)

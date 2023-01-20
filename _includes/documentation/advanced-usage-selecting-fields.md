@@ -15,7 +15,7 @@ A simple example looks like the following snippet. A user is fetched with `id`, 
 {% highlight java %}
 // fetch user type with id, name and email prefilled
 User user = facebookClient.fetchObject("me", User.class,
-     Parameter.with("fields", "id,name,email")); 
+     Parameter.withFields("id,name,email")); 
 
 out.println("User name: " + user.getName());
 {% endhighlight %}
@@ -31,7 +31,7 @@ To show the usage we have a simple example.
 {% highlight java %}
 // fetch post type with from, to and two comments prefilled
 Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
-     Parameter.with("fields", "from,tp,comments.limit(2)"));
+     Parameter.withFields("from,tp,comments.limit(2)"));
 {% endhighlight %}
 
 #### Request with fields (second level)
@@ -45,7 +45,7 @@ This sounds complicated too, but is easy as soon as you see a example. And here 
 // fetch post type with from, to and two comments prefilled,
 // the comments contain only the from and message fields
 Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
-     Parameter.with("fields", "comments.limit(2){from,message}"));
+     Parameter.withFields("comments.limit(2){from,message}"));
 {% endhighlight %}
 
 #### Request with fields (third to n-th level)
@@ -57,5 +57,5 @@ And the last example is the third level. Now we take the last example and reques
 // the comments contain only the from and message fields
 // the inner from field contains only the id
 Post post = facebookClient.fetchObject("74133697733_10152424266332734", Post.class,
-     Parameter.with("fields", "comments.limit(2){from{id},message}"));
+     Parameter.withFields("comments.limit(2){from{id},message}"));
 {% endhighlight %}

@@ -11,7 +11,7 @@ String profileFields = "biography,id,ig_id,followers_count,follows_count,media_c
 
 IgUser igProfile = 
     client.fetchObject("<instagram profile id>", IgUser.class,
-		Parameter.with("fields", profileFields));
+		Parameter.withFields(profileFields));
 {% endhighlight %}
 
 In this example we define the field list before the call. Adding the fields explicitly to the call allows us to have a better control over the returned object.

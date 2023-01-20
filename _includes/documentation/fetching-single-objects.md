@@ -15,7 +15,7 @@ between the json and a java object.
 
 User user = facebookClient.fetchObject("me", User.class);
 Page page = facebookClient.fetchObject("cocacola", Page.class, 
-                 Parameter.with("fields", "fan_count"));
+                 Parameter.withFields("fan_count"));
 
 out.println("User name: " + user.getName());
 out.println("Page likes: " + page.getFanCount());

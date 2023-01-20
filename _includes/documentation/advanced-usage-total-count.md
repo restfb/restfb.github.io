@@ -12,7 +12,7 @@ As you can see there is a `limit(0)` part added to the request. This is simply u
 // Some Post from the GoT Fanpage with likes and comments total count
 Post post = client.fetchObject("74133697733_10152424266332734",
   Post.class,
-  Parameter.with("fields", "from,to,likes.limit(0).summary(true),comments.limit(0).summary(true),shares.limit(0).summary(true)"));
+  Parameter.withFields("from,to,likes.limit(0).summary(true),comments.limit(0).summary(true),shares.limit(0).summary(true)"));
 
 out.println("Likes count: " + post.getLikesCount());
 out.println("Shares count: " + post.getSharesCount());
