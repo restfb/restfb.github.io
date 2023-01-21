@@ -1,6 +1,6 @@
-To make the configuration of our logging simpler for developers, we don't use
-loggers that are initialized with the name of the class they are created in. Our loggers have fixed
-names and the therefore the logging is clustered into categories.
+To make it easier for developers to configure our logging, we don't use loggers 
+that are initialised with the name of the class they were created in. Our loggers 
+have fixed names and therefore the logging is clustered into categories.
 
 <div class="list-group">
 	<div class="list-group-item">
@@ -16,7 +16,7 @@ names and the therefore the logging is clustered into categories.
 			com.restfb.JSON_MAPPER
 		</h4>
 		<p class="list-group-item-text" markdown="1">
-			The `JsonMapper` is used to convert JSON to RestFB types. Because the conversion contains many interesting steps, we provide a special logger. If everything works as is should the logger is very silent, but the developer may change the log level to `DEBUG` or `TRACE` to get much more information about what's going on during the mapping process. You should do this only if you run into problems and would like to track them down to a special conversion step.
+		 	The `JsonMapper` is used to convert JSON to RestFB types. Because the conversion involves many interesting steps, we provide a special logger. When everything is working as it should, the logger is very quiet, but the developer can change the log level to `DEBUG` or `TRACE` to get much more information about what's going on during the mapping process. You should only do this if you run into problems and want to trace them back to a specific conversion step.
 		</p>
 	</div>
 	<div class="list-group-item">
@@ -24,7 +24,7 @@ names and the therefore the logging is clustered into categories.
 			com.restfb.UTILITY
 		</h4>
 		<p class="list-group-item-text" markdown="1">
-			The logger is used in our utilities. We have utilities for date conversion, base64 calculations and more. Just check the `com.restfb.util` package. These utilities log some information and use this special logger to not pollute the other logs with less important information.
+			The logger is used in our utilities. We have utilities for date conversion, base64 calculations and more. Just have a look at `com.restfb.util` package. These utilities log some information and use this special logger to not clutter the other logs with less important information.
 		</p>
 	</div>
 	<div class="list-group-item">
@@ -40,12 +40,12 @@ names and the therefore the logging is clustered into categories.
 			com.restfb.types.CHANGE_VALUE_FACTORY
 		</h4>
 		<p class="list-group-item-text" markdown="1">
-			The log messages in the `ChangeValueFactory` are used to notify the developer about some problems with the conversion of a object that is received via a webhook. Maybe RestFB does not support this special value object and the developer can capture the log output to send a special String to the RestFB team. Because this is different from the normal logging, we provide a special logger and the developer may filter these messages and log them in a different log file.
+			The log messages in the `ChangeValueFactory` are used to inform the developer about some problems with the conversion of an object that is received via a webhook. Maybe RestFB does not support this special value object and the developer can capture the log output to send a special String to the RestFB team. As this is different from the normal logging, we provide a special logger and the developer can filter these messages and log them to a different log file.
 		</p>
 	</div>
 </div>
 
-As you can see, all loggers use the package structure with the prefix `com.restfb.`. With this it is possible to change the log level of all loggers at once.
+As you can see, all loggers use the package structure with the `com.restfb.` prefix. This makes it possible to change the log level of all loggers at once.
 
 {% highlight java %}
 # Example logging.properties entries

@@ -1,6 +1,6 @@
 See <a href="https://developers.facebook.com/docs/marketing-api/etags" target="_blank" class="badge badge-primary">Graph API documentation</a>
 
-You can improve your connection's performance by using the <a target="_blank" href="/javadoc-2/com/restfb/ETagWebRequestor.html">`ETagWebRequestor`</a>. This WebRequestor is a special implementation wich adds ETag support to the restfb's requests. For further information about `ETag` you should have a look at the <a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank">wikipedia</a> page.
+You can improve your connection's performance by using the <a target="_blank" href="/javadoc/com/restfb/ETagWebRequestor.html">`ETagWebRequestor`</a>. This WebRequestor is a special implementation wich adds ETag support to the restfb's requests. For further information about `ETag` you should have a look at the <a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank">wikipedia</a> page.
 
 With the `EtagWebRequestor` the response body of every single request is stored in a cache. If you send the same request again to the Graph API, a hash key is added to the request header. Facebook will check the hash key and if the new response is the same as the stored one, Facebook returns an HTTP 304 and RestFB uses the cached response body. If an HTTP 200 is received instead, the old cached response body is replaced with the newly received response.
 
