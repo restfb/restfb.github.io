@@ -44,9 +44,7 @@ for (List<JsonObject> objectList: photosConnection) {
 }
 {% endhighlight %}
 
-The second way is even more low-level and you work only with the JSON returned by Facebook. You
-should have a good knowledge of the returned JSON to access the fields. In the below example you can see how
-to accomplish this:
+The second way is even more low-level and you only work with the JSON returned by Facebook. You should have a good understanding of the returned JSON in order to access the fields. The example below shows how to do this:
 
 {% highlight java %}
 JsonObject photosResponse = facebookClient.fetchObject("me/photos", JsonObject.class);

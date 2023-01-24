@@ -49,10 +49,15 @@ public class MyClass {
 <div class="rfb-callout info" role="alert">
 			<h4>The special Enum handling</h4>
 			<div>
-			    Enums can be used to convert a JSON field to a predefined set of constants. In the Facebook documentation you will find some fields where Facebook is using constants as values and we allow you to use them, too. But because we try to be as backward compatible as possible, enums are used very rarely in RestFB.<br /><br />
-				Important to know for defining your own enums is the internal handling of enums in the RestFB JSON mapper. Normally the mapper tries to convert the given string from the Facebook JSON to a constant name of the enum that has the exact spelling.<br />
-				Because the most Facebook enums don't meet the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html" target="_blank">official Java enum</a> conditions, RestFB provides a fallback and tries to convert the value to uppercase and create the enum from this.<br />
-				You have two ways to define your enums. Exactly as Facebook does or uppercase as Java expects.
+			    Enums can be used to convert a JSON field into a predefined set of constants. In the Facebook documentation you will find some fields where Facebook uses constants as values, and we allow you to use them as well. However, because we try to be as backwards compatible as possible, enums are very rarely used in RestFB.<br /><br />
+          Important to know when defining your own enums is the internal handling of enums in the RestFB JSON mapper. Normally the mapper tries to convert the given string from the Facebook JSON to a constant name of the enum that has the exact spelling.<br />
+          Since most Facebook enums don't match the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html" target="_blank">official Java enum</a> conditions, RestFB provides a fallback and tries to convert the value to uppercase and create the enum from it.<br /><br />
+				There are three ways to define your enums: 
+        <ol>
+        <li>use the exact name as Facebook does</li>
+        <li>use uppercase as Java expects</li>
+        <li>use a custom mapping using the `@Facebook` annotation</li>
+        </ol>
 			</div>
 </div>
 

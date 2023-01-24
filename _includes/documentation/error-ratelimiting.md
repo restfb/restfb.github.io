@@ -4,24 +4,22 @@ To prevent abuse of the Graph API, Facebook uses a rate limiting mechanism.
 The number of calls you are allowed to make depends on the kind of request. There 
 are 3 types of limits: `app limit`, `user limit` and `page limit`.
 
-The app limit is connected to the app. As soon as you run into this limit you are in
-mayor trouble, because no more calls are allowed using this Facebook app. This is a limit
-that affects all your users and all pages.
+The app limit is tied to the app. As soon as you hit this limit, you are in trouble. 
+because you will not be able to make any more calls using this Facebook app. This 
+is a limit that affects all of your users and Pages.
 	
-The user limit comes into play if you use a user access token. This limit can
-be reached as soon as a user fires too many requests to Facebook. If you run into this limit, the app can be used 
-by other users and the app limit is not triggered. The user has to wait before new requests can be sent.
+The user limit comes into play when you use a user access token. This limit can can be reached when a user sends too many requests to Facebook. If you reach this limit, the application can be used by other users and the application limit will not be triggered. by other users and the app limit will not be triggered. The user will have to wait before new requests can be sent.
 
 The page limit is a bit different and more complicated. This limit is reached if a page access token is used to
 send too many requests to Facebook. But the page limit is directly connected to the page and not to the application.
 If any application that manages a page triggers the limit, all applications that use a page access token for this page
 are in trouble. In the past, Facebook has permitted the app owner to send an increase request to enlarge the limit for the page. Now they are using an opaque algorithm to detect a suitable limit.
 
-RestFB supports the limits and you can fetch the limit information from the `WebRequestor`. The `WebRequestor` provides
+RestFB supports the limits and you can get the limit information from the `WebRequestor`. The `WebRequestor` provides
 a `DebugHeaderInfo` with rate limiting and some additional debug information Facebook provides per call and
-developers can handle this information and act in accordance with the given limits. 
-In general, the rate limits are not provided until you reach an 80% threshold. As soon as you are above this limit the
-request contains the rate limit and you can reduce your calls.
+developers can process this information and act according to the limits given. 
+In general, the rate limits are not provided until you reach an 80% threshold. Once you are above this limit, the
+request will include the rate limit and you can reduce your calls.
 
 The `DebugHeaderInfo` can be fetched *after* every client call like this:
 
