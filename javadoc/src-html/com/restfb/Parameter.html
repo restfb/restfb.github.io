@@ -152,65 +152,91 @@
 <span class="source-line-no">139</span><span id="line-139">  }</span>
 <span class="source-line-no">140</span><span id="line-140"></span>
 <span class="source-line-no">141</span><span id="line-141">  /**</span>
-<span class="source-line-no">142</span><span id="line-142">   * Factory method which provides an instance with the given {@code name} and {@code value}, using the provided</span>
-<span class="source-line-no">143</span><span id="line-143">   * {@code jsonMapper} to turn {@code value} into a JSON string.</span>
-<span class="source-line-no">144</span><span id="line-144">   * &lt;p&gt;</span>
-<span class="source-line-no">145</span><span id="line-145">   * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a</span>
-<span class="source-line-no">146</span><span id="line-146">   * {@link java.util.List}, {@link java.util.Map}, or your own &lt;tt&gt;@Facebook&lt;/tt&gt;-annotated Javabean and it will be</span>
-<span class="source-line-no">147</span><span id="line-147">   * converted to JSON automatically. See the "attachment" section of</span>
-<span class="source-line-no">148</span><span id="line-148">   * &lt;a href="http://wiki.developers.facebook.com/index.php/Stream.publish"&gt;the stream.publish API documentation&lt;/a&gt; for</span>
-<span class="source-line-no">149</span><span id="line-149">   * an example of where this is useful.</span>
-<span class="source-line-no">150</span><span id="line-150">   * </span>
-<span class="source-line-no">151</span><span id="line-151">   * @param name</span>
-<span class="source-line-no">152</span><span id="line-152">   *          The parameter name.</span>
-<span class="source-line-no">153</span><span id="line-153">   * @param value</span>
-<span class="source-line-no">154</span><span id="line-154">   *          The parameter value.</span>
-<span class="source-line-no">155</span><span id="line-155">   * @param jsonMapper</span>
-<span class="source-line-no">156</span><span id="line-156">   *          The jsonMapper</span>
-<span class="source-line-no">157</span><span id="line-157">   * @return A {@code Parameter} instance with the given {@code name} and {@code value}.</span>
-<span class="source-line-no">158</span><span id="line-158">   * @throws IllegalArgumentException</span>
-<span class="source-line-no">159</span><span id="line-159">   *           If {@code name} or {@code value} is {@code null} or a blank string.</span>
-<span class="source-line-no">160</span><span id="line-160">   * @throws FacebookJsonMappingException</span>
-<span class="source-line-no">161</span><span id="line-161">   *           If an error occurs when converting {@code value} to JSON.</span>
+<span class="source-line-no">142</span><span id="line-142">   * convenience factory method which creates a {@code Parameter} object to post a object with a message parameter to</span>
+<span class="source-line-no">143</span><span id="line-143">   * the API</span>
+<span class="source-line-no">144</span><span id="line-144">   *</span>
+<span class="source-line-no">145</span><span id="line-145">   * @param obj</span>
+<span class="source-line-no">146</span><span id="line-146">   *          The content of the message, should be a String, but maybe some JSON</span>
+<span class="source-line-no">147</span><span id="line-147">   *</span>
+<span class="source-line-no">148</span><span id="line-148">   * @return Parameter object</span>
+<span class="source-line-no">149</span><span id="line-149">   */</span>
+<span class="source-line-no">150</span><span id="line-150">  public static Parameter withMessage(Object obj) {</span>
+<span class="source-line-no">151</span><span id="line-151">    return Parameter.with("message", obj);</span>
+<span class="source-line-no">152</span><span id="line-152">  }</span>
+<span class="source-line-no">153</span><span id="line-153"></span>
+<span class="source-line-no">154</span><span id="line-154">  /**</span>
+<span class="source-line-no">155</span><span id="line-155">   * convenience factory method which creates a {@code Parameter} object to query some information e.g. searching profiles</span>
+<span class="source-line-no">156</span><span id="line-156">   * the API</span>
+<span class="source-line-no">157</span><span id="line-157">   *</span>
+<span class="source-line-no">158</span><span id="line-158">   * @param queryString</span>
+<span class="source-line-no">159</span><span id="line-159">   *          the String used in the query</span>
+<span class="source-line-no">160</span><span id="line-160">   *</span>
+<span class="source-line-no">161</span><span id="line-161">   * @return Parameter object</span>
 <span class="source-line-no">162</span><span id="line-162">   */</span>
-<span class="source-line-no">163</span><span id="line-163">  public static Parameter with(String name, Object value, JsonMapper jsonMapper) {</span>
-<span class="source-line-no">164</span><span id="line-164">    return new Parameter(name, value, jsonMapper);</span>
+<span class="source-line-no">163</span><span id="line-163">  public static Parameter withQuery(String queryString) {</span>
+<span class="source-line-no">164</span><span id="line-164">    return Parameter.with("q", queryString);</span>
 <span class="source-line-no">165</span><span id="line-165">  }</span>
 <span class="source-line-no">166</span><span id="line-166"></span>
 <span class="source-line-no">167</span><span id="line-167">  /**</span>
-<span class="source-line-no">168</span><span id="line-168">   * @see java.lang.Object#equals(java.lang.Object)</span>
-<span class="source-line-no">169</span><span id="line-169">   */</span>
-<span class="source-line-no">170</span><span id="line-170">  @Override</span>
-<span class="source-line-no">171</span><span id="line-171">  public boolean equals(Object obj) {</span>
-<span class="source-line-no">172</span><span id="line-172">    if (obj == null) {</span>
-<span class="source-line-no">173</span><span id="line-173">      return false;</span>
-<span class="source-line-no">174</span><span id="line-174">    }</span>
-<span class="source-line-no">175</span><span id="line-175">    if (!getClass().equals(obj.getClass())) {</span>
-<span class="source-line-no">176</span><span id="line-176">      return false;</span>
-<span class="source-line-no">177</span><span id="line-177">    }</span>
-<span class="source-line-no">178</span><span id="line-178"></span>
-<span class="source-line-no">179</span><span id="line-179">    Parameter other = (Parameter) obj;</span>
-<span class="source-line-no">180</span><span id="line-180"></span>
-<span class="source-line-no">181</span><span id="line-181">    if (this.name != other.name &amp;&amp; !this.name.equals(other.name)) {</span>
-<span class="source-line-no">182</span><span id="line-182">      return false;</span>
-<span class="source-line-no">183</span><span id="line-183">    }</span>
-<span class="source-line-no">184</span><span id="line-184"></span>
-<span class="source-line-no">185</span><span id="line-185">    return !(this.value != other.value &amp;&amp; !this.value.equals(other.value));</span>
-<span class="source-line-no">186</span><span id="line-186">  }</span>
-<span class="source-line-no">187</span><span id="line-187"></span>
-<span class="source-line-no">188</span><span id="line-188">  @Override</span>
-<span class="source-line-no">189</span><span id="line-189">  public int hashCode() {</span>
-<span class="source-line-no">190</span><span id="line-190">    int hash = 7;</span>
-<span class="source-line-no">191</span><span id="line-191">    hash = 37 * hash + this.name.hashCode();</span>
-<span class="source-line-no">192</span><span id="line-192">    hash = 41 * hash + this.value.hashCode();</span>
-<span class="source-line-no">193</span><span id="line-193">    return hash;</span>
-<span class="source-line-no">194</span><span id="line-194">  }</span>
-<span class="source-line-no">195</span><span id="line-195"></span>
+<span class="source-line-no">168</span><span id="line-168">   * Factory method which provides an instance with the given {@code name} and {@code value}, using the provided</span>
+<span class="source-line-no">169</span><span id="line-169">   * {@code jsonMapper} to turn {@code value} into a JSON string.</span>
+<span class="source-line-no">170</span><span id="line-170">   * &lt;p&gt;</span>
+<span class="source-line-no">171</span><span id="line-171">   * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a</span>
+<span class="source-line-no">172</span><span id="line-172">   * {@link java.util.List}, {@link java.util.Map}, or your own &lt;tt&gt;@Facebook&lt;/tt&gt;-annotated Javabean and it will be</span>
+<span class="source-line-no">173</span><span id="line-173">   * converted to JSON automatically. See the "attachment" section of</span>
+<span class="source-line-no">174</span><span id="line-174">   * &lt;a href="http://wiki.developers.facebook.com/index.php/Stream.publish"&gt;the stream.publish API documentation&lt;/a&gt; for</span>
+<span class="source-line-no">175</span><span id="line-175">   * an example of where this is useful.</span>
+<span class="source-line-no">176</span><span id="line-176">   * </span>
+<span class="source-line-no">177</span><span id="line-177">   * @param name</span>
+<span class="source-line-no">178</span><span id="line-178">   *          The parameter name.</span>
+<span class="source-line-no">179</span><span id="line-179">   * @param value</span>
+<span class="source-line-no">180</span><span id="line-180">   *          The parameter value.</span>
+<span class="source-line-no">181</span><span id="line-181">   * @param jsonMapper</span>
+<span class="source-line-no">182</span><span id="line-182">   *          The jsonMapper</span>
+<span class="source-line-no">183</span><span id="line-183">   * @return A {@code Parameter} instance with the given {@code name} and {@code value}.</span>
+<span class="source-line-no">184</span><span id="line-184">   * @throws IllegalArgumentException</span>
+<span class="source-line-no">185</span><span id="line-185">   *           If {@code name} or {@code value} is {@code null} or a blank string.</span>
+<span class="source-line-no">186</span><span id="line-186">   * @throws FacebookJsonMappingException</span>
+<span class="source-line-no">187</span><span id="line-187">   *           If an error occurs when converting {@code value} to JSON.</span>
+<span class="source-line-no">188</span><span id="line-188">   */</span>
+<span class="source-line-no">189</span><span id="line-189">  public static Parameter with(String name, Object value, JsonMapper jsonMapper) {</span>
+<span class="source-line-no">190</span><span id="line-190">    return new Parameter(name, value, jsonMapper);</span>
+<span class="source-line-no">191</span><span id="line-191">  }</span>
+<span class="source-line-no">192</span><span id="line-192"></span>
+<span class="source-line-no">193</span><span id="line-193">  /**</span>
+<span class="source-line-no">194</span><span id="line-194">   * @see java.lang.Object#equals(java.lang.Object)</span>
+<span class="source-line-no">195</span><span id="line-195">   */</span>
 <span class="source-line-no">196</span><span id="line-196">  @Override</span>
-<span class="source-line-no">197</span><span id="line-197">  public String toString() {</span>
-<span class="source-line-no">198</span><span id="line-198">    return format("Parameter[%s=%s]", name, value);</span>
-<span class="source-line-no">199</span><span id="line-199">  }</span>
-<span class="source-line-no">200</span><span id="line-200">}</span>
+<span class="source-line-no">197</span><span id="line-197">  public boolean equals(Object obj) {</span>
+<span class="source-line-no">198</span><span id="line-198">    if (obj == null) {</span>
+<span class="source-line-no">199</span><span id="line-199">      return false;</span>
+<span class="source-line-no">200</span><span id="line-200">    }</span>
+<span class="source-line-no">201</span><span id="line-201">    if (!getClass().equals(obj.getClass())) {</span>
+<span class="source-line-no">202</span><span id="line-202">      return false;</span>
+<span class="source-line-no">203</span><span id="line-203">    }</span>
+<span class="source-line-no">204</span><span id="line-204"></span>
+<span class="source-line-no">205</span><span id="line-205">    Parameter other = (Parameter) obj;</span>
+<span class="source-line-no">206</span><span id="line-206"></span>
+<span class="source-line-no">207</span><span id="line-207">    if (this.name != other.name &amp;&amp; !this.name.equals(other.name)) {</span>
+<span class="source-line-no">208</span><span id="line-208">      return false;</span>
+<span class="source-line-no">209</span><span id="line-209">    }</span>
+<span class="source-line-no">210</span><span id="line-210"></span>
+<span class="source-line-no">211</span><span id="line-211">    return !(this.value != other.value &amp;&amp; !this.value.equals(other.value));</span>
+<span class="source-line-no">212</span><span id="line-212">  }</span>
+<span class="source-line-no">213</span><span id="line-213"></span>
+<span class="source-line-no">214</span><span id="line-214">  @Override</span>
+<span class="source-line-no">215</span><span id="line-215">  public int hashCode() {</span>
+<span class="source-line-no">216</span><span id="line-216">    int hash = 7;</span>
+<span class="source-line-no">217</span><span id="line-217">    hash = 37 * hash + this.name.hashCode();</span>
+<span class="source-line-no">218</span><span id="line-218">    hash = 41 * hash + this.value.hashCode();</span>
+<span class="source-line-no">219</span><span id="line-219">    return hash;</span>
+<span class="source-line-no">220</span><span id="line-220">  }</span>
+<span class="source-line-no">221</span><span id="line-221"></span>
+<span class="source-line-no">222</span><span id="line-222">  @Override</span>
+<span class="source-line-no">223</span><span id="line-223">  public String toString() {</span>
+<span class="source-line-no">224</span><span id="line-224">    return format("Parameter[%s=%s]", name, value);</span>
+<span class="source-line-no">225</span><span id="line-225">  }</span>
+<span class="source-line-no">226</span><span id="line-226">}</span>
 
 
 
