@@ -913,55 +913,56 @@
 <span class="sourceLineNo">904</span><a id="line.904">   */</a>
 <span class="sourceLineNo">905</span><a id="line.905">  @Override</a>
 <span class="sourceLineNo">906</span><a id="line.906">  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {</a>
-<span class="sourceLineNo">907</span><a id="line.907">    while (apiCall.startsWith("/"))</a>
+<span class="sourceLineNo">907</span><a id="line.907">    while (apiCall.startsWith("/")) {</a>
 <span class="sourceLineNo">908</span><a id="line.908">      apiCall = apiCall.substring(1);</a>
-<span class="sourceLineNo">909</span><a id="line.909"></a>
-<span class="sourceLineNo">910</span><a id="line.910">    String baseUrl = getFacebookGraphEndpointUrl();</a>
-<span class="sourceLineNo">911</span><a id="line.911"></a>
-<span class="sourceLineNo">912</span><a id="line.912">    if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {</a>
-<span class="sourceLineNo">913</span><a id="line.913">      baseUrl = getFacebookGraphVideoEndpointUrl();</a>
-<span class="sourceLineNo">914</span><a id="line.914">    } else if (apiCall.endsWith("logout.php")) {</a>
-<span class="sourceLineNo">915</span><a id="line.915">      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();</a>
-<span class="sourceLineNo">916</span><a id="line.916">    }</a>
-<span class="sourceLineNo">917</span><a id="line.917"></a>
-<span class="sourceLineNo">918</span><a id="line.918">    return format("%s/%s", baseUrl, apiCall);</a>
-<span class="sourceLineNo">919</span><a id="line.919">  }</a>
-<span class="sourceLineNo">920</span><a id="line.920"></a>
-<span class="sourceLineNo">921</span><a id="line.921">  /**</a>
-<span class="sourceLineNo">922</span><a id="line.922">   * Returns the base endpoint URL for the Graph API.</a>
-<span class="sourceLineNo">923</span><a id="line.923">   * </a>
-<span class="sourceLineNo">924</span><a id="line.924">   * @return The base endpoint URL for the Graph API.</a>
-<span class="sourceLineNo">925</span><a id="line.925">   */</a>
-<span class="sourceLineNo">926</span><a id="line.926">  protected String getFacebookGraphEndpointUrl() {</a>
-<span class="sourceLineNo">927</span><a id="line.927">    if (apiVersion.isUrlElementRequired()) {</a>
-<span class="sourceLineNo">928</span><a id="line.928">      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();</a>
-<span class="sourceLineNo">929</span><a id="line.929">    } else {</a>
-<span class="sourceLineNo">930</span><a id="line.930">      return getFacebookEndpointUrls().getGraphEndpoint();</a>
-<span class="sourceLineNo">931</span><a id="line.931">    }</a>
-<span class="sourceLineNo">932</span><a id="line.932">  }</a>
-<span class="sourceLineNo">933</span><a id="line.933"></a>
-<span class="sourceLineNo">934</span><a id="line.934">  /**</a>
-<span class="sourceLineNo">935</span><a id="line.935">   * Returns the base endpoint URL for the Graph API's video upload functionality.</a>
-<span class="sourceLineNo">936</span><a id="line.936">   * </a>
-<span class="sourceLineNo">937</span><a id="line.937">   * @return The base endpoint URL for the Graph API's video upload functionality.</a>
-<span class="sourceLineNo">938</span><a id="line.938">   * @since 1.6.5</a>
-<span class="sourceLineNo">939</span><a id="line.939">   */</a>
-<span class="sourceLineNo">940</span><a id="line.940">  protected String getFacebookGraphVideoEndpointUrl() {</a>
-<span class="sourceLineNo">941</span><a id="line.941">    if (apiVersion.isUrlElementRequired()) {</a>
-<span class="sourceLineNo">942</span><a id="line.942">      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();</a>
-<span class="sourceLineNo">943</span><a id="line.943">    } else {</a>
-<span class="sourceLineNo">944</span><a id="line.944">      return getFacebookEndpointUrls().getGraphVideoEndpoint();</a>
-<span class="sourceLineNo">945</span><a id="line.945">    }</a>
-<span class="sourceLineNo">946</span><a id="line.946">  }</a>
-<span class="sourceLineNo">947</span><a id="line.947"></a>
-<span class="sourceLineNo">948</span><a id="line.948">  public FacebookEndpoints getFacebookEndpointUrls() {</a>
-<span class="sourceLineNo">949</span><a id="line.949">    return facebookEndpointUrls;</a>
-<span class="sourceLineNo">950</span><a id="line.950">  }</a>
-<span class="sourceLineNo">951</span><a id="line.951"></a>
-<span class="sourceLineNo">952</span><a id="line.952">  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {</a>
-<span class="sourceLineNo">953</span><a id="line.953">    this.facebookEndpointUrls = facebookEndpointUrls;</a>
-<span class="sourceLineNo">954</span><a id="line.954">  }</a>
-<span class="sourceLineNo">955</span><a id="line.955">}</a>
+<span class="sourceLineNo">909</span><a id="line.909">    }</a>
+<span class="sourceLineNo">910</span><a id="line.910"></a>
+<span class="sourceLineNo">911</span><a id="line.911">    String baseUrl = getFacebookGraphEndpointUrl();</a>
+<span class="sourceLineNo">912</span><a id="line.912"></a>
+<span class="sourceLineNo">913</span><a id="line.913">    if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {</a>
+<span class="sourceLineNo">914</span><a id="line.914">      baseUrl = getFacebookGraphVideoEndpointUrl();</a>
+<span class="sourceLineNo">915</span><a id="line.915">    } else if (apiCall.endsWith("logout.php")) {</a>
+<span class="sourceLineNo">916</span><a id="line.916">      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();</a>
+<span class="sourceLineNo">917</span><a id="line.917">    }</a>
+<span class="sourceLineNo">918</span><a id="line.918"></a>
+<span class="sourceLineNo">919</span><a id="line.919">    return format("%s/%s", baseUrl, apiCall);</a>
+<span class="sourceLineNo">920</span><a id="line.920">  }</a>
+<span class="sourceLineNo">921</span><a id="line.921"></a>
+<span class="sourceLineNo">922</span><a id="line.922">  /**</a>
+<span class="sourceLineNo">923</span><a id="line.923">   * Returns the base endpoint URL for the Graph API.</a>
+<span class="sourceLineNo">924</span><a id="line.924">   * </a>
+<span class="sourceLineNo">925</span><a id="line.925">   * @return The base endpoint URL for the Graph API.</a>
+<span class="sourceLineNo">926</span><a id="line.926">   */</a>
+<span class="sourceLineNo">927</span><a id="line.927">  protected String getFacebookGraphEndpointUrl() {</a>
+<span class="sourceLineNo">928</span><a id="line.928">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">929</span><a id="line.929">      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">930</span><a id="line.930">    } else {</a>
+<span class="sourceLineNo">931</span><a id="line.931">      return getFacebookEndpointUrls().getGraphEndpoint();</a>
+<span class="sourceLineNo">932</span><a id="line.932">    }</a>
+<span class="sourceLineNo">933</span><a id="line.933">  }</a>
+<span class="sourceLineNo">934</span><a id="line.934"></a>
+<span class="sourceLineNo">935</span><a id="line.935">  /**</a>
+<span class="sourceLineNo">936</span><a id="line.936">   * Returns the base endpoint URL for the Graph API's video upload functionality.</a>
+<span class="sourceLineNo">937</span><a id="line.937">   * </a>
+<span class="sourceLineNo">938</span><a id="line.938">   * @return The base endpoint URL for the Graph API's video upload functionality.</a>
+<span class="sourceLineNo">939</span><a id="line.939">   * @since 1.6.5</a>
+<span class="sourceLineNo">940</span><a id="line.940">   */</a>
+<span class="sourceLineNo">941</span><a id="line.941">  protected String getFacebookGraphVideoEndpointUrl() {</a>
+<span class="sourceLineNo">942</span><a id="line.942">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">943</span><a id="line.943">      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">944</span><a id="line.944">    } else {</a>
+<span class="sourceLineNo">945</span><a id="line.945">      return getFacebookEndpointUrls().getGraphVideoEndpoint();</a>
+<span class="sourceLineNo">946</span><a id="line.946">    }</a>
+<span class="sourceLineNo">947</span><a id="line.947">  }</a>
+<span class="sourceLineNo">948</span><a id="line.948"></a>
+<span class="sourceLineNo">949</span><a id="line.949">  public FacebookEndpoints getFacebookEndpointUrls() {</a>
+<span class="sourceLineNo">950</span><a id="line.950">    return facebookEndpointUrls;</a>
+<span class="sourceLineNo">951</span><a id="line.951">  }</a>
+<span class="sourceLineNo">952</span><a id="line.952"></a>
+<span class="sourceLineNo">953</span><a id="line.953">  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {</a>
+<span class="sourceLineNo">954</span><a id="line.954">    this.facebookEndpointUrls = facebookEndpointUrls;</a>
+<span class="sourceLineNo">955</span><a id="line.955">  }</a>
+<span class="sourceLineNo">956</span><a id="line.956">}</a>
 
 
 
