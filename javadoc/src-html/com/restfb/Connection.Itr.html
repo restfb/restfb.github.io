@@ -163,152 +163,155 @@
 <span class="sourceLineNo">154</span><a id="line.154">    }</a>
 <span class="sourceLineNo">155</span><a id="line.155"></a>
 <span class="sourceLineNo">156</span><a id="line.156">    // Pull out data</a>
-<span class="sourceLineNo">157</span><a id="line.157">    JsonArray jsonData = jsonObject.get("data").asArray();</a>
-<span class="sourceLineNo">158</span><a id="line.158">    List&lt;T&gt; dataItem = jsonData.valueStream().map(jsonValue -&gt; connectionType.equals(JsonObject.class) ? (T) jsonValue</a>
-<span class="sourceLineNo">159</span><a id="line.159">            : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType)).collect(Collectors.toList());</a>
-<span class="sourceLineNo">160</span><a id="line.160"></a>
-<span class="sourceLineNo">161</span><a id="line.161">    // Pull out paging info, if present</a>
-<span class="sourceLineNo">162</span><a id="line.162">    if (jsonObject.contains("paging")) {</a>
-<span class="sourceLineNo">163</span><a id="line.163">      JsonObject jsonPaging = jsonObject.get("paging").asObject();</a>
-<span class="sourceLineNo">164</span><a id="line.164">      previousPageUrl = fixProtocol(jsonPaging.getString("previous", null));</a>
-<span class="sourceLineNo">165</span><a id="line.165">      nextPageUrl = fixProtocol(jsonPaging.getString("next", null));</a>
-<span class="sourceLineNo">166</span><a id="line.166"></a>
-<span class="sourceLineNo">167</span><a id="line.167">      // handle cursors</a>
-<span class="sourceLineNo">168</span><a id="line.168">      if (jsonPaging.contains("cursors")) {</a>
-<span class="sourceLineNo">169</span><a id="line.169">        JsonObject jsonCursors = jsonPaging.get("cursors").asObject();</a>
-<span class="sourceLineNo">170</span><a id="line.170">        beforeCursor = jsonCursors.getString("before", null);</a>
-<span class="sourceLineNo">171</span><a id="line.171">        afterCursor = jsonCursors.getString("after", null);</a>
-<span class="sourceLineNo">172</span><a id="line.172">      }</a>
-<span class="sourceLineNo">173</span><a id="line.173">    } else {</a>
-<span class="sourceLineNo">174</span><a id="line.174">      previousPageUrl = null;</a>
-<span class="sourceLineNo">175</span><a id="line.175">      nextPageUrl = null;</a>
-<span class="sourceLineNo">176</span><a id="line.176">    }</a>
-<span class="sourceLineNo">177</span><a id="line.177"></a>
-<span class="sourceLineNo">178</span><a id="line.178">    if (jsonObject.contains("summary")) {</a>
-<span class="sourceLineNo">179</span><a id="line.179">      JsonObject jsonSummary = jsonObject.get("summary").asObject();</a>
-<span class="sourceLineNo">180</span><a id="line.180">      totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;</a>
-<span class="sourceLineNo">181</span><a id="line.181">      order = jsonSummary.getString("order","");</a>
-<span class="sourceLineNo">182</span><a id="line.182">    } else {</a>
-<span class="sourceLineNo">183</span><a id="line.183">      totalCount = null;</a>
-<span class="sourceLineNo">184</span><a id="line.184">      order = null;</a>
-<span class="sourceLineNo">185</span><a id="line.185">    }</a>
-<span class="sourceLineNo">186</span><a id="line.186"></a>
-<span class="sourceLineNo">187</span><a id="line.187">    this.data = unmodifiableList(dataItem);</a>
-<span class="sourceLineNo">188</span><a id="line.188">    this.facebookClient = facebookClient;</a>
-<span class="sourceLineNo">189</span><a id="line.189">    this.connectionType = connectionType;</a>
-<span class="sourceLineNo">190</span><a id="line.190">  }</a>
-<span class="sourceLineNo">191</span><a id="line.191"></a>
-<span class="sourceLineNo">192</span><a id="line.192">  /**</a>
-<span class="sourceLineNo">193</span><a id="line.193">   * Fetches the next page of the connection. Designed to be used by {@link Itr}.</a>
-<span class="sourceLineNo">194</span><a id="line.194">   *</a>
-<span class="sourceLineNo">195</span><a id="line.195">   * @return The next page of the connection.</a>
-<span class="sourceLineNo">196</span><a id="line.196">   * @since 1.6.7</a>
-<span class="sourceLineNo">197</span><a id="line.197">   */</a>
-<span class="sourceLineNo">198</span><a id="line.198">  protected Connection&lt;T&gt; fetchNextPage() {</a>
-<span class="sourceLineNo">199</span><a id="line.199">    return facebookClient.fetchConnectionPage(getNextPageUrl(), connectionType);</a>
-<span class="sourceLineNo">200</span><a id="line.200">  }</a>
-<span class="sourceLineNo">201</span><a id="line.201"></a>
-<span class="sourceLineNo">202</span><a id="line.202">  @Override</a>
-<span class="sourceLineNo">203</span><a id="line.203">  public String toString() {</a>
-<span class="sourceLineNo">204</span><a id="line.204">    return ReflectionUtils.toString(this);</a>
-<span class="sourceLineNo">205</span><a id="line.205">  }</a>
-<span class="sourceLineNo">206</span><a id="line.206"></a>
-<span class="sourceLineNo">207</span><a id="line.207">  @Override</a>
-<span class="sourceLineNo">208</span><a id="line.208">  public boolean equals(Object object) {</a>
-<span class="sourceLineNo">209</span><a id="line.209">    return ReflectionUtils.equals(this, object);</a>
-<span class="sourceLineNo">210</span><a id="line.210">  }</a>
-<span class="sourceLineNo">211</span><a id="line.211"></a>
-<span class="sourceLineNo">212</span><a id="line.212">  @Override</a>
-<span class="sourceLineNo">213</span><a id="line.213">  public int hashCode() {</a>
-<span class="sourceLineNo">214</span><a id="line.214">    return ReflectionUtils.hashCode(this);</a>
-<span class="sourceLineNo">215</span><a id="line.215">  }</a>
-<span class="sourceLineNo">216</span><a id="line.216"></a>
-<span class="sourceLineNo">217</span><a id="line.217">  /**</a>
-<span class="sourceLineNo">218</span><a id="line.218">   * Data for this connection.</a>
-<span class="sourceLineNo">219</span><a id="line.219">   *</a>
-<span class="sourceLineNo">220</span><a id="line.220">   * @return Data for this connection.</a>
-<span class="sourceLineNo">221</span><a id="line.221">   */</a>
-<span class="sourceLineNo">222</span><a id="line.222">  public List&lt;T&gt; getData() {</a>
-<span class="sourceLineNo">223</span><a id="line.223">    return data;</a>
-<span class="sourceLineNo">224</span><a id="line.224">  }</a>
-<span class="sourceLineNo">225</span><a id="line.225"></a>
-<span class="sourceLineNo">226</span><a id="line.226">  /**</a>
-<span class="sourceLineNo">227</span><a id="line.227">   * This connection's "previous page of data" URL.</a>
-<span class="sourceLineNo">228</span><a id="line.228">   *</a>
-<span class="sourceLineNo">229</span><a id="line.229">   * @return This connection's "previous page of data" URL, or {@code null} if there is no previous page.</a>
-<span class="sourceLineNo">230</span><a id="line.230">   * @since 1.5.3</a>
-<span class="sourceLineNo">231</span><a id="line.231">   */</a>
-<span class="sourceLineNo">232</span><a id="line.232">  public String getPreviousPageUrl() {</a>
-<span class="sourceLineNo">233</span><a id="line.233">    return previousPageUrl;</a>
-<span class="sourceLineNo">234</span><a id="line.234">  }</a>
-<span class="sourceLineNo">235</span><a id="line.235"></a>
-<span class="sourceLineNo">236</span><a id="line.236">  /**</a>
-<span class="sourceLineNo">237</span><a id="line.237">   * This connection's "next page of data" URL.</a>
-<span class="sourceLineNo">238</span><a id="line.238">   *</a>
-<span class="sourceLineNo">239</span><a id="line.239">   * @return This connection's "next page of data" URL, or {@code null} if there is no next page.</a>
-<span class="sourceLineNo">240</span><a id="line.240">   * @since 1.5.3</a>
-<span class="sourceLineNo">241</span><a id="line.241">   */</a>
-<span class="sourceLineNo">242</span><a id="line.242">  public String getNextPageUrl() {</a>
-<span class="sourceLineNo">243</span><a id="line.243">    return nextPageUrl;</a>
-<span class="sourceLineNo">244</span><a id="line.244">  }</a>
-<span class="sourceLineNo">245</span><a id="line.245"></a>
-<span class="sourceLineNo">246</span><a id="line.246">  /**</a>
-<span class="sourceLineNo">247</span><a id="line.247">   * Does this connection have a previous page of data?</a>
-<span class="sourceLineNo">248</span><a id="line.248">   *</a>
-<span class="sourceLineNo">249</span><a id="line.249">   * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.</a>
-<span class="sourceLineNo">250</span><a id="line.250">   */</a>
-<span class="sourceLineNo">251</span><a id="line.251">  public boolean hasPrevious() {</a>
-<span class="sourceLineNo">252</span><a id="line.252">    return !isBlank(getPreviousPageUrl());</a>
-<span class="sourceLineNo">253</span><a id="line.253">  }</a>
-<span class="sourceLineNo">254</span><a id="line.254"></a>
-<span class="sourceLineNo">255</span><a id="line.255">  /**</a>
-<span class="sourceLineNo">256</span><a id="line.256">   * Does this connection have a next page of data?</a>
-<span class="sourceLineNo">257</span><a id="line.257">   *</a>
-<span class="sourceLineNo">258</span><a id="line.258">   * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.</a>
-<span class="sourceLineNo">259</span><a id="line.259">   */</a>
-<span class="sourceLineNo">260</span><a id="line.260">  public boolean hasNext() {</a>
-<span class="sourceLineNo">261</span><a id="line.261">    return !isBlank(getNextPageUrl()) &amp;&amp; !getData().isEmpty();</a>
-<span class="sourceLineNo">262</span><a id="line.262">  }</a>
-<span class="sourceLineNo">263</span><a id="line.263"></a>
-<span class="sourceLineNo">264</span><a id="line.264">  /**</a>
-<span class="sourceLineNo">265</span><a id="line.265">   * provides the total count of elements, if FB provides them (API &amp;ge; v2.0)</a>
-<span class="sourceLineNo">266</span><a id="line.266">   *</a>
-<span class="sourceLineNo">267</span><a id="line.267">   * @return the total count of elements if present</a>
-<span class="sourceLineNo">268</span><a id="line.268">   * @since 1.6.16</a>
-<span class="sourceLineNo">269</span><a id="line.269">   */</a>
-<span class="sourceLineNo">270</span><a id="line.270">  public Long getTotalCount() {</a>
-<span class="sourceLineNo">271</span><a id="line.271">    return totalCount;</a>
-<span class="sourceLineNo">272</span><a id="line.272">  }</a>
-<span class="sourceLineNo">273</span><a id="line.273"></a>
-<span class="sourceLineNo">274</span><a id="line.274">  /**</a>
-<span class="sourceLineNo">275</span><a id="line.275">   * returns the order of the elements</a>
-<span class="sourceLineNo">276</span><a id="line.276">   *</a>
-<span class="sourceLineNo">277</span><a id="line.277">   * @return the order of the elements</a>
-<span class="sourceLineNo">278</span><a id="line.278">   */</a>
-<span class="sourceLineNo">279</span><a id="line.279">  public String getOrder() {</a>
-<span class="sourceLineNo">280</span><a id="line.280">    return order;</a>
-<span class="sourceLineNo">281</span><a id="line.281">  }</a>
-<span class="sourceLineNo">282</span><a id="line.282"></a>
-<span class="sourceLineNo">283</span><a id="line.283">  public String getBeforeCursor() {</a>
-<span class="sourceLineNo">284</span><a id="line.284">    return beforeCursor;</a>
-<span class="sourceLineNo">285</span><a id="line.285">  }</a>
-<span class="sourceLineNo">286</span><a id="line.286"></a>
-<span class="sourceLineNo">287</span><a id="line.287">  public String getAfterCursor() {</a>
-<span class="sourceLineNo">288</span><a id="line.288">    return afterCursor;</a>
-<span class="sourceLineNo">289</span><a id="line.289">  }</a>
-<span class="sourceLineNo">290</span><a id="line.290"></a>
-<span class="sourceLineNo">291</span><a id="line.291">  private String fixProtocol(String pageUrl) {</a>
-<span class="sourceLineNo">292</span><a id="line.292">    return Optional.ofNullable(pageUrl).filter(s -&gt; s.startsWith("http://")).map(s -&gt; s.replaceFirst("http://", "https://")).orElse(pageUrl);</a>
-<span class="sourceLineNo">293</span><a id="line.293">  }</a>
-<span class="sourceLineNo">294</span><a id="line.294"></a>
-<span class="sourceLineNo">295</span><a id="line.295">  /**</a>
-<span class="sourceLineNo">296</span><a id="line.296">   * replace the current facebookclient with the new one.</a>
-<span class="sourceLineNo">297</span><a id="line.297">   * @param facebookClient the new FacebookClient</a>
-<span class="sourceLineNo">298</span><a id="line.298">   */</a>
-<span class="sourceLineNo">299</span><a id="line.299">  public void replaceFacebookClient(FacebookClient facebookClient) {</a>
-<span class="sourceLineNo">300</span><a id="line.300">    this.facebookClient = facebookClient;</a>
-<span class="sourceLineNo">301</span><a id="line.301">  }</a>
-<span class="sourceLineNo">302</span><a id="line.302">}</a>
+<span class="sourceLineNo">157</span><a id="line.157">    if (!jsonObject.contains("data")) {</a>
+<span class="sourceLineNo">158</span><a id="line.158">      throw new FacebookJsonMappingException("The connection JSON does not contain a data field, maybe it is no connection");</a>
+<span class="sourceLineNo">159</span><a id="line.159">    }</a>
+<span class="sourceLineNo">160</span><a id="line.160">    JsonArray jsonData = jsonObject.get("data").asArray();</a>
+<span class="sourceLineNo">161</span><a id="line.161">    List&lt;T&gt; dataItem = jsonData.valueStream().map(jsonValue -&gt; connectionType.equals(JsonObject.class) ? (T) jsonValue</a>
+<span class="sourceLineNo">162</span><a id="line.162">            : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType)).collect(Collectors.toList());</a>
+<span class="sourceLineNo">163</span><a id="line.163"></a>
+<span class="sourceLineNo">164</span><a id="line.164">    // Pull out paging info, if present</a>
+<span class="sourceLineNo">165</span><a id="line.165">    if (jsonObject.contains("paging")) {</a>
+<span class="sourceLineNo">166</span><a id="line.166">      JsonObject jsonPaging = jsonObject.get("paging").asObject();</a>
+<span class="sourceLineNo">167</span><a id="line.167">      previousPageUrl = fixProtocol(jsonPaging.getString("previous", null));</a>
+<span class="sourceLineNo">168</span><a id="line.168">      nextPageUrl = fixProtocol(jsonPaging.getString("next", null));</a>
+<span class="sourceLineNo">169</span><a id="line.169"></a>
+<span class="sourceLineNo">170</span><a id="line.170">      // handle cursors</a>
+<span class="sourceLineNo">171</span><a id="line.171">      if (jsonPaging.contains("cursors")) {</a>
+<span class="sourceLineNo">172</span><a id="line.172">        JsonObject jsonCursors = jsonPaging.get("cursors").asObject();</a>
+<span class="sourceLineNo">173</span><a id="line.173">        beforeCursor = jsonCursors.getString("before", null);</a>
+<span class="sourceLineNo">174</span><a id="line.174">        afterCursor = jsonCursors.getString("after", null);</a>
+<span class="sourceLineNo">175</span><a id="line.175">      }</a>
+<span class="sourceLineNo">176</span><a id="line.176">    } else {</a>
+<span class="sourceLineNo">177</span><a id="line.177">      previousPageUrl = null;</a>
+<span class="sourceLineNo">178</span><a id="line.178">      nextPageUrl = null;</a>
+<span class="sourceLineNo">179</span><a id="line.179">    }</a>
+<span class="sourceLineNo">180</span><a id="line.180"></a>
+<span class="sourceLineNo">181</span><a id="line.181">    if (jsonObject.contains("summary")) {</a>
+<span class="sourceLineNo">182</span><a id="line.182">      JsonObject jsonSummary = jsonObject.get("summary").asObject();</a>
+<span class="sourceLineNo">183</span><a id="line.183">      totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;</a>
+<span class="sourceLineNo">184</span><a id="line.184">      order = jsonSummary.getString("order","");</a>
+<span class="sourceLineNo">185</span><a id="line.185">    } else {</a>
+<span class="sourceLineNo">186</span><a id="line.186">      totalCount = null;</a>
+<span class="sourceLineNo">187</span><a id="line.187">      order = null;</a>
+<span class="sourceLineNo">188</span><a id="line.188">    }</a>
+<span class="sourceLineNo">189</span><a id="line.189"></a>
+<span class="sourceLineNo">190</span><a id="line.190">    this.data = unmodifiableList(dataItem);</a>
+<span class="sourceLineNo">191</span><a id="line.191">    this.facebookClient = facebookClient;</a>
+<span class="sourceLineNo">192</span><a id="line.192">    this.connectionType = connectionType;</a>
+<span class="sourceLineNo">193</span><a id="line.193">  }</a>
+<span class="sourceLineNo">194</span><a id="line.194"></a>
+<span class="sourceLineNo">195</span><a id="line.195">  /**</a>
+<span class="sourceLineNo">196</span><a id="line.196">   * Fetches the next page of the connection. Designed to be used by {@link Itr}.</a>
+<span class="sourceLineNo">197</span><a id="line.197">   *</a>
+<span class="sourceLineNo">198</span><a id="line.198">   * @return The next page of the connection.</a>
+<span class="sourceLineNo">199</span><a id="line.199">   * @since 1.6.7</a>
+<span class="sourceLineNo">200</span><a id="line.200">   */</a>
+<span class="sourceLineNo">201</span><a id="line.201">  protected Connection&lt;T&gt; fetchNextPage() {</a>
+<span class="sourceLineNo">202</span><a id="line.202">    return facebookClient.fetchConnectionPage(getNextPageUrl(), connectionType);</a>
+<span class="sourceLineNo">203</span><a id="line.203">  }</a>
+<span class="sourceLineNo">204</span><a id="line.204"></a>
+<span class="sourceLineNo">205</span><a id="line.205">  @Override</a>
+<span class="sourceLineNo">206</span><a id="line.206">  public String toString() {</a>
+<span class="sourceLineNo">207</span><a id="line.207">    return ReflectionUtils.toString(this);</a>
+<span class="sourceLineNo">208</span><a id="line.208">  }</a>
+<span class="sourceLineNo">209</span><a id="line.209"></a>
+<span class="sourceLineNo">210</span><a id="line.210">  @Override</a>
+<span class="sourceLineNo">211</span><a id="line.211">  public boolean equals(Object object) {</a>
+<span class="sourceLineNo">212</span><a id="line.212">    return ReflectionUtils.equals(this, object);</a>
+<span class="sourceLineNo">213</span><a id="line.213">  }</a>
+<span class="sourceLineNo">214</span><a id="line.214"></a>
+<span class="sourceLineNo">215</span><a id="line.215">  @Override</a>
+<span class="sourceLineNo">216</span><a id="line.216">  public int hashCode() {</a>
+<span class="sourceLineNo">217</span><a id="line.217">    return ReflectionUtils.hashCode(this);</a>
+<span class="sourceLineNo">218</span><a id="line.218">  }</a>
+<span class="sourceLineNo">219</span><a id="line.219"></a>
+<span class="sourceLineNo">220</span><a id="line.220">  /**</a>
+<span class="sourceLineNo">221</span><a id="line.221">   * Data for this connection.</a>
+<span class="sourceLineNo">222</span><a id="line.222">   *</a>
+<span class="sourceLineNo">223</span><a id="line.223">   * @return Data for this connection.</a>
+<span class="sourceLineNo">224</span><a id="line.224">   */</a>
+<span class="sourceLineNo">225</span><a id="line.225">  public List&lt;T&gt; getData() {</a>
+<span class="sourceLineNo">226</span><a id="line.226">    return data;</a>
+<span class="sourceLineNo">227</span><a id="line.227">  }</a>
+<span class="sourceLineNo">228</span><a id="line.228"></a>
+<span class="sourceLineNo">229</span><a id="line.229">  /**</a>
+<span class="sourceLineNo">230</span><a id="line.230">   * This connection's "previous page of data" URL.</a>
+<span class="sourceLineNo">231</span><a id="line.231">   *</a>
+<span class="sourceLineNo">232</span><a id="line.232">   * @return This connection's "previous page of data" URL, or {@code null} if there is no previous page.</a>
+<span class="sourceLineNo">233</span><a id="line.233">   * @since 1.5.3</a>
+<span class="sourceLineNo">234</span><a id="line.234">   */</a>
+<span class="sourceLineNo">235</span><a id="line.235">  public String getPreviousPageUrl() {</a>
+<span class="sourceLineNo">236</span><a id="line.236">    return previousPageUrl;</a>
+<span class="sourceLineNo">237</span><a id="line.237">  }</a>
+<span class="sourceLineNo">238</span><a id="line.238"></a>
+<span class="sourceLineNo">239</span><a id="line.239">  /**</a>
+<span class="sourceLineNo">240</span><a id="line.240">   * This connection's "next page of data" URL.</a>
+<span class="sourceLineNo">241</span><a id="line.241">   *</a>
+<span class="sourceLineNo">242</span><a id="line.242">   * @return This connection's "next page of data" URL, or {@code null} if there is no next page.</a>
+<span class="sourceLineNo">243</span><a id="line.243">   * @since 1.5.3</a>
+<span class="sourceLineNo">244</span><a id="line.244">   */</a>
+<span class="sourceLineNo">245</span><a id="line.245">  public String getNextPageUrl() {</a>
+<span class="sourceLineNo">246</span><a id="line.246">    return nextPageUrl;</a>
+<span class="sourceLineNo">247</span><a id="line.247">  }</a>
+<span class="sourceLineNo">248</span><a id="line.248"></a>
+<span class="sourceLineNo">249</span><a id="line.249">  /**</a>
+<span class="sourceLineNo">250</span><a id="line.250">   * Does this connection have a previous page of data?</a>
+<span class="sourceLineNo">251</span><a id="line.251">   *</a>
+<span class="sourceLineNo">252</span><a id="line.252">   * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.</a>
+<span class="sourceLineNo">253</span><a id="line.253">   */</a>
+<span class="sourceLineNo">254</span><a id="line.254">  public boolean hasPrevious() {</a>
+<span class="sourceLineNo">255</span><a id="line.255">    return !isBlank(getPreviousPageUrl());</a>
+<span class="sourceLineNo">256</span><a id="line.256">  }</a>
+<span class="sourceLineNo">257</span><a id="line.257"></a>
+<span class="sourceLineNo">258</span><a id="line.258">  /**</a>
+<span class="sourceLineNo">259</span><a id="line.259">   * Does this connection have a next page of data?</a>
+<span class="sourceLineNo">260</span><a id="line.260">   *</a>
+<span class="sourceLineNo">261</span><a id="line.261">   * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.</a>
+<span class="sourceLineNo">262</span><a id="line.262">   */</a>
+<span class="sourceLineNo">263</span><a id="line.263">  public boolean hasNext() {</a>
+<span class="sourceLineNo">264</span><a id="line.264">    return !isBlank(getNextPageUrl()) &amp;&amp; !getData().isEmpty();</a>
+<span class="sourceLineNo">265</span><a id="line.265">  }</a>
+<span class="sourceLineNo">266</span><a id="line.266"></a>
+<span class="sourceLineNo">267</span><a id="line.267">  /**</a>
+<span class="sourceLineNo">268</span><a id="line.268">   * provides the total count of elements, if FB provides them (API &amp;ge; v2.0)</a>
+<span class="sourceLineNo">269</span><a id="line.269">   *</a>
+<span class="sourceLineNo">270</span><a id="line.270">   * @return the total count of elements if present</a>
+<span class="sourceLineNo">271</span><a id="line.271">   * @since 1.6.16</a>
+<span class="sourceLineNo">272</span><a id="line.272">   */</a>
+<span class="sourceLineNo">273</span><a id="line.273">  public Long getTotalCount() {</a>
+<span class="sourceLineNo">274</span><a id="line.274">    return totalCount;</a>
+<span class="sourceLineNo">275</span><a id="line.275">  }</a>
+<span class="sourceLineNo">276</span><a id="line.276"></a>
+<span class="sourceLineNo">277</span><a id="line.277">  /**</a>
+<span class="sourceLineNo">278</span><a id="line.278">   * returns the order of the elements</a>
+<span class="sourceLineNo">279</span><a id="line.279">   *</a>
+<span class="sourceLineNo">280</span><a id="line.280">   * @return the order of the elements</a>
+<span class="sourceLineNo">281</span><a id="line.281">   */</a>
+<span class="sourceLineNo">282</span><a id="line.282">  public String getOrder() {</a>
+<span class="sourceLineNo">283</span><a id="line.283">    return order;</a>
+<span class="sourceLineNo">284</span><a id="line.284">  }</a>
+<span class="sourceLineNo">285</span><a id="line.285"></a>
+<span class="sourceLineNo">286</span><a id="line.286">  public String getBeforeCursor() {</a>
+<span class="sourceLineNo">287</span><a id="line.287">    return beforeCursor;</a>
+<span class="sourceLineNo">288</span><a id="line.288">  }</a>
+<span class="sourceLineNo">289</span><a id="line.289"></a>
+<span class="sourceLineNo">290</span><a id="line.290">  public String getAfterCursor() {</a>
+<span class="sourceLineNo">291</span><a id="line.291">    return afterCursor;</a>
+<span class="sourceLineNo">292</span><a id="line.292">  }</a>
+<span class="sourceLineNo">293</span><a id="line.293"></a>
+<span class="sourceLineNo">294</span><a id="line.294">  private String fixProtocol(String pageUrl) {</a>
+<span class="sourceLineNo">295</span><a id="line.295">    return Optional.ofNullable(pageUrl).filter(s -&gt; s.startsWith("http://")).map(s -&gt; s.replaceFirst("http://", "https://")).orElse(pageUrl);</a>
+<span class="sourceLineNo">296</span><a id="line.296">  }</a>
+<span class="sourceLineNo">297</span><a id="line.297"></a>
+<span class="sourceLineNo">298</span><a id="line.298">  /**</a>
+<span class="sourceLineNo">299</span><a id="line.299">   * replace the current facebookclient with the new one.</a>
+<span class="sourceLineNo">300</span><a id="line.300">   * @param facebookClient the new FacebookClient</a>
+<span class="sourceLineNo">301</span><a id="line.301">   */</a>
+<span class="sourceLineNo">302</span><a id="line.302">  public void replaceFacebookClient(FacebookClient facebookClient) {</a>
+<span class="sourceLineNo">303</span><a id="line.303">    this.facebookClient = facebookClient;</a>
+<span class="sourceLineNo">304</span><a id="line.304">  }</a>
+<span class="sourceLineNo">305</span><a id="line.305">}</a>
 
 
 
