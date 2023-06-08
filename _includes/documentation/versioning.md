@@ -1,6 +1,5 @@
-In January 2022 we changed the versioning scheme from pure [semantic versioning](https://semver.org/) to [calendar versioning](https://calver.org/). We think this step was necessary to give the developers a better understanding of the age of the release. There is a very high frequency of changes, especially in the social media area, and we want to map this accordingly in RestFB with the new version scheme.
+At the start of 2022, we decided to switch our versioning scheme for RestFB from pure [semantic versioning](https://semver.org/) to [calendar versioning](https://calver.org/). We made this decision to provide developers with a better understanding of when a particular release was made. With the high frequency of changes in the social media space, we felt that it was important to provide more context around each release.
 
-Of course, we are still maintaining our policy and will only issue breaking changes to the RestFB API if there is a major position change in the version. This automatically means that breaking changes can only occur at the turn of the year.
+Under our new versioning scheme, the major version number indicates the year of the release, while the minor version number corresponds to the releases within the year.<br>For example, the 9th release of 2022 would be identified as version 2022.9.0.
 
-The minor version then corresponds to counters within the year.<br>
-*As an example:* The 9th release 2022 then has the version number 2022.9.0.
+We want to assure our users that we will continue to maintain our policy of only making breaking changes to the RestFB API when there is a major position change in the version. This means that such changes will only occur at the turn of the year. This helps to minimize the impact of any changes on existing applications.
