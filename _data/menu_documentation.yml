@@ -184,6 +184,11 @@
         file: documentation/publishing-video-with-thumb.md
         href: publishing-video-with-thumb
       -
+        title: Publishing a Reel video
+        menu_title: a Reel video
+        file: documentation/publishing-reel.md
+        href: publishing-reel
+      -
         title: Publishing a Checkin
         menu_title: a Checkin
         file: documentation/publishing-checkin.md
