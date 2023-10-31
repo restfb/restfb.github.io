@@ -398,7 +398,7 @@
 <span class="sourceLineNo">389</span><a id="line.389">      parameterString = toParameterString(false);</a>
 <span class="sourceLineNo">390</span><a id="line.390">    }</a>
 <span class="sourceLineNo">391</span><a id="line.391"></a>
-<span class="sourceLineNo">392</span><a id="line.392">    final String fullEndPoint = createEndpointForApiCall("logout.php", false);</a>
+<span class="sourceLineNo">392</span><a id="line.392">    final String fullEndPoint = createEndpointForApiCall("logout.php", false, false);</a>
 <span class="sourceLineNo">393</span><a id="line.393">    return fullEndPoint + "?" + parameterString;</a>
 <span class="sourceLineNo">394</span><a id="line.394">  }</a>
 <span class="sourceLineNo">395</span><a id="line.395"></a>
@@ -763,206 +763,225 @@
 <span class="sourceLineNo">754</span><a id="line.754">      endpoint = "/" + endpoint;</a>
 <span class="sourceLineNo">755</span><a id="line.755">    }</a>
 <span class="sourceLineNo">756</span><a id="line.756"></a>
-<span class="sourceLineNo">757</span><a id="line.757">    final String fullEndpoint =</a>
-<span class="sourceLineNo">758</span><a id="line.758">        createEndpointForApiCall(endpoint, binaryAttachments != null &amp;&amp; !binaryAttachments.isEmpty());</a>
-<span class="sourceLineNo">759</span><a id="line.759">    final String parameterString = toParameterString(parameters);</a>
-<span class="sourceLineNo">760</span><a id="line.760"></a>
-<span class="sourceLineNo">761</span><a id="line.761">    return makeRequestAndProcessResponse(() -&gt; {</a>
-<span class="sourceLineNo">762</span><a id="line.762">      WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, getHeaderAccessToken(), parameterString);</a>
-<span class="sourceLineNo">763</span><a id="line.763">      if (executeAsDelete &amp;&amp; !isHttpDeleteFallback()) {</a>
-<span class="sourceLineNo">764</span><a id="line.764">        return webRequestor.executeDelete(request);</a>
-<span class="sourceLineNo">765</span><a id="line.765">      }</a>
-<span class="sourceLineNo">766</span><a id="line.766"></a>
-<span class="sourceLineNo">767</span><a id="line.767">      if (executeAsPost) {</a>
-<span class="sourceLineNo">768</span><a id="line.768">        request.setBinaryAttachments(binaryAttachments);</a>
-<span class="sourceLineNo">769</span><a id="line.769">        request.setBody(body);</a>
-<span class="sourceLineNo">770</span><a id="line.770">        return webRequestor.executePost(request);</a>
-<span class="sourceLineNo">771</span><a id="line.771">      }</a>
-<span class="sourceLineNo">772</span><a id="line.772"></a>
-<span class="sourceLineNo">773</span><a id="line.773">      return webRequestor.executeGet(request);</a>
-<span class="sourceLineNo">774</span><a id="line.774">    });</a>
-<span class="sourceLineNo">775</span><a id="line.775">  }</a>
-<span class="sourceLineNo">776</span><a id="line.776"></a>
-<span class="sourceLineNo">777</span><a id="line.777">  private String getHeaderAccessToken() {</a>
-<span class="sourceLineNo">778</span><a id="line.778">    if (accessTokenInHeader) {</a>
-<span class="sourceLineNo">779</span><a id="line.779">      return this.accessToken;</a>
-<span class="sourceLineNo">780</span><a id="line.780">    }</a>
+<span class="sourceLineNo">757</span><a id="line.757">    boolean hasAttachment = binaryAttachments != null &amp;&amp; !binaryAttachments.isEmpty();</a>
+<span class="sourceLineNo">758</span><a id="line.758">    boolean hasReel = hasAttachment &amp;&amp; binaryAttachments.get(0).isFacebookReel();</a>
+<span class="sourceLineNo">759</span><a id="line.759"></a>
+<span class="sourceLineNo">760</span><a id="line.760">    final String fullEndpoint =</a>
+<span class="sourceLineNo">761</span><a id="line.761">        createEndpointForApiCall(endpoint, hasAttachment, hasReel);</a>
+<span class="sourceLineNo">762</span><a id="line.762">    final String parameterString = toParameterString(parameters);</a>
+<span class="sourceLineNo">763</span><a id="line.763"></a>
+<span class="sourceLineNo">764</span><a id="line.764">    String headerAccessToken = (hasReel) ? accessToken : getHeaderAccessToken();</a>
+<span class="sourceLineNo">765</span><a id="line.765"></a>
+<span class="sourceLineNo">766</span><a id="line.766">    return makeRequestAndProcessResponse(() -&gt; {</a>
+<span class="sourceLineNo">767</span><a id="line.767">      WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, headerAccessToken, parameterString);</a>
+<span class="sourceLineNo">768</span><a id="line.768">      if (executeAsDelete &amp;&amp; !isHttpDeleteFallback()) {</a>
+<span class="sourceLineNo">769</span><a id="line.769">        return webRequestor.executeDelete(request);</a>
+<span class="sourceLineNo">770</span><a id="line.770">      }</a>
+<span class="sourceLineNo">771</span><a id="line.771"></a>
+<span class="sourceLineNo">772</span><a id="line.772">      if (executeAsPost) {</a>
+<span class="sourceLineNo">773</span><a id="line.773">        request.setBinaryAttachments(binaryAttachments);</a>
+<span class="sourceLineNo">774</span><a id="line.774">        request.setBody(body);</a>
+<span class="sourceLineNo">775</span><a id="line.775">        return webRequestor.executePost(request);</a>
+<span class="sourceLineNo">776</span><a id="line.776">      }</a>
+<span class="sourceLineNo">777</span><a id="line.777"></a>
+<span class="sourceLineNo">778</span><a id="line.778">      return webRequestor.executeGet(request);</a>
+<span class="sourceLineNo">779</span><a id="line.779">    });</a>
+<span class="sourceLineNo">780</span><a id="line.780">  }</a>
 <span class="sourceLineNo">781</span><a id="line.781"></a>
-<span class="sourceLineNo">782</span><a id="line.782">    return null;</a>
-<span class="sourceLineNo">783</span><a id="line.783">  }</a>
-<span class="sourceLineNo">784</span><a id="line.784"></a>
-<span class="sourceLineNo">785</span><a id="line.785">  /**</a>
-<span class="sourceLineNo">786</span><a id="line.786">   * @see com.restfb.FacebookClient#obtainAppSecretProof(java.lang.String, java.lang.String)</a>
-<span class="sourceLineNo">787</span><a id="line.787">   */</a>
-<span class="sourceLineNo">788</span><a id="line.788">  @Override</a>
-<span class="sourceLineNo">789</span><a id="line.789">  public String obtainAppSecretProof(String accessToken, String appSecret) {</a>
-<span class="sourceLineNo">790</span><a id="line.790">    verifyParameterPresence("accessToken", accessToken);</a>
-<span class="sourceLineNo">791</span><a id="line.791">    verifyParameterPresence(APP_SECRET, appSecret);</a>
-<span class="sourceLineNo">792</span><a id="line.792">    return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);</a>
-<span class="sourceLineNo">793</span><a id="line.793">  }</a>
-<span class="sourceLineNo">794</span><a id="line.794"></a>
-<span class="sourceLineNo">795</span><a id="line.795">  /**</a>
-<span class="sourceLineNo">796</span><a id="line.796">   * returns if the fallback post method (&lt;code&gt;true&lt;/code&gt;) is used or the http delete (&lt;code&gt;false&lt;/code&gt;)</a>
-<span class="sourceLineNo">797</span><a id="line.797">   * </a>
-<span class="sourceLineNo">798</span><a id="line.798">   * @return {@code true} if POST is used instead of HTTP DELETE (default)</a>
-<span class="sourceLineNo">799</span><a id="line.799">   */</a>
-<span class="sourceLineNo">800</span><a id="line.800">  public boolean isHttpDeleteFallback() {</a>
-<span class="sourceLineNo">801</span><a id="line.801">    return httpDeleteFallback;</a>
-<span class="sourceLineNo">802</span><a id="line.802">  }</a>
-<span class="sourceLineNo">803</span><a id="line.803"></a>
-<span class="sourceLineNo">804</span><a id="line.804">  /**</a>
-<span class="sourceLineNo">805</span><a id="line.805">   * Set to &lt;code&gt;true&lt;/code&gt; if the facebook http delete fallback should be used. Facebook allows to use the http POST</a>
-<span class="sourceLineNo">806</span><a id="line.806">   * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that</a>
-<span class="sourceLineNo">807</span><a id="line.807">   * do not support the whole http method set, to delete objects from facebook</a>
-<span class="sourceLineNo">808</span><a id="line.808">   * </a>
-<span class="sourceLineNo">809</span><a id="line.809">   * @param httpDeleteFallback</a>
-<span class="sourceLineNo">810</span><a id="line.810">   *          &lt;code&gt;true&lt;/code&gt; if the the http Delete Fallback is used</a>
-<span class="sourceLineNo">811</span><a id="line.811">   */</a>
-<span class="sourceLineNo">812</span><a id="line.812">  public void setHttpDeleteFallback(boolean httpDeleteFallback) {</a>
-<span class="sourceLineNo">813</span><a id="line.813">    this.httpDeleteFallback = httpDeleteFallback;</a>
-<span class="sourceLineNo">814</span><a id="line.814">  }</a>
-<span class="sourceLineNo">815</span><a id="line.815"></a>
-<span class="sourceLineNo">816</span><a id="line.816">  protected interface Requestor {</a>
-<span class="sourceLineNo">817</span><a id="line.817">    Response makeRequest() throws IOException;</a>
-<span class="sourceLineNo">818</span><a id="line.818">  }</a>
-<span class="sourceLineNo">819</span><a id="line.819"></a>
-<span class="sourceLineNo">820</span><a id="line.820">  protected String makeRequestAndProcessResponse(Requestor requestor) {</a>
-<span class="sourceLineNo">821</span><a id="line.821">    Response response;</a>
-<span class="sourceLineNo">822</span><a id="line.822"></a>
-<span class="sourceLineNo">823</span><a id="line.823">    // Perform a GET or POST to the API endpoint</a>
-<span class="sourceLineNo">824</span><a id="line.824">    try {</a>
-<span class="sourceLineNo">825</span><a id="line.825">      response = requestor.makeRequest();</a>
-<span class="sourceLineNo">826</span><a id="line.826">    } catch (Exception t) {</a>
-<span class="sourceLineNo">827</span><a id="line.827">      throw new FacebookNetworkException(t);</a>
-<span class="sourceLineNo">828</span><a id="line.828">    }</a>
-<span class="sourceLineNo">829</span><a id="line.829"></a>
-<span class="sourceLineNo">830</span><a id="line.830">    // If we get any HTTP response code other than a 200 OK or 400 Bad Request</a>
-<span class="sourceLineNo">831</span><a id="line.831">    // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal</a>
-<span class="sourceLineNo">832</span><a id="line.832">    // Server Error or 302 Not Modified</a>
-<span class="sourceLineNo">833</span><a id="line.833">    // throw an exception.</a>
-<span class="sourceLineNo">834</span><a id="line.834">    if (HTTP_OK != response.getStatusCode() &amp;&amp; HTTP_BAD_REQUEST != response.getStatusCode()</a>
-<span class="sourceLineNo">835</span><a id="line.835">        &amp;&amp; HTTP_UNAUTHORIZED != response.getStatusCode() &amp;&amp; HTTP_NOT_FOUND != response.getStatusCode()</a>
-<span class="sourceLineNo">836</span><a id="line.836">        &amp;&amp; HTTP_INTERNAL_ERROR != response.getStatusCode() &amp;&amp; HTTP_FORBIDDEN != response.getStatusCode()</a>
-<span class="sourceLineNo">837</span><a id="line.837">        &amp;&amp; HTTP_NOT_MODIFIED != response.getStatusCode()) {</a>
-<span class="sourceLineNo">838</span><a id="line.838">      throw new FacebookNetworkException(response.getStatusCode());</a>
-<span class="sourceLineNo">839</span><a id="line.839">    }</a>
-<span class="sourceLineNo">840</span><a id="line.840"></a>
-<span class="sourceLineNo">841</span><a id="line.841">    String json = response.getBody();</a>
-<span class="sourceLineNo">842</span><a id="line.842"></a>
-<span class="sourceLineNo">843</span><a id="line.843">    try {</a>
-<span class="sourceLineNo">844</span><a id="line.844">      // If the response contained an error code, throw an exception.</a>
-<span class="sourceLineNo">845</span><a id="line.845">      getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());</a>
-<span class="sourceLineNo">846</span><a id="line.846">    } catch (FacebookErrorMessageException feme) {</a>
-<span class="sourceLineNo">847</span><a id="line.847">      Optional.ofNullable(getWebRequestor()).map(WebRequestor::getDebugHeaderInfo).ifPresent(feme::setDebugHeaderInfo);</a>
-<span class="sourceLineNo">848</span><a id="line.848">      throw feme;</a>
-<span class="sourceLineNo">849</span><a id="line.849">    }</a>
-<span class="sourceLineNo">850</span><a id="line.850"></a>
-<span class="sourceLineNo">851</span><a id="line.851">    // If there was no response error information and this was a 500 or 401</a>
-<span class="sourceLineNo">852</span><a id="line.852">    // error, something weird happened on Facebook's end. Bail.</a>
-<span class="sourceLineNo">853</span><a id="line.853">    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {</a>
-<span class="sourceLineNo">854</span><a id="line.854">      throw new FacebookNetworkException(response.getStatusCode());</a>
-<span class="sourceLineNo">855</span><a id="line.855">    }</a>
-<span class="sourceLineNo">856</span><a id="line.856"></a>
-<span class="sourceLineNo">857</span><a id="line.857">    return json;</a>
-<span class="sourceLineNo">858</span><a id="line.858">  }</a>
-<span class="sourceLineNo">859</span><a id="line.859"></a>
-<span class="sourceLineNo">860</span><a id="line.860">  /**</a>
-<span class="sourceLineNo">861</span><a id="line.861">   * Generate the parameter string to be included in the Facebook API request.</a>
-<span class="sourceLineNo">862</span><a id="line.862">   * </a>
-<span class="sourceLineNo">863</span><a id="line.863">   * @param parameters</a>
-<span class="sourceLineNo">864</span><a id="line.864">   *          Arbitrary number of extra parameters to include in the request.</a>
-<span class="sourceLineNo">865</span><a id="line.865">   * @return The parameter string to include in the Facebook API request.</a>
-<span class="sourceLineNo">866</span><a id="line.866">   * @throws FacebookJsonMappingException</a>
-<span class="sourceLineNo">867</span><a id="line.867">   *           If an error occurs when building the parameter string.</a>
-<span class="sourceLineNo">868</span><a id="line.868">   */</a>
-<span class="sourceLineNo">869</span><a id="line.869">  protected String toParameterString(Parameter... parameters) {</a>
-<span class="sourceLineNo">870</span><a id="line.870">    return toParameterString(true, parameters);</a>
-<span class="sourceLineNo">871</span><a id="line.871">  }</a>
-<span class="sourceLineNo">872</span><a id="line.872"></a>
-<span class="sourceLineNo">873</span><a id="line.873">  /**</a>
-<span class="sourceLineNo">874</span><a id="line.874">   * Generate the parameter string to be included in the Facebook API request.</a>
-<span class="sourceLineNo">875</span><a id="line.875">   * </a>
-<span class="sourceLineNo">876</span><a id="line.876">   * @param withJsonParameter</a>
-<span class="sourceLineNo">877</span><a id="line.877">   *          add additional parameter format with type json</a>
-<span class="sourceLineNo">878</span><a id="line.878">   * @param parameters</a>
-<span class="sourceLineNo">879</span><a id="line.879">   *          Arbitrary number of extra parameters to include in the request.</a>
-<span class="sourceLineNo">880</span><a id="line.880">   * @return The parameter string to include in the Facebook API request.</a>
-<span class="sourceLineNo">881</span><a id="line.881">   * @throws FacebookJsonMappingException</a>
-<span class="sourceLineNo">882</span><a id="line.882">   *           If an error occurs when building the parameter string.</a>
-<span class="sourceLineNo">883</span><a id="line.883">   */</a>
-<span class="sourceLineNo">884</span><a id="line.884">  protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {</a>
-<span class="sourceLineNo">885</span><a id="line.885">    if (!isBlank(accessToken) &amp;&amp; !accessTokenInHeader) {</a>
-<span class="sourceLineNo">886</span><a id="line.886">      parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);</a>
-<span class="sourceLineNo">887</span><a id="line.887">    }</a>
-<span class="sourceLineNo">888</span><a id="line.888"></a>
-<span class="sourceLineNo">889</span><a id="line.889">    if (!isBlank(accessToken) &amp;&amp; !isBlank(appSecret)) {</a>
-<span class="sourceLineNo">890</span><a id="line.890">      parameters = parametersWithAdditionalParameter(</a>
-<span class="sourceLineNo">891</span><a id="line.891">        Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);</a>
+<span class="sourceLineNo">782</span><a id="line.782">  private String getHeaderAccessToken() {</a>
+<span class="sourceLineNo">783</span><a id="line.783">    if (accessTokenInHeader) {</a>
+<span class="sourceLineNo">784</span><a id="line.784">      return this.accessToken;</a>
+<span class="sourceLineNo">785</span><a id="line.785">    }</a>
+<span class="sourceLineNo">786</span><a id="line.786"></a>
+<span class="sourceLineNo">787</span><a id="line.787">    return null;</a>
+<span class="sourceLineNo">788</span><a id="line.788">  }</a>
+<span class="sourceLineNo">789</span><a id="line.789"></a>
+<span class="sourceLineNo">790</span><a id="line.790">  /**</a>
+<span class="sourceLineNo">791</span><a id="line.791">   * @see com.restfb.FacebookClient#obtainAppSecretProof(java.lang.String, java.lang.String)</a>
+<span class="sourceLineNo">792</span><a id="line.792">   */</a>
+<span class="sourceLineNo">793</span><a id="line.793">  @Override</a>
+<span class="sourceLineNo">794</span><a id="line.794">  public String obtainAppSecretProof(String accessToken, String appSecret) {</a>
+<span class="sourceLineNo">795</span><a id="line.795">    verifyParameterPresence("accessToken", accessToken);</a>
+<span class="sourceLineNo">796</span><a id="line.796">    verifyParameterPresence(APP_SECRET, appSecret);</a>
+<span class="sourceLineNo">797</span><a id="line.797">    return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);</a>
+<span class="sourceLineNo">798</span><a id="line.798">  }</a>
+<span class="sourceLineNo">799</span><a id="line.799"></a>
+<span class="sourceLineNo">800</span><a id="line.800">  /**</a>
+<span class="sourceLineNo">801</span><a id="line.801">   * returns if the fallback post method (&lt;code&gt;true&lt;/code&gt;) is used or the http delete (&lt;code&gt;false&lt;/code&gt;)</a>
+<span class="sourceLineNo">802</span><a id="line.802">   * </a>
+<span class="sourceLineNo">803</span><a id="line.803">   * @return {@code true} if POST is used instead of HTTP DELETE (default)</a>
+<span class="sourceLineNo">804</span><a id="line.804">   */</a>
+<span class="sourceLineNo">805</span><a id="line.805">  public boolean isHttpDeleteFallback() {</a>
+<span class="sourceLineNo">806</span><a id="line.806">    return httpDeleteFallback;</a>
+<span class="sourceLineNo">807</span><a id="line.807">  }</a>
+<span class="sourceLineNo">808</span><a id="line.808"></a>
+<span class="sourceLineNo">809</span><a id="line.809">  /**</a>
+<span class="sourceLineNo">810</span><a id="line.810">   * Set to &lt;code&gt;true&lt;/code&gt; if the facebook http delete fallback should be used. Facebook allows to use the http POST</a>
+<span class="sourceLineNo">811</span><a id="line.811">   * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that</a>
+<span class="sourceLineNo">812</span><a id="line.812">   * do not support the whole http method set, to delete objects from facebook</a>
+<span class="sourceLineNo">813</span><a id="line.813">   * </a>
+<span class="sourceLineNo">814</span><a id="line.814">   * @param httpDeleteFallback</a>
+<span class="sourceLineNo">815</span><a id="line.815">   *          &lt;code&gt;true&lt;/code&gt; if the the http Delete Fallback is used</a>
+<span class="sourceLineNo">816</span><a id="line.816">   */</a>
+<span class="sourceLineNo">817</span><a id="line.817">  public void setHttpDeleteFallback(boolean httpDeleteFallback) {</a>
+<span class="sourceLineNo">818</span><a id="line.818">    this.httpDeleteFallback = httpDeleteFallback;</a>
+<span class="sourceLineNo">819</span><a id="line.819">  }</a>
+<span class="sourceLineNo">820</span><a id="line.820"></a>
+<span class="sourceLineNo">821</span><a id="line.821">  protected interface Requestor {</a>
+<span class="sourceLineNo">822</span><a id="line.822">    Response makeRequest() throws IOException;</a>
+<span class="sourceLineNo">823</span><a id="line.823">  }</a>
+<span class="sourceLineNo">824</span><a id="line.824"></a>
+<span class="sourceLineNo">825</span><a id="line.825">  protected String makeRequestAndProcessResponse(Requestor requestor) {</a>
+<span class="sourceLineNo">826</span><a id="line.826">    Response response;</a>
+<span class="sourceLineNo">827</span><a id="line.827"></a>
+<span class="sourceLineNo">828</span><a id="line.828">    // Perform a GET or POST to the API endpoint</a>
+<span class="sourceLineNo">829</span><a id="line.829">    try {</a>
+<span class="sourceLineNo">830</span><a id="line.830">      response = requestor.makeRequest();</a>
+<span class="sourceLineNo">831</span><a id="line.831">    } catch (Exception t) {</a>
+<span class="sourceLineNo">832</span><a id="line.832">      throw new FacebookNetworkException(t);</a>
+<span class="sourceLineNo">833</span><a id="line.833">    }</a>
+<span class="sourceLineNo">834</span><a id="line.834"></a>
+<span class="sourceLineNo">835</span><a id="line.835">    // If we get any HTTP response code other than a 200 OK or 400 Bad Request</a>
+<span class="sourceLineNo">836</span><a id="line.836">    // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal</a>
+<span class="sourceLineNo">837</span><a id="line.837">    // Server Error or 302 Not Modified</a>
+<span class="sourceLineNo">838</span><a id="line.838">    // throw an exception.</a>
+<span class="sourceLineNo">839</span><a id="line.839">    if (HTTP_OK != response.getStatusCode() &amp;&amp; HTTP_BAD_REQUEST != response.getStatusCode()</a>
+<span class="sourceLineNo">840</span><a id="line.840">        &amp;&amp; HTTP_UNAUTHORIZED != response.getStatusCode() &amp;&amp; HTTP_NOT_FOUND != response.getStatusCode()</a>
+<span class="sourceLineNo">841</span><a id="line.841">        &amp;&amp; HTTP_INTERNAL_ERROR != response.getStatusCode() &amp;&amp; HTTP_FORBIDDEN != response.getStatusCode()</a>
+<span class="sourceLineNo">842</span><a id="line.842">        &amp;&amp; HTTP_NOT_MODIFIED != response.getStatusCode()) {</a>
+<span class="sourceLineNo">843</span><a id="line.843">      throw new FacebookNetworkException(response.getStatusCode());</a>
+<span class="sourceLineNo">844</span><a id="line.844">    }</a>
+<span class="sourceLineNo">845</span><a id="line.845"></a>
+<span class="sourceLineNo">846</span><a id="line.846">    String json = response.getBody();</a>
+<span class="sourceLineNo">847</span><a id="line.847"></a>
+<span class="sourceLineNo">848</span><a id="line.848">    try {</a>
+<span class="sourceLineNo">849</span><a id="line.849">      // If the response contained an error code, throw an exception.</a>
+<span class="sourceLineNo">850</span><a id="line.850">      getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());</a>
+<span class="sourceLineNo">851</span><a id="line.851">    } catch (FacebookErrorMessageException feme) {</a>
+<span class="sourceLineNo">852</span><a id="line.852">      Optional.ofNullable(getWebRequestor()).map(WebRequestor::getDebugHeaderInfo).ifPresent(feme::setDebugHeaderInfo);</a>
+<span class="sourceLineNo">853</span><a id="line.853">      throw feme;</a>
+<span class="sourceLineNo">854</span><a id="line.854">    }</a>
+<span class="sourceLineNo">855</span><a id="line.855"></a>
+<span class="sourceLineNo">856</span><a id="line.856">    // If there was no response error information and this was a 500 or 401</a>
+<span class="sourceLineNo">857</span><a id="line.857">    // error, something weird happened on Facebook's end. Bail.</a>
+<span class="sourceLineNo">858</span><a id="line.858">    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {</a>
+<span class="sourceLineNo">859</span><a id="line.859">      throw new FacebookNetworkException(response.getStatusCode());</a>
+<span class="sourceLineNo">860</span><a id="line.860">    }</a>
+<span class="sourceLineNo">861</span><a id="line.861"></a>
+<span class="sourceLineNo">862</span><a id="line.862">    return json;</a>
+<span class="sourceLineNo">863</span><a id="line.863">  }</a>
+<span class="sourceLineNo">864</span><a id="line.864"></a>
+<span class="sourceLineNo">865</span><a id="line.865">  /**</a>
+<span class="sourceLineNo">866</span><a id="line.866">   * Generate the parameter string to be included in the Facebook API request.</a>
+<span class="sourceLineNo">867</span><a id="line.867">   * </a>
+<span class="sourceLineNo">868</span><a id="line.868">   * @param parameters</a>
+<span class="sourceLineNo">869</span><a id="line.869">   *          Arbitrary number of extra parameters to include in the request.</a>
+<span class="sourceLineNo">870</span><a id="line.870">   * @return The parameter string to include in the Facebook API request.</a>
+<span class="sourceLineNo">871</span><a id="line.871">   * @throws FacebookJsonMappingException</a>
+<span class="sourceLineNo">872</span><a id="line.872">   *           If an error occurs when building the parameter string.</a>
+<span class="sourceLineNo">873</span><a id="line.873">   */</a>
+<span class="sourceLineNo">874</span><a id="line.874">  protected String toParameterString(Parameter... parameters) {</a>
+<span class="sourceLineNo">875</span><a id="line.875">    return toParameterString(true, parameters);</a>
+<span class="sourceLineNo">876</span><a id="line.876">  }</a>
+<span class="sourceLineNo">877</span><a id="line.877"></a>
+<span class="sourceLineNo">878</span><a id="line.878">  /**</a>
+<span class="sourceLineNo">879</span><a id="line.879">   * Generate the parameter string to be included in the Facebook API request.</a>
+<span class="sourceLineNo">880</span><a id="line.880">   * </a>
+<span class="sourceLineNo">881</span><a id="line.881">   * @param withJsonParameter</a>
+<span class="sourceLineNo">882</span><a id="line.882">   *          add additional parameter format with type json</a>
+<span class="sourceLineNo">883</span><a id="line.883">   * @param parameters</a>
+<span class="sourceLineNo">884</span><a id="line.884">   *          Arbitrary number of extra parameters to include in the request.</a>
+<span class="sourceLineNo">885</span><a id="line.885">   * @return The parameter string to include in the Facebook API request.</a>
+<span class="sourceLineNo">886</span><a id="line.886">   * @throws FacebookJsonMappingException</a>
+<span class="sourceLineNo">887</span><a id="line.887">   *           If an error occurs when building the parameter string.</a>
+<span class="sourceLineNo">888</span><a id="line.888">   */</a>
+<span class="sourceLineNo">889</span><a id="line.889">  protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {</a>
+<span class="sourceLineNo">890</span><a id="line.890">    if (!isBlank(accessToken) &amp;&amp; !accessTokenInHeader) {</a>
+<span class="sourceLineNo">891</span><a id="line.891">      parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);</a>
 <span class="sourceLineNo">892</span><a id="line.892">    }</a>
 <span class="sourceLineNo">893</span><a id="line.893"></a>
-<span class="sourceLineNo">894</span><a id="line.894">    if (withJsonParameter) {</a>
-<span class="sourceLineNo">895</span><a id="line.895">      parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);</a>
-<span class="sourceLineNo">896</span><a id="line.896">    }</a>
-<span class="sourceLineNo">897</span><a id="line.897"></a>
-<span class="sourceLineNo">898</span><a id="line.898">    return Stream.of(parameters).map(p -&gt; urlEncode(p.name) + "=" + urlEncodedValueForParameterName(p.name, p.value))</a>
-<span class="sourceLineNo">899</span><a id="line.899">      .collect(Collectors.joining("&amp;"));</a>
-<span class="sourceLineNo">900</span><a id="line.900">  }</a>
-<span class="sourceLineNo">901</span><a id="line.901"></a>
-<span class="sourceLineNo">902</span><a id="line.902">  /**</a>
-<span class="sourceLineNo">903</span><a id="line.903">   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)</a>
-<span class="sourceLineNo">904</span><a id="line.904">   */</a>
-<span class="sourceLineNo">905</span><a id="line.905">  @Override</a>
-<span class="sourceLineNo">906</span><a id="line.906">  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {</a>
-<span class="sourceLineNo">907</span><a id="line.907">    while (apiCall.startsWith("/")) {</a>
-<span class="sourceLineNo">908</span><a id="line.908">      apiCall = apiCall.substring(1);</a>
-<span class="sourceLineNo">909</span><a id="line.909">    }</a>
-<span class="sourceLineNo">910</span><a id="line.910"></a>
-<span class="sourceLineNo">911</span><a id="line.911">    String baseUrl = getFacebookGraphEndpointUrl();</a>
-<span class="sourceLineNo">912</span><a id="line.912"></a>
-<span class="sourceLineNo">913</span><a id="line.913">    if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {</a>
-<span class="sourceLineNo">914</span><a id="line.914">      baseUrl = getFacebookGraphVideoEndpointUrl();</a>
-<span class="sourceLineNo">915</span><a id="line.915">    } else if (apiCall.endsWith("logout.php")) {</a>
-<span class="sourceLineNo">916</span><a id="line.916">      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();</a>
-<span class="sourceLineNo">917</span><a id="line.917">    }</a>
-<span class="sourceLineNo">918</span><a id="line.918"></a>
-<span class="sourceLineNo">919</span><a id="line.919">    return format("%s/%s", baseUrl, apiCall);</a>
-<span class="sourceLineNo">920</span><a id="line.920">  }</a>
-<span class="sourceLineNo">921</span><a id="line.921"></a>
-<span class="sourceLineNo">922</span><a id="line.922">  /**</a>
-<span class="sourceLineNo">923</span><a id="line.923">   * Returns the base endpoint URL for the Graph API.</a>
-<span class="sourceLineNo">924</span><a id="line.924">   * </a>
-<span class="sourceLineNo">925</span><a id="line.925">   * @return The base endpoint URL for the Graph API.</a>
-<span class="sourceLineNo">926</span><a id="line.926">   */</a>
-<span class="sourceLineNo">927</span><a id="line.927">  protected String getFacebookGraphEndpointUrl() {</a>
-<span class="sourceLineNo">928</span><a id="line.928">    if (apiVersion.isUrlElementRequired()) {</a>
-<span class="sourceLineNo">929</span><a id="line.929">      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();</a>
-<span class="sourceLineNo">930</span><a id="line.930">    } else {</a>
-<span class="sourceLineNo">931</span><a id="line.931">      return getFacebookEndpointUrls().getGraphEndpoint();</a>
-<span class="sourceLineNo">932</span><a id="line.932">    }</a>
-<span class="sourceLineNo">933</span><a id="line.933">  }</a>
-<span class="sourceLineNo">934</span><a id="line.934"></a>
-<span class="sourceLineNo">935</span><a id="line.935">  /**</a>
-<span class="sourceLineNo">936</span><a id="line.936">   * Returns the base endpoint URL for the Graph API's video upload functionality.</a>
-<span class="sourceLineNo">937</span><a id="line.937">   * </a>
-<span class="sourceLineNo">938</span><a id="line.938">   * @return The base endpoint URL for the Graph API's video upload functionality.</a>
-<span class="sourceLineNo">939</span><a id="line.939">   * @since 1.6.5</a>
-<span class="sourceLineNo">940</span><a id="line.940">   */</a>
-<span class="sourceLineNo">941</span><a id="line.941">  protected String getFacebookGraphVideoEndpointUrl() {</a>
-<span class="sourceLineNo">942</span><a id="line.942">    if (apiVersion.isUrlElementRequired()) {</a>
-<span class="sourceLineNo">943</span><a id="line.943">      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();</a>
-<span class="sourceLineNo">944</span><a id="line.944">    } else {</a>
-<span class="sourceLineNo">945</span><a id="line.945">      return getFacebookEndpointUrls().getGraphVideoEndpoint();</a>
-<span class="sourceLineNo">946</span><a id="line.946">    }</a>
-<span class="sourceLineNo">947</span><a id="line.947">  }</a>
-<span class="sourceLineNo">948</span><a id="line.948"></a>
-<span class="sourceLineNo">949</span><a id="line.949">  public FacebookEndpoints getFacebookEndpointUrls() {</a>
-<span class="sourceLineNo">950</span><a id="line.950">    return facebookEndpointUrls;</a>
-<span class="sourceLineNo">951</span><a id="line.951">  }</a>
-<span class="sourceLineNo">952</span><a id="line.952"></a>
-<span class="sourceLineNo">953</span><a id="line.953">  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {</a>
-<span class="sourceLineNo">954</span><a id="line.954">    this.facebookEndpointUrls = facebookEndpointUrls;</a>
-<span class="sourceLineNo">955</span><a id="line.955">  }</a>
-<span class="sourceLineNo">956</span><a id="line.956">}</a>
+<span class="sourceLineNo">894</span><a id="line.894">    if (!isBlank(accessToken) &amp;&amp; !isBlank(appSecret)) {</a>
+<span class="sourceLineNo">895</span><a id="line.895">      parameters = parametersWithAdditionalParameter(</a>
+<span class="sourceLineNo">896</span><a id="line.896">        Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);</a>
+<span class="sourceLineNo">897</span><a id="line.897">    }</a>
+<span class="sourceLineNo">898</span><a id="line.898"></a>
+<span class="sourceLineNo">899</span><a id="line.899">    if (withJsonParameter) {</a>
+<span class="sourceLineNo">900</span><a id="line.900">      parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);</a>
+<span class="sourceLineNo">901</span><a id="line.901">    }</a>
+<span class="sourceLineNo">902</span><a id="line.902"></a>
+<span class="sourceLineNo">903</span><a id="line.903">    return Stream.of(parameters).map(p -&gt; urlEncode(p.name) + "=" + urlEncodedValueForParameterName(p.name, p.value))</a>
+<span class="sourceLineNo">904</span><a id="line.904">      .collect(Collectors.joining("&amp;"));</a>
+<span class="sourceLineNo">905</span><a id="line.905">  }</a>
+<span class="sourceLineNo">906</span><a id="line.906"></a>
+<span class="sourceLineNo">907</span><a id="line.907">  /**</a>
+<span class="sourceLineNo">908</span><a id="line.908">   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean,boolean)</a>
+<span class="sourceLineNo">909</span><a id="line.909">   */</a>
+<span class="sourceLineNo">910</span><a id="line.910">  @Override</a>
+<span class="sourceLineNo">911</span><a id="line.911">  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment, boolean hasReel) {</a>
+<span class="sourceLineNo">912</span><a id="line.912">    while (apiCall.startsWith("/")) {</a>
+<span class="sourceLineNo">913</span><a id="line.913">      apiCall = apiCall.substring(1);</a>
+<span class="sourceLineNo">914</span><a id="line.914">    }</a>
+<span class="sourceLineNo">915</span><a id="line.915"></a>
+<span class="sourceLineNo">916</span><a id="line.916">    String baseUrl = getFacebookGraphEndpointUrl();</a>
+<span class="sourceLineNo">917</span><a id="line.917"></a>
+<span class="sourceLineNo">918</span><a id="line.918">    if (hasAttachment &amp;&amp; hasReel) {</a>
+<span class="sourceLineNo">919</span><a id="line.919">      baseUrl = getFacebookReelsUploadEndpointUrl();</a>
+<span class="sourceLineNo">920</span><a id="line.920">    } else if (hasAttachment &amp;&amp; (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {</a>
+<span class="sourceLineNo">921</span><a id="line.921">      baseUrl = getFacebookGraphVideoEndpointUrl();</a>
+<span class="sourceLineNo">922</span><a id="line.922">    } else if (apiCall.endsWith("logout.php")) {</a>
+<span class="sourceLineNo">923</span><a id="line.923">      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();</a>
+<span class="sourceLineNo">924</span><a id="line.924">    }</a>
+<span class="sourceLineNo">925</span><a id="line.925"></a>
+<span class="sourceLineNo">926</span><a id="line.926">    return format("%s/%s", baseUrl, apiCall);</a>
+<span class="sourceLineNo">927</span><a id="line.927">  }</a>
+<span class="sourceLineNo">928</span><a id="line.928"></a>
+<span class="sourceLineNo">929</span><a id="line.929">  /**</a>
+<span class="sourceLineNo">930</span><a id="line.930">   * Returns the base endpoint URL for the Graph API.</a>
+<span class="sourceLineNo">931</span><a id="line.931">   * </a>
+<span class="sourceLineNo">932</span><a id="line.932">   * @return The base endpoint URL for the Graph API.</a>
+<span class="sourceLineNo">933</span><a id="line.933">   */</a>
+<span class="sourceLineNo">934</span><a id="line.934">  protected String getFacebookGraphEndpointUrl() {</a>
+<span class="sourceLineNo">935</span><a id="line.935">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">936</span><a id="line.936">      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">937</span><a id="line.937">    } else {</a>
+<span class="sourceLineNo">938</span><a id="line.938">      return getFacebookEndpointUrls().getGraphEndpoint();</a>
+<span class="sourceLineNo">939</span><a id="line.939">    }</a>
+<span class="sourceLineNo">940</span><a id="line.940">  }</a>
+<span class="sourceLineNo">941</span><a id="line.941"></a>
+<span class="sourceLineNo">942</span><a id="line.942">  /**</a>
+<span class="sourceLineNo">943</span><a id="line.943">   * Returns the base endpoint URL for the Graph API's video upload functionality.</a>
+<span class="sourceLineNo">944</span><a id="line.944">   * </a>
+<span class="sourceLineNo">945</span><a id="line.945">   * @return The base endpoint URL for the Graph API's video upload functionality.</a>
+<span class="sourceLineNo">946</span><a id="line.946">   * @since 1.6.5</a>
+<span class="sourceLineNo">947</span><a id="line.947">   */</a>
+<span class="sourceLineNo">948</span><a id="line.948">  protected String getFacebookGraphVideoEndpointUrl() {</a>
+<span class="sourceLineNo">949</span><a id="line.949">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">950</span><a id="line.950">      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">951</span><a id="line.951">    } else {</a>
+<span class="sourceLineNo">952</span><a id="line.952">      return getFacebookEndpointUrls().getGraphVideoEndpoint();</a>
+<span class="sourceLineNo">953</span><a id="line.953">    }</a>
+<span class="sourceLineNo">954</span><a id="line.954">  }</a>
+<span class="sourceLineNo">955</span><a id="line.955"></a>
+<span class="sourceLineNo">956</span><a id="line.956">  /**</a>
+<span class="sourceLineNo">957</span><a id="line.957">   * Returns the Facebook Reels Upload endpoint URL for handling the Reels Upload</a>
+<span class="sourceLineNo">958</span><a id="line.958">   * @return the Facebook Reels Upload endpoint URL</a>
+<span class="sourceLineNo">959</span><a id="line.959">   */</a>
+<span class="sourceLineNo">960</span><a id="line.960">  protected String getFacebookReelsUploadEndpointUrl() {</a>
+<span class="sourceLineNo">961</span><a id="line.961">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">962</span><a id="line.962">      return getFacebookEndpointUrls().getReelUploadEndpoint() + "/" + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">963</span><a id="line.963">    }</a>
+<span class="sourceLineNo">964</span><a id="line.964"></a>
+<span class="sourceLineNo">965</span><a id="line.965">    return getFacebookEndpointUrls().getReelUploadEndpoint();</a>
+<span class="sourceLineNo">966</span><a id="line.966">  }</a>
+<span class="sourceLineNo">967</span><a id="line.967"></a>
+<span class="sourceLineNo">968</span><a id="line.968">  public FacebookEndpoints getFacebookEndpointUrls() {</a>
+<span class="sourceLineNo">969</span><a id="line.969">    return facebookEndpointUrls;</a>
+<span class="sourceLineNo">970</span><a id="line.970">  }</a>
+<span class="sourceLineNo">971</span><a id="line.971"></a>
+<span class="sourceLineNo">972</span><a id="line.972">  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {</a>
+<span class="sourceLineNo">973</span><a id="line.973">    this.facebookEndpointUrls = facebookEndpointUrls;</a>
+<span class="sourceLineNo">974</span><a id="line.974">  }</a>
+<span class="sourceLineNo">975</span><a id="line.975">}</a>
 
 
 
