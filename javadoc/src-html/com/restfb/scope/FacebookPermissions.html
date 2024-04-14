@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="de">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
@@ -568,331 +568,388 @@
 <span class="sourceLineNo">559</span><a id="line.559">   *</a>
 <span class="sourceLineNo">560</span><a id="line.560">   * &lt;p&gt;</a>
 <span class="sourceLineNo">561</span><a id="line.561">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">562</span><a id="line.562">   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024</a>
-<span class="sourceLineNo">563</span><a id="line.563">   */</a>
-<span class="sourceLineNo">564</span><a id="line.564">  @GraphAPI(since = "3.0", until = "19.0")</a>
-<span class="sourceLineNo">565</span><a id="line.565">  @Deprecated</a>
-<span class="sourceLineNo">566</span><a id="line.566">  PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">567</span><a id="line.567"></a>
-<span class="sourceLineNo">568</span><a id="line.568">  /**</a>
-<span class="sourceLineNo">569</span><a id="line.569">   * Grants an app permission to publish live videos to the app User's timeline.</a>
-<span class="sourceLineNo">570</span><a id="line.570">   *</a>
-<span class="sourceLineNo">571</span><a id="line.571">   * &lt;p&gt;</a>
-<span class="sourceLineNo">572</span><a id="line.572">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">573</span><a id="line.573">   *</a>
-<span class="sourceLineNo">574</span><a id="line.574">   * &lt;p&gt;</a>
-<span class="sourceLineNo">575</span><a id="line.575">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">576</span><a id="line.576">   */</a>
-<span class="sourceLineNo">577</span><a id="line.577">  @GraphAPI(since = "3.1")</a>
-<span class="sourceLineNo">578</span><a id="line.578">  PUBLISH_VIDEO("publish_video", Category.LIVE_VIDEO), //</a>
-<span class="sourceLineNo">579</span><a id="line.579"></a>
-<span class="sourceLineNo">580</span><a id="line.580">  /**</a>
-<span class="sourceLineNo">581</span><a id="line.581">   * Gives your app the ability to receive member-related data on group content when a member has granted the app</a>
-<span class="sourceLineNo">582</span><a id="line.582">   * permission to do so.</a>
-<span class="sourceLineNo">583</span><a id="line.583">   *</a>
-<span class="sourceLineNo">584</span><a id="line.584">   * &lt;p&gt;</a>
-<span class="sourceLineNo">585</span><a id="line.585">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">586</span><a id="line.586">   *</a>
-<span class="sourceLineNo">587</span><a id="line.587">   * &lt;p&gt;</a>
-<span class="sourceLineNo">588</span><a id="line.588">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">589</span><a id="line.589">   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024</a>
-<span class="sourceLineNo">590</span><a id="line.590">   */</a>
-<span class="sourceLineNo">591</span><a id="line.591">  @GraphAPI(since = "3.0", until = "19.0")</a>
-<span class="sourceLineNo">592</span><a id="line.592">  @Deprecated</a>
-<span class="sourceLineNo">593</span><a id="line.593">  GROUPS_ACCESS_MEMBER_INFO("groups_access_member_info", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">594</span><a id="line.594"></a>
-<span class="sourceLineNo">595</span><a id="line.595">  /**</a>
-<span class="sourceLineNo">596</span><a id="line.596">   * Provides read-only access to the Audience Network Insights data for Apps the person owns.</a>
-<span class="sourceLineNo">597</span><a id="line.597">   *</a>
-<span class="sourceLineNo">598</span><a id="line.598">   * &lt;p&gt;</a>
-<span class="sourceLineNo">599</span><a id="line.599">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">600</span><a id="line.600">   *</a>
-<span class="sourceLineNo">601</span><a id="line.601">   * &lt;p&gt;</a>
-<span class="sourceLineNo">602</span><a id="line.602">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">603</span><a id="line.603">   */</a>
-<span class="sourceLineNo">604</span><a id="line.604">  @GraphAPI(since = "2.4")</a>
-<span class="sourceLineNo">605</span><a id="line.605">  READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights", Category.OTHER), //</a>
-<span class="sourceLineNo">606</span><a id="line.606"></a>
-<span class="sourceLineNo">607</span><a id="line.607">  /**</a>
-<span class="sourceLineNo">608</span><a id="line.608">   * The research_apis permission allows your app to access data on public Facebook Pages, Groups, and Events within the</a>
-<span class="sourceLineNo">609</span><a id="line.609">   * Facebook Open Research and Transparency Tool.</a>
-<span class="sourceLineNo">610</span><a id="line.610">   *</a>
-<span class="sourceLineNo">611</span><a id="line.611">   * Allowed Usage</a>
+<span class="sourceLineNo">562</span><a id="line.562">   * </a>
+<span class="sourceLineNo">563</span><a id="line.563">   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024</a>
+<span class="sourceLineNo">564</span><a id="line.564">   */</a>
+<span class="sourceLineNo">565</span><a id="line.565">  @GraphAPI(since = "3.0", until = "19.0")</a>
+<span class="sourceLineNo">566</span><a id="line.566">  @Deprecated</a>
+<span class="sourceLineNo">567</span><a id="line.567">  PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">568</span><a id="line.568"></a>
+<span class="sourceLineNo">569</span><a id="line.569">  /**</a>
+<span class="sourceLineNo">570</span><a id="line.570">   * Grants an app permission to publish live videos to the app User's timeline.</a>
+<span class="sourceLineNo">571</span><a id="line.571">   *</a>
+<span class="sourceLineNo">572</span><a id="line.572">   * &lt;p&gt;</a>
+<span class="sourceLineNo">573</span><a id="line.573">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">574</span><a id="line.574">   *</a>
+<span class="sourceLineNo">575</span><a id="line.575">   * &lt;p&gt;</a>
+<span class="sourceLineNo">576</span><a id="line.576">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">577</span><a id="line.577">   */</a>
+<span class="sourceLineNo">578</span><a id="line.578">  @GraphAPI(since = "3.1")</a>
+<span class="sourceLineNo">579</span><a id="line.579">  PUBLISH_VIDEO("publish_video", Category.LIVE_VIDEO), //</a>
+<span class="sourceLineNo">580</span><a id="line.580"></a>
+<span class="sourceLineNo">581</span><a id="line.581">  /**</a>
+<span class="sourceLineNo">582</span><a id="line.582">   * Gives your app the ability to receive member-related data on group content when a member has granted the app</a>
+<span class="sourceLineNo">583</span><a id="line.583">   * permission to do so.</a>
+<span class="sourceLineNo">584</span><a id="line.584">   *</a>
+<span class="sourceLineNo">585</span><a id="line.585">   * &lt;p&gt;</a>
+<span class="sourceLineNo">586</span><a id="line.586">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">587</span><a id="line.587">   *</a>
+<span class="sourceLineNo">588</span><a id="line.588">   * &lt;p&gt;</a>
+<span class="sourceLineNo">589</span><a id="line.589">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">590</span><a id="line.590">   * </a>
+<span class="sourceLineNo">591</span><a id="line.591">   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024</a>
+<span class="sourceLineNo">592</span><a id="line.592">   */</a>
+<span class="sourceLineNo">593</span><a id="line.593">  @GraphAPI(since = "3.0", until = "19.0")</a>
+<span class="sourceLineNo">594</span><a id="line.594">  @Deprecated</a>
+<span class="sourceLineNo">595</span><a id="line.595">  GROUPS_ACCESS_MEMBER_INFO("groups_access_member_info", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">596</span><a id="line.596"></a>
+<span class="sourceLineNo">597</span><a id="line.597">  /**</a>
+<span class="sourceLineNo">598</span><a id="line.598">   * Provides read-only access to the Audience Network Insights data for Apps the person owns.</a>
+<span class="sourceLineNo">599</span><a id="line.599">   *</a>
+<span class="sourceLineNo">600</span><a id="line.600">   * &lt;p&gt;</a>
+<span class="sourceLineNo">601</span><a id="line.601">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">602</span><a id="line.602">   *</a>
+<span class="sourceLineNo">603</span><a id="line.603">   * &lt;p&gt;</a>
+<span class="sourceLineNo">604</span><a id="line.604">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">605</span><a id="line.605">   */</a>
+<span class="sourceLineNo">606</span><a id="line.606">  @GraphAPI(since = "2.4")</a>
+<span class="sourceLineNo">607</span><a id="line.607">  READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights", Category.OTHER), //</a>
+<span class="sourceLineNo">608</span><a id="line.608"></a>
+<span class="sourceLineNo">609</span><a id="line.609">  /**</a>
+<span class="sourceLineNo">610</span><a id="line.610">   * The research_apis permission allows your app to access data on public Facebook Pages, Groups, and Events within the</a>
+<span class="sourceLineNo">611</span><a id="line.611">   * Facebook Open Research and Transparency Tool.</a>
 <span class="sourceLineNo">612</span><a id="line.612">   *</a>
-<span class="sourceLineNo">613</span><a id="line.613">   * Utilize public Facebook data for academic research.</a>
-<span class="sourceLineNo">614</span><a id="line.614">   */</a>
-<span class="sourceLineNo">615</span><a id="line.615">  RESEARCH_APIS("research_apis", Category.OTHER), //</a>
-<span class="sourceLineNo">616</span><a id="line.616"></a>
-<span class="sourceLineNo">617</span><a id="line.617">  /**</a>
-<span class="sourceLineNo">618</span><a id="line.618">   *</a>
-<span class="sourceLineNo">619</span><a id="line.619">   * &lt;p&gt;</a>
-<span class="sourceLineNo">620</span><a id="line.620">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">621</span><a id="line.621">   *</a>
-<span class="sourceLineNo">622</span><a id="line.622">   * &lt;p&gt;</a>
-<span class="sourceLineNo">623</span><a id="line.623">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">624</span><a id="line.624">   */</a>
-<span class="sourceLineNo">625</span><a id="line.625">  READ_INSIGHTS("read_insights", Category.OTHER), //</a>
-<span class="sourceLineNo">626</span><a id="line.626"></a>
-<span class="sourceLineNo">627</span><a id="line.627">  /**</a>
-<span class="sourceLineNo">628</span><a id="line.628">   * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).</a>
-<span class="sourceLineNo">629</span><a id="line.629">   *</a>
-<span class="sourceLineNo">630</span><a id="line.630">   * &lt;p&gt;</a>
-<span class="sourceLineNo">631</span><a id="line.631">   * This permission does not let you invite people to an event.</a>
-<span class="sourceLineNo">632</span><a id="line.632">   *</a>
-<span class="sourceLineNo">633</span><a id="line.633">   * &lt;p&gt;</a>
-<span class="sourceLineNo">634</span><a id="line.634">   * This permission does not let you update an event's details.</a>
-<span class="sourceLineNo">635</span><a id="line.635">   *</a>
-<span class="sourceLineNo">636</span><a id="line.636">   * &lt;p&gt;</a>
-<span class="sourceLineNo">637</span><a id="line.637">   * This permission does not let you create an event. There is no way to create an event via the API as of Graph API</a>
-<span class="sourceLineNo">638</span><a id="line.638">   * v2.0.</a>
-<span class="sourceLineNo">639</span><a id="line.639">   *</a>
-<span class="sourceLineNo">640</span><a id="line.640">   * &lt;p&gt;</a>
-<span class="sourceLineNo">641</span><a id="line.641">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">642</span><a id="line.642">   *</a>
-<span class="sourceLineNo">643</span><a id="line.643">   * &lt;p&gt;</a>
-<span class="sourceLineNo">644</span><a id="line.644">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">645</span><a id="line.645">   */</a>
-<span class="sourceLineNo">646</span><a id="line.646">  RSVP_EVENT("rsvp_event", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">647</span><a id="line.647"></a>
-<span class="sourceLineNo">648</span><a id="line.648">  /**</a>
-<span class="sourceLineNo">649</span><a id="line.649">   * Read and write with Business Management API</a>
-<span class="sourceLineNo">650</span><a id="line.650">   *</a>
-<span class="sourceLineNo">651</span><a id="line.651">   * &lt;p&gt;</a>
-<span class="sourceLineNo">652</span><a id="line.652">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">653</span><a id="line.653">   *</a>
-<span class="sourceLineNo">654</span><a id="line.654">   * &lt;p&gt;</a>
-<span class="sourceLineNo">655</span><a id="line.655">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">656</span><a id="line.656">   */</a>
-<span class="sourceLineNo">657</span><a id="line.657">  BUSINESS_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">658</span><a id="line.658"></a>
-<span class="sourceLineNo">659</span><a id="line.659">  /**</a>
-<span class="sourceLineNo">660</span><a id="line.660">   * Grants your app the ability to create, read, update, and delete business owned product catalogs that the user is an</a>
-<span class="sourceLineNo">661</span><a id="line.661">   * admin of. This permission grants access to related endpoints. By default, your app may only access product catalogs</a>
-<span class="sourceLineNo">662</span><a id="line.662">   * that are owned by admins of the app when in developer mode.</a>
-<span class="sourceLineNo">663</span><a id="line.663">   * </a>
-<span class="sourceLineNo">664</span><a id="line.664">   * &lt;p&gt;</a>
-<span class="sourceLineNo">665</span><a id="line.665">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">666</span><a id="line.666">   * </a>
-<span class="sourceLineNo">667</span><a id="line.667">   * &lt;p&gt;</a>
-<span class="sourceLineNo">668</span><a id="line.668">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">669</span><a id="line.669">   */</a>
-<span class="sourceLineNo">670</span><a id="line.670">  CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">671</span><a id="line.671"></a>
-<span class="sourceLineNo">672</span><a id="line.672">  /**</a>
-<span class="sourceLineNo">673</span><a id="line.673">   * The gaming_user_locale permission allows your app to get a user's preferred language while the user plays a game on</a>
-<span class="sourceLineNo">674</span><a id="line.674">   * Facebook (for example, Instant Games or Cloud Gaming).</a>
-<span class="sourceLineNo">675</span><a id="line.675">   *</a>
-<span class="sourceLineNo">676</span><a id="line.676">   * Allowed Usage</a>
+<span class="sourceLineNo">613</span><a id="line.613">   * Allowed Usage</a>
+<span class="sourceLineNo">614</span><a id="line.614">   *</a>
+<span class="sourceLineNo">615</span><a id="line.615">   * Utilize public Facebook data for academic research.</a>
+<span class="sourceLineNo">616</span><a id="line.616">   */</a>
+<span class="sourceLineNo">617</span><a id="line.617">  RESEARCH_APIS("research_apis", Category.OTHER), //</a>
+<span class="sourceLineNo">618</span><a id="line.618"></a>
+<span class="sourceLineNo">619</span><a id="line.619">  /**</a>
+<span class="sourceLineNo">620</span><a id="line.620">   *</a>
+<span class="sourceLineNo">621</span><a id="line.621">   * &lt;p&gt;</a>
+<span class="sourceLineNo">622</span><a id="line.622">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">623</span><a id="line.623">   *</a>
+<span class="sourceLineNo">624</span><a id="line.624">   * &lt;p&gt;</a>
+<span class="sourceLineNo">625</span><a id="line.625">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">626</span><a id="line.626">   */</a>
+<span class="sourceLineNo">627</span><a id="line.627">  READ_INSIGHTS("read_insights", Category.OTHER), //</a>
+<span class="sourceLineNo">628</span><a id="line.628"></a>
+<span class="sourceLineNo">629</span><a id="line.629">  /**</a>
+<span class="sourceLineNo">630</span><a id="line.630">   * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).</a>
+<span class="sourceLineNo">631</span><a id="line.631">   *</a>
+<span class="sourceLineNo">632</span><a id="line.632">   * &lt;p&gt;</a>
+<span class="sourceLineNo">633</span><a id="line.633">   * This permission does not let you invite people to an event.</a>
+<span class="sourceLineNo">634</span><a id="line.634">   *</a>
+<span class="sourceLineNo">635</span><a id="line.635">   * &lt;p&gt;</a>
+<span class="sourceLineNo">636</span><a id="line.636">   * This permission does not let you update an event's details.</a>
+<span class="sourceLineNo">637</span><a id="line.637">   *</a>
+<span class="sourceLineNo">638</span><a id="line.638">   * &lt;p&gt;</a>
+<span class="sourceLineNo">639</span><a id="line.639">   * This permission does not let you create an event. There is no way to create an event via the API as of Graph API</a>
+<span class="sourceLineNo">640</span><a id="line.640">   * v2.0.</a>
+<span class="sourceLineNo">641</span><a id="line.641">   *</a>
+<span class="sourceLineNo">642</span><a id="line.642">   * &lt;p&gt;</a>
+<span class="sourceLineNo">643</span><a id="line.643">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">644</span><a id="line.644">   *</a>
+<span class="sourceLineNo">645</span><a id="line.645">   * &lt;p&gt;</a>
+<span class="sourceLineNo">646</span><a id="line.646">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">647</span><a id="line.647">   */</a>
+<span class="sourceLineNo">648</span><a id="line.648">  RSVP_EVENT("rsvp_event", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">649</span><a id="line.649"></a>
+<span class="sourceLineNo">650</span><a id="line.650">  /**</a>
+<span class="sourceLineNo">651</span><a id="line.651">   * Read and write with Business Management API</a>
+<span class="sourceLineNo">652</span><a id="line.652">   *</a>
+<span class="sourceLineNo">653</span><a id="line.653">   * &lt;p&gt;</a>
+<span class="sourceLineNo">654</span><a id="line.654">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">655</span><a id="line.655">   *</a>
+<span class="sourceLineNo">656</span><a id="line.656">   * &lt;p&gt;</a>
+<span class="sourceLineNo">657</span><a id="line.657">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">658</span><a id="line.658">   */</a>
+<span class="sourceLineNo">659</span><a id="line.659">  BUSINESS_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">660</span><a id="line.660"></a>
+<span class="sourceLineNo">661</span><a id="line.661">  /**</a>
+<span class="sourceLineNo">662</span><a id="line.662">   * Grants your app the ability to create, read, update, and delete business owned product catalogs that the user is an</a>
+<span class="sourceLineNo">663</span><a id="line.663">   * admin of. This permission grants access to related endpoints. By default, your app may only access product catalogs</a>
+<span class="sourceLineNo">664</span><a id="line.664">   * that are owned by admins of the app when in developer mode.</a>
+<span class="sourceLineNo">665</span><a id="line.665">   * </a>
+<span class="sourceLineNo">666</span><a id="line.666">   * &lt;p&gt;</a>
+<span class="sourceLineNo">667</span><a id="line.667">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">668</span><a id="line.668">   * </a>
+<span class="sourceLineNo">669</span><a id="line.669">   * &lt;p&gt;</a>
+<span class="sourceLineNo">670</span><a id="line.670">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">671</span><a id="line.671">   */</a>
+<span class="sourceLineNo">672</span><a id="line.672">  CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">673</span><a id="line.673"></a>
+<span class="sourceLineNo">674</span><a id="line.674">  /**</a>
+<span class="sourceLineNo">675</span><a id="line.675">   * The gaming_user_locale permission allows your app to get a user's preferred language while the user plays a game on</a>
+<span class="sourceLineNo">676</span><a id="line.676">   * Facebook (for example, Instant Games or Cloud Gaming).</a>
 <span class="sourceLineNo">677</span><a id="line.677">   *</a>
-<span class="sourceLineNo">678</span><a id="line.678">   * Display a game interface in the user's preferred language.</a>
-<span class="sourceLineNo">679</span><a id="line.679">   */</a>
-<span class="sourceLineNo">680</span><a id="line.680">  GAMING_USER_LOCALE("gaming_user_locale", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">681</span><a id="line.681"></a>
-<span class="sourceLineNo">682</span><a id="line.682">  /**</a>
-<span class="sourceLineNo">683</span><a id="line.683">   * Grants your app permission to retrieve all the information captured within a</a>
-<span class="sourceLineNo">684</span><a id="line.684">   * &lt;a href="https://developers.facebook.com/docs/marketing-api/guides/lead-ads/"&gt;lead.&lt;/a&gt;</a>
-<span class="sourceLineNo">685</span><a id="line.685">   *</a>
-<span class="sourceLineNo">686</span><a id="line.686">   * &lt;p&gt;</a>
-<span class="sourceLineNo">687</span><a id="line.687">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">688</span><a id="line.688">   *</a>
-<span class="sourceLineNo">689</span><a id="line.689">   * &lt;p&gt;</a>
-<span class="sourceLineNo">690</span><a id="line.690">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">691</span><a id="line.691">   */</a>
-<span class="sourceLineNo">692</span><a id="line.692">  @GraphAPI(since = "3.1")</a>
-<span class="sourceLineNo">693</span><a id="line.693">  LEADS_RETRIEVAL("leads_retrieval", Category.EVENTS_GROUPS_PAGES), //</a>
-<span class="sourceLineNo">694</span><a id="line.694"></a>
-<span class="sourceLineNo">695</span><a id="line.695">  /**</a>
-<span class="sourceLineNo">696</span><a id="line.696">   * This allows you to send and receive messages through a Facebook Page out of the 24h window opened by a user action.</a>
-<span class="sourceLineNo">697</span><a id="line.697">   *</a>
-<span class="sourceLineNo">698</span><a id="line.698">   * &lt;p&gt;</a>
-<span class="sourceLineNo">699</span><a id="line.699">   * This permission cannot be used to send promotional or advertising content.</a>
-<span class="sourceLineNo">700</span><a id="line.700">   *</a>
-<span class="sourceLineNo">701</span><a id="line.701">   * &lt;p&gt;</a>
-<span class="sourceLineNo">702</span><a id="line.702">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">703</span><a id="line.703">   *</a>
-<span class="sourceLineNo">704</span><a id="line.704">   * &lt;p&gt;</a>
-<span class="sourceLineNo">705</span><a id="line.705">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">706</span><a id="line.706">   */</a>
-<span class="sourceLineNo">707</span><a id="line.707">  @GraphAPI(since = "2.6")</a>
-<span class="sourceLineNo">708</span><a id="line.708">  PAGES_MESSAGING_SUBSCRIPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //</a>
-<span class="sourceLineNo">709</span><a id="line.709"></a>
-<span class="sourceLineNo">710</span><a id="line.710">  /**</a>
-<span class="sourceLineNo">711</span><a id="line.711">   * This allows you to charge users in Messenger conversations on behalf of pages.</a>
-<span class="sourceLineNo">712</span><a id="line.712">   *</a>
-<span class="sourceLineNo">713</span><a id="line.713">   * &lt;p&gt;</a>
-<span class="sourceLineNo">714</span><a id="line.714">   * Intended for tangible goods only, not virtual or subscriptions.</a>
-<span class="sourceLineNo">715</span><a id="line.715">   *</a>
-<span class="sourceLineNo">716</span><a id="line.716">   * &lt;p&gt;</a>
-<span class="sourceLineNo">717</span><a id="line.717">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">718</span><a id="line.718">   *</a>
-<span class="sourceLineNo">719</span><a id="line.719">   * &lt;p&gt;</a>
-<span class="sourceLineNo">720</span><a id="line.720">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">721</span><a id="line.721">   */</a>
-<span class="sourceLineNo">722</span><a id="line.722">  @GraphAPI(since = "2.6")</a>
-<span class="sourceLineNo">723</span><a id="line.723">  PAGES_MESSAGING_PAYMENTS("pages_messaging_payments", Category.MESSAGING),</a>
-<span class="sourceLineNo">724</span><a id="line.724"></a>
-<span class="sourceLineNo">725</span><a id="line.725">  // Instagram Platform permissions</a>
+<span class="sourceLineNo">678</span><a id="line.678">   * Allowed Usage</a>
+<span class="sourceLineNo">679</span><a id="line.679">   *</a>
+<span class="sourceLineNo">680</span><a id="line.680">   * Display a game interface in the user's preferred language.</a>
+<span class="sourceLineNo">681</span><a id="line.681">   */</a>
+<span class="sourceLineNo">682</span><a id="line.682">  GAMING_USER_LOCALE("gaming_user_locale", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">683</span><a id="line.683"></a>
+<span class="sourceLineNo">684</span><a id="line.684">  /**</a>
+<span class="sourceLineNo">685</span><a id="line.685">   * Grants your app permission to retrieve all the information captured within a</a>
+<span class="sourceLineNo">686</span><a id="line.686">   * &lt;a href="https://developers.facebook.com/docs/marketing-api/guides/lead-ads/"&gt;lead.&lt;/a&gt;</a>
+<span class="sourceLineNo">687</span><a id="line.687">   *</a>
+<span class="sourceLineNo">688</span><a id="line.688">   * &lt;p&gt;</a>
+<span class="sourceLineNo">689</span><a id="line.689">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">690</span><a id="line.690">   *</a>
+<span class="sourceLineNo">691</span><a id="line.691">   * &lt;p&gt;</a>
+<span class="sourceLineNo">692</span><a id="line.692">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">693</span><a id="line.693">   */</a>
+<span class="sourceLineNo">694</span><a id="line.694">  @GraphAPI(since = "3.1")</a>
+<span class="sourceLineNo">695</span><a id="line.695">  LEADS_RETRIEVAL("leads_retrieval", Category.EVENTS_GROUPS_PAGES), //</a>
+<span class="sourceLineNo">696</span><a id="line.696"></a>
+<span class="sourceLineNo">697</span><a id="line.697">  /**</a>
+<span class="sourceLineNo">698</span><a id="line.698">   * This allows you to send and receive messages through a Facebook Page out of the 24h window opened by a user action.</a>
+<span class="sourceLineNo">699</span><a id="line.699">   *</a>
+<span class="sourceLineNo">700</span><a id="line.700">   * &lt;p&gt;</a>
+<span class="sourceLineNo">701</span><a id="line.701">   * This permission cannot be used to send promotional or advertising content.</a>
+<span class="sourceLineNo">702</span><a id="line.702">   *</a>
+<span class="sourceLineNo">703</span><a id="line.703">   * &lt;p&gt;</a>
+<span class="sourceLineNo">704</span><a id="line.704">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">705</span><a id="line.705">   *</a>
+<span class="sourceLineNo">706</span><a id="line.706">   * &lt;p&gt;</a>
+<span class="sourceLineNo">707</span><a id="line.707">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">708</span><a id="line.708">   */</a>
+<span class="sourceLineNo">709</span><a id="line.709">  @GraphAPI(since = "2.6")</a>
+<span class="sourceLineNo">710</span><a id="line.710">  PAGES_MESSAGING_SUBSCRIPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //</a>
+<span class="sourceLineNo">711</span><a id="line.711"></a>
+<span class="sourceLineNo">712</span><a id="line.712">  /**</a>
+<span class="sourceLineNo">713</span><a id="line.713">   * This allows you to charge users in Messenger conversations on behalf of pages.</a>
+<span class="sourceLineNo">714</span><a id="line.714">   *</a>
+<span class="sourceLineNo">715</span><a id="line.715">   * &lt;p&gt;</a>
+<span class="sourceLineNo">716</span><a id="line.716">   * Intended for tangible goods only, not virtual or subscriptions.</a>
+<span class="sourceLineNo">717</span><a id="line.717">   *</a>
+<span class="sourceLineNo">718</span><a id="line.718">   * &lt;p&gt;</a>
+<span class="sourceLineNo">719</span><a id="line.719">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">720</span><a id="line.720">   *</a>
+<span class="sourceLineNo">721</span><a id="line.721">   * &lt;p&gt;</a>
+<span class="sourceLineNo">722</span><a id="line.722">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">723</span><a id="line.723">   */</a>
+<span class="sourceLineNo">724</span><a id="line.724">  @GraphAPI(since = "2.6")</a>
+<span class="sourceLineNo">725</span><a id="line.725">  PAGES_MESSAGING_PAYMENTS("pages_messaging_payments", Category.MESSAGING),</a>
 <span class="sourceLineNo">726</span><a id="line.726"></a>
-<span class="sourceLineNo">727</span><a id="line.727">  /**</a>
-<span class="sourceLineNo">728</span><a id="line.728">   * Provides the ability to read Instagram accounts you have access to.</a>
-<span class="sourceLineNo">729</span><a id="line.729">   *</a>
-<span class="sourceLineNo">730</span><a id="line.730">   * &lt;p&gt;</a>
-<span class="sourceLineNo">731</span><a id="line.731">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
-<span class="sourceLineNo">732</span><a id="line.732">   * Guide&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">733</span><a id="line.733">   *</a>
-<span class="sourceLineNo">734</span><a id="line.734">   * &lt;p&gt;</a>
-<span class="sourceLineNo">735</span><a id="line.735">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">736</span><a id="line.736">   *</a>
-<span class="sourceLineNo">737</span><a id="line.737">   * &lt;p&gt;</a>
-<span class="sourceLineNo">738</span><a id="line.738">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">739</span><a id="line.739">   */</a>
-<span class="sourceLineNo">740</span><a id="line.740">  @GraphAPI(since = "2.5")</a>
-<span class="sourceLineNo">741</span><a id="line.741">  INSTAGRAM_BASIC("instagram_basic", Category.INSTAGRAM),</a>
-<span class="sourceLineNo">742</span><a id="line.742"></a>
-<span class="sourceLineNo">743</span><a id="line.743">  /**</a>
-<span class="sourceLineNo">744</span><a id="line.744">   * Provides the ability to read Instagram accounts you have access to.</a>
-<span class="sourceLineNo">745</span><a id="line.745">   *</a>
-<span class="sourceLineNo">746</span><a id="line.746">   * &lt;p&gt;</a>
-<span class="sourceLineNo">747</span><a id="line.747">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
-<span class="sourceLineNo">748</span><a id="line.748">   * Guide&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">749</span><a id="line.749">   *</a>
-<span class="sourceLineNo">750</span><a id="line.750">   * &lt;p&gt;</a>
-<span class="sourceLineNo">751</span><a id="line.751">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">752</span><a id="line.752">   *</a>
-<span class="sourceLineNo">753</span><a id="line.753">   * &lt;p&gt;</a>
-<span class="sourceLineNo">754</span><a id="line.754">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">755</span><a id="line.755">   */</a>
-<span class="sourceLineNo">756</span><a id="line.756">  @GraphAPI(since = "2.5")</a>
-<span class="sourceLineNo">757</span><a id="line.757">  INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),</a>
-<span class="sourceLineNo">758</span><a id="line.758"></a>
-<span class="sourceLineNo">759</span><a id="line.759">  /**</a>
-<span class="sourceLineNo">760</span><a id="line.760">   * Provides the ability to read insights of Instagram account you have access to.</a>
-<span class="sourceLineNo">761</span><a id="line.761">   *</a>
-<span class="sourceLineNo">762</span><a id="line.762">   * &lt;p&gt;</a>
-<span class="sourceLineNo">763</span><a id="line.763">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
-<span class="sourceLineNo">764</span><a id="line.764">   * Guide&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">765</span><a id="line.765">   *</a>
-<span class="sourceLineNo">766</span><a id="line.766">   * &lt;p&gt;</a>
-<span class="sourceLineNo">767</span><a id="line.767">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">768</span><a id="line.768">   *</a>
-<span class="sourceLineNo">769</span><a id="line.769">   * &lt;p&gt;</a>
-<span class="sourceLineNo">770</span><a id="line.770">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">771</span><a id="line.771">   */</a>
-<span class="sourceLineNo">772</span><a id="line.772">  @GraphAPI(since = "2.5")</a>
-<span class="sourceLineNo">773</span><a id="line.773">  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),</a>
-<span class="sourceLineNo">774</span><a id="line.774"></a>
-<span class="sourceLineNo">775</span><a id="line.775">  /**</a>
-<span class="sourceLineNo">776</span><a id="line.776">   * The instagram_manage_messages permission allows business users to read and respond to Instagram Direct messages.</a>
-<span class="sourceLineNo">777</span><a id="line.777">   * </a>
-<span class="sourceLineNo">778</span><a id="line.778">   * &lt;p&gt;</a>
-<span class="sourceLineNo">779</span><a id="line.779">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
-<span class="sourceLineNo">780</span><a id="line.780">   * Guide&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">781</span><a id="line.781">   * </a>
-<span class="sourceLineNo">782</span><a id="line.782">   * &lt;p&gt;</a>
-<span class="sourceLineNo">783</span><a id="line.783">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">784</span><a id="line.784">   * </a>
-<span class="sourceLineNo">785</span><a id="line.785">   * &lt;p&gt;</a>
-<span class="sourceLineNo">786</span><a id="line.786">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">787</span><a id="line.787">   */</a>
-<span class="sourceLineNo">788</span><a id="line.788">  INSTAGRAM_MANAGE_MESSAGES("instagram_manage_messages", Category.INSTAGRAM),</a>
-<span class="sourceLineNo">789</span><a id="line.789"></a>
-<span class="sourceLineNo">790</span><a id="line.790">  /**</a>
-<span class="sourceLineNo">791</span><a id="line.791">   * Provides the ability to publish content to Instagram account you have access to.</a>
-<span class="sourceLineNo">792</span><a id="line.792">   *</a>
-<span class="sourceLineNo">793</span><a id="line.793">   * &lt;p&gt;</a>
-<span class="sourceLineNo">794</span><a id="line.794">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/reference/user/media_publish"&gt;Instagram's</a>
-<span class="sourceLineNo">795</span><a id="line.795">   * reference&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">796</span><a id="line.796">   *</a>
-<span class="sourceLineNo">797</span><a id="line.797">   * &lt;p&gt;</a>
-<span class="sourceLineNo">798</span><a id="line.798">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">799</span><a id="line.799">   *</a>
-<span class="sourceLineNo">800</span><a id="line.800">   * &lt;p&gt;</a>
-<span class="sourceLineNo">801</span><a id="line.801">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">802</span><a id="line.802">   */</a>
-<span class="sourceLineNo">803</span><a id="line.803">  @GraphAPI(since = "2.5")</a>
-<span class="sourceLineNo">804</span><a id="line.804">  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM), //</a>
-<span class="sourceLineNo">805</span><a id="line.805"></a>
-<span class="sourceLineNo">806</span><a id="line.806">  /**</a>
-<span class="sourceLineNo">807</span><a id="line.807">   * The instagram_graph_user_media permission allows your app to read the Media node, which represents an image, video,</a>
-<span class="sourceLineNo">808</span><a id="line.808">   * or album and the node’s edges.</a>
-<span class="sourceLineNo">809</span><a id="line.809">   * </a>
-<span class="sourceLineNo">810</span><a id="line.810">   * &lt;p&gt;</a>
-<span class="sourceLineNo">811</span><a id="line.811">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">812</span><a id="line.812">   *</a>
-<span class="sourceLineNo">813</span><a id="line.813">   * &lt;p&gt;</a>
-<span class="sourceLineNo">814</span><a id="line.814">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">815</span><a id="line.815">   */</a>
-<span class="sourceLineNo">816</span><a id="line.816">  INSTAGRAM_GRAPH_USER_MEDIA("instagram_graph_user_media", Category.INSTAGRAM), //</a>
-<span class="sourceLineNo">817</span><a id="line.817"></a>
-<span class="sourceLineNo">818</span><a id="line.818">  /**</a>
-<span class="sourceLineNo">819</span><a id="line.819">   * The instagram_graph_user_profile permission allows your app to read the app user's profile.</a>
-<span class="sourceLineNo">820</span><a id="line.820">   *</a>
-<span class="sourceLineNo">821</span><a id="line.821">   * &lt;p&gt;</a>
-<span class="sourceLineNo">822</span><a id="line.822">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">823</span><a id="line.823">   *</a>
-<span class="sourceLineNo">824</span><a id="line.824">   * &lt;p&gt;</a>
-<span class="sourceLineNo">825</span><a id="line.825">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">826</span><a id="line.826">   */</a>
-<span class="sourceLineNo">827</span><a id="line.827">  INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //</a>
-<span class="sourceLineNo">828</span><a id="line.828"></a>
-<span class="sourceLineNo">829</span><a id="line.829">  /**</a>
-<span class="sourceLineNo">830</span><a id="line.830">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</a>
-<span class="sourceLineNo">831</span><a id="line.831">   * businesses through this permission.</a>
-<span class="sourceLineNo">832</span><a id="line.832">   *</a>
-<span class="sourceLineNo">833</span><a id="line.833">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</a>
+<span class="sourceLineNo">727</span><a id="line.727">  // Instagram Platform permissions</a>
+<span class="sourceLineNo">728</span><a id="line.728"></a>
+<span class="sourceLineNo">729</span><a id="line.729">  /**</a>
+<span class="sourceLineNo">730</span><a id="line.730">   * Provides the ability to read Instagram accounts you have access to.</a>
+<span class="sourceLineNo">731</span><a id="line.731">   *</a>
+<span class="sourceLineNo">732</span><a id="line.732">   * &lt;p&gt;</a>
+<span class="sourceLineNo">733</span><a id="line.733">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
+<span class="sourceLineNo">734</span><a id="line.734">   * Guide&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">735</span><a id="line.735">   *</a>
+<span class="sourceLineNo">736</span><a id="line.736">   * &lt;p&gt;</a>
+<span class="sourceLineNo">737</span><a id="line.737">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">738</span><a id="line.738">   *</a>
+<span class="sourceLineNo">739</span><a id="line.739">   * &lt;p&gt;</a>
+<span class="sourceLineNo">740</span><a id="line.740">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">741</span><a id="line.741">   */</a>
+<span class="sourceLineNo">742</span><a id="line.742">  @GraphAPI(since = "2.5")</a>
+<span class="sourceLineNo">743</span><a id="line.743">  INSTAGRAM_BASIC("instagram_basic", Category.INSTAGRAM),</a>
+<span class="sourceLineNo">744</span><a id="line.744"></a>
+<span class="sourceLineNo">745</span><a id="line.745">  /**</a>
+<span class="sourceLineNo">746</span><a id="line.746">   * Provides the ability to read Instagram accounts you have access to.</a>
+<span class="sourceLineNo">747</span><a id="line.747">   *</a>
+<span class="sourceLineNo">748</span><a id="line.748">   * &lt;p&gt;</a>
+<span class="sourceLineNo">749</span><a id="line.749">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
+<span class="sourceLineNo">750</span><a id="line.750">   * Guide&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">751</span><a id="line.751">   *</a>
+<span class="sourceLineNo">752</span><a id="line.752">   * &lt;p&gt;</a>
+<span class="sourceLineNo">753</span><a id="line.753">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">754</span><a id="line.754">   *</a>
+<span class="sourceLineNo">755</span><a id="line.755">   * &lt;p&gt;</a>
+<span class="sourceLineNo">756</span><a id="line.756">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">757</span><a id="line.757">   */</a>
+<span class="sourceLineNo">758</span><a id="line.758">  @GraphAPI(since = "2.5")</a>
+<span class="sourceLineNo">759</span><a id="line.759">  INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),</a>
+<span class="sourceLineNo">760</span><a id="line.760"></a>
+<span class="sourceLineNo">761</span><a id="line.761">  /**</a>
+<span class="sourceLineNo">762</span><a id="line.762">   * Provides the ability to read insights of Instagram account you have access to.</a>
+<span class="sourceLineNo">763</span><a id="line.763">   *</a>
+<span class="sourceLineNo">764</span><a id="line.764">   * &lt;p&gt;</a>
+<span class="sourceLineNo">765</span><a id="line.765">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
+<span class="sourceLineNo">766</span><a id="line.766">   * Guide&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">767</span><a id="line.767">   *</a>
+<span class="sourceLineNo">768</span><a id="line.768">   * &lt;p&gt;</a>
+<span class="sourceLineNo">769</span><a id="line.769">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">770</span><a id="line.770">   *</a>
+<span class="sourceLineNo">771</span><a id="line.771">   * &lt;p&gt;</a>
+<span class="sourceLineNo">772</span><a id="line.772">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">773</span><a id="line.773">   */</a>
+<span class="sourceLineNo">774</span><a id="line.774">  @GraphAPI(since = "2.5")</a>
+<span class="sourceLineNo">775</span><a id="line.775">  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),</a>
+<span class="sourceLineNo">776</span><a id="line.776"></a>
+<span class="sourceLineNo">777</span><a id="line.777">  /**</a>
+<span class="sourceLineNo">778</span><a id="line.778">   * The instagram_manage_messages permission allows business users to read and respond to Instagram Direct messages.</a>
+<span class="sourceLineNo">779</span><a id="line.779">   * </a>
+<span class="sourceLineNo">780</span><a id="line.780">   * &lt;p&gt;</a>
+<span class="sourceLineNo">781</span><a id="line.781">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/getting-started"&gt;Instagram's Getting Started</a>
+<span class="sourceLineNo">782</span><a id="line.782">   * Guide&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">783</span><a id="line.783">   * </a>
+<span class="sourceLineNo">784</span><a id="line.784">   * &lt;p&gt;</a>
+<span class="sourceLineNo">785</span><a id="line.785">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">786</span><a id="line.786">   * </a>
+<span class="sourceLineNo">787</span><a id="line.787">   * &lt;p&gt;</a>
+<span class="sourceLineNo">788</span><a id="line.788">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">789</span><a id="line.789">   */</a>
+<span class="sourceLineNo">790</span><a id="line.790">  INSTAGRAM_MANAGE_MESSAGES("instagram_manage_messages", Category.INSTAGRAM),</a>
+<span class="sourceLineNo">791</span><a id="line.791"></a>
+<span class="sourceLineNo">792</span><a id="line.792">  /**</a>
+<span class="sourceLineNo">793</span><a id="line.793">   * Provides the ability to publish content to Instagram account you have access to.</a>
+<span class="sourceLineNo">794</span><a id="line.794">   *</a>
+<span class="sourceLineNo">795</span><a id="line.795">   * &lt;p&gt;</a>
+<span class="sourceLineNo">796</span><a id="line.796">   * Please see &lt;a href="https://developers.facebook.com/docs/instagram-api/reference/user/media_publish"&gt;Instagram's</a>
+<span class="sourceLineNo">797</span><a id="line.797">   * reference&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">798</span><a id="line.798">   *</a>
+<span class="sourceLineNo">799</span><a id="line.799">   * &lt;p&gt;</a>
+<span class="sourceLineNo">800</span><a id="line.800">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">801</span><a id="line.801">   *</a>
+<span class="sourceLineNo">802</span><a id="line.802">   * &lt;p&gt;</a>
+<span class="sourceLineNo">803</span><a id="line.803">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">804</span><a id="line.804">   */</a>
+<span class="sourceLineNo">805</span><a id="line.805">  @GraphAPI(since = "2.5")</a>
+<span class="sourceLineNo">806</span><a id="line.806">  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM), //</a>
+<span class="sourceLineNo">807</span><a id="line.807"></a>
+<span class="sourceLineNo">808</span><a id="line.808">  /**</a>
+<span class="sourceLineNo">809</span><a id="line.809">   * The instagram_graph_user_media permission allows your app to read the Media node, which represents an image, video,</a>
+<span class="sourceLineNo">810</span><a id="line.810">   * or album and the node’s edges.</a>
+<span class="sourceLineNo">811</span><a id="line.811">   * </a>
+<span class="sourceLineNo">812</span><a id="line.812">   * &lt;p&gt;</a>
+<span class="sourceLineNo">813</span><a id="line.813">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">814</span><a id="line.814">   *</a>
+<span class="sourceLineNo">815</span><a id="line.815">   * &lt;p&gt;</a>
+<span class="sourceLineNo">816</span><a id="line.816">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">817</span><a id="line.817">   */</a>
+<span class="sourceLineNo">818</span><a id="line.818">  INSTAGRAM_GRAPH_USER_MEDIA("instagram_graph_user_media", Category.INSTAGRAM), //</a>
+<span class="sourceLineNo">819</span><a id="line.819"></a>
+<span class="sourceLineNo">820</span><a id="line.820">  /**</a>
+<span class="sourceLineNo">821</span><a id="line.821">   * The instagram_graph_user_profile permission allows your app to read the app user's profile.</a>
+<span class="sourceLineNo">822</span><a id="line.822">   *</a>
+<span class="sourceLineNo">823</span><a id="line.823">   * &lt;p&gt;</a>
+<span class="sourceLineNo">824</span><a id="line.824">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">825</span><a id="line.825">   *</a>
+<span class="sourceLineNo">826</span><a id="line.826">   * &lt;p&gt;</a>
+<span class="sourceLineNo">827</span><a id="line.827">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">828</span><a id="line.828">   */</a>
+<span class="sourceLineNo">829</span><a id="line.829">  INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //</a>
+<span class="sourceLineNo">830</span><a id="line.830"></a>
+<span class="sourceLineNo">831</span><a id="line.831">  /**</a>
+<span class="sourceLineNo">832</span><a id="line.832">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</a>
+<span class="sourceLineNo">833</span><a id="line.833">   * businesses through this permission.</a>
 <span class="sourceLineNo">834</span><a id="line.834">   *</a>
-<span class="sourceLineNo">835</span><a id="line.835">   * &lt;p&gt;</a>
-<span class="sourceLineNo">836</span><a id="line.836">   * Please see &lt;a href=</a>
-<span class="sourceLineNo">837</span><a id="line.837">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</a>
-<span class="sourceLineNo">838</span><a id="line.838">   * reference&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">839</span><a id="line.839">   *</a>
-<span class="sourceLineNo">840</span><a id="line.840">   * &lt;p&gt;</a>
-<span class="sourceLineNo">841</span><a id="line.841">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">842</span><a id="line.842">   *</a>
-<span class="sourceLineNo">843</span><a id="line.843">   * &lt;p&gt;</a>
-<span class="sourceLineNo">844</span><a id="line.844">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">845</span><a id="line.845">   */</a>
-<span class="sourceLineNo">846</span><a id="line.846">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),</a>
-<span class="sourceLineNo">847</span><a id="line.847"></a>
-<span class="sourceLineNo">848</span><a id="line.848">  /**</a>
-<span class="sourceLineNo">849</span><a id="line.849">   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,</a>
-<span class="sourceLineNo">850</span><a id="line.850">   * upload and retrieve media from messages, manage and get WhatsApp business profile information, and to register</a>
-<span class="sourceLineNo">851</span><a id="line.851">   * those phone numbers with Meta.</a>
-<span class="sourceLineNo">852</span><a id="line.852">   *</a>
-<span class="sourceLineNo">853</span><a id="line.853">   * &lt;p&gt;</a>
-<span class="sourceLineNo">854</span><a id="line.854">   * Please see</a>
-<span class="sourceLineNo">855</span><a id="line.855">   * &lt;a href= "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging"&gt;Whatsapps's</a>
-<span class="sourceLineNo">856</span><a id="line.856">   * reference&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">857</span><a id="line.857">   *</a>
-<span class="sourceLineNo">858</span><a id="line.858">   * &lt;p&gt;</a>
-<span class="sourceLineNo">859</span><a id="line.859">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">860</span><a id="line.860">   *</a>
-<span class="sourceLineNo">861</span><a id="line.861">   * &lt;p&gt;</a>
-<span class="sourceLineNo">862</span><a id="line.862">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">863</span><a id="line.863">   */</a>
-<span class="sourceLineNo">864</span><a id="line.864">  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP);</a>
-<span class="sourceLineNo">865</span><a id="line.865"></a>
-<span class="sourceLineNo">866</span><a id="line.866">  private final String permissionString;</a>
+<span class="sourceLineNo">835</span><a id="line.835">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</a>
+<span class="sourceLineNo">836</span><a id="line.836">   *</a>
+<span class="sourceLineNo">837</span><a id="line.837">   * &lt;p&gt;</a>
+<span class="sourceLineNo">838</span><a id="line.838">   * Please see &lt;a href=</a>
+<span class="sourceLineNo">839</span><a id="line.839">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</a>
+<span class="sourceLineNo">840</span><a id="line.840">   * reference&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">841</span><a id="line.841">   *</a>
+<span class="sourceLineNo">842</span><a id="line.842">   * &lt;p&gt;</a>
+<span class="sourceLineNo">843</span><a id="line.843">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">844</span><a id="line.844">   *</a>
+<span class="sourceLineNo">845</span><a id="line.845">   * &lt;p&gt;</a>
+<span class="sourceLineNo">846</span><a id="line.846">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">847</span><a id="line.847">   */</a>
+<span class="sourceLineNo">848</span><a id="line.848">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),</a>
+<span class="sourceLineNo">849</span><a id="line.849"></a>
+<span class="sourceLineNo">850</span><a id="line.850">  /**</a>
+<span class="sourceLineNo">851</span><a id="line.851">   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,</a>
+<span class="sourceLineNo">852</span><a id="line.852">   * upload and retrieve media from messages, manage and get WhatsApp business profile information, and to register</a>
+<span class="sourceLineNo">853</span><a id="line.853">   * those phone numbers with Meta.</a>
+<span class="sourceLineNo">854</span><a id="line.854">   *</a>
+<span class="sourceLineNo">855</span><a id="line.855">   * &lt;p&gt;</a>
+<span class="sourceLineNo">856</span><a id="line.856">   * Please see</a>
+<span class="sourceLineNo">857</span><a id="line.857">   * &lt;a href= "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging"&gt;Whatsapps's</a>
+<span class="sourceLineNo">858</span><a id="line.858">   * reference&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">859</span><a id="line.859">   *</a>
+<span class="sourceLineNo">860</span><a id="line.860">   * &lt;p&gt;</a>
+<span class="sourceLineNo">861</span><a id="line.861">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">862</span><a id="line.862">   *</a>
+<span class="sourceLineNo">863</span><a id="line.863">   * &lt;p&gt;</a>
+<span class="sourceLineNo">864</span><a id="line.864">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">865</span><a id="line.865">   */</a>
+<span class="sourceLineNo">866</span><a id="line.866">  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),</a>
 <span class="sourceLineNo">867</span><a id="line.867"></a>
-<span class="sourceLineNo">868</span><a id="line.868">  private final Category category;</a>
-<span class="sourceLineNo">869</span><a id="line.869"></a>
-<span class="sourceLineNo">870</span><a id="line.870">  FacebookPermissions(String facebookPermissionString, Category category) {</a>
-<span class="sourceLineNo">871</span><a id="line.871">    this.permissionString = facebookPermissionString;</a>
-<span class="sourceLineNo">872</span><a id="line.872">    this.category = category;</a>
-<span class="sourceLineNo">873</span><a id="line.873">  }</a>
-<span class="sourceLineNo">874</span><a id="line.874"></a>
-<span class="sourceLineNo">875</span><a id="line.875">  public String getPermissionString() {</a>
-<span class="sourceLineNo">876</span><a id="line.876">    return this.permissionString;</a>
-<span class="sourceLineNo">877</span><a id="line.877">  }</a>
+<span class="sourceLineNo">868</span><a id="line.868">  /**</a>
+<span class="sourceLineNo">869</span><a id="line.869">   * Required for making any calls to all Threads API endpoints</a>
+<span class="sourceLineNo">870</span><a id="line.870">   *</a>
+<span class="sourceLineNo">871</span><a id="line.871">   * &lt;p&gt;</a>
+<span class="sourceLineNo">872</span><a id="line.872">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">873</span><a id="line.873">   *</a>
+<span class="sourceLineNo">874</span><a id="line.874">   * &lt;p&gt;</a>
+<span class="sourceLineNo">875</span><a id="line.875">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">876</span><a id="line.876">   */</a>
+<span class="sourceLineNo">877</span><a id="line.877">  THREADS_BASIC("threads_basic", Category.THREADS),</a>
 <span class="sourceLineNo">878</span><a id="line.878"></a>
-<span class="sourceLineNo">879</span><a id="line.879">  public Category getCategory() {</a>
-<span class="sourceLineNo">880</span><a id="line.880">    return this.category;</a>
-<span class="sourceLineNo">881</span><a id="line.881">  }</a>
-<span class="sourceLineNo">882</span><a id="line.882"></a>
-<span class="sourceLineNo">883</span><a id="line.883">  public enum Category {</a>
-<span class="sourceLineNo">884</span><a id="line.884">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP</a>
-<span class="sourceLineNo">885</span><a id="line.885">  }</a>
-<span class="sourceLineNo">886</span><a id="line.886">}</a>
+<span class="sourceLineNo">879</span><a id="line.879">  /**</a>
+<span class="sourceLineNo">880</span><a id="line.880">   * Required for Threads publishing endpoints only</a>
+<span class="sourceLineNo">881</span><a id="line.881">   *</a>
+<span class="sourceLineNo">882</span><a id="line.882">   * &lt;p&gt;</a>
+<span class="sourceLineNo">883</span><a id="line.883">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">884</span><a id="line.884">   *</a>
+<span class="sourceLineNo">885</span><a id="line.885">   * &lt;p&gt;</a>
+<span class="sourceLineNo">886</span><a id="line.886">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">887</span><a id="line.887">   */</a>
+<span class="sourceLineNo">888</span><a id="line.888">  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),</a>
+<span class="sourceLineNo">889</span><a id="line.889"></a>
+<span class="sourceLineNo">890</span><a id="line.890">  /**</a>
+<span class="sourceLineNo">891</span><a id="line.891">   * Required for making GET calls to insights endpoints</a>
+<span class="sourceLineNo">892</span><a id="line.892">   *</a>
+<span class="sourceLineNo">893</span><a id="line.893">   * &lt;p&gt;</a>
+<span class="sourceLineNo">894</span><a id="line.894">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">895</span><a id="line.895">   *</a>
+<span class="sourceLineNo">896</span><a id="line.896">   * &lt;p&gt;</a>
+<span class="sourceLineNo">897</span><a id="line.897">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">898</span><a id="line.898">   */</a>
+<span class="sourceLineNo">899</span><a id="line.899">  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),</a>
+<span class="sourceLineNo">900</span><a id="line.900"></a>
+<span class="sourceLineNo">901</span><a id="line.901">  /**</a>
+<span class="sourceLineNo">902</span><a id="line.902">   * Required for making POST calls to reply endpoints</a>
+<span class="sourceLineNo">903</span><a id="line.903">   *</a>
+<span class="sourceLineNo">904</span><a id="line.904">   * &lt;p&gt;</a>
+<span class="sourceLineNo">905</span><a id="line.905">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">906</span><a id="line.906">   *</a>
+<span class="sourceLineNo">907</span><a id="line.907">   * &lt;p&gt;</a>
+<span class="sourceLineNo">908</span><a id="line.908">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">909</span><a id="line.909">   */</a>
+<span class="sourceLineNo">910</span><a id="line.910">  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),</a>
+<span class="sourceLineNo">911</span><a id="line.911"></a>
+<span class="sourceLineNo">912</span><a id="line.912">  /**</a>
+<span class="sourceLineNo">913</span><a id="line.913">   * Required for making GET calls to reply endpoints</a>
+<span class="sourceLineNo">914</span><a id="line.914">   *</a>
+<span class="sourceLineNo">915</span><a id="line.915">   * &lt;p&gt;</a>
+<span class="sourceLineNo">916</span><a id="line.916">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">917</span><a id="line.917">   *</a>
+<span class="sourceLineNo">918</span><a id="line.918">   * &lt;p&gt;</a>
+<span class="sourceLineNo">919</span><a id="line.919">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">920</span><a id="line.920">   */</a>
+<span class="sourceLineNo">921</span><a id="line.921">  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS);</a>
+<span class="sourceLineNo">922</span><a id="line.922"></a>
+<span class="sourceLineNo">923</span><a id="line.923">  private final String permissionString;</a>
+<span class="sourceLineNo">924</span><a id="line.924"></a>
+<span class="sourceLineNo">925</span><a id="line.925">  private final Category category;</a>
+<span class="sourceLineNo">926</span><a id="line.926"></a>
+<span class="sourceLineNo">927</span><a id="line.927">  FacebookPermissions(String facebookPermissionString, Category category) {</a>
+<span class="sourceLineNo">928</span><a id="line.928">    this.permissionString = facebookPermissionString;</a>
+<span class="sourceLineNo">929</span><a id="line.929">    this.category = category;</a>
+<span class="sourceLineNo">930</span><a id="line.930">  }</a>
+<span class="sourceLineNo">931</span><a id="line.931"></a>
+<span class="sourceLineNo">932</span><a id="line.932">  public String getPermissionString() {</a>
+<span class="sourceLineNo">933</span><a id="line.933">    return this.permissionString;</a>
+<span class="sourceLineNo">934</span><a id="line.934">  }</a>
+<span class="sourceLineNo">935</span><a id="line.935"></a>
+<span class="sourceLineNo">936</span><a id="line.936">  public Category getCategory() {</a>
+<span class="sourceLineNo">937</span><a id="line.937">    return this.category;</a>
+<span class="sourceLineNo">938</span><a id="line.938">  }</a>
+<span class="sourceLineNo">939</span><a id="line.939"></a>
+<span class="sourceLineNo">940</span><a id="line.940">  public enum Category {</a>
+<span class="sourceLineNo">941</span><a id="line.941">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP, THREADS</a>
+<span class="sourceLineNo">942</span><a id="line.942">  }</a>
+<span class="sourceLineNo">943</span><a id="line.943">}</a>
 
 
 

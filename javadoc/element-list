@@ -16,6 +16,7 @@ com.restfb.types.send
 com.restfb.types.send.airline
 com.restfb.types.send.buybutton
 com.restfb.types.send.media
+com.restfb.types.threads
 com.restfb.types.webhook
 com.restfb.types.webhook.base
 com.restfb.types.webhook.instagram
