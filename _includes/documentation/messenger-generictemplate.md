@@ -26,8 +26,8 @@ Bubble secondBubble = new Bubble("Title of second bubble");
 PostbackButton postbackButton = new PostbackButton("EXAMPLE TITLE", "POSTBACK_STRING");
 secondBubble.addButton(postbackButton);
 
-payload.add(firstBubble);
-payload.add(secondBubble);
+payload.addBubble(firstBubble);
+payload.addBubble(secondBubble);
 
 TemplateAttachment templateAttachment = new TemplateAttachment(payload);
 Message imageMessage = new Message(templateAttachment);
