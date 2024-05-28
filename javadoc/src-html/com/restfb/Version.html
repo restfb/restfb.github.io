@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="de">
+<html lang="en">
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
@@ -111,52 +111,59 @@
 <span class="sourceLineNo">102</span><a id="line.102">  VERSION_18_0("v18.0"),</a>
 <span class="sourceLineNo">103</span><a id="line.103"></a>
 <span class="sourceLineNo">104</span><a id="line.104">  /**</a>
-<span class="sourceLineNo">105</span><a id="line.105">   * &lt;tt&gt;Graph API 19.0&lt;/tt&gt;, available at least until January 2026</a>
+<span class="sourceLineNo">105</span><a id="line.105">   * &lt;tt&gt;Graph API 19.0&lt;/tt&gt;, available at least until May 21, 2026</a>
 <span class="sourceLineNo">106</span><a id="line.106">   *</a>
 <span class="sourceLineNo">107</span><a id="line.107">   * @since January 23, 2024</a>
 <span class="sourceLineNo">108</span><a id="line.108">   */</a>
 <span class="sourceLineNo">109</span><a id="line.109">  VERSION_19_0("v19.0"),</a>
 <span class="sourceLineNo">110</span><a id="line.110"></a>
 <span class="sourceLineNo">111</span><a id="line.111">  /**</a>
-<span class="sourceLineNo">112</span><a id="line.112">   * convenience enum to provide simple access to the latest supported Graph API Version.</a>
-<span class="sourceLineNo">113</span><a id="line.113">   * &lt;p&gt;</a>
-<span class="sourceLineNo">114</span><a id="line.114">   * the current version is &lt;tt&gt;Graph API 19.0&lt;/tt&gt;</a>
-<span class="sourceLineNo">115</span><a id="line.115">   * &lt;/p&gt;</a>
-<span class="sourceLineNo">116</span><a id="line.116">   */</a>
-<span class="sourceLineNo">117</span><a id="line.117">  LATEST("v19.0");</a>
-<span class="sourceLineNo">118</span><a id="line.118"></a>
-<span class="sourceLineNo">119</span><a id="line.119">  private final String urlElement;</a>
-<span class="sourceLineNo">120</span><a id="line.120"></a>
-<span class="sourceLineNo">121</span><a id="line.121">  Version(String urlElement) {</a>
-<span class="sourceLineNo">122</span><a id="line.122">    this.urlElement = urlElement;</a>
-<span class="sourceLineNo">123</span><a id="line.123">  }</a>
-<span class="sourceLineNo">124</span><a id="line.124"></a>
-<span class="sourceLineNo">125</span><a id="line.125">  public String getUrlElement() {</a>
-<span class="sourceLineNo">126</span><a id="line.126">    return this.urlElement;</a>
-<span class="sourceLineNo">127</span><a id="line.127">  }</a>
-<span class="sourceLineNo">128</span><a id="line.128"></a>
-<span class="sourceLineNo">129</span><a id="line.129">  public boolean isUrlElementRequired() {</a>
-<span class="sourceLineNo">130</span><a id="line.130">    return null != this.urlElement;</a>
-<span class="sourceLineNo">131</span><a id="line.131">  }</a>
-<span class="sourceLineNo">132</span><a id="line.132"></a>
-<span class="sourceLineNo">133</span><a id="line.133">  /**</a>
-<span class="sourceLineNo">134</span><a id="line.134">   * converts a String (for example the url parameter) into a Version object</a>
-<span class="sourceLineNo">135</span><a id="line.135">   * </a>
-<span class="sourceLineNo">136</span><a id="line.136">   * @param urlElementStr</a>
-<span class="sourceLineNo">137</span><a id="line.137">   *          String that should</a>
-<span class="sourceLineNo">138</span><a id="line.138">   * @return the generated version</a>
-<span class="sourceLineNo">139</span><a id="line.139">   */</a>
-<span class="sourceLineNo">140</span><a id="line.140">  public static Version getVersionFromString(String urlElementStr) {</a>
-<span class="sourceLineNo">141</span><a id="line.141">    if (urlElementStr == null) {</a>
-<span class="sourceLineNo">142</span><a id="line.142">      return UNVERSIONED;</a>
-<span class="sourceLineNo">143</span><a id="line.143">    }</a>
-<span class="sourceLineNo">144</span><a id="line.144"></a>
-<span class="sourceLineNo">145</span><a id="line.145">    return Arrays.stream(Version.values())</a>
-<span class="sourceLineNo">146</span><a id="line.146">            .filter(v -&gt; urlElementStr.equals(v.getUrlElement()))</a>
-<span class="sourceLineNo">147</span><a id="line.147">            .findFirst()</a>
-<span class="sourceLineNo">148</span><a id="line.148">            .orElse(UNVERSIONED);</a>
-<span class="sourceLineNo">149</span><a id="line.149">  }</a>
-<span class="sourceLineNo">150</span><a id="line.150">}</a>
+<span class="sourceLineNo">112</span><a id="line.112">   * &lt;tt&gt;Graph API 20.0&lt;/tt&gt;, available at least until May 2026</a>
+<span class="sourceLineNo">113</span><a id="line.113">   *</a>
+<span class="sourceLineNo">114</span><a id="line.114">   * @since May 21, 2024</a>
+<span class="sourceLineNo">115</span><a id="line.115">   */</a>
+<span class="sourceLineNo">116</span><a id="line.116">  VERSION_20_ß("v20.0"),</a>
+<span class="sourceLineNo">117</span><a id="line.117"></a>
+<span class="sourceLineNo">118</span><a id="line.118">  /**</a>
+<span class="sourceLineNo">119</span><a id="line.119">   * convenience enum to provide simple access to the latest supported Graph API Version.</a>
+<span class="sourceLineNo">120</span><a id="line.120">   * &lt;p&gt;</a>
+<span class="sourceLineNo">121</span><a id="line.121">   * the current version is &lt;tt&gt;Graph API 20.0&lt;/tt&gt;</a>
+<span class="sourceLineNo">122</span><a id="line.122">   * &lt;/p&gt;</a>
+<span class="sourceLineNo">123</span><a id="line.123">   */</a>
+<span class="sourceLineNo">124</span><a id="line.124">  LATEST("v20.0");</a>
+<span class="sourceLineNo">125</span><a id="line.125"></a>
+<span class="sourceLineNo">126</span><a id="line.126">  private final String urlElement;</a>
+<span class="sourceLineNo">127</span><a id="line.127"></a>
+<span class="sourceLineNo">128</span><a id="line.128">  Version(String urlElement) {</a>
+<span class="sourceLineNo">129</span><a id="line.129">    this.urlElement = urlElement;</a>
+<span class="sourceLineNo">130</span><a id="line.130">  }</a>
+<span class="sourceLineNo">131</span><a id="line.131"></a>
+<span class="sourceLineNo">132</span><a id="line.132">  public String getUrlElement() {</a>
+<span class="sourceLineNo">133</span><a id="line.133">    return this.urlElement;</a>
+<span class="sourceLineNo">134</span><a id="line.134">  }</a>
+<span class="sourceLineNo">135</span><a id="line.135"></a>
+<span class="sourceLineNo">136</span><a id="line.136">  public boolean isUrlElementRequired() {</a>
+<span class="sourceLineNo">137</span><a id="line.137">    return null != this.urlElement;</a>
+<span class="sourceLineNo">138</span><a id="line.138">  }</a>
+<span class="sourceLineNo">139</span><a id="line.139"></a>
+<span class="sourceLineNo">140</span><a id="line.140">  /**</a>
+<span class="sourceLineNo">141</span><a id="line.141">   * converts a String (for example the url parameter) into a Version object</a>
+<span class="sourceLineNo">142</span><a id="line.142">   * </a>
+<span class="sourceLineNo">143</span><a id="line.143">   * @param urlElementStr</a>
+<span class="sourceLineNo">144</span><a id="line.144">   *          String that should</a>
+<span class="sourceLineNo">145</span><a id="line.145">   * @return the generated version</a>
+<span class="sourceLineNo">146</span><a id="line.146">   */</a>
+<span class="sourceLineNo">147</span><a id="line.147">  public static Version getVersionFromString(String urlElementStr) {</a>
+<span class="sourceLineNo">148</span><a id="line.148">    if (urlElementStr == null) {</a>
+<span class="sourceLineNo">149</span><a id="line.149">      return UNVERSIONED;</a>
+<span class="sourceLineNo">150</span><a id="line.150">    }</a>
+<span class="sourceLineNo">151</span><a id="line.151"></a>
+<span class="sourceLineNo">152</span><a id="line.152">    return Arrays.stream(Version.values())</a>
+<span class="sourceLineNo">153</span><a id="line.153">            .filter(v -&gt; urlElementStr.equals(v.getUrlElement()))</a>
+<span class="sourceLineNo">154</span><a id="line.154">            .findFirst()</a>
+<span class="sourceLineNo">155</span><a id="line.155">            .orElse(UNVERSIONED);</a>
+<span class="sourceLineNo">156</span><a id="line.156">  }</a>
+<span class="sourceLineNo">157</span><a id="line.157">}</a>
 
 
 
