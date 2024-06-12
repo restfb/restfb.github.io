@@ -87,43 +87,52 @@
 <span class="sourceLineNo">078</span><a id="line.78">    return Endpoint.INSTAGRAM.getUrl();</a>
 <span class="sourceLineNo">079</span><a id="line.79">  }</a>
 <span class="sourceLineNo">080</span><a id="line.80"></a>
-<span class="sourceLineNo">081</span><a id="line.81">  enum Endpoint {</a>
-<span class="sourceLineNo">082</span><a id="line.82">    /**</a>
-<span class="sourceLineNo">083</span><a id="line.83">     * General Facebook endpoint URL.</a>
-<span class="sourceLineNo">084</span><a id="line.84">     */</a>
-<span class="sourceLineNo">085</span><a id="line.85">    SERVER("https://www.facebook.com"),</a>
-<span class="sourceLineNo">086</span><a id="line.86"></a>
-<span class="sourceLineNo">087</span><a id="line.87">    /**</a>
-<span class="sourceLineNo">088</span><a id="line.88">     * Graph API endpoint URL.</a>
-<span class="sourceLineNo">089</span><a id="line.89">     */</a>
-<span class="sourceLineNo">090</span><a id="line.90">    GRAPH("https://graph.facebook.com"),</a>
-<span class="sourceLineNo">091</span><a id="line.91"></a>
-<span class="sourceLineNo">092</span><a id="line.92">    /**</a>
-<span class="sourceLineNo">093</span><a id="line.93">     * Video Upload API endpoint URL.</a>
-<span class="sourceLineNo">094</span><a id="line.94">     */</a>
-<span class="sourceLineNo">095</span><a id="line.95">    GRAPH_VIDEO("https://graph-video.facebook.com"),</a>
-<span class="sourceLineNo">096</span><a id="line.96"></a>
-<span class="sourceLineNo">097</span><a id="line.97">    /**</a>
-<span class="sourceLineNo">098</span><a id="line.98">     * Reels Upload endpont URL.</a>
-<span class="sourceLineNo">099</span><a id="line.99">     */</a>
-<span class="sourceLineNo">100</span><a id="line.100">    RUPLOAD("https://rupload.facebook.com/video-upload"),</a>
-<span class="sourceLineNo">101</span><a id="line.101"></a>
-<span class="sourceLineNo">102</span><a id="line.102">    /**</a>
-<span class="sourceLineNo">103</span><a id="line.103">     * Instagram Graph API endpoint URL.</a>
-<span class="sourceLineNo">104</span><a id="line.104">     */</a>
-<span class="sourceLineNo">105</span><a id="line.105">    INSTAGRAM("https://graph.instagram.com");</a>
-<span class="sourceLineNo">106</span><a id="line.106"></a>
-<span class="sourceLineNo">107</span><a id="line.107">    private String url;</a>
-<span class="sourceLineNo">108</span><a id="line.108"></a>
-<span class="sourceLineNo">109</span><a id="line.109">    Endpoint(String url) {</a>
-<span class="sourceLineNo">110</span><a id="line.110">      this.url = url;</a>
-<span class="sourceLineNo">111</span><a id="line.111">    }</a>
-<span class="sourceLineNo">112</span><a id="line.112"></a>
-<span class="sourceLineNo">113</span><a id="line.113">    public String getUrl() {</a>
-<span class="sourceLineNo">114</span><a id="line.114">      return url;</a>
-<span class="sourceLineNo">115</span><a id="line.115">    }</a>
-<span class="sourceLineNo">116</span><a id="line.116">  }</a>
-<span class="sourceLineNo">117</span><a id="line.117">}</a>
+<span class="sourceLineNo">081</span><a id="line.81">  default String getInstagramApiEndpoint() {</a>
+<span class="sourceLineNo">082</span><a id="line.82">    return Endpoint.INSTAGRAM_API.getUrl();</a>
+<span class="sourceLineNo">083</span><a id="line.83">  }</a>
+<span class="sourceLineNo">084</span><a id="line.84"></a>
+<span class="sourceLineNo">085</span><a id="line.85">  enum Endpoint {</a>
+<span class="sourceLineNo">086</span><a id="line.86">    /**</a>
+<span class="sourceLineNo">087</span><a id="line.87">     * General Facebook endpoint URL.</a>
+<span class="sourceLineNo">088</span><a id="line.88">     */</a>
+<span class="sourceLineNo">089</span><a id="line.89">    SERVER("https://www.facebook.com"),</a>
+<span class="sourceLineNo">090</span><a id="line.90"></a>
+<span class="sourceLineNo">091</span><a id="line.91">    /**</a>
+<span class="sourceLineNo">092</span><a id="line.92">     * Graph API endpoint URL.</a>
+<span class="sourceLineNo">093</span><a id="line.93">     */</a>
+<span class="sourceLineNo">094</span><a id="line.94">    GRAPH("https://graph.facebook.com"),</a>
+<span class="sourceLineNo">095</span><a id="line.95"></a>
+<span class="sourceLineNo">096</span><a id="line.96">    /**</a>
+<span class="sourceLineNo">097</span><a id="line.97">     * Video Upload API endpoint URL.</a>
+<span class="sourceLineNo">098</span><a id="line.98">     */</a>
+<span class="sourceLineNo">099</span><a id="line.99">    GRAPH_VIDEO("https://graph-video.facebook.com"),</a>
+<span class="sourceLineNo">100</span><a id="line.100"></a>
+<span class="sourceLineNo">101</span><a id="line.101">    /**</a>
+<span class="sourceLineNo">102</span><a id="line.102">     * Reels Upload endpont URL.</a>
+<span class="sourceLineNo">103</span><a id="line.103">     */</a>
+<span class="sourceLineNo">104</span><a id="line.104">    RUPLOAD("https://rupload.facebook.com/video-upload"),</a>
+<span class="sourceLineNo">105</span><a id="line.105"></a>
+<span class="sourceLineNo">106</span><a id="line.106">    /**</a>
+<span class="sourceLineNo">107</span><a id="line.107">     * Instagram Graph API endpoint URL.</a>
+<span class="sourceLineNo">108</span><a id="line.108">     */</a>
+<span class="sourceLineNo">109</span><a id="line.109">    INSTAGRAM("https://graph.instagram.com"),</a>
+<span class="sourceLineNo">110</span><a id="line.110"></a>
+<span class="sourceLineNo">111</span><a id="line.111">    /**</a>
+<span class="sourceLineNo">112</span><a id="line.112">     * Instagram API endpoint URL.</a>
+<span class="sourceLineNo">113</span><a id="line.113">     */</a>
+<span class="sourceLineNo">114</span><a id="line.114">    INSTAGRAM_API("https://api.instagram.com");</a>
+<span class="sourceLineNo">115</span><a id="line.115"></a>
+<span class="sourceLineNo">116</span><a id="line.116">    private String url;</a>
+<span class="sourceLineNo">117</span><a id="line.117"></a>
+<span class="sourceLineNo">118</span><a id="line.118">    Endpoint(String url) {</a>
+<span class="sourceLineNo">119</span><a id="line.119">      this.url = url;</a>
+<span class="sourceLineNo">120</span><a id="line.120">    }</a>
+<span class="sourceLineNo">121</span><a id="line.121"></a>
+<span class="sourceLineNo">122</span><a id="line.122">    public String getUrl() {</a>
+<span class="sourceLineNo">123</span><a id="line.123">      return url;</a>
+<span class="sourceLineNo">124</span><a id="line.124">    }</a>
+<span class="sourceLineNo">125</span><a id="line.125">  }</a>
+<span class="sourceLineNo">126</span><a id="line.126">}</a>
 
 
 
