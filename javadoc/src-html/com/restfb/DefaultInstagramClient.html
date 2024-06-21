@@ -152,10 +152,23 @@
 <span class="sourceLineNo">143</span><a id="line.143">  }</a>
 <span class="sourceLineNo">144</span><a id="line.144"></a>
 <span class="sourceLineNo">145</span><a id="line.145">  @Override</a>
-<span class="sourceLineNo">146</span><a id="line.146">  public boolean useInstagramApi() {</a>
-<span class="sourceLineNo">147</span><a id="line.147">    return true;</a>
-<span class="sourceLineNo">148</span><a id="line.148">  }</a>
-<span class="sourceLineNo">149</span><a id="line.149">}</a>
+<span class="sourceLineNo">146</span><a id="line.146">  protected String createBaseUrlForEndpoint(String apiCall, boolean hasAttachment, boolean hasReel) {</a>
+<span class="sourceLineNo">147</span><a id="line.147">    String baseUrl = getInstagramGraphEndpointUrl();</a>
+<span class="sourceLineNo">148</span><a id="line.148">    if (apiCall.startsWith("oauth")) {</a>
+<span class="sourceLineNo">149</span><a id="line.149">      baseUrl = getFacebookEndpointUrls().getInstagramApiEndpoint();</a>
+<span class="sourceLineNo">150</span><a id="line.150">    }</a>
+<span class="sourceLineNo">151</span><a id="line.151"></a>
+<span class="sourceLineNo">152</span><a id="line.152">    return baseUrl;</a>
+<span class="sourceLineNo">153</span><a id="line.153">  }</a>
+<span class="sourceLineNo">154</span><a id="line.154"></a>
+<span class="sourceLineNo">155</span><a id="line.155">  private String getInstagramGraphEndpointUrl() {</a>
+<span class="sourceLineNo">156</span><a id="line.156">    if (apiVersion.isUrlElementRequired()) {</a>
+<span class="sourceLineNo">157</span><a id="line.157">      return getFacebookEndpointUrls().getInstagramEndpoint() + '/' + apiVersion.getUrlElement();</a>
+<span class="sourceLineNo">158</span><a id="line.158">    } else {</a>
+<span class="sourceLineNo">159</span><a id="line.159">      return getFacebookEndpointUrls().getInstagramEndpoint();</a>
+<span class="sourceLineNo">160</span><a id="line.160">    }</a>
+<span class="sourceLineNo">161</span><a id="line.161">  }</a>
+<span class="sourceLineNo">162</span><a id="line.162">}</a>
 
 
 
