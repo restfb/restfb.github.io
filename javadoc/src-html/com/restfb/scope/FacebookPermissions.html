@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang>
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
@@ -923,202 +923,212 @@
 <span class="sourceLineNo">914</span><a id="line.914">   */</a>
 <span class="sourceLineNo">915</span><a id="line.915">  INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //</a>
 <span class="sourceLineNo">916</span><a id="line.916"></a>
-<span class="sourceLineNo">917</span><a id="line.917">  /**</a>
-<span class="sourceLineNo">918</span><a id="line.918">   * The user_media permission allows your app to read the Media node, which represents an image, video, or album and</a>
-<span class="sourceLineNo">919</span><a id="line.919">   * the node’s edges using the Instagram Basic Display API.</a>
-<span class="sourceLineNo">920</span><a id="line.920">   *</a>
-<span class="sourceLineNo">921</span><a id="line.921">   * &lt;p&gt;</a>
-<span class="sourceLineNo">922</span><a id="line.922">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">923</span><a id="line.923">   *</a>
-<span class="sourceLineNo">924</span><a id="line.924">   * &lt;p&gt;</a>
-<span class="sourceLineNo">925</span><a id="line.925">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">926</span><a id="line.926">   */</a>
-<span class="sourceLineNo">927</span><a id="line.927">  USER_MEDIA("user_media", Category.INSTAGRAM_BASIC_DISPLAY), //</a>
-<span class="sourceLineNo">928</span><a id="line.928"></a>
-<span class="sourceLineNo">929</span><a id="line.929">  /**</a>
-<span class="sourceLineNo">930</span><a id="line.930">   * The user_profile permission allows your app to read the app user's profile using the Instagram Basic Display API.</a>
-<span class="sourceLineNo">931</span><a id="line.931">   *</a>
-<span class="sourceLineNo">932</span><a id="line.932">   * &lt;p&gt;</a>
-<span class="sourceLineNo">933</span><a id="line.933">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">934</span><a id="line.934">   *</a>
-<span class="sourceLineNo">935</span><a id="line.935">   * &lt;p&gt;</a>
-<span class="sourceLineNo">936</span><a id="line.936">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">937</span><a id="line.937">   */</a>
-<span class="sourceLineNo">938</span><a id="line.938">  USER_PROFILE("user_profile", Category.INSTAGRAM_BASIC_DISPLAY), //</a>
-<span class="sourceLineNo">939</span><a id="line.939"></a>
-<span class="sourceLineNo">940</span><a id="line.940">  /**</a>
-<span class="sourceLineNo">941</span><a id="line.941">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</a>
-<span class="sourceLineNo">942</span><a id="line.942">   * businesses through this permission.</a>
-<span class="sourceLineNo">943</span><a id="line.943">   * &lt;p&gt;</a>
-<span class="sourceLineNo">944</span><a id="line.944">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</a>
-<span class="sourceLineNo">945</span><a id="line.945">   *</a>
-<span class="sourceLineNo">946</span><a id="line.946">   * &lt;p&gt;</a>
-<span class="sourceLineNo">947</span><a id="line.947">   * Please see &lt;a href=</a>
-<span class="sourceLineNo">948</span><a id="line.948">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</a>
-<span class="sourceLineNo">949</span><a id="line.949">   * reference&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">950</span><a id="line.950">   *</a>
-<span class="sourceLineNo">951</span><a id="line.951">   * &lt;p&gt;</a>
-<span class="sourceLineNo">952</span><a id="line.952">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">953</span><a id="line.953">   *</a>
-<span class="sourceLineNo">954</span><a id="line.954">   * &lt;p&gt;</a>
-<span class="sourceLineNo">955</span><a id="line.955">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">956</span><a id="line.956">   */</a>
-<span class="sourceLineNo">957</span><a id="line.957">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),</a>
-<span class="sourceLineNo">958</span><a id="line.958"></a>
-<span class="sourceLineNo">959</span><a id="line.959">  /**</a>
-<span class="sourceLineNo">960</span><a id="line.960">   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,</a>
-<span class="sourceLineNo">961</span><a id="line.961">   * upload and retrieve media from messages, manage and get WhatsApp business profile information, and to register</a>
-<span class="sourceLineNo">962</span><a id="line.962">   * those phone numbers with Meta.</a>
-<span class="sourceLineNo">963</span><a id="line.963">   *</a>
-<span class="sourceLineNo">964</span><a id="line.964">   * &lt;p&gt;</a>
-<span class="sourceLineNo">965</span><a id="line.965">   * Please see</a>
-<span class="sourceLineNo">966</span><a id="line.966">   * &lt;a href= "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging"&gt;Whatsapps's</a>
-<span class="sourceLineNo">967</span><a id="line.967">   * reference&lt;/a&gt; for details.</a>
-<span class="sourceLineNo">968</span><a id="line.968">   *</a>
-<span class="sourceLineNo">969</span><a id="line.969">   * &lt;p&gt;</a>
-<span class="sourceLineNo">970</span><a id="line.970">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">971</span><a id="line.971">   *</a>
-<span class="sourceLineNo">972</span><a id="line.972">   * &lt;p&gt;</a>
-<span class="sourceLineNo">973</span><a id="line.973">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">974</span><a id="line.974">   */</a>
-<span class="sourceLineNo">975</span><a id="line.975">  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),</a>
-<span class="sourceLineNo">976</span><a id="line.976"></a>
-<span class="sourceLineNo">977</span><a id="line.977">  /**</a>
-<span class="sourceLineNo">978</span><a id="line.978">   * Required for making any calls to all Threads API endpoints</a>
-<span class="sourceLineNo">979</span><a id="line.979">   *</a>
-<span class="sourceLineNo">980</span><a id="line.980">   * &lt;p&gt;</a>
-<span class="sourceLineNo">981</span><a id="line.981">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">982</span><a id="line.982">   *</a>
-<span class="sourceLineNo">983</span><a id="line.983">   * &lt;p&gt;</a>
-<span class="sourceLineNo">984</span><a id="line.984">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">985</span><a id="line.985">   */</a>
-<span class="sourceLineNo">986</span><a id="line.986">  THREADS_BASIC("threads_basic", Category.THREADS),</a>
-<span class="sourceLineNo">987</span><a id="line.987"></a>
-<span class="sourceLineNo">988</span><a id="line.988">  /**</a>
-<span class="sourceLineNo">989</span><a id="line.989">   * Required for Threads publishing endpoints only</a>
-<span class="sourceLineNo">990</span><a id="line.990">   *</a>
-<span class="sourceLineNo">991</span><a id="line.991">   * &lt;p&gt;</a>
-<span class="sourceLineNo">992</span><a id="line.992">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">993</span><a id="line.993">   *</a>
-<span class="sourceLineNo">994</span><a id="line.994">   * &lt;p&gt;</a>
-<span class="sourceLineNo">995</span><a id="line.995">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">996</span><a id="line.996">   */</a>
-<span class="sourceLineNo">997</span><a id="line.997">  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),</a>
-<span class="sourceLineNo">998</span><a id="line.998"></a>
-<span class="sourceLineNo">999</span><a id="line.999">  /**</a>
-<span class="sourceLineNo">1000</span><a id="line.1000">   * Required for making GET calls to insights endpoints</a>
-<span class="sourceLineNo">1001</span><a id="line.1001">   *</a>
-<span class="sourceLineNo">1002</span><a id="line.1002">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1003</span><a id="line.1003">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">1004</span><a id="line.1004">   *</a>
-<span class="sourceLineNo">1005</span><a id="line.1005">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1006</span><a id="line.1006">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">1007</span><a id="line.1007">   */</a>
-<span class="sourceLineNo">1008</span><a id="line.1008">  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),</a>
-<span class="sourceLineNo">1009</span><a id="line.1009"></a>
-<span class="sourceLineNo">1010</span><a id="line.1010">  /**</a>
-<span class="sourceLineNo">1011</span><a id="line.1011">   * Required for making POST calls to reply endpoints</a>
-<span class="sourceLineNo">1012</span><a id="line.1012">   *</a>
-<span class="sourceLineNo">1013</span><a id="line.1013">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1014</span><a id="line.1014">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">1015</span><a id="line.1015">   *</a>
-<span class="sourceLineNo">1016</span><a id="line.1016">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1017</span><a id="line.1017">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">1018</span><a id="line.1018">   */</a>
-<span class="sourceLineNo">1019</span><a id="line.1019">  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),</a>
-<span class="sourceLineNo">1020</span><a id="line.1020"></a>
-<span class="sourceLineNo">1021</span><a id="line.1021">  /**</a>
-<span class="sourceLineNo">1022</span><a id="line.1022">   * Required for making GET calls to reply endpoints</a>
-<span class="sourceLineNo">1023</span><a id="line.1023">   *</a>
-<span class="sourceLineNo">1024</span><a id="line.1024">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1025</span><a id="line.1025">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
-<span class="sourceLineNo">1026</span><a id="line.1026">   *</a>
-<span class="sourceLineNo">1027</span><a id="line.1027">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1028</span><a id="line.1028">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
-<span class="sourceLineNo">1029</span><a id="line.1029">   */</a>
-<span class="sourceLineNo">1030</span><a id="line.1030">  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),</a>
-<span class="sourceLineNo">1031</span><a id="line.1031"></a>
-<span class="sourceLineNo">1032</span><a id="line.1032">  /**</a>
-<span class="sourceLineNo">1033</span><a id="line.1033">   * The commerce_account manage_orders permission allows your app to read and update commerce account orders.</a>
-<span class="sourceLineNo">1034</span><a id="line.1034">   *</a>
-<span class="sourceLineNo">1035</span><a id="line.1035">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1036</span><a id="line.1036">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
-<span class="sourceLineNo">1037</span><a id="line.1037">   * &lt;ul&gt;</a>
-<span class="sourceLineNo">1038</span><a id="line.1038">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</a>
-<span class="sourceLineNo">1039</span><a id="line.1039">   * &lt;li&gt;Tech providers manage orders on behalf of their customers.&lt;/li&gt;</a>
-<span class="sourceLineNo">1040</span><a id="line.1040">   * &lt;li&gt;Access to Webhook notifications.&lt;/li&gt;</a>
-<span class="sourceLineNo">1041</span><a id="line.1041">   * &lt;/ul&gt;</a>
-<span class="sourceLineNo">1042</span><a id="line.1042">   */</a>
-<span class="sourceLineNo">1043</span><a id="line.1043">  COMMERCE_ACCOUNT_MANAGE_ORDERS("commerce_account_manage_orders", Category.COMMERCE),</a>
-<span class="sourceLineNo">1044</span><a id="line.1044"></a>
-<span class="sourceLineNo">1045</span><a id="line.1045">  /**</a>
-<span class="sourceLineNo">1046</span><a id="line.1046">   * The commerce_account_read_orders permission allows your app to read commerce account orders.</a>
-<span class="sourceLineNo">1047</span><a id="line.1047">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1048</span><a id="line.1048">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
-<span class="sourceLineNo">1049</span><a id="line.1049">   * &lt;ul&gt;</a>
-<span class="sourceLineNo">1050</span><a id="line.1050">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</a>
-<span class="sourceLineNo">1051</span><a id="line.1051">   * &lt;li&gt;Use the buyer's email address for marketing purposes only if a buyer has opted-in at checkout.&lt;/li&gt;</a>
-<span class="sourceLineNo">1052</span><a id="line.1052">   * &lt;/ul&gt;</a>
-<span class="sourceLineNo">1053</span><a id="line.1053">   */</a>
-<span class="sourceLineNo">1054</span><a id="line.1054">  COMMERCE_ACCOUNT_READ_ORDERS("commerce_account_read_orders", Category.COMMERCE),</a>
-<span class="sourceLineNo">1055</span><a id="line.1055"></a>
-<span class="sourceLineNo">1056</span><a id="line.1056">  /**</a>
-<span class="sourceLineNo">1057</span><a id="line.1057">   * The commerce_account_read_reports permission allows your app to read finance reporting data to build custom tax,</a>
-<span class="sourceLineNo">1058</span><a id="line.1058">   * cash reconciliation and reimbursement reports for a commerce account.</a>
-<span class="sourceLineNo">1059</span><a id="line.1059">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1060</span><a id="line.1060">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
-<span class="sourceLineNo">1061</span><a id="line.1061">   * &lt;ul&gt;</a>
-<span class="sourceLineNo">1062</span><a id="line.1062">   * &lt;li&gt;Read finance reporting data in your commerce account for building custom tax cash reconciliation and</a>
-<span class="sourceLineNo">1063</span><a id="line.1063">   * reimbursement reports.&lt;/li&gt;</a>
-<span class="sourceLineNo">1064</span><a id="line.1064">   * &lt;li&gt;Tech providers can run finance reports on behalf of their customers.&lt;/li&gt;</a>
-<span class="sourceLineNo">1065</span><a id="line.1065">   * &lt;/ul&gt;</a>
-<span class="sourceLineNo">1066</span><a id="line.1066">   */</a>
-<span class="sourceLineNo">1067</span><a id="line.1067">  COMMERCE_ACCOUNT_READ_REPORTS("commerce_account_read_reports", Category.COMMERCE),</a>
-<span class="sourceLineNo">1068</span><a id="line.1068"></a>
-<span class="sourceLineNo">1069</span><a id="line.1069">  /**</a>
-<span class="sourceLineNo">1070</span><a id="line.1070">   * The commerce_account_read_settings permission allows your app to read commerce account settings. Allowed Usage</a>
-<span class="sourceLineNo">1071</span><a id="line.1071">   * &lt;ul&gt;</a>
-<span class="sourceLineNo">1072</span><a id="line.1072">   * &lt;li&gt;Read basic commerce account information like connected channels, shipping options, fulfillment locations, etc.</a>
-<span class="sourceLineNo">1073</span><a id="line.1073">   * &lt;/ul&gt;</a>
-<span class="sourceLineNo">1074</span><a id="line.1074">   */</a>
-<span class="sourceLineNo">1075</span><a id="line.1075">  COMMERCE_ACCOUNT_READ_SETTINGS("commerce_account_read_settings", Category.COMMERCE),</a>
-<span class="sourceLineNo">1076</span><a id="line.1076"></a>
-<span class="sourceLineNo">1077</span><a id="line.1077">  /**</a>
-<span class="sourceLineNo">1078</span><a id="line.1078">   * The commerce_manage_accounts permission allows your app to create and manage commerce accounts, such as an</a>
-<span class="sourceLineNo">1079</span><a id="line.1079">   * ecommerce app</a>
-<span class="sourceLineNo">1080</span><a id="line.1080">   * &lt;p&gt;</a>
-<span class="sourceLineNo">1081</span><a id="line.1081">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
-<span class="sourceLineNo">1082</span><a id="line.1082">   * &lt;ul&gt;</a>
-<span class="sourceLineNo">1083</span><a id="line.1083">   * &lt;li&gt;Associate your app with your commerce account.&lt;/li&gt;</a>
-<span class="sourceLineNo">1084</span><a id="line.1084">   * &lt;li&gt;Tech providers create a commerce account on behalf of their customers.&lt;/li&gt;</a>
-<span class="sourceLineNo">1085</span><a id="line.1085">   * &lt;li&gt;Tech providers enable a new sales channel within their customer’s commerce account.&lt;/li&gt;</a>
-<span class="sourceLineNo">1086</span><a id="line.1086">   * &lt;/ul&gt;</a>
-<span class="sourceLineNo">1087</span><a id="line.1087">   */</a>
-<span class="sourceLineNo">1088</span><a id="line.1088">  COMMERCE_MANAGE_ACCOUNTS("commerce_manage_accounts", Category.COMMERCE),</a>
-<span class="sourceLineNo">1089</span><a id="line.1089"></a>
-<span class="sourceLineNo">1090</span><a id="line.1090">  ;</a>
-<span class="sourceLineNo">1091</span><a id="line.1091"></a>
-<span class="sourceLineNo">1092</span><a id="line.1092">  private final String permissionString;</a>
-<span class="sourceLineNo">1093</span><a id="line.1093"></a>
-<span class="sourceLineNo">1094</span><a id="line.1094">  private final Category category;</a>
-<span class="sourceLineNo">1095</span><a id="line.1095"></a>
-<span class="sourceLineNo">1096</span><a id="line.1096">  FacebookPermissions(String facebookPermissionString, Category category) {</a>
-<span class="sourceLineNo">1097</span><a id="line.1097">    this.permissionString = facebookPermissionString;</a>
-<span class="sourceLineNo">1098</span><a id="line.1098">    this.category = category;</a>
-<span class="sourceLineNo">1099</span><a id="line.1099">  }</a>
+<span class="sourceLineNo">917</span><a id="line.917">  INSTAGRAM_BUSINESS_BASIC("instagram_business_basic", Category.INSTAGRAM_BUSINESS), //</a>
+<span class="sourceLineNo">918</span><a id="line.918"></a>
+<span class="sourceLineNo">919</span><a id="line.919">  INSTAGRAM_BUSINESS_MANAGE_COMMENTS("instagram_business_manage_comments", Category.INSTAGRAM_BUSINESS), //</a>
+<span class="sourceLineNo">920</span><a id="line.920"></a>
+<span class="sourceLineNo">921</span><a id="line.921">  INSTAGRAM_BUSINESS_CONTENT_PUBLISH("instagram_business_content_publish", Category.INSTAGRAM_BUSINESS), //</a>
+<span class="sourceLineNo">922</span><a id="line.922"></a>
+<span class="sourceLineNo">923</span><a id="line.923">  INSTAGRAM_BUSINESS_MANAGE_MESSAGES("instagram_business_manage_messages", Category.INSTAGRAM_BUSINESS), //</a>
+<span class="sourceLineNo">924</span><a id="line.924">  /**</a>
+<span class="sourceLineNo">925</span><a id="line.925">   * The user_media permission allows your app to read the Media node, which represents an image, video, or album and</a>
+<span class="sourceLineNo">926</span><a id="line.926">   * the node’s edges using the Instagram Basic Display API.</a>
+<span class="sourceLineNo">927</span><a id="line.927">   *</a>
+<span class="sourceLineNo">928</span><a id="line.928">   * &lt;p&gt;</a>
+<span class="sourceLineNo">929</span><a id="line.929">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">930</span><a id="line.930">   *</a>
+<span class="sourceLineNo">931</span><a id="line.931">   * &lt;p&gt;</a>
+<span class="sourceLineNo">932</span><a id="line.932">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">933</span><a id="line.933">   */</a>
+<span class="sourceLineNo">934</span><a id="line.934">  USER_MEDIA("user_media", Category.INSTAGRAM_BASIC_DISPLAY), //</a>
+<span class="sourceLineNo">935</span><a id="line.935"></a>
+<span class="sourceLineNo">936</span><a id="line.936">  /**</a>
+<span class="sourceLineNo">937</span><a id="line.937">   * The user_profile permission allows your app to read the app user's profile using the Instagram Basic Display API.</a>
+<span class="sourceLineNo">938</span><a id="line.938">   *</a>
+<span class="sourceLineNo">939</span><a id="line.939">   * &lt;p&gt;</a>
+<span class="sourceLineNo">940</span><a id="line.940">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">941</span><a id="line.941">   *</a>
+<span class="sourceLineNo">942</span><a id="line.942">   * &lt;p&gt;</a>
+<span class="sourceLineNo">943</span><a id="line.943">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">944</span><a id="line.944">   */</a>
+<span class="sourceLineNo">945</span><a id="line.945">  USER_PROFILE("user_profile", Category.INSTAGRAM_BASIC_DISPLAY), //</a>
+<span class="sourceLineNo">946</span><a id="line.946"></a>
+<span class="sourceLineNo">947</span><a id="line.947">  /**</a>
+<span class="sourceLineNo">948</span><a id="line.948">   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other</a>
+<span class="sourceLineNo">949</span><a id="line.949">   * businesses through this permission.</a>
+<span class="sourceLineNo">950</span><a id="line.950">   * &lt;p&gt;</a>
+<span class="sourceLineNo">951</span><a id="line.951">   * These business assets include WhatsApp business accounts, phone numbers, and message templates.</a>
+<span class="sourceLineNo">952</span><a id="line.952">   *</a>
+<span class="sourceLineNo">953</span><a id="line.953">   * &lt;p&gt;</a>
+<span class="sourceLineNo">954</span><a id="line.954">   * Please see &lt;a href=</a>
+<span class="sourceLineNo">955</span><a id="line.955">   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management"&gt;Whatsapps's</a>
+<span class="sourceLineNo">956</span><a id="line.956">   * reference&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">957</span><a id="line.957">   *</a>
+<span class="sourceLineNo">958</span><a id="line.958">   * &lt;p&gt;</a>
+<span class="sourceLineNo">959</span><a id="line.959">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">960</span><a id="line.960">   *</a>
+<span class="sourceLineNo">961</span><a id="line.961">   * &lt;p&gt;</a>
+<span class="sourceLineNo">962</span><a id="line.962">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">963</span><a id="line.963">   */</a>
+<span class="sourceLineNo">964</span><a id="line.964">  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),</a>
+<span class="sourceLineNo">965</span><a id="line.965"></a>
+<span class="sourceLineNo">966</span><a id="line.966">  /**</a>
+<span class="sourceLineNo">967</span><a id="line.967">   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,</a>
+<span class="sourceLineNo">968</span><a id="line.968">   * upload and retrieve media from messages, manage and get WhatsApp business profile information, and to register</a>
+<span class="sourceLineNo">969</span><a id="line.969">   * those phone numbers with Meta.</a>
+<span class="sourceLineNo">970</span><a id="line.970">   *</a>
+<span class="sourceLineNo">971</span><a id="line.971">   * &lt;p&gt;</a>
+<span class="sourceLineNo">972</span><a id="line.972">   * Please see</a>
+<span class="sourceLineNo">973</span><a id="line.973">   * &lt;a href= "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging"&gt;Whatsapps's</a>
+<span class="sourceLineNo">974</span><a id="line.974">   * reference&lt;/a&gt; for details.</a>
+<span class="sourceLineNo">975</span><a id="line.975">   *</a>
+<span class="sourceLineNo">976</span><a id="line.976">   * &lt;p&gt;</a>
+<span class="sourceLineNo">977</span><a id="line.977">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">978</span><a id="line.978">   *</a>
+<span class="sourceLineNo">979</span><a id="line.979">   * &lt;p&gt;</a>
+<span class="sourceLineNo">980</span><a id="line.980">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">981</span><a id="line.981">   */</a>
+<span class="sourceLineNo">982</span><a id="line.982">  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),</a>
+<span class="sourceLineNo">983</span><a id="line.983"></a>
+<span class="sourceLineNo">984</span><a id="line.984">  /**</a>
+<span class="sourceLineNo">985</span><a id="line.985">   * Required for making any calls to all Threads API endpoints</a>
+<span class="sourceLineNo">986</span><a id="line.986">   *</a>
+<span class="sourceLineNo">987</span><a id="line.987">   * &lt;p&gt;</a>
+<span class="sourceLineNo">988</span><a id="line.988">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">989</span><a id="line.989">   *</a>
+<span class="sourceLineNo">990</span><a id="line.990">   * &lt;p&gt;</a>
+<span class="sourceLineNo">991</span><a id="line.991">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">992</span><a id="line.992">   */</a>
+<span class="sourceLineNo">993</span><a id="line.993">  THREADS_BASIC("threads_basic", Category.THREADS),</a>
+<span class="sourceLineNo">994</span><a id="line.994"></a>
+<span class="sourceLineNo">995</span><a id="line.995">  /**</a>
+<span class="sourceLineNo">996</span><a id="line.996">   * Required for Threads publishing endpoints only</a>
+<span class="sourceLineNo">997</span><a id="line.997">   *</a>
+<span class="sourceLineNo">998</span><a id="line.998">   * &lt;p&gt;</a>
+<span class="sourceLineNo">999</span><a id="line.999">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">1000</span><a id="line.1000">   *</a>
+<span class="sourceLineNo">1001</span><a id="line.1001">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1002</span><a id="line.1002">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">1003</span><a id="line.1003">   */</a>
+<span class="sourceLineNo">1004</span><a id="line.1004">  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),</a>
+<span class="sourceLineNo">1005</span><a id="line.1005"></a>
+<span class="sourceLineNo">1006</span><a id="line.1006">  /**</a>
+<span class="sourceLineNo">1007</span><a id="line.1007">   * Required for making GET calls to insights endpoints</a>
+<span class="sourceLineNo">1008</span><a id="line.1008">   *</a>
+<span class="sourceLineNo">1009</span><a id="line.1009">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1010</span><a id="line.1010">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">1011</span><a id="line.1011">   *</a>
+<span class="sourceLineNo">1012</span><a id="line.1012">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1013</span><a id="line.1013">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">1014</span><a id="line.1014">   */</a>
+<span class="sourceLineNo">1015</span><a id="line.1015">  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),</a>
+<span class="sourceLineNo">1016</span><a id="line.1016"></a>
+<span class="sourceLineNo">1017</span><a id="line.1017">  /**</a>
+<span class="sourceLineNo">1018</span><a id="line.1018">   * Required for making POST calls to reply endpoints</a>
+<span class="sourceLineNo">1019</span><a id="line.1019">   *</a>
+<span class="sourceLineNo">1020</span><a id="line.1020">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1021</span><a id="line.1021">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">1022</span><a id="line.1022">   *</a>
+<span class="sourceLineNo">1023</span><a id="line.1023">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1024</span><a id="line.1024">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">1025</span><a id="line.1025">   */</a>
+<span class="sourceLineNo">1026</span><a id="line.1026">  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),</a>
+<span class="sourceLineNo">1027</span><a id="line.1027"></a>
+<span class="sourceLineNo">1028</span><a id="line.1028">  /**</a>
+<span class="sourceLineNo">1029</span><a id="line.1029">   * Required for making GET calls to reply endpoints</a>
+<span class="sourceLineNo">1030</span><a id="line.1030">   *</a>
+<span class="sourceLineNo">1031</span><a id="line.1031">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1032</span><a id="line.1032">   * &lt;strong&gt;Review&lt;/strong&gt;</a>
+<span class="sourceLineNo">1033</span><a id="line.1033">   *</a>
+<span class="sourceLineNo">1034</span><a id="line.1034">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1035</span><a id="line.1035">   * If your app requests this permission Facebook will have to review how your app uses it.</a>
+<span class="sourceLineNo">1036</span><a id="line.1036">   */</a>
+<span class="sourceLineNo">1037</span><a id="line.1037">  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),</a>
+<span class="sourceLineNo">1038</span><a id="line.1038"></a>
+<span class="sourceLineNo">1039</span><a id="line.1039">  /**</a>
+<span class="sourceLineNo">1040</span><a id="line.1040">   * The commerce_account manage_orders permission allows your app to read and update commerce account orders.</a>
+<span class="sourceLineNo">1041</span><a id="line.1041">   *</a>
+<span class="sourceLineNo">1042</span><a id="line.1042">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1043</span><a id="line.1043">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
+<span class="sourceLineNo">1044</span><a id="line.1044">   * &lt;ul&gt;</a>
+<span class="sourceLineNo">1045</span><a id="line.1045">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</a>
+<span class="sourceLineNo">1046</span><a id="line.1046">   * &lt;li&gt;Tech providers manage orders on behalf of their customers.&lt;/li&gt;</a>
+<span class="sourceLineNo">1047</span><a id="line.1047">   * &lt;li&gt;Access to Webhook notifications.&lt;/li&gt;</a>
+<span class="sourceLineNo">1048</span><a id="line.1048">   * &lt;/ul&gt;</a>
+<span class="sourceLineNo">1049</span><a id="line.1049">   */</a>
+<span class="sourceLineNo">1050</span><a id="line.1050">  COMMERCE_ACCOUNT_MANAGE_ORDERS("commerce_account_manage_orders", Category.COMMERCE),</a>
+<span class="sourceLineNo">1051</span><a id="line.1051"></a>
+<span class="sourceLineNo">1052</span><a id="line.1052">  /**</a>
+<span class="sourceLineNo">1053</span><a id="line.1053">   * The commerce_account_read_orders permission allows your app to read commerce account orders.</a>
+<span class="sourceLineNo">1054</span><a id="line.1054">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1055</span><a id="line.1055">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
+<span class="sourceLineNo">1056</span><a id="line.1056">   * &lt;ul&gt;</a>
+<span class="sourceLineNo">1057</span><a id="line.1057">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</a>
+<span class="sourceLineNo">1058</span><a id="line.1058">   * &lt;li&gt;Use the buyer's email address for marketing purposes only if a buyer has opted-in at checkout.&lt;/li&gt;</a>
+<span class="sourceLineNo">1059</span><a id="line.1059">   * &lt;/ul&gt;</a>
+<span class="sourceLineNo">1060</span><a id="line.1060">   */</a>
+<span class="sourceLineNo">1061</span><a id="line.1061">  COMMERCE_ACCOUNT_READ_ORDERS("commerce_account_read_orders", Category.COMMERCE),</a>
+<span class="sourceLineNo">1062</span><a id="line.1062"></a>
+<span class="sourceLineNo">1063</span><a id="line.1063">  /**</a>
+<span class="sourceLineNo">1064</span><a id="line.1064">   * The commerce_account_read_reports permission allows your app to read finance reporting data to build custom tax,</a>
+<span class="sourceLineNo">1065</span><a id="line.1065">   * cash reconciliation and reimbursement reports for a commerce account.</a>
+<span class="sourceLineNo">1066</span><a id="line.1066">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1067</span><a id="line.1067">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
+<span class="sourceLineNo">1068</span><a id="line.1068">   * &lt;ul&gt;</a>
+<span class="sourceLineNo">1069</span><a id="line.1069">   * &lt;li&gt;Read finance reporting data in your commerce account for building custom tax cash reconciliation and</a>
+<span class="sourceLineNo">1070</span><a id="line.1070">   * reimbursement reports.&lt;/li&gt;</a>
+<span class="sourceLineNo">1071</span><a id="line.1071">   * &lt;li&gt;Tech providers can run finance reports on behalf of their customers.&lt;/li&gt;</a>
+<span class="sourceLineNo">1072</span><a id="line.1072">   * &lt;/ul&gt;</a>
+<span class="sourceLineNo">1073</span><a id="line.1073">   */</a>
+<span class="sourceLineNo">1074</span><a id="line.1074">  COMMERCE_ACCOUNT_READ_REPORTS("commerce_account_read_reports", Category.COMMERCE),</a>
+<span class="sourceLineNo">1075</span><a id="line.1075"></a>
+<span class="sourceLineNo">1076</span><a id="line.1076">  /**</a>
+<span class="sourceLineNo">1077</span><a id="line.1077">   * The commerce_account_read_settings permission allows your app to read commerce account settings. Allowed Usage</a>
+<span class="sourceLineNo">1078</span><a id="line.1078">   * &lt;ul&gt;</a>
+<span class="sourceLineNo">1079</span><a id="line.1079">   * &lt;li&gt;Read basic commerce account information like connected channels, shipping options, fulfillment locations, etc.</a>
+<span class="sourceLineNo">1080</span><a id="line.1080">   * &lt;/ul&gt;</a>
+<span class="sourceLineNo">1081</span><a id="line.1081">   */</a>
+<span class="sourceLineNo">1082</span><a id="line.1082">  COMMERCE_ACCOUNT_READ_SETTINGS("commerce_account_read_settings", Category.COMMERCE),</a>
+<span class="sourceLineNo">1083</span><a id="line.1083"></a>
+<span class="sourceLineNo">1084</span><a id="line.1084">  /**</a>
+<span class="sourceLineNo">1085</span><a id="line.1085">   * The commerce_manage_accounts permission allows your app to create and manage commerce accounts, such as an</a>
+<span class="sourceLineNo">1086</span><a id="line.1086">   * ecommerce app</a>
+<span class="sourceLineNo">1087</span><a id="line.1087">   * &lt;p&gt;</a>
+<span class="sourceLineNo">1088</span><a id="line.1088">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</a>
+<span class="sourceLineNo">1089</span><a id="line.1089">   * &lt;ul&gt;</a>
+<span class="sourceLineNo">1090</span><a id="line.1090">   * &lt;li&gt;Associate your app with your commerce account.&lt;/li&gt;</a>
+<span class="sourceLineNo">1091</span><a id="line.1091">   * &lt;li&gt;Tech providers create a commerce account on behalf of their customers.&lt;/li&gt;</a>
+<span class="sourceLineNo">1092</span><a id="line.1092">   * &lt;li&gt;Tech providers enable a new sales channel within their customer’s commerce account.&lt;/li&gt;</a>
+<span class="sourceLineNo">1093</span><a id="line.1093">   * &lt;/ul&gt;</a>
+<span class="sourceLineNo">1094</span><a id="line.1094">   */</a>
+<span class="sourceLineNo">1095</span><a id="line.1095">  COMMERCE_MANAGE_ACCOUNTS("commerce_manage_accounts", Category.COMMERCE),</a>
+<span class="sourceLineNo">1096</span><a id="line.1096"></a>
+<span class="sourceLineNo">1097</span><a id="line.1097">  ;</a>
+<span class="sourceLineNo">1098</span><a id="line.1098"></a>
+<span class="sourceLineNo">1099</span><a id="line.1099">  private final String permissionString;</a>
 <span class="sourceLineNo">1100</span><a id="line.1100"></a>
-<span class="sourceLineNo">1101</span><a id="line.1101">  public String getPermissionString() {</a>
-<span class="sourceLineNo">1102</span><a id="line.1102">    return this.permissionString;</a>
-<span class="sourceLineNo">1103</span><a id="line.1103">  }</a>
-<span class="sourceLineNo">1104</span><a id="line.1104"></a>
-<span class="sourceLineNo">1105</span><a id="line.1105">  public Category getCategory() {</a>
-<span class="sourceLineNo">1106</span><a id="line.1106">    return this.category;</a>
-<span class="sourceLineNo">1107</span><a id="line.1107">  }</a>
-<span class="sourceLineNo">1108</span><a id="line.1108"></a>
-<span class="sourceLineNo">1109</span><a id="line.1109">  public enum Category {</a>
-<span class="sourceLineNo">1110</span><a id="line.1110">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, THREADS</a>
-<span class="sourceLineNo">1111</span><a id="line.1111">  }</a>
-<span class="sourceLineNo">1112</span><a id="line.1112">}</a>
+<span class="sourceLineNo">1101</span><a id="line.1101">  private final Category category;</a>
+<span class="sourceLineNo">1102</span><a id="line.1102"></a>
+<span class="sourceLineNo">1103</span><a id="line.1103">  FacebookPermissions(String facebookPermissionString, Category category) {</a>
+<span class="sourceLineNo">1104</span><a id="line.1104">    this.permissionString = facebookPermissionString;</a>
+<span class="sourceLineNo">1105</span><a id="line.1105">    this.category = category;</a>
+<span class="sourceLineNo">1106</span><a id="line.1106">  }</a>
+<span class="sourceLineNo">1107</span><a id="line.1107"></a>
+<span class="sourceLineNo">1108</span><a id="line.1108">  public String getPermissionString() {</a>
+<span class="sourceLineNo">1109</span><a id="line.1109">    return this.permissionString;</a>
+<span class="sourceLineNo">1110</span><a id="line.1110">  }</a>
+<span class="sourceLineNo">1111</span><a id="line.1111"></a>
+<span class="sourceLineNo">1112</span><a id="line.1112">  public Category getCategory() {</a>
+<span class="sourceLineNo">1113</span><a id="line.1113">    return this.category;</a>
+<span class="sourceLineNo">1114</span><a id="line.1114">  }</a>
+<span class="sourceLineNo">1115</span><a id="line.1115"></a>
+<span class="sourceLineNo">1116</span><a id="line.1116">  public enum Category {</a>
+<span class="sourceLineNo">1117</span><a id="line.1117">    PUBLIC,</a>
+<span class="sourceLineNo">1118</span><a id="line.1118">    USER_DATA,</a>
+<span class="sourceLineNo">1119</span><a id="line.1119">    EVENTS_GROUPS_PAGES,</a>
+<span class="sourceLineNo">1120</span><a id="line.1120">    OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS</a>
+<span class="sourceLineNo">1121</span><a id="line.1121">  }</a>
+<span class="sourceLineNo">1122</span><a id="line.1122">}</a>
 
 
 

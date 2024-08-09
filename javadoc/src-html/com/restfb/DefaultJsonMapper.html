@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang>
 <head>
 <title>Source code</title>
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
@@ -148,7 +148,7 @@
 <span class="sourceLineNo">139</span><a id="line.139">  }</a>
 <span class="sourceLineNo">140</span><a id="line.140"></a>
 <span class="sourceLineNo">141</span><a id="line.141">  private String convertArrayToStringIfNecessary(JsonValue jsonValue, String innerJson) {</a>
-<span class="sourceLineNo">142</span><a id="line.142">    // the inner JSON starts with square brackets but the parser don't think this is a JSON array</a>
+<span class="sourceLineNo">142</span><a id="line.142">    // the inner JSON starts with square brackets but the parser don't think this is a JSON array,</a>
 <span class="sourceLineNo">143</span><a id="line.143">    // so we think the parser is right and add quotes around the string</a>
 <span class="sourceLineNo">144</span><a id="line.144">    // solves Issue #719</a>
 <span class="sourceLineNo">145</span><a id="line.145">    if (jsonValue.isString() &amp;&amp; innerJson.startsWith("[")) {</a>
