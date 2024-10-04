@@ -509,7 +509,7 @@
 <span class="sourceLineNo">500</span><a id="line.500"></a>
 <span class="sourceLineNo">501</span><a id="line.501">        if (!(ignoreNullValuedProperties</a>
 <span class="sourceLineNo">502</span><a id="line.502">            &amp;&amp; (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {</a>
-<span class="sourceLineNo">503</span><a id="line.503">          jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));</a>
+<span class="sourceLineNo">503</span><a id="line.503">            jsonObject.set(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));</a>
 <span class="sourceLineNo">504</span><a id="line.504">        }</a>
 <span class="sourceLineNo">505</span><a id="line.505">      } catch (Exception e) {</a>
 <span class="sourceLineNo">506</span><a id="line.506">        throw new FacebookJsonMappingException(</a>
