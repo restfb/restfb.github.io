@@ -55,6 +55,9 @@ people:
 
 # site Social network links and types (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
+  - title: Bluesky
+    icon: bluesky
+    url: https://bsky.app/profile/restfb.com
   - title: Facebook
     icon: facebook
     url: https://www.facebook.com/Restfb-909653922461664
@@ -64,9 +67,6 @@ social:
   - title: GitHub
     icon: github
     url: http://github.com/restfb/restfb
-  - title: Google Groups
-    icon: users
-    url: http://groups.google.com/group/restfb
 
 # additional links
 navigation:

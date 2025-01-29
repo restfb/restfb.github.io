@@ -2,14 +2,14 @@
   <div class="container">
 	    <ul class="list-inline">
 			<li class="list-inline-item text-light">
-				<span class="copyright">Copyright <i class="fa fa-copyright" aria-hidden="true"></i> {{ site.title.light }} {{ site.time | date: '%Y' }}</span>
+				<span class="copyright">Copyright <i class="fa-regular fa-copyright" aria-hidden="true"></i> {{ site.title.light }} {{ site.time | date: '%Y' }}</span>
 			</li>
 		</ul>
 		<ul class="list-inline ml-auto">
 			{% for network in site.social %}
 				<li class="list-inline-item text-light">
-	                <a href="{{ network.url }}" title="{{ site.title.default }} {{ network.title }} link" class="text-light">
-						<i class="fa fa-{{ network.icon }} fa-lg"></i>
+	                <a href="{{ network.url }}" title="{{ site.title.default }} {{ network.title }} link" class="text-light" target="_blank">
+						<i class="fa-brands fa-{{ network.icon }} fa-lg"></i>
 					</a>
 	            </li>
 			{% endfor %}
