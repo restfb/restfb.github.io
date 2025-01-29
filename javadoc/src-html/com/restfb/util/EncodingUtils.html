@@ -12,7 +12,7 @@
 <main role="main">
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
-<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2024 Mark Allen, Norbert Bartels.</span>
+<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.</span>
 <span class="source-line-no">003</span><span id="line-3"> *</span>
 <span class="source-line-no">004</span><span id="line-4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</span>
 <span class="source-line-no">005</span><span id="line-5"> * of this software and associated documentation files (the "Software"), to deal</span>
@@ -110,28 +110,29 @@
 <span class="source-line-no">097</span><span id="line-97">  /**</span>
 <span class="source-line-no">098</span><span id="line-98">   * Generates an appsecret_proof for facebook.</span>
 <span class="source-line-no">099</span><span id="line-99">   * &lt;p&gt;</span>
-<span class="source-line-no">100</span><span id="line-100">   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info</span>
-<span class="source-line-no">101</span><span id="line-101">   * </span>
-<span class="source-line-no">102</span><span id="line-102">   * @param appSecret</span>
-<span class="source-line-no">103</span><span id="line-103">   *          The facebook application secret</span>
-<span class="source-line-no">104</span><span id="line-104">   * @param accessToken</span>
-<span class="source-line-no">105</span><span id="line-105">   *          The facebook access token</span>
-<span class="source-line-no">106</span><span id="line-106">   * @return A Hex encoded SHA256 Hash as a String</span>
-<span class="source-line-no">107</span><span id="line-107">   */</span>
-<span class="source-line-no">108</span><span id="line-108">  public static String encodeAppSecretProof(String appSecret, String accessToken) {</span>
-<span class="source-line-no">109</span><span id="line-109">    try {</span>
-<span class="source-line-no">110</span><span id="line-110">      byte[] key = appSecret.getBytes(StandardCharsets.UTF_8);</span>
-<span class="source-line-no">111</span><span id="line-111">      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");</span>
-<span class="source-line-no">112</span><span id="line-112">      Mac mac = Mac.getInstance("HmacSHA256");</span>
-<span class="source-line-no">113</span><span id="line-113">      mac.init(signingKey);</span>
-<span class="source-line-no">114</span><span id="line-114">      byte[] raw = mac.doFinal(accessToken.getBytes());</span>
-<span class="source-line-no">115</span><span id="line-115">      byte[] hex = encodeHex(raw);</span>
-<span class="source-line-no">116</span><span id="line-116">      return new String(hex, StandardCharsets.UTF_8);</span>
-<span class="source-line-no">117</span><span id="line-117">    } catch (Exception e) {</span>
-<span class="source-line-no">118</span><span id="line-118">      throw new IllegalStateException("Creation of appsecret_proof has failed", e);</span>
-<span class="source-line-no">119</span><span id="line-119">    }</span>
-<span class="source-line-no">120</span><span id="line-120">  }</span>
-<span class="source-line-no">121</span><span id="line-121">}</span>
+<span class="source-line-no">100</span><span id="line-100">   * See &lt;a href="https://developers.facebook.com/docs/graph-api/securing-requests"&gt;</span>
+<span class="source-line-no">101</span><span id="line-101">   *     https://developers.facebook.com/docs/graph-api/securing-requests&lt;/a&gt; for more info</span>
+<span class="source-line-no">102</span><span id="line-102">   *</span>
+<span class="source-line-no">103</span><span id="line-103">   * @param appSecret</span>
+<span class="source-line-no">104</span><span id="line-104">   *          The facebook application secret</span>
+<span class="source-line-no">105</span><span id="line-105">   * @param accessToken</span>
+<span class="source-line-no">106</span><span id="line-106">   *          The facebook access token</span>
+<span class="source-line-no">107</span><span id="line-107">   * @return A Hex encoded SHA256 Hash as a String</span>
+<span class="source-line-no">108</span><span id="line-108">   */</span>
+<span class="source-line-no">109</span><span id="line-109">  public static String encodeAppSecretProof(String appSecret, String accessToken) {</span>
+<span class="source-line-no">110</span><span id="line-110">    try {</span>
+<span class="source-line-no">111</span><span id="line-111">      byte[] key = appSecret.getBytes(StandardCharsets.UTF_8);</span>
+<span class="source-line-no">112</span><span id="line-112">      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");</span>
+<span class="source-line-no">113</span><span id="line-113">      Mac mac = Mac.getInstance("HmacSHA256");</span>
+<span class="source-line-no">114</span><span id="line-114">      mac.init(signingKey);</span>
+<span class="source-line-no">115</span><span id="line-115">      byte[] raw = mac.doFinal(accessToken.getBytes());</span>
+<span class="source-line-no">116</span><span id="line-116">      byte[] hex = encodeHex(raw);</span>
+<span class="source-line-no">117</span><span id="line-117">      return new String(hex, StandardCharsets.UTF_8);</span>
+<span class="source-line-no">118</span><span id="line-118">    } catch (Exception e) {</span>
+<span class="source-line-no">119</span><span id="line-119">      throw new IllegalStateException("Creation of appsecret_proof has failed", e);</span>
+<span class="source-line-no">120</span><span id="line-120">    }</span>
+<span class="source-line-no">121</span><span id="line-121">  }</span>
+<span class="source-line-no">122</span><span id="line-122">}</span>
 
 
 
