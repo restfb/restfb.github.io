@@ -1,31 +1,8 @@
-/**
- * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-/*
+/* 
  * Javadoc style sheet
  */
 
-/* @import url('resources/fonts/dejavu.css'); */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
+@import url('resources/fonts/dejavu.css');
 
 /*
  * Styles for individual HTML elements.
@@ -37,7 +14,7 @@
 body {
     background-color:#ffffff;
     color:#353833;
-    font-family:'Open Sans', Arial, Helvetica, sans-serif;
+    font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size:14px;
     margin:0;
     padding:0;
@@ -71,7 +48,7 @@ a[name]:before, a[name]:target, a[id]:before, a[id]:target {
     margin-top:-129px;
 }
 pre {
-    font-family:'Roboto Mono', monospace;
+    font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
 }
 h1 {
@@ -97,19 +74,19 @@ ul {
     list-style-type:disc;
 }
 code, tt {
-    font-family:'Roboto Mono', monospace;
+    font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
     padding-top:4px;
     margin-top:8px;
     line-height:1.4em;
 }
 dt code {
-    font-family:'Roboto Mono', monospace;
+    font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
     padding-top:4px;
 }
 table tr td dt code {
-    font-family:'Roboto Mono', monospace;
+    font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
     vertical-align:top;
     padding-top:4px;
@@ -177,7 +154,7 @@ sup {
     background-color:#ffffff;
 }
 .topNav {
-    background-image: linear-gradient(to right, #337ab7 , #7eb1dc);
+    background-color:#4D7A97;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -186,11 +163,11 @@ sup {
     height:2.8em;
     padding-top:10px;
     overflow:hidden;
-    font-size:12px;
+    font-size:12px; 
 }
 .bottomNav {
     margin-top:10px;
-    background-image: linear-gradient(to right, #337ab7 , #7eb1dc);
+    background-color:#4D7A97;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -413,7 +390,7 @@ ul.blockList li.blockList, ul.blockListLast li.blockList {
 }
 ul.blockList ul.blockList li.blockList, ul.blockList ul.blockListLast li.blockList {
     padding:0px 20px 5px 10px;
-    border:1px solid #ededed;
+    border:1px solid #ededed; 
     background-color:#f8f8f8;
 }
 ul.blockList ul.blockList ul.blockList li.blockList, ul.blockList ul.blockList ul.blockListLast li.blockList {
@@ -443,9 +420,9 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 .requiresSummary, .packagesSummary, .providesSummary, .usesSummary {
     width:100%;
     border-spacing:0;
-    border-left:1px solid #EEE;
-    border-right:1px solid #EEE;
-    border-bottom:1px solid #EEE;
+    border-left:1px solid #EEE; 
+    border-right:1px solid #EEE; 
+    border-bottom:1px solid #EEE; 
 }
 .overviewSummary, .memberSummary, .requiresSummary, .packagesSummary, .providesSummary, .usesSummary  {
     padding:0px;
@@ -552,7 +529,7 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
     display:none;
     width:5px;
     margin-right:3px;
-    position:relative;
+    position:relative; 
     float:left;
     background-color:#F8981D;
 }
@@ -620,9 +597,9 @@ td.colSecond a:link, td.colSecond a:visited,
 th.colFirst a:link, th.colFirst a:visited,
 th.colSecond a:link, th.colSecond a:visited,
 th.colConstructorName a:link, th.colConstructorName a:visited,
-th.colDeprecatedItemName a:link, th.colDeprecatedItemName a:visited,
-.constantValuesContainer td a:link, .constantValuesContainer td a:visited,
-.allClassesContainer td a:link, .allClassesContainer td a:visited,
+th.colDeprecatedItemName a:link, th.colDeprecatedItemName a:visited, 
+.constantValuesContainer td a:link, .constantValuesContainer td a:visited, 
+.allClassesContainer td a:link, .allClassesContainer td a:visited, 
 .allPackagesContainer td a:link, .allPackagesContainer td a:visited {
     font-weight:bold;
 }
@@ -709,12 +686,12 @@ div.contentContainer ul.blockList li.blockList h2 {
  * Styles for IFRAME.
  */
 .mainContainer {
-    margin:0 auto;
-    padding:0;
-    height:100%;
-    width:100%;
-    position:fixed;
-    top:0;
+    margin:0 auto; 
+    padding:0; 
+    height:100%; 
+    width:100%; 
+    position:fixed; 
+    top:0; 
     left:0;
 }
 .leftContainer {
