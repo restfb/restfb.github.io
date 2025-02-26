@@ -628,7 +628,11 @@
 <span class="source-line-no">615</span><span id="line-615">   * @return the login dialog url</span>
 <span class="source-line-no">616</span><span id="line-616">   */</span>
 <span class="source-line-no">617</span><span id="line-617">  String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state, Parameter... parameters);</span>
-<span class="source-line-no">618</span><span id="line-618">}</span>
+<span class="source-line-no">618</span><span id="line-618"></span>
+<span class="source-line-no">619</span><span id="line-619">  default boolean isAppSecretProofWithTime() {</span>
+<span class="source-line-no">620</span><span id="line-620">    return false;</span>
+<span class="source-line-no">621</span><span id="line-621">  }</span>
+<span class="source-line-no">622</span><span id="line-622">}</span>
 
 
 
