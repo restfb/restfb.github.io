@@ -226,14 +226,20 @@
 <span class="source-line-no">213</span><span id="line-213">          container.getRawError());</span>
 <span class="source-line-no">214</span><span id="line-214">      }</span>
 <span class="source-line-no">215</span><span id="line-215"></span>
-<span class="source-line-no">216</span><span id="line-216">      // Don't recognize this exception type? Just go with the standard</span>
-<span class="source-line-no">217</span><span id="line-217">      // FacebookGraphException.</span>
-<span class="source-line-no">218</span><span id="line-218">      return new FacebookGraphException(container.getType(), container.getMessage(), container.getErrorCode(),</span>
-<span class="source-line-no">219</span><span id="line-219">        container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),</span>
-<span class="source-line-no">220</span><span id="line-220">        container.getUserMessage(), container.getIsTransient(), container.getRawError());</span>
-<span class="source-line-no">221</span><span id="line-221">    }</span>
-<span class="source-line-no">222</span><span id="line-222">  }</span>
-<span class="source-line-no">223</span><span id="line-223">}</span>
+<span class="source-line-no">216</span><span id="line-216">      if ("IGApiException".equals(container.getType())) {</span>
+<span class="source-line-no">217</span><span id="line-217">        return new InstagramApiException(container.getType(), container.getMessage(), container.getErrorCode(),</span>
+<span class="source-line-no">218</span><span id="line-218">          container.getErrorSubcode(), container.getHttpStatusCode(), container.getIsTransient(),</span>
+<span class="source-line-no">219</span><span id="line-219">          container.getRawError());</span>
+<span class="source-line-no">220</span><span id="line-220">      }</span>
+<span class="source-line-no">221</span><span id="line-221"></span>
+<span class="source-line-no">222</span><span id="line-222">      // Don't recognize this exception type? Just go with the standard</span>
+<span class="source-line-no">223</span><span id="line-223">      // FacebookGraphException.</span>
+<span class="source-line-no">224</span><span id="line-224">      return new FacebookGraphException(container.getType(), container.getMessage(), container.getErrorCode(),</span>
+<span class="source-line-no">225</span><span id="line-225">        container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),</span>
+<span class="source-line-no">226</span><span id="line-226">        container.getUserMessage(), container.getIsTransient(), container.getRawError());</span>
+<span class="source-line-no">227</span><span id="line-227">    }</span>
+<span class="source-line-no">228</span><span id="line-228">  }</span>
+<span class="source-line-no">229</span><span id="line-229">}</span>
 
 
 
