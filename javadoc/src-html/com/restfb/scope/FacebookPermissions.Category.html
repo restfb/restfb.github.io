@@ -1050,243 +1050,263 @@
 <span class="source-line-no">1037</span><span id="line-1037">  THREADS_BASIC("threads_basic", Category.THREADS),</span>
 <span class="source-line-no">1038</span><span id="line-1038"></span>
 <span class="source-line-no">1039</span><span id="line-1039">  /**</span>
-<span class="source-line-no">1040</span><span id="line-1040">   * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a Threads</span>
-<span class="source-line-no">1041</span><span id="line-1041">   * profile.</span>
+<span class="source-line-no">1040</span><span id="line-1040">   * The threads_business_basic permission allows an app to fetch the Threads account ID that is connected to</span>
+<span class="source-line-no">1041</span><span id="line-1041">   * an Instagram account.</span>
 <span class="source-line-no">1042</span><span id="line-1042">   * &lt;p&gt;</span>
-<span class="source-line-no">1043</span><span id="line-1043">   * The allowed usage for this permission is to enable an app user to create and publish content to their Threads</span>
-<span class="source-line-no">1044</span><span id="line-1044">   * profile. You may also use this permission to request analytics insights to improve your app and for marketing or</span>
-<span class="source-line-no">1045</span><span id="line-1045">   * advertising purposes, through the use of aggregated and de-identified or anonymized information (provided such data</span>
-<span class="source-line-no">1046</span><span id="line-1046">   * cannot be re-identified).</span>
-<span class="source-line-no">1047</span><span id="line-1047">   * &lt;p&gt;</span>
-<span class="source-line-no">1048</span><span id="line-1048">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1049</span><span id="line-1049">   * &lt;ul&gt;</span>
-<span class="source-line-no">1050</span><span id="line-1050">   * &lt;li&gt;Enables an app user to create and publish content to their Threads profile&lt;/li&gt;</span>
-<span class="source-line-no">1051</span><span id="line-1051">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1052</span><span id="line-1052">   *</span>
+<span class="source-line-no">1043</span><span id="line-1043">   * The allowed usage for this permission is to retrieve a Threads account ID to use as</span>
+<span class="source-line-no">1044</span><span id="line-1044">   * the {@code }threads_user_id} during the creation of ads on Threads. You may also use this permission to</span>
+<span class="source-line-no">1045</span><span id="line-1045">   * request analytics insights to improve your app and for marketing or advertising purposes, through the use of</span>
+<span class="source-line-no">1046</span><span id="line-1046">   * aggregated and de-identified or anonymized information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1047</span><span id="line-1047">   */</span>
+<span class="source-line-no">1048</span><span id="line-1048">  THREADS_BUSINESS_BASIC("threads_business_basic", Category.THREADS),</span>
+<span class="source-line-no">1049</span><span id="line-1049"></span>
+<span class="source-line-no">1050</span><span id="line-1050">  /**</span>
+<span class="source-line-no">1051</span><span id="line-1051">   * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a Threads</span>
+<span class="source-line-no">1052</span><span id="line-1052">   * profile.</span>
 <span class="source-line-no">1053</span><span id="line-1053">   * &lt;p&gt;</span>
-<span class="source-line-no">1054</span><span id="line-1054">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1055</span><span id="line-1055">   * &lt;p&gt;</span>
-<span class="source-line-no">1056</span><span id="line-1056">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1057</span><span id="line-1057">   */</span>
-<span class="source-line-no">1058</span><span id="line-1058">  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),</span>
-<span class="source-line-no">1059</span><span id="line-1059"></span>
-<span class="source-line-no">1060</span><span id="line-1060">  /**</span>
-<span class="source-line-no">1061</span><span id="line-1061">   * The {@code threads_manage_insights} permission allows your app to get access to insights for a Threads profile.</span>
-<span class="source-line-no">1062</span><span id="line-1062">   * &lt;p&gt;</span>
-<span class="source-line-no">1063</span><span id="line-1063">   * The allowed usage for this permission is to allow your app to get insights for a Threads profile and for individual</span>
-<span class="source-line-no">1064</span><span id="line-1064">   * threads published by that profile. You may also use this permission to request analytics insights to improve your</span>
-<span class="source-line-no">1065</span><span id="line-1065">   * app and for marketing or advertising purposes, through the use of aggregated and de-identified or anonymized</span>
-<span class="source-line-no">1066</span><span id="line-1066">   * information (provided such data cannot be re-identified).</span>
-<span class="source-line-no">1067</span><span id="line-1067">   * &lt;p&gt;</span>
-<span class="source-line-no">1068</span><span id="line-1068">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1069</span><span id="line-1069">   * &lt;ul&gt;</span>
-<span class="source-line-no">1070</span><span id="line-1070">   * &lt;li&gt;Get insights for a Threads profile&lt;/li&gt;</span>
-<span class="source-line-no">1071</span><span id="line-1071">   * &lt;li&gt;Get insights for individual threads published by that profile&lt;/li&gt;</span>
-<span class="source-line-no">1072</span><span id="line-1072">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1073</span><span id="line-1073">   *</span>
-<span class="source-line-no">1074</span><span id="line-1074">   * &lt;p&gt;</span>
-<span class="source-line-no">1075</span><span id="line-1075">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1076</span><span id="line-1076">   * &lt;p&gt;</span>
-<span class="source-line-no">1077</span><span id="line-1077">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1078</span><span id="line-1078">   */</span>
-<span class="source-line-no">1079</span><span id="line-1079">  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),</span>
-<span class="source-line-no">1080</span><span id="line-1080"></span>
-<span class="source-line-no">1081</span><span id="line-1081">  /**</span>
-<span class="source-line-no">1082</span><span id="line-1082">   * The {@code threads_manage_replies} permission allows an app to create a reply on behalf of a Threads profile, hide</span>
-<span class="source-line-no">1083</span><span id="line-1083">   * or unhide replies to a thread, and control who can reply to a thread on the Threads profile.</span>
-<span class="source-line-no">1084</span><span id="line-1084">   * &lt;p&gt;</span>
-<span class="source-line-no">1085</span><span id="line-1085">   * The allowed usage of this permission is to allow an app to create a reply on behalf of a Threads profile, hide or</span>
-<span class="source-line-no">1086</span><span id="line-1086">   * unhide replies to a thread, and control who can reply to a thread on the Threads profile. You may also use this</span>
-<span class="source-line-no">1087</span><span id="line-1087">   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the</span>
-<span class="source-line-no">1088</span><span id="line-1088">   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).</span>
-<span class="source-line-no">1089</span><span id="line-1089">   * &lt;p&gt;</span>
-<span class="source-line-no">1090</span><span id="line-1090">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1091</span><span id="line-1091">   * &lt;ul&gt;</span>
-<span class="source-line-no">1092</span><span id="line-1092">   * &lt;li&gt;Create a reply on behalf of a Threads profile&lt;/li&gt;</span>
-<span class="source-line-no">1093</span><span id="line-1093">   * &lt;li&gt;Hide or unhide replies to a thread&lt;/li&gt;</span>
-<span class="source-line-no">1094</span><span id="line-1094">   * &lt;li&gt;Control who can reply to a thread on the Threads profile&lt;/li&gt;</span>
-<span class="source-line-no">1095</span><span id="line-1095">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1096</span><span id="line-1096">   *</span>
-<span class="source-line-no">1097</span><span id="line-1097">   * &lt;p&gt;</span>
-<span class="source-line-no">1098</span><span id="line-1098">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1099</span><span id="line-1099">   * &lt;p&gt;</span>
-<span class="source-line-no">1100</span><span id="line-1100">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1101</span><span id="line-1101">   */</span>
-<span class="source-line-no">1102</span><span id="line-1102">  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),</span>
-<span class="source-line-no">1103</span><span id="line-1103"></span>
-<span class="source-line-no">1104</span><span id="line-1104">  /**</span>
-<span class="source-line-no">1105</span><span id="line-1105">   * The {@code threads_read_replies} permission allows an app to read replies to a user's thread.</span>
-<span class="source-line-no">1106</span><span id="line-1106">   * &lt;p&gt;</span>
-<span class="source-line-no">1107</span><span id="line-1107">   * The allowed usage for this permission is to get replies to a thread owned by the app user. You may also use this</span>
-<span class="source-line-no">1108</span><span id="line-1108">   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the</span>
-<span class="source-line-no">1109</span><span id="line-1109">   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1054</span><span id="line-1054">   * The allowed usage for this permission is to enable an app user to create and publish content to their Threads</span>
+<span class="source-line-no">1055</span><span id="line-1055">   * profile. You may also use this permission to request analytics insights to improve your app and for marketing or</span>
+<span class="source-line-no">1056</span><span id="line-1056">   * advertising purposes, through the use of aggregated and de-identified or anonymized information (provided such data</span>
+<span class="source-line-no">1057</span><span id="line-1057">   * cannot be re-identified).</span>
+<span class="source-line-no">1058</span><span id="line-1058">   * &lt;p&gt;</span>
+<span class="source-line-no">1059</span><span id="line-1059">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1060</span><span id="line-1060">   * &lt;ul&gt;</span>
+<span class="source-line-no">1061</span><span id="line-1061">   * &lt;li&gt;Enables an app user to create and publish content to their Threads profile&lt;/li&gt;</span>
+<span class="source-line-no">1062</span><span id="line-1062">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1063</span><span id="line-1063">   *</span>
+<span class="source-line-no">1064</span><span id="line-1064">   * &lt;p&gt;</span>
+<span class="source-line-no">1065</span><span id="line-1065">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1066</span><span id="line-1066">   * &lt;p&gt;</span>
+<span class="source-line-no">1067</span><span id="line-1067">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1068</span><span id="line-1068">   */</span>
+<span class="source-line-no">1069</span><span id="line-1069">  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),</span>
+<span class="source-line-no">1070</span><span id="line-1070"></span>
+<span class="source-line-no">1071</span><span id="line-1071">  /**</span>
+<span class="source-line-no">1072</span><span id="line-1072">   * The {@code threads_manage_insights} permission allows your app to get access to insights for a Threads profile.</span>
+<span class="source-line-no">1073</span><span id="line-1073">   * &lt;p&gt;</span>
+<span class="source-line-no">1074</span><span id="line-1074">   * The allowed usage for this permission is to allow your app to get insights for a Threads profile and for individual</span>
+<span class="source-line-no">1075</span><span id="line-1075">   * threads published by that profile. You may also use this permission to request analytics insights to improve your</span>
+<span class="source-line-no">1076</span><span id="line-1076">   * app and for marketing or advertising purposes, through the use of aggregated and de-identified or anonymized</span>
+<span class="source-line-no">1077</span><span id="line-1077">   * information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1078</span><span id="line-1078">   * &lt;p&gt;</span>
+<span class="source-line-no">1079</span><span id="line-1079">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1080</span><span id="line-1080">   * &lt;ul&gt;</span>
+<span class="source-line-no">1081</span><span id="line-1081">   * &lt;li&gt;Get insights for a Threads profile&lt;/li&gt;</span>
+<span class="source-line-no">1082</span><span id="line-1082">   * &lt;li&gt;Get insights for individual threads published by that profile&lt;/li&gt;</span>
+<span class="source-line-no">1083</span><span id="line-1083">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1084</span><span id="line-1084">   *</span>
+<span class="source-line-no">1085</span><span id="line-1085">   * &lt;p&gt;</span>
+<span class="source-line-no">1086</span><span id="line-1086">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1087</span><span id="line-1087">   * &lt;p&gt;</span>
+<span class="source-line-no">1088</span><span id="line-1088">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1089</span><span id="line-1089">   */</span>
+<span class="source-line-no">1090</span><span id="line-1090">  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),</span>
+<span class="source-line-no">1091</span><span id="line-1091"></span>
+<span class="source-line-no">1092</span><span id="line-1092">  /**</span>
+<span class="source-line-no">1093</span><span id="line-1093">   * The {@code threads_manage_replies} permission allows an app to create a reply on behalf of a Threads profile, hide</span>
+<span class="source-line-no">1094</span><span id="line-1094">   * or unhide replies to a thread, and control who can reply to a thread on the Threads profile.</span>
+<span class="source-line-no">1095</span><span id="line-1095">   * &lt;p&gt;</span>
+<span class="source-line-no">1096</span><span id="line-1096">   * The allowed usage of this permission is to allow an app to create a reply on behalf of a Threads profile, hide or</span>
+<span class="source-line-no">1097</span><span id="line-1097">   * unhide replies to a thread, and control who can reply to a thread on the Threads profile. You may also use this</span>
+<span class="source-line-no">1098</span><span id="line-1098">   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the</span>
+<span class="source-line-no">1099</span><span id="line-1099">   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1100</span><span id="line-1100">   * &lt;p&gt;</span>
+<span class="source-line-no">1101</span><span id="line-1101">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1102</span><span id="line-1102">   * &lt;ul&gt;</span>
+<span class="source-line-no">1103</span><span id="line-1103">   * &lt;li&gt;Create a reply on behalf of a Threads profile&lt;/li&gt;</span>
+<span class="source-line-no">1104</span><span id="line-1104">   * &lt;li&gt;Hide or unhide replies to a thread&lt;/li&gt;</span>
+<span class="source-line-no">1105</span><span id="line-1105">   * &lt;li&gt;Control who can reply to a thread on the Threads profile&lt;/li&gt;</span>
+<span class="source-line-no">1106</span><span id="line-1106">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1107</span><span id="line-1107">   *</span>
+<span class="source-line-no">1108</span><span id="line-1108">   * &lt;p&gt;</span>
+<span class="source-line-no">1109</span><span id="line-1109">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
 <span class="source-line-no">1110</span><span id="line-1110">   * &lt;p&gt;</span>
-<span class="source-line-no">1111</span><span id="line-1111">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1112</span><span id="line-1112">   * &lt;ul&gt;</span>
-<span class="source-line-no">1113</span><span id="line-1113">   * &lt;li&gt;Get replies to a thread owned by the app user&lt;/li&gt;</span>
-<span class="source-line-no">1114</span><span id="line-1114">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1115</span><span id="line-1115">   *</span>
-<span class="source-line-no">1116</span><span id="line-1116">   * &lt;p&gt;</span>
-<span class="source-line-no">1117</span><span id="line-1117">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1111</span><span id="line-1111">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1112</span><span id="line-1112">   */</span>
+<span class="source-line-no">1113</span><span id="line-1113">  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),</span>
+<span class="source-line-no">1114</span><span id="line-1114"></span>
+<span class="source-line-no">1115</span><span id="line-1115">  /**</span>
+<span class="source-line-no">1116</span><span id="line-1116">   * The {@code }threads_profile_discovery} permission allows an app to access profiles for public Threads accounts</span>
+<span class="source-line-no">1117</span><span id="line-1117">   * and public posts of these accounts.</span>
 <span class="source-line-no">1118</span><span id="line-1118">   * &lt;p&gt;</span>
-<span class="source-line-no">1119</span><span id="line-1119">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1120</span><span id="line-1120">   */</span>
-<span class="source-line-no">1121</span><span id="line-1121">  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),</span>
-<span class="source-line-no">1122</span><span id="line-1122"></span>
-<span class="source-line-no">1123</span><span id="line-1123">  /**</span>
-<span class="source-line-no">1124</span><span id="line-1124">   * The {@code threads_location_tagging} permission allows an app to search for</span>
-<span class="source-line-no">1125</span><span id="line-1125">   * and fetch public locations using specific queries/keywords or coordinates on</span>
-<span class="source-line-no">1126</span><span id="line-1126">   * behalf of a Threads user and publish media with a location tagged.</span>
-<span class="source-line-no">1127</span><span id="line-1127">   * &lt;p&gt;</span>
-<span class="source-line-no">1128</span><span id="line-1128">   * The allowed usage for this permission is to help users tag public locations to</span>
-<span class="source-line-no">1129</span><span id="line-1129">   * their posts and request locations when media is retrieved</span>
-<span class="source-line-no">1130</span><span id="line-1130">   */</span>
-<span class="source-line-no">1131</span><span id="line-1131">  THREADS_LOCATION_TAGGING("threads_location_tagging", Category.THREADS),</span>
-<span class="source-line-no">1132</span><span id="line-1132"></span>
-<span class="source-line-no">1133</span><span id="line-1133">  /**</span>
-<span class="source-line-no">1134</span><span id="line-1134">   * The {@code threads_manage_mentions} permission allows an app to fetch content where the user is mentioned in on</span>
-<span class="source-line-no">1135</span><span id="line-1135">   * behalf of a Threads user.</span>
+<span class="source-line-no">1119</span><span id="line-1119">   * The allowed usage for this permission is to allow the app's users to find profiles of public Threads</span>
+<span class="source-line-no">1120</span><span id="line-1120">   * accounts and public posts of these accounts to conduct competitor analyses.</span>
+<span class="source-line-no">1121</span><span id="line-1121">   */</span>
+<span class="source-line-no">1122</span><span id="line-1122">  THREADS_PROFILE_DISCOVERY("threads_profile_discovery", Category.THREADS),</span>
+<span class="source-line-no">1123</span><span id="line-1123"></span>
+<span class="source-line-no">1124</span><span id="line-1124">  /**</span>
+<span class="source-line-no">1125</span><span id="line-1125">   * The {@code threads_read_replies} permission allows an app to read replies to a user's thread.</span>
+<span class="source-line-no">1126</span><span id="line-1126">   * &lt;p&gt;</span>
+<span class="source-line-no">1127</span><span id="line-1127">   * The allowed usage for this permission is to get replies to a thread owned by the app user. You may also use this</span>
+<span class="source-line-no">1128</span><span id="line-1128">   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the</span>
+<span class="source-line-no">1129</span><span id="line-1129">   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1130</span><span id="line-1130">   * &lt;p&gt;</span>
+<span class="source-line-no">1131</span><span id="line-1131">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1132</span><span id="line-1132">   * &lt;ul&gt;</span>
+<span class="source-line-no">1133</span><span id="line-1133">   * &lt;li&gt;Get replies to a thread owned by the app user&lt;/li&gt;</span>
+<span class="source-line-no">1134</span><span id="line-1134">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1135</span><span id="line-1135">   *</span>
 <span class="source-line-no">1136</span><span id="line-1136">   * &lt;p&gt;</span>
-<span class="source-line-no">1137</span><span id="line-1137">   * The allowed usage for this permission is to help the user manage their social media presence, which includes:</span>
-<span class="source-line-no">1138</span><span id="line-1138">   * showing public content and the public content tree that a user is mentioned in, enabling the user to sort user’s</span>
-<span class="source-line-no">1139</span><span id="line-1139">   * own mentioned threads, and enabling the user to publish responses to the public content tree that the user is</span>
-<span class="source-line-no">1140</span><span id="line-1140">   * mentioned in.</span>
-<span class="source-line-no">1141</span><span id="line-1141">   * &lt;p&gt;</span>
-<span class="source-line-no">1142</span><span id="line-1142">   * You may also use this permission to request analytics insights to improve your app and for marketing or advertising</span>
-<span class="source-line-no">1143</span><span id="line-1143">   * purposes, through the use of aggregated and de-identified or anonymized information (provided such data cannot be</span>
-<span class="source-line-no">1144</span><span id="line-1144">   * re-identified).</span>
-<span class="source-line-no">1145</span><span id="line-1145">   *</span>
-<span class="source-line-no">1146</span><span id="line-1146">   * &lt;p&gt;</span>
-<span class="source-line-no">1147</span><span id="line-1147">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1148</span><span id="line-1148">   * &lt;ul&gt;</span>
-<span class="source-line-no">1149</span><span id="line-1149">   * &lt;li&gt;Showing public content and the public content tree that a user is mentioned in.&lt;/li&gt;</span>
-<span class="source-line-no">1150</span><span id="line-1150">   * &lt;li&gt;Giving the user the ability to sort user’s own mentioned threads.&lt;/li&gt;</span>
-<span class="source-line-no">1151</span><span id="line-1151">   * &lt;li&gt;Giving the user the ability to publish responses to public content that a user is mentioned in.&lt;/li&gt;</span>
-<span class="source-line-no">1152</span><span id="line-1152">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1153</span><span id="line-1153">   * &lt;p&gt;</span>
-<span class="source-line-no">1154</span><span id="line-1154">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1155</span><span id="line-1155">   * &lt;p&gt;</span>
-<span class="source-line-no">1156</span><span id="line-1156">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1157</span><span id="line-1157">   */</span>
-<span class="source-line-no">1158</span><span id="line-1158">  THREADS_MANAGE_MENTIONS("threads_manage_mentions", Category.THREADS),</span>
-<span class="source-line-no">1159</span><span id="line-1159"></span>
-<span class="source-line-no">1160</span><span id="line-1160">  /**</span>
-<span class="source-line-no">1161</span><span id="line-1161">   * The {@code threads_keyword_search} permission allows an app to search and fetch content with a specific keyword on</span>
-<span class="source-line-no">1162</span><span id="line-1162">   * behalf of a Threads user.</span>
-<span class="source-line-no">1163</span><span id="line-1163">   * &lt;p&gt;</span>
-<span class="source-line-no">1164</span><span id="line-1164">   * The permission also allows for publishing responses to this fetched content. The allowed usage for this permission</span>
-<span class="source-line-no">1165</span><span id="line-1165">   * is to help the user manage their social media presence. You may also use this permission to request analytics</span>
-<span class="source-line-no">1166</span><span id="line-1166">   * insights to improve your app and for marketing or advertising purposes, through the use of aggregated and</span>
-<span class="source-line-no">1167</span><span id="line-1167">   * de-identified or anonymized information (provided such data cannot be re-identified).</span>
-<span class="source-line-no">1168</span><span id="line-1168">   * &lt;p&gt;</span>
-<span class="source-line-no">1169</span><span id="line-1169">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1170</span><span id="line-1170">   * &lt;ul&gt;</span>
-<span class="source-line-no">1171</span><span id="line-1171">   * &lt;li&gt;Showing public content and the public content tree that a user searches using a specific keyword.&lt;/li&gt;</span>
-<span class="source-line-no">1172</span><span id="line-1172">   * &lt;li&gt;Giving the user the ability to sort user’s own mentioned threads.&lt;/li&gt;</span>
-<span class="source-line-no">1173</span><span id="line-1173">   * &lt;li&gt;Giving the user the ability to publish responses to public content that the user searches for.&lt;/li&gt;</span>
-<span class="source-line-no">1174</span><span id="line-1174">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1137</span><span id="line-1137">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1138</span><span id="line-1138">   * &lt;p&gt;</span>
+<span class="source-line-no">1139</span><span id="line-1139">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1140</span><span id="line-1140">   */</span>
+<span class="source-line-no">1141</span><span id="line-1141">  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),</span>
+<span class="source-line-no">1142</span><span id="line-1142"></span>
+<span class="source-line-no">1143</span><span id="line-1143">  /**</span>
+<span class="source-line-no">1144</span><span id="line-1144">   * The {@code threads_location_tagging} permission allows an app to search for</span>
+<span class="source-line-no">1145</span><span id="line-1145">   * and fetch public locations using specific queries/keywords or coordinates on</span>
+<span class="source-line-no">1146</span><span id="line-1146">   * behalf of a Threads user and publish media with a location tagged.</span>
+<span class="source-line-no">1147</span><span id="line-1147">   * &lt;p&gt;</span>
+<span class="source-line-no">1148</span><span id="line-1148">   * The allowed usage for this permission is to help users tag public locations to</span>
+<span class="source-line-no">1149</span><span id="line-1149">   * their posts and request locations when media is retrieved</span>
+<span class="source-line-no">1150</span><span id="line-1150">   */</span>
+<span class="source-line-no">1151</span><span id="line-1151">  THREADS_LOCATION_TAGGING("threads_location_tagging", Category.THREADS),</span>
+<span class="source-line-no">1152</span><span id="line-1152"></span>
+<span class="source-line-no">1153</span><span id="line-1153">  /**</span>
+<span class="source-line-no">1154</span><span id="line-1154">   * The {@code threads_manage_mentions} permission allows an app to fetch content where the user is mentioned in on</span>
+<span class="source-line-no">1155</span><span id="line-1155">   * behalf of a Threads user.</span>
+<span class="source-line-no">1156</span><span id="line-1156">   * &lt;p&gt;</span>
+<span class="source-line-no">1157</span><span id="line-1157">   * The allowed usage for this permission is to help the user manage their social media presence, which includes:</span>
+<span class="source-line-no">1158</span><span id="line-1158">   * showing public content and the public content tree that a user is mentioned in, enabling the user to sort user’s</span>
+<span class="source-line-no">1159</span><span id="line-1159">   * own mentioned threads, and enabling the user to publish responses to the public content tree that the user is</span>
+<span class="source-line-no">1160</span><span id="line-1160">   * mentioned in.</span>
+<span class="source-line-no">1161</span><span id="line-1161">   * &lt;p&gt;</span>
+<span class="source-line-no">1162</span><span id="line-1162">   * You may also use this permission to request analytics insights to improve your app and for marketing or advertising</span>
+<span class="source-line-no">1163</span><span id="line-1163">   * purposes, through the use of aggregated and de-identified or anonymized information (provided such data cannot be</span>
+<span class="source-line-no">1164</span><span id="line-1164">   * re-identified).</span>
+<span class="source-line-no">1165</span><span id="line-1165">   *</span>
+<span class="source-line-no">1166</span><span id="line-1166">   * &lt;p&gt;</span>
+<span class="source-line-no">1167</span><span id="line-1167">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1168</span><span id="line-1168">   * &lt;ul&gt;</span>
+<span class="source-line-no">1169</span><span id="line-1169">   * &lt;li&gt;Showing public content and the public content tree that a user is mentioned in.&lt;/li&gt;</span>
+<span class="source-line-no">1170</span><span id="line-1170">   * &lt;li&gt;Giving the user the ability to sort user’s own mentioned threads.&lt;/li&gt;</span>
+<span class="source-line-no">1171</span><span id="line-1171">   * &lt;li&gt;Giving the user the ability to publish responses to public content that a user is mentioned in.&lt;/li&gt;</span>
+<span class="source-line-no">1172</span><span id="line-1172">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1173</span><span id="line-1173">   * &lt;p&gt;</span>
+<span class="source-line-no">1174</span><span id="line-1174">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
 <span class="source-line-no">1175</span><span id="line-1175">   * &lt;p&gt;</span>
-<span class="source-line-no">1176</span><span id="line-1176">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1177</span><span id="line-1177">   * &lt;p&gt;</span>
-<span class="source-line-no">1178</span><span id="line-1178">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1179</span><span id="line-1179">   */</span>
-<span class="source-line-no">1180</span><span id="line-1180">  THREADS_KEYWORD_SEARCH("threads_keyword_search", Category.THREADS),</span>
-<span class="source-line-no">1181</span><span id="line-1181"></span>
-<span class="source-line-no">1182</span><span id="line-1182">  /**</span>
-<span class="source-line-no">1183</span><span id="line-1183">   * The {@code threads_delete} permission allows an app to delete an app user's Threads posts.</span>
-<span class="source-line-no">1184</span><span id="line-1184">   * &lt;p&gt;</span>
-<span class="source-line-no">1185</span><span id="line-1185">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1186</span><span id="line-1186">   * &lt;ul&gt;</span>
-<span class="source-line-no">1187</span><span id="line-1187">   * &lt;li&gt;The allowed usage for this permission is to delete an app user's Thread posts&lt;/li&gt;</span>
-<span class="source-line-no">1188</span><span id="line-1188">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1189</span><span id="line-1189">   * &lt;p&gt;</span>
-<span class="source-line-no">1190</span><span id="line-1190">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
-<span class="source-line-no">1191</span><span id="line-1191">   * &lt;p&gt;</span>
-<span class="source-line-no">1192</span><span id="line-1192">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
-<span class="source-line-no">1193</span><span id="line-1193">   */</span>
-<span class="source-line-no">1194</span><span id="line-1194">  THREADS_DELETE("threads_delete", Category.THREADS),</span>
-<span class="source-line-no">1195</span><span id="line-1195"></span>
-<span class="source-line-no">1196</span><span id="line-1196">  /**</span>
-<span class="source-line-no">1197</span><span id="line-1197">   * The commerce_account manage_orders permission allows your app to read and update commerce account orders.</span>
-<span class="source-line-no">1198</span><span id="line-1198">   *</span>
-<span class="source-line-no">1199</span><span id="line-1199">   * &lt;p&gt;</span>
-<span class="source-line-no">1200</span><span id="line-1200">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1201</span><span id="line-1201">   * &lt;ul&gt;</span>
-<span class="source-line-no">1202</span><span id="line-1202">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</span>
-<span class="source-line-no">1203</span><span id="line-1203">   * &lt;li&gt;Tech providers manage orders on behalf of their customers.&lt;/li&gt;</span>
-<span class="source-line-no">1204</span><span id="line-1204">   * &lt;li&gt;Access to Webhook notifications.&lt;/li&gt;</span>
-<span class="source-line-no">1205</span><span id="line-1205">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1206</span><span id="line-1206">   */</span>
-<span class="source-line-no">1207</span><span id="line-1207">  COMMERCE_ACCOUNT_MANAGE_ORDERS("commerce_account_manage_orders", Category.COMMERCE),</span>
-<span class="source-line-no">1208</span><span id="line-1208"></span>
-<span class="source-line-no">1209</span><span id="line-1209">  /**</span>
-<span class="source-line-no">1210</span><span id="line-1210">   * The commerce_account_read_orders permission allows your app to read commerce account orders.</span>
+<span class="source-line-no">1176</span><span id="line-1176">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1177</span><span id="line-1177">   */</span>
+<span class="source-line-no">1178</span><span id="line-1178">  THREADS_MANAGE_MENTIONS("threads_manage_mentions", Category.THREADS),</span>
+<span class="source-line-no">1179</span><span id="line-1179"></span>
+<span class="source-line-no">1180</span><span id="line-1180">  /**</span>
+<span class="source-line-no">1181</span><span id="line-1181">   * The {@code threads_keyword_search} permission allows an app to search and fetch content with a specific keyword on</span>
+<span class="source-line-no">1182</span><span id="line-1182">   * behalf of a Threads user.</span>
+<span class="source-line-no">1183</span><span id="line-1183">   * &lt;p&gt;</span>
+<span class="source-line-no">1184</span><span id="line-1184">   * The permission also allows for publishing responses to this fetched content. The allowed usage for this permission</span>
+<span class="source-line-no">1185</span><span id="line-1185">   * is to help the user manage their social media presence. You may also use this permission to request analytics</span>
+<span class="source-line-no">1186</span><span id="line-1186">   * insights to improve your app and for marketing or advertising purposes, through the use of aggregated and</span>
+<span class="source-line-no">1187</span><span id="line-1187">   * de-identified or anonymized information (provided such data cannot be re-identified).</span>
+<span class="source-line-no">1188</span><span id="line-1188">   * &lt;p&gt;</span>
+<span class="source-line-no">1189</span><span id="line-1189">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1190</span><span id="line-1190">   * &lt;ul&gt;</span>
+<span class="source-line-no">1191</span><span id="line-1191">   * &lt;li&gt;Showing public content and the public content tree that a user searches using a specific keyword.&lt;/li&gt;</span>
+<span class="source-line-no">1192</span><span id="line-1192">   * &lt;li&gt;Giving the user the ability to sort user’s own mentioned threads.&lt;/li&gt;</span>
+<span class="source-line-no">1193</span><span id="line-1193">   * &lt;li&gt;Giving the user the ability to publish responses to public content that the user searches for.&lt;/li&gt;</span>
+<span class="source-line-no">1194</span><span id="line-1194">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1195</span><span id="line-1195">   * &lt;p&gt;</span>
+<span class="source-line-no">1196</span><span id="line-1196">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
+<span class="source-line-no">1197</span><span id="line-1197">   * &lt;p&gt;</span>
+<span class="source-line-no">1198</span><span id="line-1198">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1199</span><span id="line-1199">   */</span>
+<span class="source-line-no">1200</span><span id="line-1200">  THREADS_KEYWORD_SEARCH("threads_keyword_search", Category.THREADS),</span>
+<span class="source-line-no">1201</span><span id="line-1201"></span>
+<span class="source-line-no">1202</span><span id="line-1202">  /**</span>
+<span class="source-line-no">1203</span><span id="line-1203">   * The {@code threads_delete} permission allows an app to delete an app user's Threads posts.</span>
+<span class="source-line-no">1204</span><span id="line-1204">   * &lt;p&gt;</span>
+<span class="source-line-no">1205</span><span id="line-1205">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1206</span><span id="line-1206">   * &lt;ul&gt;</span>
+<span class="source-line-no">1207</span><span id="line-1207">   * &lt;li&gt;The allowed usage for this permission is to delete an app user's Thread posts&lt;/li&gt;</span>
+<span class="source-line-no">1208</span><span id="line-1208">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1209</span><span id="line-1209">   * &lt;p&gt;</span>
+<span class="source-line-no">1210</span><span id="line-1210">   * &lt;strong&gt;Review&lt;/strong&gt;</span>
 <span class="source-line-no">1211</span><span id="line-1211">   * &lt;p&gt;</span>
-<span class="source-line-no">1212</span><span id="line-1212">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1213</span><span id="line-1213">   * &lt;ul&gt;</span>
-<span class="source-line-no">1214</span><span id="line-1214">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</span>
-<span class="source-line-no">1215</span><span id="line-1215">   * &lt;li&gt;Use the buyer's email address for marketing purposes only if a buyer has opted-in at checkout.&lt;/li&gt;</span>
-<span class="source-line-no">1216</span><span id="line-1216">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1217</span><span id="line-1217">   */</span>
-<span class="source-line-no">1218</span><span id="line-1218">  COMMERCE_ACCOUNT_READ_ORDERS("commerce_account_read_orders", Category.COMMERCE),</span>
-<span class="source-line-no">1219</span><span id="line-1219"></span>
-<span class="source-line-no">1220</span><span id="line-1220">  /**</span>
-<span class="source-line-no">1221</span><span id="line-1221">   * The commerce_account_read_reports permission allows your app to read finance reporting data to build custom tax,</span>
-<span class="source-line-no">1222</span><span id="line-1222">   * cash reconciliation and reimbursement reports for a commerce account.</span>
-<span class="source-line-no">1223</span><span id="line-1223">   * &lt;p&gt;</span>
-<span class="source-line-no">1224</span><span id="line-1224">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1225</span><span id="line-1225">   * &lt;ul&gt;</span>
-<span class="source-line-no">1226</span><span id="line-1226">   * &lt;li&gt;Read finance reporting data in your commerce account for building custom tax cash reconciliation and</span>
-<span class="source-line-no">1227</span><span id="line-1227">   * reimbursement reports.&lt;/li&gt;</span>
-<span class="source-line-no">1228</span><span id="line-1228">   * &lt;li&gt;Tech providers can run finance reports on behalf of their customers.&lt;/li&gt;</span>
-<span class="source-line-no">1229</span><span id="line-1229">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1230</span><span id="line-1230">   */</span>
-<span class="source-line-no">1231</span><span id="line-1231">  COMMERCE_ACCOUNT_READ_REPORTS("commerce_account_read_reports", Category.COMMERCE),</span>
-<span class="source-line-no">1232</span><span id="line-1232"></span>
-<span class="source-line-no">1233</span><span id="line-1233">  /**</span>
-<span class="source-line-no">1234</span><span id="line-1234">   * The commerce_account_read_settings permission allows your app to read commerce account settings. Allowed Usage</span>
-<span class="source-line-no">1235</span><span id="line-1235">   * &lt;ul&gt;</span>
-<span class="source-line-no">1236</span><span id="line-1236">   * &lt;li&gt;Read basic commerce account information like connected channels, shipping options, fulfillment locations, etc.</span>
-<span class="source-line-no">1237</span><span id="line-1237">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1238</span><span id="line-1238">   */</span>
-<span class="source-line-no">1239</span><span id="line-1239">  COMMERCE_ACCOUNT_READ_SETTINGS("commerce_account_read_settings", Category.COMMERCE),</span>
-<span class="source-line-no">1240</span><span id="line-1240"></span>
-<span class="source-line-no">1241</span><span id="line-1241">  /**</span>
-<span class="source-line-no">1242</span><span id="line-1242">   * The commerce_manage_accounts permission allows your app to create and manage commerce accounts, such as an</span>
-<span class="source-line-no">1243</span><span id="line-1243">   * ecommerce app</span>
-<span class="source-line-no">1244</span><span id="line-1244">   * &lt;p&gt;</span>
-<span class="source-line-no">1245</span><span id="line-1245">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
-<span class="source-line-no">1246</span><span id="line-1246">   * &lt;ul&gt;</span>
-<span class="source-line-no">1247</span><span id="line-1247">   * &lt;li&gt;Associate your app with your commerce account.&lt;/li&gt;</span>
-<span class="source-line-no">1248</span><span id="line-1248">   * &lt;li&gt;Tech providers create a commerce account on behalf of their customers.&lt;/li&gt;</span>
-<span class="source-line-no">1249</span><span id="line-1249">   * &lt;li&gt;Tech providers enable a new sales channel within their customer’s commerce account.&lt;/li&gt;</span>
-<span class="source-line-no">1250</span><span id="line-1250">   * &lt;/ul&gt;</span>
-<span class="source-line-no">1251</span><span id="line-1251">   */</span>
-<span class="source-line-no">1252</span><span id="line-1252">  COMMERCE_MANAGE_ACCOUNTS("commerce_manage_accounts", Category.COMMERCE),</span>
-<span class="source-line-no">1253</span><span id="line-1253"></span>
-<span class="source-line-no">1254</span><span id="line-1254">  ;</span>
-<span class="source-line-no">1255</span><span id="line-1255"></span>
-<span class="source-line-no">1256</span><span id="line-1256">  private final String permissionString;</span>
-<span class="source-line-no">1257</span><span id="line-1257"></span>
-<span class="source-line-no">1258</span><span id="line-1258">  private final Category category;</span>
-<span class="source-line-no">1259</span><span id="line-1259"></span>
-<span class="source-line-no">1260</span><span id="line-1260">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
-<span class="source-line-no">1261</span><span id="line-1261">    this.permissionString = facebookPermissionString;</span>
-<span class="source-line-no">1262</span><span id="line-1262">    this.category = category;</span>
-<span class="source-line-no">1263</span><span id="line-1263">  }</span>
-<span class="source-line-no">1264</span><span id="line-1264"></span>
-<span class="source-line-no">1265</span><span id="line-1265">  public String getPermissionString() {</span>
-<span class="source-line-no">1266</span><span id="line-1266">    return this.permissionString;</span>
-<span class="source-line-no">1267</span><span id="line-1267">  }</span>
-<span class="source-line-no">1268</span><span id="line-1268"></span>
-<span class="source-line-no">1269</span><span id="line-1269">  public Category getCategory() {</span>
-<span class="source-line-no">1270</span><span id="line-1270">    return this.category;</span>
-<span class="source-line-no">1271</span><span id="line-1271">  }</span>
-<span class="source-line-no">1272</span><span id="line-1272"></span>
-<span class="source-line-no">1273</span><span id="line-1273">  public enum Category {</span>
-<span class="source-line-no">1274</span><span id="line-1274">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS</span>
-<span class="source-line-no">1275</span><span id="line-1275">  }</span>
-<span class="source-line-no">1276</span><span id="line-1276">}</span>
+<span class="source-line-no">1212</span><span id="line-1212">   * If your app requests this permission Facebook will have to review how your app uses it.</span>
+<span class="source-line-no">1213</span><span id="line-1213">   */</span>
+<span class="source-line-no">1214</span><span id="line-1214">  THREADS_DELETE("threads_delete", Category.THREADS),</span>
+<span class="source-line-no">1215</span><span id="line-1215"></span>
+<span class="source-line-no">1216</span><span id="line-1216">  /**</span>
+<span class="source-line-no">1217</span><span id="line-1217">   * The commerce_account manage_orders permission allows your app to read and update commerce account orders.</span>
+<span class="source-line-no">1218</span><span id="line-1218">   *</span>
+<span class="source-line-no">1219</span><span id="line-1219">   * &lt;p&gt;</span>
+<span class="source-line-no">1220</span><span id="line-1220">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1221</span><span id="line-1221">   * &lt;ul&gt;</span>
+<span class="source-line-no">1222</span><span id="line-1222">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</span>
+<span class="source-line-no">1223</span><span id="line-1223">   * &lt;li&gt;Tech providers manage orders on behalf of their customers.&lt;/li&gt;</span>
+<span class="source-line-no">1224</span><span id="line-1224">   * &lt;li&gt;Access to Webhook notifications.&lt;/li&gt;</span>
+<span class="source-line-no">1225</span><span id="line-1225">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1226</span><span id="line-1226">   */</span>
+<span class="source-line-no">1227</span><span id="line-1227">  COMMERCE_ACCOUNT_MANAGE_ORDERS("commerce_account_manage_orders", Category.COMMERCE),</span>
+<span class="source-line-no">1228</span><span id="line-1228"></span>
+<span class="source-line-no">1229</span><span id="line-1229">  /**</span>
+<span class="source-line-no">1230</span><span id="line-1230">   * The commerce_account_read_orders permission allows your app to read commerce account orders.</span>
+<span class="source-line-no">1231</span><span id="line-1231">   * &lt;p&gt;</span>
+<span class="source-line-no">1232</span><span id="line-1232">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1233</span><span id="line-1233">   * &lt;ul&gt;</span>
+<span class="source-line-no">1234</span><span id="line-1234">   * &lt;li&gt;Read orders in your commerce account.&lt;/li&gt;</span>
+<span class="source-line-no">1235</span><span id="line-1235">   * &lt;li&gt;Use the buyer's email address for marketing purposes only if a buyer has opted-in at checkout.&lt;/li&gt;</span>
+<span class="source-line-no">1236</span><span id="line-1236">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1237</span><span id="line-1237">   */</span>
+<span class="source-line-no">1238</span><span id="line-1238">  COMMERCE_ACCOUNT_READ_ORDERS("commerce_account_read_orders", Category.COMMERCE),</span>
+<span class="source-line-no">1239</span><span id="line-1239"></span>
+<span class="source-line-no">1240</span><span id="line-1240">  /**</span>
+<span class="source-line-no">1241</span><span id="line-1241">   * The commerce_account_read_reports permission allows your app to read finance reporting data to build custom tax,</span>
+<span class="source-line-no">1242</span><span id="line-1242">   * cash reconciliation and reimbursement reports for a commerce account.</span>
+<span class="source-line-no">1243</span><span id="line-1243">   * &lt;p&gt;</span>
+<span class="source-line-no">1244</span><span id="line-1244">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1245</span><span id="line-1245">   * &lt;ul&gt;</span>
+<span class="source-line-no">1246</span><span id="line-1246">   * &lt;li&gt;Read finance reporting data in your commerce account for building custom tax cash reconciliation and</span>
+<span class="source-line-no">1247</span><span id="line-1247">   * reimbursement reports.&lt;/li&gt;</span>
+<span class="source-line-no">1248</span><span id="line-1248">   * &lt;li&gt;Tech providers can run finance reports on behalf of their customers.&lt;/li&gt;</span>
+<span class="source-line-no">1249</span><span id="line-1249">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1250</span><span id="line-1250">   */</span>
+<span class="source-line-no">1251</span><span id="line-1251">  COMMERCE_ACCOUNT_READ_REPORTS("commerce_account_read_reports", Category.COMMERCE),</span>
+<span class="source-line-no">1252</span><span id="line-1252"></span>
+<span class="source-line-no">1253</span><span id="line-1253">  /**</span>
+<span class="source-line-no">1254</span><span id="line-1254">   * The commerce_account_read_settings permission allows your app to read commerce account settings. Allowed Usage</span>
+<span class="source-line-no">1255</span><span id="line-1255">   * &lt;ul&gt;</span>
+<span class="source-line-no">1256</span><span id="line-1256">   * &lt;li&gt;Read basic commerce account information like connected channels, shipping options, fulfillment locations, etc.</span>
+<span class="source-line-no">1257</span><span id="line-1257">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1258</span><span id="line-1258">   */</span>
+<span class="source-line-no">1259</span><span id="line-1259">  COMMERCE_ACCOUNT_READ_SETTINGS("commerce_account_read_settings", Category.COMMERCE),</span>
+<span class="source-line-no">1260</span><span id="line-1260"></span>
+<span class="source-line-no">1261</span><span id="line-1261">  /**</span>
+<span class="source-line-no">1262</span><span id="line-1262">   * The commerce_manage_accounts permission allows your app to create and manage commerce accounts, such as an</span>
+<span class="source-line-no">1263</span><span id="line-1263">   * ecommerce app</span>
+<span class="source-line-no">1264</span><span id="line-1264">   * &lt;p&gt;</span>
+<span class="source-line-no">1265</span><span id="line-1265">   * &lt;strong&gt;Allowed Usage&lt;/strong&gt;</span>
+<span class="source-line-no">1266</span><span id="line-1266">   * &lt;ul&gt;</span>
+<span class="source-line-no">1267</span><span id="line-1267">   * &lt;li&gt;Associate your app with your commerce account.&lt;/li&gt;</span>
+<span class="source-line-no">1268</span><span id="line-1268">   * &lt;li&gt;Tech providers create a commerce account on behalf of their customers.&lt;/li&gt;</span>
+<span class="source-line-no">1269</span><span id="line-1269">   * &lt;li&gt;Tech providers enable a new sales channel within their customer’s commerce account.&lt;/li&gt;</span>
+<span class="source-line-no">1270</span><span id="line-1270">   * &lt;/ul&gt;</span>
+<span class="source-line-no">1271</span><span id="line-1271">   */</span>
+<span class="source-line-no">1272</span><span id="line-1272">  COMMERCE_MANAGE_ACCOUNTS("commerce_manage_accounts", Category.COMMERCE),</span>
+<span class="source-line-no">1273</span><span id="line-1273"></span>
+<span class="source-line-no">1274</span><span id="line-1274">  ;</span>
+<span class="source-line-no">1275</span><span id="line-1275"></span>
+<span class="source-line-no">1276</span><span id="line-1276">  private final String permissionString;</span>
+<span class="source-line-no">1277</span><span id="line-1277"></span>
+<span class="source-line-no">1278</span><span id="line-1278">  private final Category category;</span>
+<span class="source-line-no">1279</span><span id="line-1279"></span>
+<span class="source-line-no">1280</span><span id="line-1280">  FacebookPermissions(String facebookPermissionString, Category category) {</span>
+<span class="source-line-no">1281</span><span id="line-1281">    this.permissionString = facebookPermissionString;</span>
+<span class="source-line-no">1282</span><span id="line-1282">    this.category = category;</span>
+<span class="source-line-no">1283</span><span id="line-1283">  }</span>
+<span class="source-line-no">1284</span><span id="line-1284"></span>
+<span class="source-line-no">1285</span><span id="line-1285">  public String getPermissionString() {</span>
+<span class="source-line-no">1286</span><span id="line-1286">    return this.permissionString;</span>
+<span class="source-line-no">1287</span><span id="line-1287">  }</span>
+<span class="source-line-no">1288</span><span id="line-1288"></span>
+<span class="source-line-no">1289</span><span id="line-1289">  public Category getCategory() {</span>
+<span class="source-line-no">1290</span><span id="line-1290">    return this.category;</span>
+<span class="source-line-no">1291</span><span id="line-1291">  }</span>
+<span class="source-line-no">1292</span><span id="line-1292"></span>
+<span class="source-line-no">1293</span><span id="line-1293">  public enum Category {</span>
+<span class="source-line-no">1294</span><span id="line-1294">    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS</span>
+<span class="source-line-no">1295</span><span id="line-1295">  }</span>
+<span class="source-line-no">1296</span><span id="line-1296">}</span>
 
 
 
