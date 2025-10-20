@@ -126,60 +126,67 @@
 <span class="source-line-no">113</span><span id="line-113">  VERSION_22_0("v22.0"),</span>
 <span class="source-line-no">114</span><span id="line-114"></span>
 <span class="source-line-no">115</span><span id="line-115">  /**</span>
-<span class="source-line-no">116</span><span id="line-116">   * &lt;tt&gt;Graph API 23.0&lt;/tt&gt;, available at least until May 2027</span>
+<span class="source-line-no">116</span><span id="line-116">   * &lt;tt&gt;Graph API 23.0&lt;/tt&gt;, available at least until October 8, 2027</span>
 <span class="source-line-no">117</span><span id="line-117">   *</span>
 <span class="source-line-no">118</span><span id="line-118">   * @since May 29, 2025</span>
 <span class="source-line-no">119</span><span id="line-119">   */</span>
 <span class="source-line-no">120</span><span id="line-120">  VERSION_23_0("v23.0"),</span>
 <span class="source-line-no">121</span><span id="line-121"></span>
 <span class="source-line-no">122</span><span id="line-122">  /**</span>
-<span class="source-line-no">123</span><span id="line-123">   * convenience enum to provide simple access to the latest supported Graph API Version.</span>
-<span class="source-line-no">124</span><span id="line-124">   * &lt;p&gt;</span>
-<span class="source-line-no">125</span><span id="line-125">   * the current version is &lt;tt&gt;Graph API 23.0&lt;/tt&gt;</span>
-<span class="source-line-no">126</span><span id="line-126">   * &lt;/p&gt;</span>
-<span class="source-line-no">127</span><span id="line-127">   */</span>
-<span class="source-line-no">128</span><span id="line-128">  LATEST("v23.0"),</span>
-<span class="source-line-no">129</span><span id="line-129"></span>
-<span class="source-line-no">130</span><span id="line-130">  /**</span>
-<span class="source-line-no">131</span><span id="line-131">   * &lt;tt&gt;Threads API 1.0&lt;/tt&gt;, according to the documentation, this is the first Threads API Version</span>
-<span class="source-line-no">132</span><span id="line-132">   */</span>
-<span class="source-line-no">133</span><span id="line-133">  THREADS_1_0("v1.0"),</span>
-<span class="source-line-no">134</span><span id="line-134"></span>
-<span class="source-line-no">135</span><span id="line-135">  /**</span>
-<span class="source-line-no">136</span><span id="line-136">   * convenience enum to provide simple access to the latest supported Threads API Version.</span>
-<span class="source-line-no">137</span><span id="line-137">   */</span>
-<span class="source-line-no">138</span><span id="line-138">  THREADS_LATEST("v1.0");</span>
-<span class="source-line-no">139</span><span id="line-139"></span>
-<span class="source-line-no">140</span><span id="line-140">  private final String urlElement;</span>
+<span class="source-line-no">123</span><span id="line-123">   * &lt;tt&gt;Graph API 24.0&lt;/tt&gt;, available at least until October 2027</span>
+<span class="source-line-no">124</span><span id="line-124">   *</span>
+<span class="source-line-no">125</span><span id="line-125">   * @since October 8, 2025</span>
+<span class="source-line-no">126</span><span id="line-126">   */</span>
+<span class="source-line-no">127</span><span id="line-127">  VERSION_24_0("v24.0"),</span>
+<span class="source-line-no">128</span><span id="line-128"></span>
+<span class="source-line-no">129</span><span id="line-129">  /**</span>
+<span class="source-line-no">130</span><span id="line-130">   * convenience enum to provide simple access to the latest supported Graph API Version.</span>
+<span class="source-line-no">131</span><span id="line-131">   * &lt;p&gt;</span>
+<span class="source-line-no">132</span><span id="line-132">   * the current version is &lt;tt&gt;Graph API 24.0&lt;/tt&gt;</span>
+<span class="source-line-no">133</span><span id="line-133">   * &lt;/p&gt;</span>
+<span class="source-line-no">134</span><span id="line-134">   */</span>
+<span class="source-line-no">135</span><span id="line-135">  LATEST("v24.0"),</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">  /**</span>
+<span class="source-line-no">138</span><span id="line-138">   * &lt;tt&gt;Threads API 1.0&lt;/tt&gt;, according to the documentation, this is the first Threads API Version</span>
+<span class="source-line-no">139</span><span id="line-139">   */</span>
+<span class="source-line-no">140</span><span id="line-140">  THREADS_1_0("v1.0"),</span>
 <span class="source-line-no">141</span><span id="line-141"></span>
-<span class="source-line-no">142</span><span id="line-142">  Version(String urlElement) {</span>
-<span class="source-line-no">143</span><span id="line-143">    this.urlElement = urlElement;</span>
-<span class="source-line-no">144</span><span id="line-144">  }</span>
-<span class="source-line-no">145</span><span id="line-145"></span>
-<span class="source-line-no">146</span><span id="line-146">  public String getUrlElement() {</span>
-<span class="source-line-no">147</span><span id="line-147">    return this.urlElement;</span>
-<span class="source-line-no">148</span><span id="line-148">  }</span>
-<span class="source-line-no">149</span><span id="line-149"></span>
-<span class="source-line-no">150</span><span id="line-150">  public boolean isUrlElementRequired() {</span>
-<span class="source-line-no">151</span><span id="line-151">    return null != this.urlElement;</span>
-<span class="source-line-no">152</span><span id="line-152">  }</span>
-<span class="source-line-no">153</span><span id="line-153"></span>
-<span class="source-line-no">154</span><span id="line-154">  /**</span>
-<span class="source-line-no">155</span><span id="line-155">   * converts a String (for example the url parameter) into a Version object</span>
-<span class="source-line-no">156</span><span id="line-156">   * </span>
-<span class="source-line-no">157</span><span id="line-157">   * @param urlElementStr</span>
-<span class="source-line-no">158</span><span id="line-158">   *          String that should</span>
-<span class="source-line-no">159</span><span id="line-159">   * @return the generated version</span>
-<span class="source-line-no">160</span><span id="line-160">   */</span>
-<span class="source-line-no">161</span><span id="line-161">  public static Version getVersionFromString(String urlElementStr) {</span>
-<span class="source-line-no">162</span><span id="line-162">    if (urlElementStr == null) {</span>
-<span class="source-line-no">163</span><span id="line-163">      return UNVERSIONED;</span>
-<span class="source-line-no">164</span><span id="line-164">    }</span>
-<span class="source-line-no">165</span><span id="line-165"></span>
-<span class="source-line-no">166</span><span id="line-166">    return Arrays.stream(Version.values()).filter(v -&gt; urlElementStr.equals(v.getUrlElement())).findFirst()</span>
-<span class="source-line-no">167</span><span id="line-167">      .orElse(UNVERSIONED);</span>
-<span class="source-line-no">168</span><span id="line-168">  }</span>
-<span class="source-line-no">169</span><span id="line-169">}</span>
+<span class="source-line-no">142</span><span id="line-142">  /**</span>
+<span class="source-line-no">143</span><span id="line-143">   * convenience enum to provide simple access to the latest supported Threads API Version.</span>
+<span class="source-line-no">144</span><span id="line-144">   */</span>
+<span class="source-line-no">145</span><span id="line-145">  THREADS_LATEST("v1.0");</span>
+<span class="source-line-no">146</span><span id="line-146"></span>
+<span class="source-line-no">147</span><span id="line-147">  private final String urlElement;</span>
+<span class="source-line-no">148</span><span id="line-148"></span>
+<span class="source-line-no">149</span><span id="line-149">  Version(String urlElement) {</span>
+<span class="source-line-no">150</span><span id="line-150">    this.urlElement = urlElement;</span>
+<span class="source-line-no">151</span><span id="line-151">  }</span>
+<span class="source-line-no">152</span><span id="line-152"></span>
+<span class="source-line-no">153</span><span id="line-153">  public String getUrlElement() {</span>
+<span class="source-line-no">154</span><span id="line-154">    return this.urlElement;</span>
+<span class="source-line-no">155</span><span id="line-155">  }</span>
+<span class="source-line-no">156</span><span id="line-156"></span>
+<span class="source-line-no">157</span><span id="line-157">  public boolean isUrlElementRequired() {</span>
+<span class="source-line-no">158</span><span id="line-158">    return null != this.urlElement;</span>
+<span class="source-line-no">159</span><span id="line-159">  }</span>
+<span class="source-line-no">160</span><span id="line-160"></span>
+<span class="source-line-no">161</span><span id="line-161">  /**</span>
+<span class="source-line-no">162</span><span id="line-162">   * converts a String (for example the url parameter) into a Version object</span>
+<span class="source-line-no">163</span><span id="line-163">   * </span>
+<span class="source-line-no">164</span><span id="line-164">   * @param urlElementStr</span>
+<span class="source-line-no">165</span><span id="line-165">   *          String that should</span>
+<span class="source-line-no">166</span><span id="line-166">   * @return the generated version</span>
+<span class="source-line-no">167</span><span id="line-167">   */</span>
+<span class="source-line-no">168</span><span id="line-168">  public static Version getVersionFromString(String urlElementStr) {</span>
+<span class="source-line-no">169</span><span id="line-169">    if (urlElementStr == null) {</span>
+<span class="source-line-no">170</span><span id="line-170">      return UNVERSIONED;</span>
+<span class="source-line-no">171</span><span id="line-171">    }</span>
+<span class="source-line-no">172</span><span id="line-172"></span>
+<span class="source-line-no">173</span><span id="line-173">    return Arrays.stream(Version.values()).filter(v -&gt; urlElementStr.equals(v.getUrlElement())).findFirst()</span>
+<span class="source-line-no">174</span><span id="line-174">      .orElse(UNVERSIONED);</span>
+<span class="source-line-no">175</span><span id="line-175">  }</span>
+<span class="source-line-no">176</span><span id="line-176">}</span>
 
 
 
