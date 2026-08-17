@@ -6,6 +6,7 @@ com.restfb.exception.devicetoken
 com.restfb.exception.generator
 com.restfb.json
 com.restfb.logging
+com.restfb.request
 com.restfb.scope
 com.restfb.types
 com.restfb.types.ads
@@ -27,6 +28,7 @@ com.restfb.types.webhook.messaging.payment
 com.restfb.types.webhook.whatsapp
 com.restfb.types.whatsapp
 com.restfb.types.whatsapp.platform
+com.restfb.types.whatsapp.platform.group
 com.restfb.types.whatsapp.platform.message
 com.restfb.types.whatsapp.platform.send
 com.restfb.types.whatsapp.platform.send.contact

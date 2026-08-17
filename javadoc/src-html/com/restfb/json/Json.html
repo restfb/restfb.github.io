@@ -44,7 +44,7 @@
 <span class="source-line-no">031</span><span id="line-31"> * &lt;p&gt;</span>
 <span class="source-line-no">032</span><span id="line-32"> * To &lt;strong&gt;parse&lt;/strong&gt; a given JSON input, use the &lt;code&gt;parse()&lt;/code&gt; methods like in this example:</span>
 <span class="source-line-no">033</span><span id="line-33"> * &lt;/p&gt;</span>
-<span class="source-line-no">034</span><span id="line-34"> * </span>
+<span class="source-line-no">034</span><span id="line-34"> *</span>
 <span class="source-line-no">035</span><span id="line-35"> * &lt;pre&gt;</span>
 <span class="source-line-no">036</span><span id="line-36"> * JsonObject object = Json.parse(string).asObject();</span>
 <span class="source-line-no">037</span><span id="line-37"> * &lt;/pre&gt;</span>
@@ -53,7 +53,7 @@
 <span class="source-line-no">040</span><span id="line-40"> * &lt;code&gt;array()&lt;/code&gt;, and &lt;code&gt;object()&lt;/code&gt;. For example, the following snippet will produce the JSON string</span>
 <span class="source-line-no">041</span><span id="line-41"> * &lt;em&gt;{"foo": 23, "bar": true}&lt;/em&gt;:</span>
 <span class="source-line-no">042</span><span id="line-42"> * &lt;/p&gt;</span>
-<span class="source-line-no">043</span><span id="line-43"> * </span>
+<span class="source-line-no">043</span><span id="line-43"> *</span>
 <span class="source-line-no">044</span><span id="line-44"> * &lt;pre&gt;</span>
 <span class="source-line-no">045</span><span id="line-45"> * String string = Json.object().add("foo", 23).add("bar", true).toString();</span>
 <span class="source-line-no">046</span><span id="line-46"> * &lt;/pre&gt;</span>
@@ -61,7 +61,7 @@
 <span class="source-line-no">048</span><span id="line-48"> * To create a JSON array from a given Java array, you can use one of the &lt;code&gt;array()&lt;/code&gt; methods with varargs</span>
 <span class="source-line-no">049</span><span id="line-49"> * parameters:</span>
 <span class="source-line-no">050</span><span id="line-50"> * &lt;/p&gt;</span>
-<span class="source-line-no">051</span><span id="line-51"> * </span>
+<span class="source-line-no">051</span><span id="line-51"> *</span>
 <span class="source-line-no">052</span><span id="line-52"> * &lt;pre&gt;</span>
 <span class="source-line-no">053</span><span id="line-53"> * String[] names = ...</span>
 <span class="source-line-no">054</span><span id="line-54"> * JsonArray array = Json.array(names);</span>
@@ -290,8 +290,8 @@
 <span class="source-line-no">277</span><span id="line-277">  }</span>
 <span class="source-line-no">278</span><span id="line-278"></span>
 <span class="source-line-no">279</span><span id="line-279">  /**</span>
-<span class="source-line-no">280</span><span id="line-280">   * Reads the entire input from the given reader and parses it as JSON. The input must contain a</span>
-<span class="source-line-no">281</span><span id="line-281">   * valid JSON value, optionally padded with whitespace.</span>
+<span class="source-line-no">280</span><span id="line-280">   * Reads the entire input from the given reader and parses it as JSON. The input must contain a valid JSON value,</span>
+<span class="source-line-no">281</span><span id="line-281">   * optionally padded with whitespace.</span>
 <span class="source-line-no">282</span><span id="line-282">   * &lt;p&gt;</span>
 <span class="source-line-no">283</span><span id="line-283">   * Characters are read in chunks into an input buffer. Hence, wrapping a reader in an additional</span>
 <span class="source-line-no">284</span><span id="line-284">   * &lt;code&gt;BufferedReader&lt;/code&gt; likely won't improve reading performance.</span>

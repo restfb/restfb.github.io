@@ -48,7 +48,7 @@
 <span class="source-line-no">035</span><span id="line-35"> * Elements can be accessed by their index using {@link #get(int)}. This class also supports iterating over the elements</span>
 <span class="source-line-no">036</span><span id="line-36"> * in document order using an {@link #iterator()} or an enhanced for loop:</span>
 <span class="source-line-no">037</span><span id="line-37"> * &lt;/p&gt;</span>
-<span class="source-line-no">038</span><span id="line-38"> * </span>
+<span class="source-line-no">038</span><span id="line-38"> *</span>
 <span class="source-line-no">039</span><span id="line-39"> * &lt;pre&gt;</span>
 <span class="source-line-no">040</span><span id="line-40"> * for (JsonValue value : jsonArray) {</span>
 <span class="source-line-no">041</span><span id="line-41"> *   ...</span>
@@ -432,35 +432,33 @@
 <span class="source-line-no">419</span><span id="line-419">    return values.hashCode();</span>
 <span class="source-line-no">420</span><span id="line-420">  }</span>
 <span class="source-line-no">421</span><span id="line-421"></span>
-<span class="source-line-no">422</span><span id="line-422"></span>
-<span class="source-line-no">423</span><span id="line-423">  /**</span>
-<span class="source-line-no">424</span><span id="line-424">   * Indicates whether a given object is "equal to" this JsonArray. An object is considered equal</span>
-<span class="source-line-no">425</span><span id="line-425">   * if it is also a &lt;code&gt;JsonArray&lt;/code&gt; and both arrays contain the same list of values.</span>
-<span class="source-line-no">426</span><span id="line-426">   * &lt;p&gt;</span>
-<span class="source-line-no">427</span><span id="line-427">   * If two JsonArrays are equal, they will also produce the same JSON output.</span>
-<span class="source-line-no">428</span><span id="line-428">   * &lt;/p&gt;</span>
-<span class="source-line-no">429</span><span id="line-429">   *</span>
-<span class="source-line-no">430</span><span id="line-430">   * @param object</span>
-<span class="source-line-no">431</span><span id="line-431">   *          the object to be compared with this JsonArray</span>
-<span class="source-line-no">432</span><span id="line-432">   * @return &lt;tt&gt;true&lt;/tt&gt; if the specified object is equal to this JsonArray, &lt;code&gt;false&lt;/code&gt;</span>
-<span class="source-line-no">433</span><span id="line-433">   *         otherwise</span>
-<span class="source-line-no">434</span><span id="line-434">   */</span>
-<span class="source-line-no">435</span><span id="line-435">  @Override</span>
-<span class="source-line-no">436</span><span id="line-436">  public boolean equals(Object object) {</span>
-<span class="source-line-no">437</span><span id="line-437">    if (this == object) {</span>
-<span class="source-line-no">438</span><span id="line-438">      return true;</span>
-<span class="source-line-no">439</span><span id="line-439">    }</span>
-<span class="source-line-no">440</span><span id="line-440">    if (object == null) {</span>
-<span class="source-line-no">441</span><span id="line-441">      return false;</span>
-<span class="source-line-no">442</span><span id="line-442">    }</span>
-<span class="source-line-no">443</span><span id="line-443">    if (getClass() != object.getClass()) {</span>
-<span class="source-line-no">444</span><span id="line-444">      return false;</span>
-<span class="source-line-no">445</span><span id="line-445">    }</span>
-<span class="source-line-no">446</span><span id="line-446">    JsonArray other = (JsonArray) object;</span>
-<span class="source-line-no">447</span><span id="line-447">    return values.equals(other.values);</span>
-<span class="source-line-no">448</span><span id="line-448">  }</span>
-<span class="source-line-no">449</span><span id="line-449"></span>
-<span class="source-line-no">450</span><span id="line-450">}</span>
+<span class="source-line-no">422</span><span id="line-422">  /**</span>
+<span class="source-line-no">423</span><span id="line-423">   * Indicates whether a given object is "equal to" this JsonArray. An object is considered equal if it is also a</span>
+<span class="source-line-no">424</span><span id="line-424">   * &lt;code&gt;JsonArray&lt;/code&gt; and both arrays contain the same list of values.</span>
+<span class="source-line-no">425</span><span id="line-425">   * &lt;p&gt;</span>
+<span class="source-line-no">426</span><span id="line-426">   * If two JsonArrays are equal, they will also produce the same JSON output.</span>
+<span class="source-line-no">427</span><span id="line-427">   * &lt;/p&gt;</span>
+<span class="source-line-no">428</span><span id="line-428">   *</span>
+<span class="source-line-no">429</span><span id="line-429">   * @param object</span>
+<span class="source-line-no">430</span><span id="line-430">   *          the object to be compared with this JsonArray</span>
+<span class="source-line-no">431</span><span id="line-431">   * @return &lt;tt&gt;true&lt;/tt&gt; if the specified object is equal to this JsonArray, &lt;code&gt;false&lt;/code&gt; otherwise</span>
+<span class="source-line-no">432</span><span id="line-432">   */</span>
+<span class="source-line-no">433</span><span id="line-433">  @Override</span>
+<span class="source-line-no">434</span><span id="line-434">  public boolean equals(Object object) {</span>
+<span class="source-line-no">435</span><span id="line-435">    if (this == object) {</span>
+<span class="source-line-no">436</span><span id="line-436">      return true;</span>
+<span class="source-line-no">437</span><span id="line-437">    }</span>
+<span class="source-line-no">438</span><span id="line-438">    if (object == null) {</span>
+<span class="source-line-no">439</span><span id="line-439">      return false;</span>
+<span class="source-line-no">440</span><span id="line-440">    }</span>
+<span class="source-line-no">441</span><span id="line-441">    if (getClass() != object.getClass()) {</span>
+<span class="source-line-no">442</span><span id="line-442">      return false;</span>
+<span class="source-line-no">443</span><span id="line-443">    }</span>
+<span class="source-line-no">444</span><span id="line-444">    JsonArray other = (JsonArray) object;</span>
+<span class="source-line-no">445</span><span id="line-445">    return values.equals(other.values);</span>
+<span class="source-line-no">446</span><span id="line-446">  }</span>
+<span class="source-line-no">447</span><span id="line-447"></span>
+<span class="source-line-no">448</span><span id="line-448">}</span>
 
 
 

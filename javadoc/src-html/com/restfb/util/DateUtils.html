@@ -12,7 +12,7 @@
 <main role="main">
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
-<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.</span>
+<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2026 Mark Allen, Norbert Bartels.</span>
 <span class="source-line-no">003</span><span id="line-3"> *</span>
 <span class="source-line-no">004</span><span id="line-4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</span>
 <span class="source-line-no">005</span><span id="line-5"> * of this software and associated documentation files (the "Software"), to deal</span>
@@ -42,7 +42,7 @@
 <span class="source-line-no">029</span><span id="line-29"></span>
 <span class="source-line-no">030</span><span id="line-30">/**</span>
 <span class="source-line-no">031</span><span id="line-31"> * A collection of date-handling utility methods.</span>
-<span class="source-line-no">032</span><span id="line-32"> * </span>
+<span class="source-line-no">032</span><span id="line-32"> *</span>
 <span class="source-line-no">033</span><span id="line-33"> * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;</span>
 <span class="source-line-no">034</span><span id="line-34"> * @since 1.6</span>
 <span class="source-line-no">035</span><span id="line-35"> */</span>
@@ -94,7 +94,7 @@
 <span class="source-line-no">081</span><span id="line-81">   * Returns a Java representation of a Facebook "long" {@code date} string, or the number of seconds since the epoch.</span>
 <span class="source-line-no">082</span><span id="line-82">   * &lt;p&gt;</span>
 <span class="source-line-no">083</span><span id="line-83">   * Supports dates with or without timezone information.</span>
-<span class="source-line-no">084</span><span id="line-84">   * </span>
+<span class="source-line-no">084</span><span id="line-84">   *</span>
 <span class="source-line-no">085</span><span id="line-85">   * @param date</span>
 <span class="source-line-no">086</span><span id="line-86">   *          Facebook {@code date} string.</span>
 <span class="source-line-no">087</span><span id="line-87">   * @return Java date representation of the given Facebook "long" {@code date} string or {@code null} if {@code date}</span>
@@ -137,7 +137,7 @@
 <span class="source-line-no">124</span><span id="line-124"></span>
 <span class="source-line-no">125</span><span id="line-125">  /**</span>
 <span class="source-line-no">126</span><span id="line-126">   * Returns a Java representation of a Facebook "short" {@code date} string.</span>
-<span class="source-line-no">127</span><span id="line-127">   * </span>
+<span class="source-line-no">127</span><span id="line-127">   *</span>
 <span class="source-line-no">128</span><span id="line-128">   * @param date</span>
 <span class="source-line-no">129</span><span id="line-129">   *          Facebook {@code date} string.</span>
 <span class="source-line-no">130</span><span id="line-130">   * @return Java date representation of the given Facebook "short" {@code date} string or {@code null} if {@code date}</span>
@@ -160,7 +160,7 @@
 <span class="source-line-no">147</span><span id="line-147"></span>
 <span class="source-line-no">148</span><span id="line-148">  /**</span>
 <span class="source-line-no">149</span><span id="line-149">   * Returns a Java representation of a Facebook "month-year" {@code date} string.</span>
-<span class="source-line-no">150</span><span id="line-150">   * </span>
+<span class="source-line-no">150</span><span id="line-150">   *</span>
 <span class="source-line-no">151</span><span id="line-151">   * @param date</span>
 <span class="source-line-no">152</span><span id="line-152">   *          Facebook {@code date} string.</span>
 <span class="source-line-no">153</span><span id="line-153">   * @return Java date representation of the given Facebook "month-year" {@code date} string or {@code null} if</span>
@@ -180,69 +180,70 @@
 <span class="source-line-no">167</span><span id="line-167"></span>
 <span class="source-line-no">168</span><span id="line-168">  /**</span>
 <span class="source-line-no">169</span><span id="line-169">   * Returns a String representation of a {@code date} object</span>
-<span class="source-line-no">170</span><span id="line-170">   * </span>
+<span class="source-line-no">170</span><span id="line-170">   *</span>
 <span class="source-line-no">171</span><span id="line-171">   * @param date</span>
 <span class="source-line-no">172</span><span id="line-172">   *          as Date</span>
 <span class="source-line-no">173</span><span id="line-173">   * @return String representation of a {@code date} object. The String is in the form {@code 2010-02-28T16:11:08}</span>
 <span class="source-line-no">174</span><span id="line-174">   */</span>
 <span class="source-line-no">175</span><span id="line-175">  public static String toLongFormatFromDate(Date date) {</span>
-<span class="source-line-no">176</span><span id="line-176">    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format).orElse(null);</span>
-<span class="source-line-no">177</span><span id="line-177">  }</span>
-<span class="source-line-no">178</span><span id="line-178"></span>
-<span class="source-line-no">179</span><span id="line-179">  /**</span>
-<span class="source-line-no">180</span><span id="line-180">   * Returns a &lt;strong&gt;short&lt;/strong&gt; String representation of a {@code date} object</span>
-<span class="source-line-no">181</span><span id="line-181">   *</span>
-<span class="source-line-no">182</span><span id="line-182">   * @param date</span>
-<span class="source-line-no">183</span><span id="line-183">   *          as Date</span>
-<span class="source-line-no">184</span><span id="line-184">   * @return String representation of a {@code date} object. The String is in the form {@code 2019-06-14}</span>
-<span class="source-line-no">185</span><span id="line-185">   */</span>
-<span class="source-line-no">186</span><span id="line-186">  public static String toShortFormatFromDate(Date date) {</span>
-<span class="source-line-no">187</span><span id="line-187">    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT)::format).orElse(null);</span>
-<span class="source-line-no">188</span><span id="line-188">  }</span>
-<span class="source-line-no">189</span><span id="line-189"></span>
-<span class="source-line-no">190</span><span id="line-190">  /**</span>
-<span class="source-line-no">191</span><span id="line-191">   * Returns a Java representation of a {@code date} string.</span>
-<span class="source-line-no">192</span><span id="line-192">   * </span>
-<span class="source-line-no">193</span><span id="line-193">   * @param date</span>
-<span class="source-line-no">194</span><span id="line-194">   *          Date in string format.</span>
-<span class="source-line-no">195</span><span id="line-195">   * @return Java date representation of the given {@code date} string or {@code null} if {@code date} is {@code null}</span>
-<span class="source-line-no">196</span><span id="line-196">   *         or invalid.</span>
-<span class="source-line-no">197</span><span id="line-197">   */</span>
-<span class="source-line-no">198</span><span id="line-198">  private static Date toDateWithFormatString(String date, String format) {</span>
-<span class="source-line-no">199</span><span id="line-199">    if (isNull(date)) {</span>
-<span class="source-line-no">200</span><span id="line-200">      return null;</span>
-<span class="source-line-no">201</span><span id="line-201">    }</span>
-<span class="source-line-no">202</span><span id="line-202"></span>
-<span class="source-line-no">203</span><span id="line-203">    try {</span>
-<span class="source-line-no">204</span><span id="line-204">      return strategy.formatFor(format).parse(date);</span>
-<span class="source-line-no">205</span><span id="line-205">    } catch (ParseException e) {</span>
-<span class="source-line-no">206</span><span id="line-206">      UTILS_LOGGER.trace("Unable to parse date '{}' using format string '{}': {}", date, format, e);</span>
-<span class="source-line-no">207</span><span id="line-207">      return null;</span>
-<span class="source-line-no">208</span><span id="line-208">    }</span>
-<span class="source-line-no">209</span><span id="line-209">  }</span>
-<span class="source-line-no">210</span><span id="line-210"></span>
-<span class="source-line-no">211</span><span id="line-211">  /**</span>
-<span class="source-line-no">212</span><span id="line-212">   * get the current DateFormatStrategy.</span>
-<span class="source-line-no">213</span><span id="line-213">   * </span>
-<span class="source-line-no">214</span><span id="line-214">   * @return the current DateFormatStrategy</span>
-<span class="source-line-no">215</span><span id="line-215">   */</span>
-<span class="source-line-no">216</span><span id="line-216">  public static DateFormatStrategy getDateFormatStrategy() {</span>
-<span class="source-line-no">217</span><span id="line-217">    return strategy;</span>
-<span class="source-line-no">218</span><span id="line-218">  }</span>
-<span class="source-line-no">219</span><span id="line-219"></span>
-<span class="source-line-no">220</span><span id="line-220">  /**</span>
-<span class="source-line-no">221</span><span id="line-221">   * set the {@link DateFormatStrategy}.</span>
-<span class="source-line-no">222</span><span id="line-222">   * &lt;p&gt;</span>
-<span class="source-line-no">223</span><span id="line-223">   * default value: {@link SimpleDateFormatStrategy}</span>
-<span class="source-line-no">224</span><span id="line-224">   * </span>
-<span class="source-line-no">225</span><span id="line-225">   * @param dateFormatStrategy</span>
-<span class="source-line-no">226</span><span id="line-226">   *          the used {@link DateFormatStrategy}</span>
-<span class="source-line-no">227</span><span id="line-227">   * </span>
-<span class="source-line-no">228</span><span id="line-228">   */</span>
-<span class="source-line-no">229</span><span id="line-229">  public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {</span>
-<span class="source-line-no">230</span><span id="line-230">    strategy = dateFormatStrategy;</span>
-<span class="source-line-no">231</span><span id="line-231">  }</span>
-<span class="source-line-no">232</span><span id="line-232">}</span>
+<span class="source-line-no">176</span><span id="line-176">    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format)</span>
+<span class="source-line-no">177</span><span id="line-177">      .orElse(null);</span>
+<span class="source-line-no">178</span><span id="line-178">  }</span>
+<span class="source-line-no">179</span><span id="line-179"></span>
+<span class="source-line-no">180</span><span id="line-180">  /**</span>
+<span class="source-line-no">181</span><span id="line-181">   * Returns a &lt;strong&gt;short&lt;/strong&gt; String representation of a {@code date} object</span>
+<span class="source-line-no">182</span><span id="line-182">   *</span>
+<span class="source-line-no">183</span><span id="line-183">   * @param date</span>
+<span class="source-line-no">184</span><span id="line-184">   *          as Date</span>
+<span class="source-line-no">185</span><span id="line-185">   * @return String representation of a {@code date} object. The String is in the form {@code 2019-06-14}</span>
+<span class="source-line-no">186</span><span id="line-186">   */</span>
+<span class="source-line-no">187</span><span id="line-187">  public static String toShortFormatFromDate(Date date) {</span>
+<span class="source-line-no">188</span><span id="line-188">    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT)::format).orElse(null);</span>
+<span class="source-line-no">189</span><span id="line-189">  }</span>
+<span class="source-line-no">190</span><span id="line-190"></span>
+<span class="source-line-no">191</span><span id="line-191">  /**</span>
+<span class="source-line-no">192</span><span id="line-192">   * Returns a Java representation of a {@code date} string.</span>
+<span class="source-line-no">193</span><span id="line-193">   *</span>
+<span class="source-line-no">194</span><span id="line-194">   * @param date</span>
+<span class="source-line-no">195</span><span id="line-195">   *          Date in string format.</span>
+<span class="source-line-no">196</span><span id="line-196">   * @return Java date representation of the given {@code date} string or {@code null} if {@code date} is {@code null}</span>
+<span class="source-line-no">197</span><span id="line-197">   *         or invalid.</span>
+<span class="source-line-no">198</span><span id="line-198">   */</span>
+<span class="source-line-no">199</span><span id="line-199">  private static Date toDateWithFormatString(String date, String format) {</span>
+<span class="source-line-no">200</span><span id="line-200">    if (isNull(date)) {</span>
+<span class="source-line-no">201</span><span id="line-201">      return null;</span>
+<span class="source-line-no">202</span><span id="line-202">    }</span>
+<span class="source-line-no">203</span><span id="line-203"></span>
+<span class="source-line-no">204</span><span id="line-204">    try {</span>
+<span class="source-line-no">205</span><span id="line-205">      return strategy.formatFor(format).parse(date);</span>
+<span class="source-line-no">206</span><span id="line-206">    } catch (ParseException e) {</span>
+<span class="source-line-no">207</span><span id="line-207">      UTILS_LOGGER.trace("Unable to parse date '{}' using format string '{}': {}", date, format, e);</span>
+<span class="source-line-no">208</span><span id="line-208">      return null;</span>
+<span class="source-line-no">209</span><span id="line-209">    }</span>
+<span class="source-line-no">210</span><span id="line-210">  }</span>
+<span class="source-line-no">211</span><span id="line-211"></span>
+<span class="source-line-no">212</span><span id="line-212">  /**</span>
+<span class="source-line-no">213</span><span id="line-213">   * get the current DateFormatStrategy.</span>
+<span class="source-line-no">214</span><span id="line-214">   *</span>
+<span class="source-line-no">215</span><span id="line-215">   * @return the current DateFormatStrategy</span>
+<span class="source-line-no">216</span><span id="line-216">   */</span>
+<span class="source-line-no">217</span><span id="line-217">  public static DateFormatStrategy getDateFormatStrategy() {</span>
+<span class="source-line-no">218</span><span id="line-218">    return strategy;</span>
+<span class="source-line-no">219</span><span id="line-219">  }</span>
+<span class="source-line-no">220</span><span id="line-220"></span>
+<span class="source-line-no">221</span><span id="line-221">  /**</span>
+<span class="source-line-no">222</span><span id="line-222">   * set the {@link DateFormatStrategy}.</span>
+<span class="source-line-no">223</span><span id="line-223">   * &lt;p&gt;</span>
+<span class="source-line-no">224</span><span id="line-224">   * default value: {@link SimpleDateFormatStrategy}</span>
+<span class="source-line-no">225</span><span id="line-225">   *</span>
+<span class="source-line-no">226</span><span id="line-226">   * @param dateFormatStrategy</span>
+<span class="source-line-no">227</span><span id="line-227">   *          the used {@link DateFormatStrategy}</span>
+<span class="source-line-no">228</span><span id="line-228">   *</span>
+<span class="source-line-no">229</span><span id="line-229">   */</span>
+<span class="source-line-no">230</span><span id="line-230">  public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {</span>
+<span class="source-line-no">231</span><span id="line-231">    strategy = dateFormatStrategy;</span>
+<span class="source-line-no">232</span><span id="line-232">  }</span>
+<span class="source-line-no">233</span><span id="line-233">}</span>
 
 
 

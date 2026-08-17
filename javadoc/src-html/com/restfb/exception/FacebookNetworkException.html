@@ -12,7 +12,7 @@
 <main role="main">
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
-<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.</span>
+<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2026 Mark Allen, Norbert Bartels.</span>
 <span class="source-line-no">003</span><span id="line-3"> *</span>
 <span class="source-line-no">004</span><span id="line-4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</span>
 <span class="source-line-no">005</span><span id="line-5"> * of this software and associated documentation files (the "Software"), to deal</span>
@@ -38,64 +38,35 @@
 <span class="source-line-no">025</span><span id="line-25"></span>
 <span class="source-line-no">026</span><span id="line-26">/**</span>
 <span class="source-line-no">027</span><span id="line-27"> * Indicates that a network error occurred while trying to connect to the Facebook API endpoint.</span>
-<span class="source-line-no">028</span><span id="line-28"> * &lt;p&gt;</span>
-<span class="source-line-no">029</span><span id="line-29"> * Examples: No network adapter available, API endpoint is down.</span>
-<span class="source-line-no">030</span><span id="line-30"> * </span>
-<span class="source-line-no">031</span><span id="line-31"> * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;</span>
-<span class="source-line-no">032</span><span id="line-32"> */</span>
-<span class="source-line-no">033</span><span id="line-33">public class FacebookNetworkException extends FacebookException {</span>
-<span class="source-line-no">034</span><span id="line-34">  /**</span>
-<span class="source-line-no">035</span><span id="line-35">   * The HTTP response status code.</span>
-<span class="source-line-no">036</span><span id="line-36">   */</span>
-<span class="source-line-no">037</span><span id="line-37">  private final Integer httpStatusCode;</span>
+<span class="source-line-no">028</span><span id="line-28"> */</span>
+<span class="source-line-no">029</span><span id="line-29">public class FacebookNetworkException extends FacebookException {</span>
+<span class="source-line-no">030</span><span id="line-30"></span>
+<span class="source-line-no">031</span><span id="line-31">  private final Integer httpStatusCode;</span>
+<span class="source-line-no">032</span><span id="line-32">  private static final long serialVersionUID = 1L;</span>
+<span class="source-line-no">033</span><span id="line-33">  private static final String MESSAGE = "Facebook request failed";</span>
+<span class="source-line-no">034</span><span id="line-34"></span>
+<span class="source-line-no">035</span><span id="line-35">  public FacebookNetworkException(Throwable cause) {</span>
+<span class="source-line-no">036</span><span id="line-36">    this(MESSAGE, cause, null);</span>
+<span class="source-line-no">037</span><span id="line-37">  }</span>
 <span class="source-line-no">038</span><span id="line-38"></span>
-<span class="source-line-no">039</span><span id="line-39">  private static final long serialVersionUID = 1L;</span>
-<span class="source-line-no">040</span><span id="line-40"></span>
-<span class="source-line-no">041</span><span id="line-41">  private static final String MESSAGE = "Facebook request failed";</span>
+<span class="source-line-no">039</span><span id="line-39">  public FacebookNetworkException(Integer httpStatusCode) {</span>
+<span class="source-line-no">040</span><span id="line-40">    this(MESSAGE, null, httpStatusCode);</span>
+<span class="source-line-no">041</span><span id="line-41">  }</span>
 <span class="source-line-no">042</span><span id="line-42"></span>
-<span class="source-line-no">043</span><span id="line-43">  /**</span>
-<span class="source-line-no">044</span><span id="line-44">   * Creates an exception with the given message and cause.</span>
-<span class="source-line-no">045</span><span id="line-45">   * </span>
-<span class="source-line-no">046</span><span id="line-46">   * @param cause</span>
-<span class="source-line-no">047</span><span id="line-47">   *          The exception that caused this exception to be thrown.</span>
-<span class="source-line-no">048</span><span id="line-48">   */</span>
-<span class="source-line-no">049</span><span id="line-49">  public FacebookNetworkException(Throwable cause) {</span>
-<span class="source-line-no">050</span><span id="line-50">    this(cause, null);</span>
+<span class="source-line-no">043</span><span id="line-43">  public FacebookNetworkException(Throwable cause, Integer httpStatusCode) {</span>
+<span class="source-line-no">044</span><span id="line-44">    this(MESSAGE, cause, httpStatusCode);</span>
+<span class="source-line-no">045</span><span id="line-45">  }</span>
+<span class="source-line-no">046</span><span id="line-46"></span>
+<span class="source-line-no">047</span><span id="line-47">  protected FacebookNetworkException(String message, Throwable cause, Integer httpStatusCode) {</span>
+<span class="source-line-no">048</span><span id="line-48">    super(format("A network error occurred while trying to communicate with Facebook: %s%s", message,</span>
+<span class="source-line-no">049</span><span id="line-49">      httpStatusCode != null ? format(" (HTTP status code %d)", httpStatusCode) : ""), cause);</span>
+<span class="source-line-no">050</span><span id="line-50">    this.httpStatusCode = httpStatusCode;</span>
 <span class="source-line-no">051</span><span id="line-51">  }</span>
 <span class="source-line-no">052</span><span id="line-52"></span>
-<span class="source-line-no">053</span><span id="line-53">  /**</span>
-<span class="source-line-no">054</span><span id="line-54">   * Creates an exception with the given message and HTTP status code.</span>
-<span class="source-line-no">055</span><span id="line-55">   * </span>
-<span class="source-line-no">056</span><span id="line-56">   * @param httpStatusCode</span>
-<span class="source-line-no">057</span><span id="line-57">   *          The HTTP response status code.</span>
-<span class="source-line-no">058</span><span id="line-58">   */</span>
-<span class="source-line-no">059</span><span id="line-59">  public FacebookNetworkException(Integer httpStatusCode) {</span>
-<span class="source-line-no">060</span><span id="line-60">    this(null, httpStatusCode);</span>
-<span class="source-line-no">061</span><span id="line-61">  }</span>
-<span class="source-line-no">062</span><span id="line-62"></span>
-<span class="source-line-no">063</span><span id="line-63">  /**</span>
-<span class="source-line-no">064</span><span id="line-64">   * Creates an exception with the given message, cause, and HTTP status code.</span>
-<span class="source-line-no">065</span><span id="line-65">   * </span>
-<span class="source-line-no">066</span><span id="line-66">   * @param cause</span>
-<span class="source-line-no">067</span><span id="line-67">   *          The exception that caused this exception to be thrown.</span>
-<span class="source-line-no">068</span><span id="line-68">   * @param httpStatusCode</span>
-<span class="source-line-no">069</span><span id="line-69">   *          The HTTP response status code.</span>
-<span class="source-line-no">070</span><span id="line-70">   */</span>
-<span class="source-line-no">071</span><span id="line-71">  public FacebookNetworkException(Throwable cause, Integer httpStatusCode) {</span>
-<span class="source-line-no">072</span><span id="line-72">    super(format("A network error occurred while trying to communicate with Facebook: %s (HTTP status code %d)",</span>
-<span class="source-line-no">073</span><span id="line-73">      MESSAGE, httpStatusCode), cause);</span>
-<span class="source-line-no">074</span><span id="line-74">    this.httpStatusCode = httpStatusCode;</span>
-<span class="source-line-no">075</span><span id="line-75">  }</span>
-<span class="source-line-no">076</span><span id="line-76"></span>
-<span class="source-line-no">077</span><span id="line-77">  /**</span>
-<span class="source-line-no">078</span><span id="line-78">   * Gets the HTTP response status code.</span>
-<span class="source-line-no">079</span><span id="line-79">   * </span>
-<span class="source-line-no">080</span><span id="line-80">   * @return The HTTP response status code.</span>
-<span class="source-line-no">081</span><span id="line-81">   */</span>
-<span class="source-line-no">082</span><span id="line-82">  public Integer getHttpStatusCode() {</span>
-<span class="source-line-no">083</span><span id="line-83">    return httpStatusCode;</span>
-<span class="source-line-no">084</span><span id="line-84">  }</span>
-<span class="source-line-no">085</span><span id="line-85">}</span>
+<span class="source-line-no">053</span><span id="line-53">  public Integer getHttpStatusCode() {</span>
+<span class="source-line-no">054</span><span id="line-54">    return httpStatusCode;</span>
+<span class="source-line-no">055</span><span id="line-55">  }</span>
+<span class="source-line-no">056</span><span id="line-56">}</span>
 
 
 

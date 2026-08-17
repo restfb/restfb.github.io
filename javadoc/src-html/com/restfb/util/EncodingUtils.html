@@ -12,7 +12,7 @@
 <main role="main">
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
-<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.</span>
+<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2026 Mark Allen, Norbert Bartels.</span>
 <span class="source-line-no">003</span><span id="line-3"> *</span>
 <span class="source-line-no">004</span><span id="line-4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</span>
 <span class="source-line-no">005</span><span id="line-5"> * of this software and associated documentation files (the "Software"), to deal</span>
@@ -46,7 +46,7 @@
 <span class="source-line-no">033</span><span id="line-33"></span>
 <span class="source-line-no">034</span><span id="line-34">/**</span>
 <span class="source-line-no">035</span><span id="line-35"> * A collection of data-encoding utility methods.</span>
-<span class="source-line-no">036</span><span id="line-36"> * </span>
+<span class="source-line-no">036</span><span id="line-36"> *</span>
 <span class="source-line-no">037</span><span id="line-37"> * @author Josef Gierbl</span>
 <span class="source-line-no">038</span><span id="line-38"> * @author Mikael Grev</span>
 <span class="source-line-no">039</span><span id="line-39"> * @author &lt;a href="http://restfb.com"&gt;Mark Allen&lt;/a&gt;</span>
@@ -63,7 +63,7 @@
 <span class="source-line-no">050</span><span id="line-50"></span>
 <span class="source-line-no">051</span><span id="line-51">  /**</span>
 <span class="source-line-no">052</span><span id="line-52">   * Decodes a base64-encoded string, padding out if necessary.</span>
-<span class="source-line-no">053</span><span id="line-53">   * </span>
+<span class="source-line-no">053</span><span id="line-53">   *</span>
 <span class="source-line-no">054</span><span id="line-54">   * @param base64</span>
 <span class="source-line-no">055</span><span id="line-55">   *          The base64-encoded string to decode.</span>
 <span class="source-line-no">056</span><span id="line-56">   * @return A decoded version of {@code base64}.</span>
@@ -71,68 +71,69 @@
 <span class="source-line-no">058</span><span id="line-58">   *           If {@code base64} is {@code null}.</span>
 <span class="source-line-no">059</span><span id="line-59">   */</span>
 <span class="source-line-no">060</span><span id="line-60">  public static byte[] decodeBase64(String base64) {</span>
-<span class="source-line-no">061</span><span id="line-61">    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64).orElseThrow(() -&gt; new NullPointerException("Parameter 'base64' cannot be null.")));</span>
-<span class="source-line-no">062</span><span id="line-62">  }</span>
-<span class="source-line-no">063</span><span id="line-63"></span>
-<span class="source-line-no">064</span><span id="line-64">  private static String padBase64(String base64) {</span>
-<span class="source-line-no">065</span><span id="line-65">    String padding = "";</span>
-<span class="source-line-no">066</span><span id="line-66">    int remainder = base64.length() % 4;</span>
-<span class="source-line-no">067</span><span id="line-67"></span>
-<span class="source-line-no">068</span><span id="line-68">    if (remainder &gt; 0) {</span>
-<span class="source-line-no">069</span><span id="line-69">      padding = IntStream.range(0, 4 - remainder).mapToObj(i -&gt; "=").collect(Collectors.joining());</span>
-<span class="source-line-no">070</span><span id="line-70">    }</span>
-<span class="source-line-no">071</span><span id="line-71"></span>
-<span class="source-line-no">072</span><span id="line-72">    return base64 + padding;</span>
-<span class="source-line-no">073</span><span id="line-73">  }</span>
-<span class="source-line-no">074</span><span id="line-74"></span>
-<span class="source-line-no">075</span><span id="line-75">  /**</span>
-<span class="source-line-no">076</span><span id="line-76">   * Encodes a hex {@code byte[]} from given {@code byte[]}.</span>
-<span class="source-line-no">077</span><span id="line-77">   * &lt;p&gt;</span>
-<span class="source-line-no">078</span><span id="line-78">   * This function is equivalent to Apache commons-codec binary {@code new Hex().encode(byte[])}</span>
-<span class="source-line-no">079</span><span id="line-79">   * </span>
-<span class="source-line-no">080</span><span id="line-80">   * @param data</span>
-<span class="source-line-no">081</span><span id="line-81">   *          The data to encode as hex.</span>
-<span class="source-line-no">082</span><span id="line-82">   * @return Hex-encoded {@code byte[]}</span>
-<span class="source-line-no">083</span><span id="line-83">   * @throws NullPointerException</span>
-<span class="source-line-no">084</span><span id="line-84">   *           If {@code data} is {@code null}.</span>
-<span class="source-line-no">085</span><span id="line-85">   */</span>
-<span class="source-line-no">086</span><span id="line-86">  public static byte[] encodeHex(final byte[] data) {</span>
-<span class="source-line-no">087</span><span id="line-87">    Objects.requireNonNull(data, "Parameter 'data' cannot be null.");</span>
-<span class="source-line-no">088</span><span id="line-88">    char[] out = new char[data.length &lt;&lt; 1];</span>
-<span class="source-line-no">089</span><span id="line-89">    for (int j = 0; j &lt; data.length; j++) {</span>
-<span class="source-line-no">090</span><span id="line-90">      int v = data[j] &amp; 0xFF;</span>
-<span class="source-line-no">091</span><span id="line-91">      out[j * 2] = HEX_ARRAY[v &gt;&gt;&gt; 4];</span>
-<span class="source-line-no">092</span><span id="line-92">      out[j * 2 + 1] = HEX_ARRAY[v &amp; 0x0F];</span>
-<span class="source-line-no">093</span><span id="line-93">    }</span>
-<span class="source-line-no">094</span><span id="line-94">    return new String(out).getBytes(StandardCharsets.UTF_8);</span>
-<span class="source-line-no">095</span><span id="line-95">  }</span>
-<span class="source-line-no">096</span><span id="line-96"></span>
-<span class="source-line-no">097</span><span id="line-97">  /**</span>
-<span class="source-line-no">098</span><span id="line-98">   * Generates an appsecret_proof for facebook.</span>
-<span class="source-line-no">099</span><span id="line-99">   * &lt;p&gt;</span>
-<span class="source-line-no">100</span><span id="line-100">   * See &lt;a href="https://developers.facebook.com/docs/graph-api/securing-requests"&gt;</span>
-<span class="source-line-no">101</span><span id="line-101">   *     https://developers.facebook.com/docs/graph-api/securing-requests&lt;/a&gt; for more info</span>
-<span class="source-line-no">102</span><span id="line-102">   *</span>
-<span class="source-line-no">103</span><span id="line-103">   * @param appSecret</span>
-<span class="source-line-no">104</span><span id="line-104">   *          The facebook application secret</span>
-<span class="source-line-no">105</span><span id="line-105">   * @param accessToken</span>
-<span class="source-line-no">106</span><span id="line-106">   *          The facebook access token</span>
-<span class="source-line-no">107</span><span id="line-107">   * @return A Hex encoded SHA256 Hash as a String</span>
-<span class="source-line-no">108</span><span id="line-108">   */</span>
-<span class="source-line-no">109</span><span id="line-109">  public static String encodeAppSecretProof(String appSecret, String accessToken) {</span>
-<span class="source-line-no">110</span><span id="line-110">    try {</span>
-<span class="source-line-no">111</span><span id="line-111">      byte[] key = appSecret.getBytes(StandardCharsets.UTF_8);</span>
-<span class="source-line-no">112</span><span id="line-112">      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");</span>
-<span class="source-line-no">113</span><span id="line-113">      Mac mac = Mac.getInstance("HmacSHA256");</span>
-<span class="source-line-no">114</span><span id="line-114">      mac.init(signingKey);</span>
-<span class="source-line-no">115</span><span id="line-115">      byte[] raw = mac.doFinal(accessToken.getBytes());</span>
-<span class="source-line-no">116</span><span id="line-116">      byte[] hex = encodeHex(raw);</span>
-<span class="source-line-no">117</span><span id="line-117">      return new String(hex, StandardCharsets.UTF_8);</span>
-<span class="source-line-no">118</span><span id="line-118">    } catch (Exception e) {</span>
-<span class="source-line-no">119</span><span id="line-119">      throw new IllegalStateException("Creation of appsecret_proof has failed", e);</span>
-<span class="source-line-no">120</span><span id="line-120">    }</span>
-<span class="source-line-no">121</span><span id="line-121">  }</span>
-<span class="source-line-no">122</span><span id="line-122">}</span>
+<span class="source-line-no">061</span><span id="line-61">    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64)</span>
+<span class="source-line-no">062</span><span id="line-62">      .orElseThrow(() -&gt; new NullPointerException("Parameter 'base64' cannot be null.")));</span>
+<span class="source-line-no">063</span><span id="line-63">  }</span>
+<span class="source-line-no">064</span><span id="line-64"></span>
+<span class="source-line-no">065</span><span id="line-65">  private static String padBase64(String base64) {</span>
+<span class="source-line-no">066</span><span id="line-66">    String padding = "";</span>
+<span class="source-line-no">067</span><span id="line-67">    int remainder = base64.length() % 4;</span>
+<span class="source-line-no">068</span><span id="line-68"></span>
+<span class="source-line-no">069</span><span id="line-69">    if (remainder &gt; 0) {</span>
+<span class="source-line-no">070</span><span id="line-70">      padding = IntStream.range(0, 4 - remainder).mapToObj(i -&gt; "=").collect(Collectors.joining());</span>
+<span class="source-line-no">071</span><span id="line-71">    }</span>
+<span class="source-line-no">072</span><span id="line-72"></span>
+<span class="source-line-no">073</span><span id="line-73">    return base64 + padding;</span>
+<span class="source-line-no">074</span><span id="line-74">  }</span>
+<span class="source-line-no">075</span><span id="line-75"></span>
+<span class="source-line-no">076</span><span id="line-76">  /**</span>
+<span class="source-line-no">077</span><span id="line-77">   * Encodes a hex {@code byte[]} from given {@code byte[]}.</span>
+<span class="source-line-no">078</span><span id="line-78">   * &lt;p&gt;</span>
+<span class="source-line-no">079</span><span id="line-79">   * This function is equivalent to Apache commons-codec binary {@code new Hex().encode(byte[])}</span>
+<span class="source-line-no">080</span><span id="line-80">   *</span>
+<span class="source-line-no">081</span><span id="line-81">   * @param data</span>
+<span class="source-line-no">082</span><span id="line-82">   *          The data to encode as hex.</span>
+<span class="source-line-no">083</span><span id="line-83">   * @return Hex-encoded {@code byte[]}</span>
+<span class="source-line-no">084</span><span id="line-84">   * @throws NullPointerException</span>
+<span class="source-line-no">085</span><span id="line-85">   *           If {@code data} is {@code null}.</span>
+<span class="source-line-no">086</span><span id="line-86">   */</span>
+<span class="source-line-no">087</span><span id="line-87">  public static byte[] encodeHex(final byte[] data) {</span>
+<span class="source-line-no">088</span><span id="line-88">    Objects.requireNonNull(data, "Parameter 'data' cannot be null.");</span>
+<span class="source-line-no">089</span><span id="line-89">    char[] out = new char[data.length &lt;&lt; 1];</span>
+<span class="source-line-no">090</span><span id="line-90">    for (int j = 0; j &lt; data.length; j++) {</span>
+<span class="source-line-no">091</span><span id="line-91">      int v = data[j] &amp; 0xFF;</span>
+<span class="source-line-no">092</span><span id="line-92">      out[j * 2] = HEX_ARRAY[v &gt;&gt;&gt; 4];</span>
+<span class="source-line-no">093</span><span id="line-93">      out[j * 2 + 1] = HEX_ARRAY[v &amp; 0x0F];</span>
+<span class="source-line-no">094</span><span id="line-94">    }</span>
+<span class="source-line-no">095</span><span id="line-95">    return new String(out).getBytes(StandardCharsets.UTF_8);</span>
+<span class="source-line-no">096</span><span id="line-96">  }</span>
+<span class="source-line-no">097</span><span id="line-97"></span>
+<span class="source-line-no">098</span><span id="line-98">  /**</span>
+<span class="source-line-no">099</span><span id="line-99">   * Generates an appsecret_proof for facebook.</span>
+<span class="source-line-no">100</span><span id="line-100">   * &lt;p&gt;</span>
+<span class="source-line-no">101</span><span id="line-101">   * See &lt;a href="https://developers.facebook.com/docs/graph-api/securing-requests"&gt;</span>
+<span class="source-line-no">102</span><span id="line-102">   * https://developers.facebook.com/docs/graph-api/securing-requests&lt;/a&gt; for more info</span>
+<span class="source-line-no">103</span><span id="line-103">   *</span>
+<span class="source-line-no">104</span><span id="line-104">   * @param appSecret</span>
+<span class="source-line-no">105</span><span id="line-105">   *          The facebook application secret</span>
+<span class="source-line-no">106</span><span id="line-106">   * @param accessToken</span>
+<span class="source-line-no">107</span><span id="line-107">   *          The facebook access token</span>
+<span class="source-line-no">108</span><span id="line-108">   * @return A Hex encoded SHA256 Hash as a String</span>
+<span class="source-line-no">109</span><span id="line-109">   */</span>
+<span class="source-line-no">110</span><span id="line-110">  public static String encodeAppSecretProof(String appSecret, String accessToken) {</span>
+<span class="source-line-no">111</span><span id="line-111">    try {</span>
+<span class="source-line-no">112</span><span id="line-112">      byte[] key = appSecret.getBytes(StandardCharsets.UTF_8);</span>
+<span class="source-line-no">113</span><span id="line-113">      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");</span>
+<span class="source-line-no">114</span><span id="line-114">      Mac mac = Mac.getInstance("HmacSHA256");</span>
+<span class="source-line-no">115</span><span id="line-115">      mac.init(signingKey);</span>
+<span class="source-line-no">116</span><span id="line-116">      byte[] raw = mac.doFinal(accessToken.getBytes());</span>
+<span class="source-line-no">117</span><span id="line-117">      byte[] hex = encodeHex(raw);</span>
+<span class="source-line-no">118</span><span id="line-118">      return new String(hex, StandardCharsets.UTF_8);</span>
+<span class="source-line-no">119</span><span id="line-119">    } catch (Exception e) {</span>
+<span class="source-line-no">120</span><span id="line-120">      throw new IllegalStateException("Creation of appsecret_proof has failed", e);</span>
+<span class="source-line-no">121</span><span id="line-121">    }</span>
+<span class="source-line-no">122</span><span id="line-122">  }</span>
+<span class="source-line-no">123</span><span id="line-123">}</span>
 
 
 

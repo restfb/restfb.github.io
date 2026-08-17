@@ -12,7 +12,7 @@
 <main role="main">
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">/*</span>
-<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.</span>
+<span class="source-line-no">002</span><span id="line-2"> * Copyright (c) 2010-2026 Mark Allen, Norbert Bartels.</span>
 <span class="source-line-no">003</span><span id="line-3"> *</span>
 <span class="source-line-no">004</span><span id="line-4"> * Permission is hereby granted, free of charge, to any person obtaining a copy</span>
 <span class="source-line-no">005</span><span id="line-5"> * of this software and associated documentation files (the "Software"), to deal</span>
@@ -61,17 +61,18 @@
 <span class="source-line-no">048</span><span id="line-48">  }</span>
 <span class="source-line-no">049</span><span id="line-49"></span>
 <span class="source-line-no">050</span><span id="line-50">  public ScopeBuilder addPermissions(List&lt;FacebookPermissions&gt; permissionList) {</span>
-<span class="source-line-no">051</span><span id="line-51">    ObjectUtil.requireNotNull(permissionList, () -&gt; new FacebookPreconditionException("permissionList must not be null"));</span>
-<span class="source-line-no">052</span><span id="line-52">    permissions.addAll(permissionList);</span>
-<span class="source-line-no">053</span><span id="line-53">    return this;</span>
-<span class="source-line-no">054</span><span id="line-54">  }</span>
-<span class="source-line-no">055</span><span id="line-55"></span>
-<span class="source-line-no">056</span><span id="line-56">  @Override</span>
-<span class="source-line-no">057</span><span id="line-57">  public String toString() {</span>
-<span class="source-line-no">058</span><span id="line-58">    return permissions.stream().map(FacebookPermissions::getPermissionString).collect(Collectors.joining(","));</span>
-<span class="source-line-no">059</span><span id="line-59">  }</span>
-<span class="source-line-no">060</span><span id="line-60"></span>
-<span class="source-line-no">061</span><span id="line-61">}</span>
+<span class="source-line-no">051</span><span id="line-51">    ObjectUtil.requireNotNull(permissionList,</span>
+<span class="source-line-no">052</span><span id="line-52">      () -&gt; new FacebookPreconditionException("permissionList must not be null"));</span>
+<span class="source-line-no">053</span><span id="line-53">    permissions.addAll(permissionList);</span>
+<span class="source-line-no">054</span><span id="line-54">    return this;</span>
+<span class="source-line-no">055</span><span id="line-55">  }</span>
+<span class="source-line-no">056</span><span id="line-56"></span>
+<span class="source-line-no">057</span><span id="line-57">  @Override</span>
+<span class="source-line-no">058</span><span id="line-58">  public String toString() {</span>
+<span class="source-line-no">059</span><span id="line-59">    return permissions.stream().map(FacebookPermissions::getPermissionString).collect(Collectors.joining(","));</span>
+<span class="source-line-no">060</span><span id="line-60">  }</span>
+<span class="source-line-no">061</span><span id="line-61"></span>
+<span class="source-line-no">062</span><span id="line-62">}</span>
 
 
 
