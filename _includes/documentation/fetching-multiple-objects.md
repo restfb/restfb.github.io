@@ -2,6 +2,13 @@ See <a target="_blank" href="https://developers.facebook.com/docs/graph-api/usin
 
 If you want to fetch several objects at once and these objects are very similar, you can use the "multiple ids" request. A simple way to fetch two user objects is a call like:
 
+<div class="rfb-callout info">
+	<h4>Graph API 26.0</h4>
+	<p>
+		With Graph API 26.0, the <a href="https://developers.facebook.com/docs/graph-api/changelog/version26.0#graph-api-protocol" target="_blank"><code>ids</code> parameter is no longer supported</a>. Use batch requests instead when fetching several objects. See the <a href="#batch-api">Batch API</a> section for details and RestFB examples.
+	</p>
+</div>
+
 {% highlight java %}
 JsonObject fetchObjectsResults =
   facebookClient.fetchObjects(Arrays.asList("me", "123456789"), 
